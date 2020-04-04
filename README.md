@@ -2,9 +2,9 @@
 
 This is a tool written for the MMO EVE Online. It is, at it's core, a way to extend the EVE UI in a EULA-legal manner.
 
-Video demonstration: https://streamable.com/62rkj
+Video demonstration: https://streamable.com/fjsoll
 
-EveVision is meant only for members of the Pandemic Horde alliance until it has reached a more stable state. It will not work without logging into a Horde character.
+EveVision is meant only for members of the Pandemic Horde alliance until it has reached a more stable state. It will not work without logging into a Horde character. You are more than welcome to remove this restriction yourself to play around with it, but please do not distribute the executable. I want to keep the beta testing group small so this software doesn't go getting a reputation for being broken because I wasn't around to help.
 
 This repo is in a very early state for open source development. There's most definitely random files and functions that aren't needed or aren't configured right. The whole repo may be split up later.
 
@@ -26,8 +26,8 @@ Most importantly, showing that this is not limited to Mumble or Teamspeak:
 This tool cannot do anything like read the screen or perform ingame actions automatically (unless via ESI). It solely draws over EVE and intercepts input for the purpose of interacting with the EveVision windows.
 
 ### Internals/Building
-EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `native/overlay`, and a native node module for communicating with the injected DLL at `/node/overlay`.
-There is also the native node module that injects the DLL at `/node/hooker` (which will be merged into the overlay module soon) and FlatBuffer definitions inside of `/fb`
+EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `overlay-dll`, and a native node module for communicating with the injected DLL at `/overlay-node`.
+There is also the native node module that injects the DLL at `/hooker` (which will be merged into the overlay module soon) and FlatBuffer definitions inside of `/fb`
 
 This is obviously a very early release. I haven't finished cleaning up build processes, especially for open source consumption. There isn't much 'development/production' separation at this time. Even the folder structure is likely to change.
 
