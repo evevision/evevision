@@ -63,6 +63,8 @@ export default class MainApp {
     handleLocalEveAuth = (request, callback) => {
         const authCode = request.url.substr(33)
         console.log("Eve ESI auth code intercepted", authCode);
+        // The auth tokens are here on purpose. I want most ESI calls run from the local machine and that requires having
+        // the keys locally. Can't do anything with this without another character's secret key anyways.
         superagent.post("https://login.eveonline.com/oauth/token")
             .auth("98de84087ae042c9aaca2ce0491e1e92", "t7fLccg2KmZVDWbTzvxgOz45P2E0bfHRS64leOJX")
             .send({grant_type: 'authorization_code', code: authCode})
