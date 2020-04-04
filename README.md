@@ -2,9 +2,9 @@
 
 This is a tool written for the MMO EVE Online. It is, at it's core, a way to extend the EVE UI in a EULA-legal manner.
 
-Video demonstration: https://streamable.com/62rkj
+Video demonstration: https://streamable.com/fjsoll
 
-EveVision is meant only for members of the Pandemic Horde alliance until it has reached a more stable state. It will not work without logging into a Horde character.
+EveVision is meant only for members of the Pandemic Horde alliance until it has reached a more stable state. It will not work without logging into a Horde character. You are more than welcome to remove this restriction yourself to play around with it, but please do not distribute the executable. I want to keep the beta testing group small so this software doesn't go getting a reputation for being broken because I wasn't around to help.
 
 This repo is in a very early state for open source development. There's most definitely random files and functions that aren't needed or aren't configured right. The whole repo may be split up later.
 
