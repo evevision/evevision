@@ -26,8 +26,8 @@ Most importantly, showing that this is not limited to Mumble or Teamspeak:
 This tool cannot do anything like read the screen or perform ingame actions automatically (unless via ESI). It solely draws over EVE and intercepts input for the purpose of interacting with the EveVision windows.
 
 ### Internals/Building
-EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `native/overlay`, and a native node module for communicating with the injected DLL at `/node/overlay`.
-There is also the native node module that injects the DLL at `/node/hooker` (which will be merged into the overlay module soon) and FlatBuffer definitions inside of `/fb`
+EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `overlay-dll`, and a native node module for communicating with the injected DLL at `/overlay-node`.
+There is also the native node module that injects the DLL at `/hooker` (which will be merged into the overlay module soon) and FlatBuffer definitions inside of `/fb`
 
 This is obviously a very early release. I haven't finished cleaning up build processes, especially for open source consumption. There isn't much 'development/production' separation at this time. Even the folder structure is likely to change.
 
