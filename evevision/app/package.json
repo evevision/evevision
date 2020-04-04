@@ -2,7 +2,7 @@
   "name": "evevision",
   "productName": "EveVision",
   "author": "Jaydubs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A whole new world for beans",
   "main": "./main.prod.js",
   "scripts": {

@@ -17,6 +17,20 @@ interface WelcomeProps {
     apiState?: ApiState
 }
 
+const allowedAlliances = [
+    386292982, // pandemic legion
+    99005338, // pandemic horde
+    1727758877, // northern coalition
+    99008788, // the skeleton crew
+    99007707, // damned brotherhood
+    933731581, // triumvirate
+    99009289, // reckless contingency
+    99009310, // veni vidi vici
+    99002003, // no value
+    99009275, // the stars of northern moon
+    1042504553, // slyce
+]
+
 interface WelcomeState {
     newVersion?: string // version number if available
 }
@@ -74,11 +88,11 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                     }}>About</Button>
                 </WindowButtons>
             </>)
-        } else if(this.props.character.public.alliance_id != 99005338) { // basic check, easy to get around but whatever, they get an ingame browser woopteedoo
+        } else if(!allowedAlliances.includes(this.props.character.public.alliance_id!)) { // basic check, easy to get around but whatever, they get an ingame browser woopteedoo
             return (<>
                 <Panel>
                     <h1>Unauthorized!</h1>
-                    <h3>Sorry, but {this.props.character.public.name} does not appear to be a member of Pandemic Horde.</h3>
+                    <h3>Sorry, but {this.props.character.public.name} does not appear to be a member of the PanFam coalition.</h3>
                 </Panel>
                 <WindowButtons>
                     <Button onClick={() => {
