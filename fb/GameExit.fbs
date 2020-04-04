@@ -1,0 +1,6 @@
+namespace EveVision.IPC;
+
+table GameExit {
+}
+
+root_type GameExit;

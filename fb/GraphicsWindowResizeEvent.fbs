@@ -1,0 +1,8 @@
+namespace EveVision.IPC;
+
+table GraphicsWindowResizeEvent {
+    width: int;
+    height: int;
+}
+
+root_type GraphicsWindowResizeEvent;

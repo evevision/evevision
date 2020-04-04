@@ -1,0 +1,7 @@
+namespace EveVision.IPC;
+
+table GraphicsWindowFocusEvent {
+    focused: bool;
+}
+
+root_type GraphicsWindowFocusEvent;

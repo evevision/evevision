@@ -1,0 +1,7 @@
+namespace EveVision.IPC;
+
+table OverlayInit {
+    shareMemMutex: string;
+}
+
+root_type OverlayInit;

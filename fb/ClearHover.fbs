@@ -1,0 +1,6 @@
+namespace EveVision.IPC;
+
+table ClearHover {
+}
+
+root_type ClearHover;

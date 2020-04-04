@@ -1,0 +1,11 @@
+namespace EveVision.IPC;
+
+table GameWindowBoundsRequest {
+    windowId: uint;
+    width: int;
+    height: int;
+    x: int;
+    y: int;
+}
+
+root_type GameWindowBoundsRequest;

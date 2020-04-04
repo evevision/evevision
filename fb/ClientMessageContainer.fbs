@@ -1,0 +1,20 @@
+include "OverlayInit.fbs";
+include "WindowInfo.fbs";
+include "WindowClose.fbs";
+include "WindowFrameBuffer.fbs";
+include "WindowPosition.fbs";
+include "CursorCommand.fbs";
+
+namespace EveVision.IPC;
+
+union ClientMessage {
+  OverlayInit, WindowInfo, WindowClose, WindowFrameBuffer, WindowPosition, CursorCommand
+}
+
+table ClientMessageContainer {
+  clientId: int;
+  hostPort: int;
+  message: ClientMessage;
+}
+
+root_type ClientMessageContainer;

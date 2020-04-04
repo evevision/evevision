@@ -1,0 +1,33 @@
+namespace EveVision.IPC;
+
+struct WindowRect {
+    x: int;
+    y: int;
+    width: int;
+    height: int;
+}
+
+struct WindowCaptionMargin {
+    left: int;
+    right: int;
+    top: int;
+    height: int;
+}
+
+table WindowInfo {
+    windowId: uint;
+    nativeHandle: uint;
+    name: string;
+    resizable: bool;
+    maxWidth: uint;
+    maxHeight: uint;
+    minWidth: uint;
+    minHeight: uint;
+    dragBorderWidth: uint;
+
+    bufferName: string;
+    rect: WindowRect;
+    caption: WindowCaptionMargin;
+}
+
+root_type WindowInfo;

@@ -1,0 +1,10 @@
+namespace EveVision.IPC;
+
+table GameInput {
+    windowId: uint;
+    msg: uint;
+    wparam: uint;
+    lparam: uint;
+}
+
+root_type GameInput;

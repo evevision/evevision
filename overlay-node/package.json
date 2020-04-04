@@ -1,0 +1,23 @@
+{
+    "name": "overlay",
+    "version": "1.0.0",
+    "description": "Communicates with native overlay DLL that is injected into game",
+    "main": "index.js",
+    "scripts": {
+        "build": "node-gyp configure && node-gyp build",
+        "clean": "node-gyp clean"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bindings": "^1.5.0",
+        "node-addon-api": "^2.0.0",
+        "node-gyp": "^6.1.0"
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.29",
+        "electron-rebuild": "^1.10.0",
+        "typescript": "^3.8.3"
+    }
+}

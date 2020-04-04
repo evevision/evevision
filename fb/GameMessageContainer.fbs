@@ -1,0 +1,23 @@
+include "ClearHover.fbs";
+include "GameExit.fbs";
+include "GameInput.fbs";
+include "GameWindowBoundsRequest.fbs";
+include "GameWindowFocused.fbs";
+include "GraphicsWindowDestroyEvent.fbs";
+include "GraphicsWindowFocusEvent.fbs";
+include "GraphicsWindowResizeEvent.fbs";
+include "GraphicsWindowSetup.fbs";
+
+namespace EveVision.IPC;
+
+union GameMessage {
+  ClearHover, GameExit, GameInput, GameWindowBoundsRequest, GameWindowFocused, GraphicsWindowDestroyEvent, GraphicsWindowFocusEvent, GraphicsWindowResizeEvent, GraphicsWindowSetup
+}
+
+table GameMessageContainer {
+  clientId: int;
+  hostPort: int;
+  message: GameMessage;
+}
+
+root_type GameMessageContainer;

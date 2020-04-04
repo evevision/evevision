@@ -1,0 +1,8 @@
+namespace EveVision.IPC;
+
+table WindowFrameBuffer {
+    windowId: uint;
+    bufferName: string;
+}
+
+root_type WindowFrameBuffer;

@@ -1,0 +1,6 @@
+namespace EveVision.IPC;
+
+table GraphicsWindowDestroyEvent {
+}
+
+root_type GraphicsWindowDestroyEvent;

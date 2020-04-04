@@ -1,0 +1,9 @@
+namespace EveVision.IPC;
+
+table WindowPosition {
+    windowId: uint;
+    x: int;
+    y: int;
+}
+
+root_type WindowPosition;

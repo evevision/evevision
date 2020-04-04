@@ -1,0 +1,7 @@
+namespace EveVision.IPC;
+
+table CursorCommand {
+    cursor: string;
+}
+
+root_type CursorCommand;

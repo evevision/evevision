@@ -1,0 +1,7 @@
+namespace EveVision.IPC;
+
+table WindowClose {
+    windowId: uint;
+}
+
+root_type WindowClose;

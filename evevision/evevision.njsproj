@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{e669fad2-df32-4b8d-ba2b-74f19e9368dc}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <EnableTypeScript>true</EnableTypeScript>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <StartWebBrowser>True</StartWebBrowser>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+    <NodeExePath>
+    </NodeExePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="internals\scripts\.eslintrc" />
+    <Content Include="internals\scripts\BabelRegister.js" />
+    <Content Include="internals\scripts\CheckBuildsExist.js" />
+    <Content Include="internals\scripts\CheckNativeDep.js" />
+    <Content Include="internals\scripts\CheckNodeEnv.js" />
+    <Content Include="internals\scripts\CheckPortInUse.js" />
+    <Content Include="internals\scripts\CheckYarn.js" />
+    <Content Include="internals\scripts\DeleteSourceMaps.js" />
+    <Content Include="internals\scripts\ElectronRebuild.js" />
+    <Content Include="package.json" />
+    <None Include="tsconfig.json" />
+    <Content Include="app\app.html" />
+    <Content Include="app\app.global.css" />
+    <Content Include="app\package.json" />
+    <None Include="app\main.dev.ts" />
+    <None Include="app\menu.ts" />
+    <None Include="app\index.tsx" />
+    <None Include="app\Routes.tsx" />
+    <Content Include="resources\icon.png" />
+    <Content Include="resources\icon.ico" />
+    <Content Include="test\.eslintrc.json" />
+    <None Include="app\actions\counter.ts" />
+    <Content Include="app\components\Counter.css" />
+    <Content Include="app\components\Home.css" />
+    <None Include="app\components\css.d.ts" />
+    <None Include="app\components\Counter.tsx" />
+    <None Include="app\components\Home.tsx" />
+    <Content Include="app\constants\routes.json" />
+    <None Include="app\containers\App.tsx" />
+    <None Include="app\containers\CounterPage.tsx" />
+    <None Include="app\containers\HomePage.tsx" />
+    <None Include="app\containers\Root.tsx" />
+    <None Include="app\reducers\counter.ts" />
+    <None Include="app\reducers\index.ts" />
+    <None Include="app\reducers\types.ts" />
+    <None Include="app\store\configureStore.dev.ts" />
+    <None Include="app\store\configureStore.prod.ts" />
+    <None Include="app\store\configureStore.ts" />
+    <Content Include="internals\img\erb-banner.png" />
+    <Content Include="internals\img\erb-logo.png" />
+    <Content Include="internals\img\eslint-padded-90.png" />
+    <Content Include="internals\img\eslint-padded.png" />
+    <Content Include="internals\img\eslint.png" />
+    <Content Include="internals\img\jest-padded-90.png" />
+    <Content Include="internals\img\jest-padded.png" />
+    <Content Include="internals\img\jest.png" />
+    <Content Include="internals\img\js-padded.png" />
+    <Content Include="internals\img\js.png" />
+    <Content Include="internals\img\npm.png" />
+    <Content Include="internals\img\react-padded-90.png" />
+    <Content Include="internals\img\react-padded.png" />
+    <Content Include="internals\img\react-router-padded-90.png" />
+    <Content Include="internals\img\react-router-padded.png" />
+    <Content Include="internals\img\react-router.png" />
+    <Content Include="internals\img\react.png" />
+    <Content Include="internals\img\redux-padded-90.png" />
+    <Content Include="internals\img\redux-padded.png" />
+    <Content Include="internals\img\redux.png" />
+    <Content Include="internals\img\webpack-padded-90.png" />
+    <Content Include="internals\img\webpack-padded.png" />
+    <Content Include="internals\img\webpack.png" />
+    <Content Include="internals\img\yarn-padded-90.png" />
+    <Content Include="internals\img\yarn-padded.png" />
+    <Content Include="internals\img\yarn.png" />
+    <Content Include="resources\icons\1024x1024.png" />
+    <Content Include="resources\icons\128x128.png" />
+    <Content Include="resources\icons\16x16.png" />
+    <Content Include="resources\icons\24x24.png" />
+    <Content Include="resources\icons\256x256.png" />
+    <Content Include="resources\icons\32x32.png" />
+    <Content Include="resources\icons\48x48.png" />
+    <Content Include="resources\icons\512x512.png" />
+    <Content Include="resources\icons\64x64.png" />
+    <Content Include="resources\icons\96x96.png" />
+    <None Include="test\actions\counter.spec.ts" />
+    <None Include="test\components\Counter.spec.tsx" />
+    <None Include="test\containers\CounterPage.spec.tsx" />
+    <None Include="test\e2e\helpers.ts" />
+    <None Include="test\e2e\HomePage.e2e.ts" />
+    <None Include="test\reducers\counter.spec.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app" />
+    <Folder Include="app\actions" />
+    <Folder Include="app\components" />
+    <Folder Include="app\constants" />
+    <Folder Include="app\containers" />
+    <Folder Include="app\reducers" />
+    <Folder Include="app\store" />
+    <Folder Include="app\utils" />
+    <Folder Include="configs" />
+    <Folder Include="internals" />
+    <Folder Include="internals\img" />
+    <Folder Include="internals\mocks" />
+    <Folder Include="internals\scripts" />
+    <Folder Include="resources" />
+    <Folder Include="resources\icons" />
+    <Folder Include="test" />
+    <Folder Include="test\actions" />
+    <Folder Include="test\actions\__snapshots__" />
+    <Folder Include="test\components" />
+    <Folder Include="test\components\__snapshots__" />
+    <Folder Include="test\containers" />
+    <Folder Include="test\e2e" />
+    <Folder Include="test\reducers" />
+    <Folder Include="test\reducers\__snapshots__" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app\mainapp.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
