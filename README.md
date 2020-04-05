@@ -4,7 +4,23 @@ This is a tool written for the MMO EVE Online. It is, at it's core, a way to ext
 
 Video demonstration: https://streamable.com/fjsoll
 
-EveVision is meant only for members of the Pandemic Horde alliance until it has reached a more stable state. It will not work without logging into a Horde character. You are more than welcome to remove this restriction yourself to play around with it, but please do not distribute the executable. I want to keep the beta testing group small so this software doesn't go getting a reputation for being broken because I wasn't around to help.
+EveVision is meant only for members of the PanFam Coalition until it has reached a more stable state. It will not work without logging into a character in one of these alliances:
+
+* Pandemic Horde
+* Pandemic Legion
+* Northern Coalition
+* The Skeleton Crew
+* Damned Brotherhood
+* Triumvirate
+* Reckless Contingency
+* Veni Vidi Vici
+* No Value
+* The Stars of Northern Moon
+* Slyce
+
+If you are in one of these alliances, you can access the forum post here to download EveVision: https://www.pandemic-horde.org/forum/index.php?threads/evevision-the-eve-ui-you-always-wanted.2540/. You can also access the Pandemic Horde discord to reach me if need be @kefi#1337 (Jaydubs on Horde Discord) or in EVE at Jaydubs.
+
+You are more than welcome to remove this restriction yourself to play around with it, but please do not distribute the executable. I want to keep the beta testing group controllable so this software doesn't go getting a reputation for being broken because I wasn't around to help.
 
 This repo is in a very early state for open source development. There's most definitely random files and functions that aren't needed or aren't configured right. The whole repo may be split up later.
 
@@ -44,5 +60,3 @@ Steps:
 3. Inside the `evevision` directory, run `yarn install`.
 4. Open `overlay-dll/overlay.vcxproj` in Visual Studio and build the project.
 5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`
-
-I'm available on Discord @kefi#1337 (Jaydubs on Horde Discord) or in EVE at Jaydubs.
