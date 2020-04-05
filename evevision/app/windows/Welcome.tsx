@@ -92,7 +92,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
             return (<>
                 <Panel>
                     <h1>Unauthorized!</h1>
-                    <h3>Sorry, but {this.props.character.public.name} does not appear to be a member of the PanFam coalition.</h3>
+                    <h3>Sorry, but {this.props.character.public.name} does not appear to be a member of the PanFam coalition. EveVision is currently a beta available to select alliances. It will be publicly available soon.</h3>
                 </Panel>
                 <WindowButtons>
                     <Button onClick={() => {
