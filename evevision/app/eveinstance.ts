@@ -106,6 +106,10 @@ export default class EveInstance {
     }
 
     private updateGameResolution(width: number, height: number) {
+        if(width == 0 && height == 0) {
+            // alt tabbed while fullscreen, probably
+            return;
+        }
         let initial = false;
         if(!this.gameResolution) { initial = true; }
         this.gameResolution = {width, height}
