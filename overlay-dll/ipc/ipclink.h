@@ -53,7 +53,5 @@ public:
     unsigned int m_remotePid;
     std::map<int, IIpcClient*> m_clients;
     Status m_status;
-
-    std::deque<flatbuffers::FlatBufferBuilder*> m_pendingOutQueue;
 };
 

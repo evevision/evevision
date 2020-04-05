@@ -30,8 +30,7 @@ bool IpcLink::sendMessage(flatbuffers::FlatBufferBuilder* message)
     }
     else
     {
-        m_pendingOutQueue.push_back(message);
-        return true;
+        return false;
     }
 }
 
@@ -72,18 +71,6 @@ void IpcLink::onConnect()
         it->second->onLinkConnect(this);
         it = itNext;
     }
-
-    for (auto it = m_pendingOutQueue.begin(); it != m_pendingOutQueue.end(); it++)
-    {
-        COPYDATASTRUCT copydatast;
-        memset(&copydatast, 0, sizeof(copydatast));
-        copydatast.dwData = GetCurrentProcessId();
-        copydatast.cbData = (DWORD)(**it).GetSize();
-        copydatast.lpData = (PVOID)(**it).GetBufferPointer();
-
-        ::SendMessage(m_remoteIpcWindow, WM_COPYDATA, NULL, (LPARAM)&copydatast);
-    }
-    m_pendingOutQueue.clear();
 }
 
 void IpcLink::onClosed()
