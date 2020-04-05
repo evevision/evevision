@@ -9,18 +9,14 @@ export default class FullscreenOverlay {
     public readonly webContentsId: number
 
     private readonly parentInstance: EveInstance
-    private readonly characterId: number
 
     public electronWindow: BrowserWindow
-    private readonly overlay: typeof Overlay
 
     private closed: boolean = false
 
     // note itemId must not be an empty string, it'll mess up arg parsing
-    constructor(characterId: number, overlay: typeof Overlay, parentInstance: EveInstance) {
+    constructor(parentInstance: EveInstance) {
         this.parentInstance = parentInstance
-        this.characterId = characterId
-        this.overlay = overlay
 
         const options: Electron.BrowserWindowConstructorOptions = {
             height: 100,
@@ -33,7 +29,7 @@ export default class FullscreenOverlay {
             webPreferences: {
                 nodeIntegration: true,
                 offscreen: true,
-                additionalArguments: [this.characterId.toString(), "fullscreenoverlay", "none", "false"],
+                additionalArguments: [this.parentInstance.characterId.toString(), "fullscreenoverlay", "none", "false"],
                 webviewTag: false
             }
         }
@@ -54,22 +50,29 @@ export default class FullscreenOverlay {
     }
 
     handleRestoreRequest = (event: IpcMainEvent, windowId: number) => {
-        this.parentInstance.restoreWindow(windowId);
+        if(event.sender.id == this.webContentsId) {
+            this.parentInstance.restoreWindow(windowId);
+        }
     }
 
     handleCloseRequest = (event: IpcMainEvent, windowId: number) => {
-        this.parentInstance.closeWindow(windowId);
+        if(event.sender.id == this.webContentsId) {
+            this.parentInstance.closeWindow(windowId);
+        }
     }
 
     handleMinimizeAllRequest = (event: IpcMainEvent) => {
-        console.log("minimizing all")
-        this.parentInstance.minimizeAllWindows();
+        if(event.sender.id == this.webContentsId) {
+            console.log("minimizing all")
+            this.parentInstance.minimizeAllWindows();
+        }
     }
 
     handleRestoreAllRequest = (event: IpcMainEvent) => {
-        this.parentInstance.restoreAllWindows();
+        if(event.sender.id == this.webContentsId) {
+            this.parentInstance.restoreAllWindows();
+        }
     }
-
 
     setupIpc() {
         ipcMain.on("restoreWindow", this.handleRestoreRequest)
@@ -106,7 +109,7 @@ export default class FullscreenOverlay {
     }
 
     linkWindowToOverlay() {
-        this.overlay!.addWindow(this.windowId, {
+        Overlay.addWindow(this.parentInstance.characterName, this.windowId, {
             name: "fullscreen-overlay" + "-" + this.windowId,
             resizable: false,
             maxWidth: 3440,
@@ -138,7 +141,8 @@ export default class FullscreenOverlay {
             (event, dirty: Electron.Rectangle, nativeImage: Electron.NativeImage) => {
                 if(this.closed) {return;}
 
-                this.overlay!.sendFrameBuffer(
+                Overlay.sendFrameBuffer(
+                    this.parentInstance.characterName,
                     this.windowId,
                     {buffer: nativeImage.getBitmap(), dirty: dirty, rect: {x: 0, y: 0, width: nativeImage.getSize().width, height: nativeImage.getSize().height}}
                 )
@@ -194,7 +198,7 @@ export default class FullscreenOverlay {
             }
             if (cursor) {
                 try {
-                    this.overlay!.sendCommand({command: "cursor", cursor})
+                    Overlay.sendCommand(this.parentInstance.characterName, {command: "cursor", cursor})
                 } catch(ex) {
                     log.info("Exception setting cursor in fullscreen overlay")
                 }

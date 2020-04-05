@@ -5,13 +5,13 @@ import Overlay from 'overlay'
 import FullscreenOverlay from "./FullscreenOverlay";
 export default class EveInstance {
 
-    private characterName: string
-    private characterId: number
+    public characterName: string
+    public characterId: number
     private eveWindows: EveWindow[]
     private fullscreenOverlay?: FullscreenOverlay
     private api: ApiClient
-    private overlay?: typeof Overlay
     public gameResolution?: {width: number, height: number}
+    private started: boolean
 
     constructor(characterName: string, characterId: number) {
         this.characterId = characterId
@@ -30,26 +30,24 @@ export default class EveInstance {
     }
 
     public createWindow(windowName: string, itemId: string) {
-        if(this.overlay != undefined) {
-            const uniqueWindows = ["tools", "auth", "beanwatch", "about", "settings"]
+        const uniqueWindows = ["tools", "auth", "beanwatch", "about", "settings"]
 
-            if(uniqueWindows.includes(windowName)) {
-                // make sure we don't have one open already
-                const window = this.eveWindows.find(w => w.windowName == windowName)
-                if(window) {
-                    if(this.fullscreenOverlay) {
-                        this.fullscreenOverlay.electronWindow.webContents.send("removeMinimizedWindow",
-                            window.windowId
-                        )
-                    }
-                    window.restore();
-                    window.focus();
-                    return
+        if(uniqueWindows.includes(windowName)) {
+            // make sure we don't have one open already
+            const window = this.eveWindows.find(w => w.windowName == windowName)
+            if(window) {
+                if(this.fullscreenOverlay) {
+                    this.fullscreenOverlay.electronWindow.webContents.send("removeMinimizedWindow",
+                        window.windowId
+                    )
                 }
+                window.restore();
+                window.focus();
+                return
             }
-            const window = new EveWindow(this.characterId, windowName, itemId, windowName !== "welcome", this.overlay, this)
-            this.eveWindows.push(window);
         }
+        const window = new EveWindow(this.characterId, windowName, itemId, windowName !== "welcome", this)
+        this.eveWindows.push(window);
     }
 
     public deleteWindow(windowId: number) {
@@ -82,25 +80,29 @@ export default class EveInstance {
     }
 
     public stop() {
+        if(!this.started) { return; }
         this.api.stop()
         if(this.fullscreenOverlay !== undefined) { this.fullscreenOverlay.stop() }
         this.eveWindows.forEach(window => window.close())
         this.teardownIpc()
+        Overlay.stop(this.characterName)
+        this.started = false
     }
 
     public start() {
-        this.overlay = require("overlay")
-        this.overlay!.start({characterName: this.characterName})
-        this.overlay!.setEventCallback(this.handleOverlayEvent)
+        if(this.started) { return; }
+        Overlay.start(this.characterName)
+        Overlay.setEventCallback(this.characterName, this.handleOverlayEvent)
 
         this.setupIpc()
         this.api.start()
+        this.started = true
     }
 
     private ready() {
         console.log("ready!")
         this.createWindow("welcome", "none")
-        if(this.overlay !== undefined) { this.fullscreenOverlay = new FullscreenOverlay(this.characterId, this.overlay, this); }
+        this.fullscreenOverlay = new FullscreenOverlay(this);
     }
 
     private updateGameResolution(width: number, height: number) {
@@ -114,7 +116,7 @@ export default class EveInstance {
 
     private handleOverlayEvent = (event: string, payload: any) => {
         if (event === "game.input") {
-            const inputEvent = this.overlay!.translateInputEvent(payload) // why is this done by the overlay C++
+            const inputEvent = Overlay.translateInputEvent(payload) // TODO: why is input sent to us by the C++ and then sent back to C++ for translation? probably can just move this all into one spot
             let window;
             if(this.fullscreenOverlay && payload.windowId == this.fullscreenOverlay.windowId) {
                 window = this.fullscreenOverlay
@@ -148,6 +150,8 @@ export default class EveInstance {
             if(win) {
                 win.setBounds({size: {width: payload.width as number, height: payload.height as number}, pos: {x: payload.x as number, y: payload.y as number}})
             }
+        } else if (event === "game.exit") {
+            console.log("Received game exit for", this.characterName);
         }
     }
 

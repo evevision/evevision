@@ -32,18 +32,20 @@ declare module "overlay" {
         rect: IRectangle,
         dirty: IRectangle
     }
- 
-    export function start(arg: {characterName: string}): void;
-    export function stop(): void;
-    export function setEventCallback(cb: (event: string, ...args: any[]) => void): void;
-    export function sendCommand(arg: {command: "cursor", cursor: string}): void;
-    export function addWindow(windowId: number, details: IOverlayWindowDetails): void;
-    export function closeWindow(windowId: number): void;
+
+    // todo: make all these use arg arrays (like addwindow) instead of positional elements
+    export function start(characterName: string): void;
+    export function stop(characterName: string): void;
+    export function setEventCallback(characterName: string, cb: (event: string, ...args: any[]) => void): void;
+    export function sendCommand(characterName: string, arg: {command: "cursor", cursor: string}): void;
+    export function addWindow(characterName: string, windowId: number, details: IOverlayWindowDetails): void;
+    export function closeWindow(characterName: string, windowId: number): void;
     export function sendFrameBuffer(
+        characterName: string,
         windowId: number,
         parent: IFrameBuffer,
         child?: IFrameBuffer
     ): void;
-    export function setWindowPosition(windowId: number, x: number, y: number): void;
+    export function setWindowPosition(characterName: string, windowId: number, x: number, y: number): void;
     export function translateInputEvent(event: {windowId: number, msg: number, wparam: number, lparam: number}): any;
 }

@@ -385,12 +385,8 @@ class OverlayMain : public IIpcHost
         this->stop();
     }
 
-    Napi::Value start(const Napi::CallbackInfo &info)
+    void start(std::string characterName)
     {
-        Napi::Env env = info.Env();
-        Napi::Object decodedInfo = info[0].ToObject();
-        std::string characterName = decodedInfo.Get("characterName").ToString();
-
         std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
         this->ipcHostCenter_ = createIpcHostCenter();
@@ -413,8 +409,6 @@ class OverlayMain : public IIpcHost
         name.append(std::to_wstring(pid)).append(L"-").append(std::to_wstring(time));
         shareMemMutex_ = Windows::toUtf8(name);
         mutex_.create(false, name.c_str());
-
-        return env.Undefined();
     }
 
     void stop()
@@ -462,18 +456,11 @@ class OverlayMain : public IIpcHost
         }
     }
 
-    Napi::Value log(const Napi::CallbackInfo &info)
-    {
-        Napi::Env env = info.Env();
-
-        return env.Undefined();
-    }
-
     Napi::Value setEventCallback(const Napi::CallbackInfo &info)
     {
         Napi::Env env = info.Env();
 
-        Napi::Function callback = info[0].As<Napi::Function>();
+        Napi::Function callback = info[1].As<Napi::Function>();
 
         eventCallback_ = std::make_shared<NodeEventCallback>(env, Napi::Persistent(callback), Napi::Persistent(info.This().ToObject()));
 
@@ -484,7 +471,7 @@ class OverlayMain : public IIpcHost
     {
         Napi::Env env = info.Env();
 
-        Napi::Object commandInfo = info[0].ToObject();
+        Napi::Object commandInfo = info[1].ToObject();
         std::string command = commandInfo.Get("command").ToString();
         if (command == "cursor")
         {
@@ -500,8 +487,8 @@ class OverlayMain : public IIpcHost
         std::cout << __FUNCTION__ <<std::endl;
         Napi::Env env = info.Env();
 
-        uint32_t windowId = info[0].ToNumber();
-        Napi::Object windowDetails = info[1].ToObject();
+        uint32_t windowId = info[1].ToNumber();
+        Napi::Object windowDetails = info[2].ToObject();
 
         flatbuffers::FlatBufferBuilder builder;
 
@@ -548,7 +535,7 @@ class OverlayMain : public IIpcHost
         Napi::Env env = info.Env();
 
         flatbuffers::FlatBufferBuilder builder;
-        this->_sendMessage(&builder, EveVision::IPC::CreateWindowClose(builder, info[0].ToNumber()), EveVision::IPC::ClientMessage::WindowClose);
+        this->_sendMessage(&builder, EveVision::IPC::CreateWindowClose(builder, info[1].ToNumber()), EveVision::IPC::ClientMessage::WindowClose);
 
         return env.Undefined();
     }
@@ -557,9 +544,9 @@ class OverlayMain : public IIpcHost
     {
         Napi::Env env = info.Env();
 
-        uint32_t windowId = info[0].ToNumber();
-        int x = info[1].ToNumber();
-        int y = info[2].ToNumber();
+        uint32_t windowId = info[1].ToNumber();
+        int x = info[2].ToNumber();
+        int y = info[3].ToNumber();
 
         // update the shared memory map as well, otherwise it will reset position when sprites are reinitialized i.e. on resize
         auto it = shareMemMap_.find(windowId);
@@ -581,7 +568,7 @@ class OverlayMain : public IIpcHost
     {
         Napi::Env env = info.Env();
 
-        uint32_t windowId = info[0].ToNumber();
+        uint32_t windowId = info[1].ToNumber();
 
         flatbuffers::FlatBufferBuilder builder;
         bool newBuffer = false;
@@ -592,8 +579,8 @@ class OverlayMain : public IIpcHost
         {
             char *windowBitmapMemOrigin = static_cast<char *>(it->second->windowBitmapMem->get_address());
 
-            Napi::Object parent = info[1].ToObject();
-            bool hasChild = !info[2].IsUndefined();
+            Napi::Object parent = info[2].ToObject();
+            bool hasChild = !info[3].IsUndefined();
 
             bool redrawChild = false;
 
@@ -657,7 +644,7 @@ class OverlayMain : public IIpcHost
                 std::int32_t childHeight;
 
                 if(hasChild) {
-                    child = info[2].ToObject();
+                    child = info[3].ToObject();
                     childRect = child.Get("rect").ToObject();
                     childX = childRect.Get("x").ToNumber();
                     childY = childRect.Get("y").ToNumber();
@@ -720,7 +707,7 @@ class OverlayMain : public IIpcHost
             }
 
             if(hasChild) {
-                Napi::Object child = info[2].ToObject();
+                Napi::Object child = info[3].ToObject();
 
                 Napi::Object childDirtyRect = child.Get("dirty").ToObject();
                 std::int32_t childDirtyWidth = childDirtyRect.Get("width").ToNumber();
@@ -773,156 +760,6 @@ class OverlayMain : public IIpcHost
         return env.Undefined();
     }
 
-    Napi::Value translateInputEvent(const Napi::CallbackInfo &info)
-    {
-        Napi::Env env = info.Env();
-        Napi::Object object = Napi::Object::New(env);
-        Napi::Object eventData = info[0].ToObject();
-
-        std::uint32_t msg = eventData.Get("msg").ToNumber();
-        std::uint32_t wparam = eventData.Get("wparam").ToNumber();
-        std::uint32_t lparam = eventData.Get("lparam").ToNumber();
-
-        static WCHAR utf16Code = 0;
-        assert(!utf16Code || (utf16Code && msg == WM_CHAR));
-
-        if ((msg >= WM_KEYFIRST && msg <= WM_KEYLAST)
-            || (msg >= WM_SYSKEYDOWN && msg <= WM_SYSDEADCHAR))
-        {
-            if (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN)
-            {
-                object.Set("type", "keyDown");
-                object.Set("keyCode", getKeyCode(wparam));
-            }
-            else if (msg == WM_KEYUP || msg == WM_SYSKEYUP)
-            {
-                object.Set("type", "keyUp");
-                object.Set("keyCode", getKeyCode(wparam));
-            }
-            else if (msg == WM_CHAR)
-            {
-                object.Set("type", "char");
-                WCHAR code = wparam;
-
-                if (0xD800 <= code && code <= 0xDBFF)
-                {
-                    utf16Code = code;
-                }
-                else
-                {
-                    std::wstring keyCode;
-                    if (utf16Code && (0xDC00 <= code && code <= 0xDFFF))
-                    {
-                        keyCode = std::wstring(1, utf16Code);
-                        keyCode.append(std::wstring(1, code));
-
-                    }
-                    else
-                    {
-                        keyCode = std::wstring(1, code);
-                    }
-
-                    utf16Code = 0;
-                    object.Set("keyCode", Windows::toUtf8(keyCode));
-                }
-            }
-
-            auto modifiersVec = getKeyboardModifiers(wparam, lparam);
-
-            Napi::Array modifiers = Napi::Array::New(env, modifiersVec.size());
-
-            for (auto i = 0; i != modifiersVec.size(); ++i)
-            {
-                modifiers.Set(i, modifiersVec[i]);
-            }
-
-            object.Set("modifiers", modifiers);
-        }
-
-        else if (msg >= WM_MOUSEFIRST && msg <= WM_MOUSELAST)
-        {
-            auto modifiersVec = getMouseModifiers(wparam, lparam);
-
-            if (msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN
-                ||msg == WM_MBUTTONDOWN || msg == WM_XBUTTONDOWN
-                || msg == WM_LBUTTONDBLCLK || msg == WM_RBUTTONDBLCLK
-                || msg == WM_MBUTTONDBLCLK || msg == WM_XBUTTONDBLCLK
-                )
-            {
-                object.Set("type", "mouseDown");
-
-                if (msg == WM_LBUTTONDBLCLK || msg == WM_RBUTTONDBLCLK
-                    || msg == WM_MBUTTONDBLCLK || msg == WM_XBUTTONDBLCLK)
-                {
-                    object.Set("clickCount", 2);
-                }
-                else
-                {
-                    object.Set("clickCount", 1);
-                }
-
-
-            }
-            else if (msg == WM_LBUTTONUP || msg == WM_RBUTTONUP
-                || msg == WM_MBUTTONUP || msg == WM_XBUTTONUP)
-            {
-                object.Set("type", "mouseUp");
-                object.Set("clickCount", 1);
-            }
-            else if (msg == WM_MOUSEMOVE)
-            {
-                object.Set("type", "mouseMove");
-            }
-            else if (msg == WM_MOUSEWHEEL)
-            {
-                object.Set("type", "mouseWheel");
-
-                int delta = GET_WHEEL_DELTA_WPARAM(wparam) / 2;
-                object.Set("deltaY", delta);
-                object.Set("canScroll ", true);
-            }
-
-            //for mousewheel the cord is already translated
-
-            int x = LOWORD(lparam);
-            int y = HIWORD(lparam);
-            object.Set("x", x);
-            object.Set("y", y);
-
-            if (msg == WM_LBUTTONDOWN || msg == WM_LBUTTONUP || msg == WM_LBUTTONDBLCLK)
-            {
-                object.Set("button", "left");
-            }
-            else if (msg == WM_RBUTTONDOWN || msg == WM_RBUTTONUP || msg == WM_RBUTTONDBLCLK)
-            {
-                object.Set("button", "right");
-            }
-            else if (msg == WM_MBUTTONDOWN || msg == WM_MBUTTONUP || msg == WM_MBUTTONDBLCLK)
-            {
-                object.Set("button", "middle");
-            }
-
-            Napi::Array modifiers = Napi::Array::New(env, modifiersVec.size());
-
-            for (auto i = 0; i != modifiersVec.size(); ++i)
-            {
-                modifiers.Set(i, modifiersVec[i]);
-            }
-
-            object.Set("modifiers", modifiers);
-
-        }
-
-        if (utf16Code)
-        {
-            return env.Undefined();
-        }
-        else
-        {
-            return object;
-        }
-    }
-
     void notifyGameProcess(std::uint32_t pid, std::string& path)
     {
         if (eventCallback_)
@@ -932,6 +769,17 @@ class OverlayMain : public IIpcHost
             object.Set("pid", Napi::Value::From(eventCallback_->env, pid));
             object.Set("path", Napi::Value::From(eventCallback_->env, path));
             eventCallback_->callback.MakeCallback(eventCallback_->receiver.Value(), { Napi::Value::From(eventCallback_->env, "game.process"), object });
+        }
+    }
+
+    void notifyGameExit(std::uint32_t pid)
+    {
+        if (eventCallback_)
+        {
+            Napi::HandleScope scope(eventCallback_->env);
+            Napi::Object object = Napi::Object::New(eventCallback_->env);
+            object.Set("pid", Napi::Value::From(eventCallback_->env, pid));
+            eventCallback_->callback.MakeCallback(eventCallback_->receiver.Value(), { Napi::Value::From(eventCallback_->env, "game.exit"), object });
         }
     }
 
@@ -1063,6 +911,10 @@ class OverlayMain : public IIpcHost
     void onClientClose(IIpcLink *client) override
     {
         this->ipcClients_.erase(client->remoteIdentity());
+        std::int32_t pid = client->remoteIdentity();
+        node_async_call::async_call([this, pid]() {
+            notifyGameExit(pid);
+        });
         std::cout << __FUNCTION__ << "," << client->remoteIdentity() << std::endl;
     }
 

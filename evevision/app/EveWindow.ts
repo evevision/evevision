@@ -68,7 +68,6 @@ export default class EveWindow {
     private readonly characterId: number
 
     private electronWindow: BrowserWindow
-    private readonly overlay: typeof Overlay
 
     private lastImage?: IFrameBuffer
     private lastChildImage?: IFrameBuffer
@@ -84,12 +83,11 @@ export default class EveWindow {
     private positionSaveInterval: NodeJS.Timeout
     private hasUnsavedBounds: boolean = false // if we have changed bounds and have not saved it
 
-    constructor(characterId: number, windowName: string, itemId: string, isUserClosable: boolean, overlay: typeof Overlay, parentInstance: EveInstance) {
+    constructor(characterId: number, windowName: string, itemId: string, isUserClosable: boolean, parentInstance: EveInstance) {
         this.parentInstance = parentInstance
         this.characterId = characterId
         this.windowName = windowName
         this.itemId = itemId
-        this.overlay = overlay
         this.isUserClosable = isUserClosable
         this.isResizable = this.windowName !== "welcome";
 
@@ -195,7 +193,7 @@ export default class EveWindow {
 
         this.parentInstance.deleteWindow(this.windowId)
 
-        this.overlay!.closeWindow(this.windowId)
+        Overlay.closeWindow(this.parentInstance.characterName, this.windowId)
         clearInterval(this.positionSaveInterval)
 
         log.info("window closed", this.windowName, this.windowId)
@@ -216,7 +214,7 @@ export default class EveWindow {
         this.preMinimizeRect = {size: {width: bounds.width, height: bounds.height}, pos: {x: bounds.x, y: bounds.y}}
         // TODO: don't set width/height to 0. if the EVE client resizes while a window is minimized at 0,0 size it appears
         // the overlay C++ gets messed up for that window and stops rendering even though frame buffers are still being sent
-        this.overlay!.setWindowPosition(this.windowId, -10000, -10000);
+        Overlay.setWindowPosition(this.parentInstance.characterName, this.windowId, -10000, -10000);
         this.minimized = true
         return true;
     }
@@ -237,7 +235,7 @@ export default class EveWindow {
             this.lastImage.rect.x = x;
             this.lastImage.rect.y = y;
         }
-        this.overlay!.setWindowPosition(this.windowId, x, y);
+        Overlay.setWindowPosition(this.parentInstance.characterName, this.windowId, x, y);
         this.electronWindow.setPosition(x, y)
         this.hasUnsavedBounds = true;
     }
@@ -252,7 +250,7 @@ export default class EveWindow {
         if(currentBounds.width == rect.size.width && currentBounds.height == rect.size.height && (currentBounds.x != rect.pos.x || currentBounds.y != rect.pos.y)) {
             // position changed but size did not, tell overlay DLL to move the rect since paint wont occur
             // if the size changes we update the size/pos via the framebuffer itself
-            this.overlay!.setWindowPosition(this.windowId, rect.pos.x, rect.pos.y);
+            Overlay.setWindowPosition(this.parentInstance.characterName, this.windowId, rect.pos.x, rect.pos.y);
         }
         if(this.lastImage) {
             this.lastImage.rect.x = rect.pos.x;
@@ -391,14 +389,14 @@ export default class EveWindow {
     private handleChildWindowCursor = (cursor: string) => {
         if(this.minimized) { return; }
         try {
-            this.overlay!.sendCommand({command: "cursor", cursor})
+            Overlay.sendCommand(this.parentInstance.characterName, {command: "cursor", cursor})
         } catch(ex) {
             log.info("Exception setting cursor for child window", this.windowName, this.windowId, ex)
         }
     }
 
     private linkWindowToOverlay() {
-        this.overlay!.addWindow(this.windowId, {
+        Overlay.addWindow(this.parentInstance.characterName, this.windowId, {
             name: this.windowName + "-" + this.windowId,
             resizable: this.isResizable,
             maxWidth: this.isResizable
@@ -429,9 +427,9 @@ export default class EveWindow {
         if(this.lastImage == undefined) {
             return; // parent window hasn't drawn yet
         } else if(this.childWindow === undefined || this.lastChildImage === undefined || this.childRect === undefined) {
-            this.overlay!.sendFrameBuffer(this.windowId, this.lastImage);
+            Overlay.sendFrameBuffer(this.parentInstance.characterName, this.windowId, this.lastImage);
         } else {
-            this.overlay!.sendFrameBuffer(this.windowId, this.lastImage, this.lastChildImage);
+            Overlay.sendFrameBuffer(this.parentInstance.characterName, this.windowId, this.lastImage, this.lastChildImage);
         }
     }
 
@@ -520,7 +518,7 @@ export default class EveWindow {
             }
             if (cursor) {
                 try {
-                    this.overlay!.sendCommand({command: "cursor", cursor})
+                    Overlay.sendCommand(this.parentInstance.characterName, {command: "cursor", cursor})
                 } catch(ex) {
                     log.info("Exception setting cursor", this.windowName, this.windowId, ex)
                 }

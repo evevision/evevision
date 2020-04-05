@@ -19,7 +19,6 @@ export default class MainApp {
     private markQuit = false
     private hooker: typeof Hooker
     private tray: Electron.Tray | null
-    private mainWindow: Electron.BrowserWindow | null
     private eveInstances: Map<string, EveInstance>
     private dllPath: string
     private injectedPids: Set<number>
@@ -56,7 +55,6 @@ export default class MainApp {
         */
 
         this.hookLocalEveAuth();
-        //this.createMainWindow();
         this.setupSystemTray();
     }
 
@@ -113,10 +111,6 @@ export default class MainApp {
             this.tray.setToolTip("EveVision is now running")
             this.tray.setContextMenu(contextMenu)
 
-            this.tray.on("click", () => {
-                this.showMainWindow()
-            })
-
             this.tray.displayBalloon({
                 content: "Log into EVE if you haven't already. Fly without fear, capsuleer.",
                 iconType: "custom",
@@ -135,26 +129,18 @@ export default class MainApp {
     public scanForEve() {
         const topWindows = this.hooker.getTopWindows();
         topWindows.forEach(window => {
-            if(window.exeName.endsWith("exefile.exe") && window.title.startsWith("EVE - ")) {
+            if(window.exeName.endsWith("exefile.exe") && window.title.startsWith("EVE - ") && !this.injectedPids.has(window.processId)) {
                 const characterName = window.title.replace("EVE - ", "")
-                if(!this.eveInstances.has(characterName) && !this.injectedPids.has(window.processId)) {
-                    // haven't injected this before
-                    this.startEveInstance(characterName, window)
-                } else {
-                    // we already injected this character before. make sure this isn't a process we already injected
-                    if(!this.injectedPids.has(window.processId)) {
-                        // this is a new process. must've relogged.
-                        // we can just reinject, everything else will reconnect automatically
-                        this.injectEveClient(window)
-                    }
+                if(this.eveInstances.has(characterName)) {
+                    this.eveInstances.get(characterName)!.stop()
+                    this.eveInstances.delete(characterName)
                 }
+                this.startEveInstance(characterName, window)
             }
         })
-        // TODO: add 'shutdown overview when game exits' option. for now we don't.
     }
 
     private injectEveClient(window: Hooker.IWindow) {
-        console.log("Injecting..")
         this.injectedPids.add(window.processId)
         return this.hooker.injectProcess({...window, dllPath: this.dllPath})
     }
@@ -174,54 +160,9 @@ export default class MainApp {
                 eveInstance.start();
             }).catch((err) => {
                 log.error("Error getting character ID for " + characterName, err)
-                this.injectedPids.delete(window.processId)
+                // not sure what to do here
+                // this.injectedPids.delete(window.processId)
             })
-        }
-    }
-
-    private createMainWindow() {
-        const options: Electron.BrowserWindowConstructorOptions = {
-          show: false,
-          width: 300,
-          height: 450,
-          frame: false,
-          webPreferences: {
-            nodeIntegration: true,
-            additionalArguments: ["0", "main", "none", "true"],
-            devTools: true,
-            webviewTag: true
-          }
-        }
-        const window = new BrowserWindow(options)
-
-        window.webContents.on("new-window", (e, url) => {
-            e.preventDefault()
-            shell.openExternal(url)
-        })
-
-        window.on("close", (event) => {
-            if (this.markQuit) {
-                return
-            }
-            event.preventDefault()
-            window.hide()
-            return false
-        })
-        window.on("ready-to-show", () => {
-            this.showMainWindow()
-        })
-
-        window.loadURL(`file://${__dirname}/app.html`)
-
-        //window.webContents.openDevTools({ mode: 'detach' })
-
-        this.mainWindow = window
-    }
-
-    private showMainWindow() {
-        if(this.mainWindow) {
-            this.mainWindow.show()
-            this.mainWindow.focus()
         }
     }
 

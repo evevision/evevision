@@ -121,7 +121,6 @@ void OverlayConnector::connect()
 void OverlayConnector::quit()
 {
     __trace__;
-
     CHECK_THREAD(Threads::HookApp);
 
     if (ipcLink_)

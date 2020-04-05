@@ -39,7 +39,6 @@ DWORD WINAPI hookLoopThread(_In_ LPVOID)
       GetWindowThreadProcessId(window, &processId);
       if (processId != GetCurrentProcessId())
       {
-          std::cout << "waiting for foreground focus" << std::endl;
           Sleep(1000);
           continue;
       }
