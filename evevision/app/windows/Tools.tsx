@@ -9,6 +9,12 @@ const Tools = () => {
   })
   return (
       <Panel>
+        <h3>Generic</h3>
+        <Button onClick={() => {
+          ipcRenderer.send("openWindow", "externalsite", "https://google.com/");
+        }}>Google</Button>
+          <br/>
+          <br/>
         <h3>Horde Services</h3>
         <Button onClick={() => {
           ipcRenderer.send("openWindow", "externalsite", "https://www.pandemic-horde.org/");
@@ -30,6 +36,9 @@ const Tools = () => {
           ipcRenderer.send("openWindow", "externalsite", "https://evepraisal.com/");
         }}>Evepraisal</Button>
         <br/><br/><h3>Communication</h3>
+          <Button onClick={() => {
+              ipcRenderer.send("openWindow", "externalsite", "https://translate.google.com/");
+          }}>Google Translate</Button>
         <Button onClick={() => {
           ipcRenderer.send("openWindow", "externalsite", "https://discordapp.com/app");
         }}>Discord</Button>
@@ -46,6 +55,9 @@ const Tools = () => {
         <Button onClick={() => {
           ipcRenderer.send("openWindow", "externalsite", "https://tripwire.eve-apps.com/");
         }}>Tripwire</Button>
+          <Button onClick={() => {
+              ipcRenderer.send("openWindow", "externalsite", "https://www.eve-scout.com/thera/map/");
+          }}>Thera Map</Button>
         <br/><br/><h3>Info</h3>
         <Button onClick={() => {
           ipcRenderer.send("openWindow", "externalsite", "https://wiki.eveuniversity.org/");
@@ -63,10 +75,6 @@ const Tools = () => {
         <Button onClick={() => {
           ipcRenderer.send("openWindow", "externalsite", "http://jukebox.today/qymmbash");
         }}>Qymm's Jukebox</Button>
-        <br/><br/><h3>Generic</h3>
-        <Button onClick={() => {
-          ipcRenderer.send("openWindow", "externalsite", "https://google.com/");
-        }}>Google</Button>
       </Panel>
   );
 }
