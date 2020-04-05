@@ -543,8 +543,14 @@ export default class EveWindow {
 
         if(positionStore.has(this.windowHash)) {
             const position = positionStore.get(this.windowHash) as StoredWindowPosition
-            bounds.width = position.width
-            bounds.height = position.height
+            if(this.windowName !== "welcome") {
+                // don't read size for the welcome window. Technically it should never change anyways,
+                // but due to a bug with DPI some ended up saving a huge welcome screen that can't be reset without
+                // deleting the appdata files.
+                // TODO: have a per-window config in one spot so i dont have these 'if window name equals' stuff everywhere
+                bounds.width = position.width
+                bounds.height = position.height
+            }
 
             // new max X and Y based on current resolution
             const maxX = resolution.width - bounds.width

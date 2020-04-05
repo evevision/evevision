@@ -11,6 +11,10 @@ replayActionMain(store);
 // to having to copy from GPU instead of processing entirely in CPU. however, it means no webGL or 3D CSS.
 app.disableHardwareAcceleration();
 
+// force DPI scaling to 100%
+app.commandLine.appendSwitch('high-dpi-support', "1");
+app.commandLine.appendSwitch('force-device-scale-factor', "1");
+
 let mainApp: MainApp;
 
 const init = async () => {
