@@ -10,7 +10,7 @@ This repo is in a very early state for open source development. There's most def
 
 #### If you plan on building private alliance/corp tools, please be aware that the core of this software is not meant to be distributed and modified, and the license prevents you from doing so without releasing the full sourcecode. There will be a plugin system in the very near future that will allow you to securely distribute tools.
 
-As of right now this is really meant to just display the source code rather than be collaborative open-source development. However, I will review pull requests.
+Issues and pull requests are reviewed. If you have an idea, let me know and I'll let you know if I would pull it in!
 
 ### EULA Compliance
 It's as legal as your Mumble overlay. CCP cleared this type of tool years ago: https://www.eveonline.com/article/overlays-isk-buyer-amnesty-and-account-security
