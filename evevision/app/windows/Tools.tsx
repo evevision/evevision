@@ -54,6 +54,9 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://google.com/");
                     }}>Google</Button>
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://duckduckgo.com/");
+                    }}>DuckDuckGo</Button>
                     <br/>
                     <br/>
                     {
@@ -82,6 +85,9 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://evepraisal.com/");
                     }}>Evepraisal</Button>
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://ore.cerlestes.de/ore");
+                    }}>Ore Tables</Button>
                     <br/><br/><h3>Communication</h3>
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://translate.google.com/");
