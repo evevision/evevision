@@ -2,6 +2,8 @@
 
 This is a tool written for the MMO EVE Online. It is, at it's core, a way to extend the EVE UI in a EULA-legal manner.  It is very much a beta and should not be relied on yet during critical ingame operations.
 
+Note that this tool only works on Windows 64-bit with EVE running DirectX 11. Ensure DirectX 9 is not enabled in the launcher settings.
+
 Video demonstration: https://streamable.com/iu729v
 
 Need help using or developing EveVision? Join the EveVision discord at https://discord.gg/BBBJRkM
