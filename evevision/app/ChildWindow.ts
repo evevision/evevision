@@ -2,6 +2,7 @@ import {Rect} from "./EveWindow";
 import {IFrameBuffer} from "overlay";
 import {BrowserWindow, shell} from "electron";
 const log = require('electron-log');
+const { version } = require('../package.json');
 
 // Currently only used for displaying external websites
 export default class ChildWindow {
@@ -47,6 +48,7 @@ export default class ChildWindow {
 
         this.hookWindow()
 
+        this.electronWindow.webContents.setUserAgent("EveVision/" + version)
         this.electronWindow.loadURL(url)
         //this.electronWindow.webContents.openDevTools({mode: 'detach'})
     }
