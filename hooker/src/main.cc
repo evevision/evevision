@@ -293,7 +293,7 @@ bool unsafeInjectDll(DWORD dwProcessId, PCWSTR pszLibFile)
     return (bOk);
 }
 
-bool safeInjectDll(DWORD pid, DWORD threadId, const std::wstring &dll)
+bool safeInjectDll(DWORD pid, const std::wstring &dll)
 {
     typedef HHOOK(WINAPI * fn)(int, HOOKPROC, HINSTANCE, DWORD);
     HMODULE user32 = GetModuleHandleW(L"USER32");
@@ -324,10 +324,8 @@ bool safeInjectDll(DWORD pid, DWORD threadId, const std::wstring &dll)
     }
 
     set_windows_hook_ex = (fn)GetProcAddress(user32, "SetWindowsHookExA");
-    if (threadId == 0)
-    {
-        threadId = getProcMainThreadId(pid);
-    }
+
+    DWORD threadId = getProcMainThreadId(pid);
 
     std::wcout << "hook "
                << "pid: " << pid << ", thread:" << threadId;
@@ -382,8 +380,8 @@ Napi::Value injectProcess(const Napi::CallbackInfo &info)
 
   std::cout << "injecting " << processId << "," << threadId << std::endl;
 
-  const bool injected = unsafeInjectDll(processId, dll_path.c_str());
-
+  const bool injected = safeInjectDll(processId, dll_path.c_str());
+  
   auto result = Napi::Object::New(env);
 
   result.Set("injectDll", Napi::Value::From(env, win_utils::toUtf8(dll_path)));
