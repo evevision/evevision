@@ -17,20 +17,22 @@ interface AuthProps {
 
 class Auth extends Component<AuthProps> {
 
+    // we will re-enable these later when we actually use them
+    // no point in asking for all this for a public release to EVE
     readonly scopes = [
-        "esi-characters.read_fatigue.v1",
+        //"esi-characters.read_fatigue.v1",
         "esi-location.read_online.v1",
-        "esi-fittings.read_fittings.v1",
-        "esi-fittings.write_fittings.v1",
-        "esi-ui.open_window.v1",
-        "esi-ui.write_waypoint.v1",
-        "esi-fleets.read_fleet.v1",
-        "esi-fleets.write_fleet.v1",
-        "esi-killmails.read_killmails.v1",
-        "esi-skills.read_skillqueue.v1",
-        "esi-skills.read_skills.v1",
-        "esi-location.read_ship_type.v1",
-        "esi-location.read_location.v1",
+        //"esi-fittings.read_fittings.v1",
+        //"esi-fittings.write_fittings.v1",
+        //"esi-ui.open_window.v1",
+        //"esi-ui.write_waypoint.v1",
+        //"esi-fleets.read_fleet.v1",
+        //"esi-fleets.write_fleet.v1",
+        //"esi-killmails.read_killmails.v1",
+        //"esi-skills.read_skillqueue.v1",
+        //"esi-skills.read_skills.v1",
+        //"esi-location.read_ship_type.v1",
+        //"esi-location.read_location.v1",
         "publicData"
     ].join(" ")
 
