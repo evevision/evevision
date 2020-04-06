@@ -51,34 +51,10 @@ class Auth extends Component<AuthProps> {
     }
 
     render() {
-        if(this.props.character === undefined || this.props.character.public === undefined) { return null }
-        if(this.props.auth == undefined) {
-            return (
-                <>
-                    <Panel>
-                        <Typography>Please authorize EveVision to access ESI for <strong>{this.props.character.public.name}</strong></Typography>
-                    </Panel>
-                    <ChildWindowContainer url={"https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=eveauth-evevision%3A%2F%2Fyeehaw%2F&client_id=98de84087ae042c9aaca2ce0491e1e92&scope=" + this.scopes}/>
-                    <Panel>
-                        <Typography><strong>Scroll down to authorize.</strong> Note that for your capsuleer's safety, your ESI refresh token is never transmitted. It is stored locally and is used only while EveVision is open. This means EveVision will only be able to access your data for up to 20 minutes after you log out. </Typography>
-                    </Panel>
-                </>
-            )
-        } else {
-            return (
-                <Panel>
-                    <h3>Refreshing ESI access token <Moment fromNow interval={500} date={this.props.auth.expiresAt - (5*60 * 1000) + 1000} /></h3>
-                    <Button onClick={this.deauthorize}>Disconnect ESI</Button>
-                    <br />
-                    <br />
-                    <Typography>You may remove EveVision's ESI access at any time, but you will lose access to the EveVision servers and thus many of your tools. You will be able to sign in again whenever you are ready.</Typography>
-                    <br />
-                    <Typography>Note that for your capsuleer's safety, your ESI refresh token is never transmitted. It is stored locally and is used only while EveVision is open. This means EveVision will only be able to access your data for up to 20 minutes after you log out. However, as of this version your data is not accessed whatsoever while you are offline.</Typography>
-                </Panel>
-            )
-        }
-
+        return <Panel><Typography>ESI Authentication is not a part of this release! It will be used in the future with the plugin system. You do not need to authorize with ESI to do anything at this time.</Typography></Panel>
     }
+
+
 }
 
 const mapStateToProps = (state: AppState, ownProps: AuthProps) => {

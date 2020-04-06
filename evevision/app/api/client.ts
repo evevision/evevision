@@ -110,7 +110,7 @@ export default class ApiClient {
             console.log("WSAPI-" + this.characterId + ": refreshing access token")
             try {
                 const res = await superagent.post("https://login.eveonline.com/oauth/token")
-                    .auth("98de84087ae042c9aaca2ce0491e1e92", "t7fLccg2KmZVDWbTzvxgOz45P2E0bfHRS64leOJX")
+                    .auth("", "") // these are invalidated now, gonna move to PKCS. this was only meant as a test.
                     .send({grant_type: 'refresh_token', refresh_token: this.auth.refreshToken});
 
                 const accessToken = res.body.access_token

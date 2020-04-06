@@ -82,7 +82,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                         <Typography>
                             <h2 style={{textAlign: 'right', marginLeft: '150px'}}>Welcome to EveVision, {this.props.character.public.name}.</h2>
                             <br />
-                            <div style={{textAlign: 'right', marginLeft: '150px'}}>{this.props.auth === undefined ? 'You are currently not ESI authorized. You will be unable to use some tools.' : 'ESI successfully authorized'}</div>
+                            <div style={{textAlign: 'right', marginLeft: '150px'}}>ESI authorization not required.</div>
                             {this.props.apiState ? <div style={{textAlign: 'right', marginLeft: '150px'}}>{this.apiStateText()}</div> : null}
                             {this.state.newVersion ? <div className={"new-version-alert"} onClick={() => ipcRenderer.send("openWindow", "externalsite", "https://github.com/evevision/evevision/releases")}><strong>Version {this.state.newVersion} available!</strong></div> : null}
                         </Typography>

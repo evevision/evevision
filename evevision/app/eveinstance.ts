@@ -81,7 +81,7 @@ export default class EveInstance {
 
     public stop() {
         if(!this.started) { return; }
-        this.api.stop()
+        //this.api.stop() - ESI disabled
         if(this.fullscreenOverlay !== undefined) { this.fullscreenOverlay.stop() }
         this.eveWindows.forEach(window => window.close())
         this.teardownIpc()
@@ -95,7 +95,7 @@ export default class EveInstance {
         Overlay.setEventCallback(this.characterName, this.handleOverlayEvent)
 
         this.setupIpc()
-        this.api.start()
+        //this.api.start() - ESI disabled
         this.started = true
     }
 
