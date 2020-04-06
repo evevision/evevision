@@ -153,6 +153,7 @@ export default class MainApp {
         let result = this.injectEveClient(window)
 
         if(result.injectSucceed) {
+            console.log("injection successful");
             getCharacterIdByName(characterName).then((id) => {
                 log.info("Character ID found for " + characterName + ":" + id)
                 const eveInstance = new EveInstance(characterName, id);

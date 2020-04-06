@@ -22,7 +22,7 @@ function renderWindowContents(characterId: number, windowName: string, itemId: s
     case "welcome": return <Welcome characterId={characterId} />;
     case "beanwatch": return <Beanwatch characterId={characterId} />;
     case "settings": return <Settings characterId={characterId} />;
-    case "tools": return <Tools />;
+    case "tools": return <Tools characterId={characterId} />;
     case "auth": return <Auth characterId={characterId}/>
     case "externalsite": return <ExternalSite url={itemId}/>
     default: return <>UNKNOWN WINDOW {windowName}</>;
