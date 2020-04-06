@@ -92,6 +92,11 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://translate.google.com/");
                     }}>Google Translate</Button>
+
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://www.deepl.com/en/translator");
+                    }}>DeepL Translate</Button>
+
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://discordapp.com/app");
                     }}>Discord</Button>
