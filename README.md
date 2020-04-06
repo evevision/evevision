@@ -2,13 +2,15 @@
 
 This is a tool written for the MMO EVE Online. It is, at it's core, a way to extend the EVE UI in a EULA-legal manner.  It is very much a beta and should not be relied on yet during critical ingame operations.
 
+Note that this tool only works on Windows 64-bit with EVE running DirectX 11. Ensure DirectX 9 is not enabled in the launcher settings.
+
 Video demonstration: https://streamable.com/iu729v
 
 Need help using or developing EveVision? Join the EveVision discord at https://discord.gg/BBBJRkM
 
 This repo is in a very early state for open source development. There's most definitely random files and functions that aren't needed or aren't configured right. The whole repo may be split up later.
 
-#### If you plan on building private alliance/corp tools, please be aware that the core of this software is not meant to be distributed and modified, and the license prevents you from doing so without releasing the full sourcecode. There will be a plugin system in the very near future that will allow you to securely distribute tools.
+#### If you plan on building private alliance/corp tools, please be aware that the core of this software is not meant to be modified for separate distribution, and the license prevents you from doing so without releasing the full sourcecode. There will be a plugin system in the very near future that will allow you to securely distribute tools.
 
 Issues and pull requests are reviewed. If you have an idea, let me know and I'll let you know if I would pull it in!
 
