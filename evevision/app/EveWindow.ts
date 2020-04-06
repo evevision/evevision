@@ -379,9 +379,10 @@ export default class EveWindow {
         // i'm not entirely sure if using setImmediate has any benefit or downside.
         setImmediate(() => {
             this.paint()
-            // if parent window paints let it know not to paint this again
-            this.lastChildImage!.dirty.width = 0;
-            this.lastChildImage!.dirty.height = 0;
+            if(this.lastChildImage) {
+                this.lastChildImage.dirty.width = 0;
+                this.lastChildImage.dirty.height = 0;
+            }
         });
     }
 
@@ -449,9 +450,10 @@ export default class EveWindow {
                 // i'm not entirely sure if using setImmediate has any benefit or downside.
                 setImmediate(() => {
                     this.paint()
-                    // if parent window paints let it know not to paint this again
-                    this.lastImage!.dirty.width = 0;
-                    this.lastImage!.dirty.height = 0;
+                    if(this.lastImage) {
+                        this.lastImage.dirty.width = 0;
+                        this.lastImage.dirty.height = 0;
+                    }
                 });
             }
         )
