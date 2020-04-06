@@ -13,7 +13,7 @@ ipcMain.on("clearPositionStore", () => positionStore.clear())
 const defaultSizes = {
     "main":         {width: 600, height: 345},
     "welcome":      {width: 410, height: 170},
-    "about":        {width: 200, height: 315},
+    "about":        {width: 300, height: 480},
     "beanwatch":    {width: 400, height: 150},
     "settings":     {width: 400, height: 185},
     "tools":        {width: 375, height: 400},

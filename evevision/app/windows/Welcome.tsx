@@ -84,7 +84,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                             <br />
                             <div style={{textAlign: 'right', marginLeft: '150px'}}>{this.props.auth === undefined ? 'You are currently not ESI authorized. You will be unable to use some tools.' : 'ESI successfully authorized'}</div>
                             {this.props.apiState ? <div style={{textAlign: 'right', marginLeft: '150px'}}>{this.apiStateText()}</div> : null}
-                            {this.state.newVersion ? <div className={"new-version-alert"} onClick={() => shell.openExternal("https://www.pandemic-horde.org/forum/index.php?threads/evevision-the-eve-ui-you-always-wanted.2540/")}><strong>Version {this.state.newVersion} available!</strong></div> : null}
+                            {this.state.newVersion ? <div className={"new-version-alert"} onClick={() => ipcRenderer.send("openWindow", "externalsite", "https://github.com/evevision/evevision/releases")}><strong>Version {this.state.newVersion} available!</strong></div> : null}
                         </Typography>
                     </Panel>
                     <WindowButtons>

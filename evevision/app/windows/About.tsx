@@ -15,7 +15,8 @@ const About = () => {
               <Typography><h2>EveVision {version}</h2></Typography>
 
               <img src={hordelogo} class="hordelogo"/>
-              <Typography>Developed by Jaydubs, with love.</Typography>
+              <Typography>Developed by Jaydubs, with love.</Typography><br />
+              <Typography>Source code and new releases are made available at https://github.com/evevision/evevision</Typography><br/>
               <Typography><strong>Fly without fear, capsuleer.</strong></Typography>
             </Panel>
             <WindowButtons>
