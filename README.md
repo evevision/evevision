@@ -6,7 +6,7 @@ Note that this tool only works on Windows 64-bit with EVE running DirectX 11. En
 
 Video demonstration: https://streamable.com/iu729v
 
-Need help using or developing EveVision? Join the EveVision discord at https://discord.gg/BBBJRkM
+Need help using or developing EveVision? Join the EveVision discord at https://discord.gg/wWMasVf
 
 This repo is in a very early state for open source development. There's most definitely random files and functions that aren't needed or aren't configured right. The whole repo may be split up later.
 
