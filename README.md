@@ -15,7 +15,7 @@ This repo is in a very early state for open source development. There's most def
 Issues and pull requests are reviewed. If you have an idea, let me know and I'll let you know if I would pull it in!
 
 ### EULA Compliance
-It's as legal as your Mumble overlay. CCP cleared this type of tool years ago: https://www.eveonline.com/article/overlays-isk-buyer-amnesty-and-account-security
+EveVision Core is as EULA legal as your Mumble overlay. CCP commented on this type of tool years ago: https://www.eveonline.com/article/overlays-isk-buyer-amnesty-and-account-security
 
 >We may, in our discretion, tolerate the use of applications or other software that simply enhance player enjoyment in a way that maintains fair gameplay.
  AS LONG AS it’s fair to everybody - neither you nor anybody else gets any unfair advantage – we are fine with it.
@@ -28,6 +28,8 @@ Most importantly, showing that this is not limited to Mumble or Teamspeak:
 >We also do NOT consider it unfair if you use other comfort overlays which do not affect how the game is played. This includes overlays for chat and IM applications, the Steam overlay, and **Web-Browser overlays** for example.
 
 This tool cannot do anything like read the screen or perform ingame actions automatically (unless via ESI). It solely draws over EVE and intercepts input for the purpose of interacting with the EveVision windows.
+
+However, keep in mind that CCP always retains the final say. They could full well decide in the future that EveVision is too much and should not be allowed - but in its current form there is no risk of a ban. Additionally, unofficial plugins in the future do not fall under this - if they provide an unfair advantage, it is still against the EULA, no matter what.
 
 ### Internals/Building
 EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `overlay-dll`, and a native node module for communicating with the injected DLL at `/overlay-node`.
