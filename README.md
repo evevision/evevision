@@ -64,3 +64,6 @@ Steps:
 5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`
 
 If you want to make changes to overlay-node or hooker and test them, you should use yarn link. Otherwise, you'll need to reinstall the package every time a change is made, since yarn just copies it over otherwise. You need to run `node-gyp rebuild` to compile the changes.
+
+## Thanks
+This project uses portions of code from and was inspired by https://github.com/hiitiger/gelectron
