@@ -51,14 +51,13 @@ This is obviously a very early release. I haven't finished cleaning up build pro
 
 You will need the following installed:
 * Git
-* Git Bash (MINGW)
 * Node v12
 * Yarn package manager
 * Visual Studio 2019 (will remove this dependency later)
 
 Steps:
 1. Clone repo to a local directory.
-2. Inside the `fb` directory, run `build.sh` to generate the flatbuffer schema files. This executes flatc.exe, which is included for convenience, but you can of course download the flatbuffer compiler yourself.
+2. Inside the `fb` directory, run `build.ps1` to generate the flatbuffer schema files. This executes flatc.exe, which is included for convenience, but you can of course download the flatbuffer compiler yourself.
 3. Inside the `evevision` directory, run `yarn install`.
 4. Open `overlay-dll/overlay.vcxproj` in Visual Studio and build the project.
 5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`
