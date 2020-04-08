@@ -5,8 +5,7 @@ import {rootReducer} from './rootReducer'
 import { persistStore, persistReducer } from 'redux-persist';
 import createElectronStorage from "redux-persist-electron-storage";
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-
-console.log("Initialized main process store")
+const log = require('electron-log');
 
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
 const persistConfig = {
@@ -28,10 +27,11 @@ const store = createStore(pReducer,
 export const persistor = persistStore(store);
 
 if (!process.env.NODE_ENV && module.hot) {
-    console.log("Redux hot reload enabled")
     module.hot.accept('./reducers', () => {
         store.replaceReducer(require('./reducers'));
     });
 }
+
+log.info("Initialized main process store")
 
 export default store;

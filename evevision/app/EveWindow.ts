@@ -201,6 +201,7 @@ export default class EveWindow {
 
     restore() {
         if(!this.minimized || !this.preMinimizeRect) { return; }
+        log.info("Restoring window", this.windowId, this.windowName)
         this.setPosition(this.preMinimizeRect.pos.x, this.preMinimizeRect.pos.y);
         this.minimized = false
         this.preMinimizeRect = undefined
@@ -209,6 +210,7 @@ export default class EveWindow {
 
     minimize(): boolean {
         if(this.minimized) { return false; }
+        log.info("Minimizing window", this.windowId, this.windowName)
         // TODO: add hiding to C++?
         const bounds = this.electronWindow.getBounds()
         this.preMinimizeRect = {size: {width: bounds.width, height: bounds.height}, pos: {x: bounds.x, y: bounds.y}}
@@ -280,7 +282,7 @@ export default class EveWindow {
         if(event.sender.id !== this.webContentsId) {return;}
 
         if(this.childWindow !== undefined) {
-            console.error("Attempted to create child window when there already is one!");
+            log.error("Attempted to create child window when there already is one!");
             return;
         }
 
@@ -534,7 +536,7 @@ export default class EveWindow {
 
         let bounds = {width: 300, height: 300, x: 0, y: 0};
 
-        if(!resolution) { console.log("no resolution?"); return bounds; }
+        if(!resolution) { log.warn("no resolution in calculatewindowrect", this.windowId, this.windowName); return bounds; }
 
         if (this.windowName in defaultSizes) {
             const defaultSize = defaultSizes[this.windowName];
@@ -565,7 +567,7 @@ export default class EveWindow {
 
                 bounds.x = Math.max(Math.min(Math.floor((position.xRatio * (resolution.width / 2)) + (resolution.width / 2) - (bounds.width / 2)), maxX), 0)
             } else {
-                console.error("No X coordinate!", position)
+                log.warn("no X coordinate in position store", position);
                 bounds.x = 0
             }
 
@@ -576,7 +578,7 @@ export default class EveWindow {
             } else if(position.yRatio != undefined) {
                 bounds.y = Math.max(Math.min(Math.floor((position.yRatio * (resolution.height / 2)) + (resolution.height / 2) - (bounds.height / 2)), maxY), 0);
             } else {
-                console.error("No Y coordinate!", position)
+                log.warn("no Y coordinate in position store", position);
             }
 
         } else {

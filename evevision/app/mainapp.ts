@@ -1,5 +1,4 @@
-import {BrowserWindow, Menu, protocol, Tray, app} from "electron"
-import {shell} from 'electron';
+import {Menu, protocol, Tray, app} from "electron"
 
 import path from 'path';
 import Hooker from 'hooker';
@@ -41,6 +40,8 @@ export default class MainApp {
     }
 
     public start() {
+
+        log.info("Starting MainApp")
 
         if(!this.scanner) {
             this.scanner = setInterval(() => {
@@ -91,6 +92,7 @@ export default class MainApp {
     }
 
     public stop() {
+        log.info("Stopping MainApp")
         clearInterval(this.scanner)
         this.eveInstances.forEach(instance => instance.stop())
     }
@@ -148,12 +150,12 @@ export default class MainApp {
     private startEveInstance(characterName: string, window: Hooker.IWindow) {
         this.injectedPids.add(window.processId)
 
-        log.info("Starting EveVision for " + characterName, window)
+        log.info("Injecting", characterName, window, this.dllPath)
 
         let result = this.injectEveClient(window)
 
         if(result.injectSucceed) {
-            console.log("injection successful");
+            log.info("Injection successful", characterName)
             getCharacterIdByName(characterName).then((id) => {
                 log.info("Character ID found for " + characterName + ":" + id)
                 const eveInstance = new EveInstance(characterName, id);

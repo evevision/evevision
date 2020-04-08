@@ -34,7 +34,6 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
     checkForLatestVersion = () => {
         superagent.get("http://releases.eve.vision.s3-website.us-east-2.amazonaws.com/").then(res => {
             if(res.text !== version) {
-                console.log("Latest EveVision version differs", res.text)
                 this.setState({newVersion: res.text})
             }
         }).catch((err) => {

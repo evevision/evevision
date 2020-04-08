@@ -16,7 +16,6 @@ import {Window} from '../ui/Window';
 function renderWindowContents(characterId: number, windowName: string, itemId: string) {
   // argv values are objects, not strings
 
-  console.log(characterId, windowName, itemId)
   switch (windowName) {
     case "about": return <About />;
     case "welcome": return <Welcome characterId={characterId} />;

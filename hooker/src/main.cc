@@ -378,9 +378,9 @@ Napi::Value injectProcess(const Napi::CallbackInfo &info)
 
   std::wstring args = std::to_wstring(processId) + L" " + std::to_wstring(threadId) + L" \"" + dll_path + L"\"";
 
-  std::cout << "injecting " << processId << "," << threadId << std::endl;
+  std::cout << "unsafe injecting " << processId << "," << threadId << std::endl;
 
-  const bool injected = safeInjectDll(processId, dll_path.c_str());
+  const bool injected = unsafeInjectDll(processId, dll_path.c_str());
   
   auto result = Napi::Object::New(env);
 

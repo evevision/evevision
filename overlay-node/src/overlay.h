@@ -397,7 +397,7 @@ class OverlayMain : public IIpcHost
 
         std::string mainIpcName = "evevision-overlay-" + correctedCharacterName;
 
-        std::cout << "creating IPC host in overlay host:" << mainIpcName << std::endl;
+        log("creating IPC host in overlay host:" + mainIpcName);
 
         ipcHostCenter_->init(mainIpcName, this);
 
@@ -429,7 +429,7 @@ class OverlayMain : public IIpcHost
             int maxWidth = std::max(static_cast<int>(std::ceil((float)minimumWidth / 512.0f)) * 512, 512);
             int maxHeight = std::max(static_cast<int>(std::ceil((float)minimumHeight / 512.0f)) * 512, 512);
 
-            std::cout << "create shared mem: " << maxWidth << "x" << maxHeight << " (" << minimumWidth << "x" << minimumHeight << ")" << std::endl;
+            log("create shared mem: " + std::to_string(maxWidth) + "x" + std::to_string(maxHeight) + " (" + std::to_string(minimumWidth) + "x" + std::to_string(minimumHeight) + ")");
 
             auto shareMemSize = maxWidth * maxHeight * sizeof(std::uint32_t) + sizeof(ShareMemFrameBuffer);
             std::shared_ptr<share_memory> imageMem = std::make_shared<share_memory>();
@@ -484,7 +484,6 @@ class OverlayMain : public IIpcHost
 
     Napi::Value addWindow(const Napi::CallbackInfo &info)
     {
-        std::cout << __FUNCTION__ <<std::endl;
         Napi::Env env = info.Env();
 
         uint32_t windowId = info[1].ToNumber();
@@ -602,7 +601,7 @@ class OverlayMain : public IIpcHost
                 std::string bufferName = _shareMemoryName(windowId);
                 newBufferStr = builder.CreateString(bufferName);
                 newBuffer = true;
-                std::cout << "resizing shared mem from " << it->second->maxWidth * it->second->maxHeight << " to " << width * height << ", new buffer name: " << bufferName << std::endl;
+                log("Resizing shared mem from " + std::to_string(it->second->maxWidth * it->second->maxHeight) + " to " + std::to_string(width * height) + ", new buffer name: " + bufferName);
 
                 createImageMem(windowId, bufferName, width, height);
                 auto it = shareMemMap_.find(windowId);
@@ -902,12 +901,24 @@ class OverlayMain : public IIpcHost
     }
 
   private:
+
+  void log(std::string message) {
+      if (eventCallback_)
+      {
+          Napi::HandleScope scope(eventCallback_->env);
+          Napi::Object object = Napi::Object::New(eventCallback_->env);
+          object.Set("message", Napi::Value::From(eventCallback_->env, message));
+          eventCallback_->callback.MakeCallback(eventCallback_->receiver.Value(), { Napi::Value::From(eventCallback_->env, "log"), object });
+      }
+  }
+
     void onClientConnect(IIpcLink *client) override
     {
         this->ipcClients_.insert(std::make_pair(client->remoteIdentity(), client));
-        std::cout << __FUNCTION__ << "," << client->remoteIdentity() << std::endl;
         _sendOverlayInit(client);
+        log("Overlay DLL connected");
     }
+
     void onClientClose(IIpcLink *client) override
     {
         this->ipcClients_.erase(client->remoteIdentity());
@@ -915,7 +926,7 @@ class OverlayMain : public IIpcHost
         node_async_call::async_call([this, pid]() {
             notifyGameExit(pid);
         });
-        std::cout << __FUNCTION__ << "," << client->remoteIdentity() << std::endl;
+        log("Overlay DLL disconnected");
     }
 
     void onMessage(IIpcLink *link, const EveVision::IPC::GameMessageContainer* container)
@@ -936,7 +947,7 @@ class OverlayMain : public IIpcHost
 
     void _sendOverlayInit(IIpcLink *link)
     {
-        std::cout << "sending overlay init" << std::endl;
+        log("Sending overlay init");
         flatbuffers::FlatBufferBuilder builder;
 
         auto init = EveVision::IPC::CreateOverlayInit(builder, builder.CreateString(shareMemMutex_));

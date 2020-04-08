@@ -3,6 +3,8 @@ import ApiClient from "./api/client";
 import EveWindow from "./EveWindow";
 import Overlay from 'overlay'
 import FullscreenOverlay from "./FullscreenOverlay";
+const log = require('electron-log');
+
 export default class EveInstance {
 
     public characterName: string
@@ -26,16 +28,19 @@ export default class EveInstance {
     }
 
     public restoreAllWindows() {
+        log.info("Restoring all windows")
         this.eveWindows.forEach(w => w.restore())
     }
 
     public createWindow(windowName: string, itemId: string) {
+
         const uniqueWindows = ["tools", "auth", "beanwatch", "about", "settings"]
 
         if(uniqueWindows.includes(windowName)) {
             // make sure we don't have one open already
             const window = this.eveWindows.find(w => w.windowName == windowName)
             if(window) {
+                log.info("Restoring unique window", windowName)
                 if(this.fullscreenOverlay) {
                     this.fullscreenOverlay.electronWindow.webContents.send("removeMinimizedWindow",
                         window.windowId
@@ -46,6 +51,7 @@ export default class EveInstance {
                 return
             }
         }
+        log.info("Creating window", windowName, itemId)
         const window = new EveWindow(this.characterId, windowName, itemId, windowName !== "welcome", this)
         this.eveWindows.push(window);
     }
@@ -81,26 +87,32 @@ export default class EveInstance {
 
     public stop() {
         if(!this.started) { return; }
+        log.info("Stopping EveInstance", this.characterName)
+
         //this.api.stop() - ESI disabled
         if(this.fullscreenOverlay !== undefined) { this.fullscreenOverlay.stop() }
         this.eveWindows.forEach(window => window.close())
         this.teardownIpc()
         Overlay.stop(this.characterName)
         this.started = false
+
+        log.info("EveInstance stopped", this.characterName)
     }
 
     public start() {
         if(this.started) { return; }
+        log.info("Starting EveInstance", this.characterName)
         Overlay.start(this.characterName)
         Overlay.setEventCallback(this.characterName, this.handleOverlayEvent)
 
         this.setupIpc()
         //this.api.start() - ESI disabled
         this.started = true
+        log.info("EveInstance started", this.characterName)
     }
 
     private ready() {
-        console.log("ready!")
+        log.info("EveInstance ready", this.characterName)
         this.createWindow("welcome", "none")
         this.fullscreenOverlay = new FullscreenOverlay(this);
     }
@@ -155,7 +167,9 @@ export default class EveInstance {
                 win.setBounds({size: {width: payload.width as number, height: payload.height as number}, pos: {x: payload.x as number, y: payload.y as number}})
             }
         } else if (event === "game.exit") {
-            console.log("Received game exit for", this.characterName);
+            log.info("Received game exit", this.characterName)
+        } else if (event === "log") {
+            log.info("from overlay: " + payload.message)
         }
     }
 
@@ -177,7 +191,6 @@ export default class EveInstance {
     private handleOpenWindowRequest = (e: IpcMainEvent, windowName: string, itemId: string) => {
         // this event will fire from every EveInstance's windows, make sure it's one of our windows
         if(this.eveWindows.find(w => w.webContentsId == e.sender.id) !== undefined) {
-            console.log("open", windowName)
             this.createWindow(windowName, (itemId === "" || itemId == undefined) ? "none" : itemId);
         }
     }

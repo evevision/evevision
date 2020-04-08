@@ -1,5 +1,4 @@
 import {Rect} from "./EveWindow";
-import {IFrameBuffer} from "overlay";
 import {BrowserWindow, shell} from "electron";
 const log = require('electron-log');
 const { version } = require('../package.json');
@@ -13,9 +12,11 @@ export default class ChildWindow {
     private readonly paintCallback: (dirtyRect: Electron.Rectangle, nativeImage: Electron.NativeImage) => void
     private readonly cursorCallback: (cursor: string) => void
     private readonly titleCallback: (title: string) => void
-    private readyToPaint: boolean = false
 
     constructor(url: string, initialRect: Rect, paintCallback: (dirtyRect: Electron.Rectangle, nativeImage: Electron.NativeImage) => void, cursorCallback: (cursor: string) => void, titleCallback: (title: string) => void) {
+
+        log.info("Creating child window", url)
+
         this.paintCallback = paintCallback
         this.cursorCallback = cursorCallback
         this.titleCallback = titleCallback
@@ -48,7 +49,6 @@ export default class ChildWindow {
 
         this.hookWindow()
 
-        this.electronWindow.webContents.setUserAgent("EveVision/" + version)
         this.electronWindow.loadURL(url)
         //this.electronWindow.webContents.openDevTools({mode: 'detach'})
     }
@@ -63,6 +63,7 @@ export default class ChildWindow {
     }
 
     close(): void {
+        log.info("Closing child window")
         this.electronWindow.close()
     }
 
@@ -73,10 +74,6 @@ export default class ChildWindow {
     resize(width: number, height: number): void {
         this.electronWindow.setSize(width, height)
         this.electronWindow.setContentSize(width, height)
-    }
-
-    markReadyToPaint = () => {
-        this.readyToPaint = true
     }
 
     private hookWindow() {
@@ -91,12 +88,7 @@ export default class ChildWindow {
         })
 
         this.electronWindow.webContents.on("did-finish-load", () => {
-            // EveEye had an ad that totally broke the app. They fixed it, so don't remove the ad now. We can pay to have the ad removed alliance-wide, and that's only fair.
-            //if(this.url == "https://eveeye.com/") {
-                //this.electronWindow.webContents.executeJavaScript("document.getElementById(\"ui-nag\").remove()")
-                //this.electronWindow.webContents.insertCSS("#ui-wrapper {height: 100% !important;}")
-            //}
-            this.electronWindow.webContents.insertCSS("::-webkit-scrollbar {width:0px;background:transparent;}").then(this.markReadyToPaint)
+            this.electronWindow.webContents.insertCSS("::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: transparent;}::-webkit-scrollbar{width: 6px;background-color: $panel-background;}::-webkit-scrollbar-thumb{background-color: $button-color;box-shadow: inset 0 0 2x $inner-glow;};::-webkit-scrollbar-thumb:hover{background-color: $button-color-active;box-shadow: inset 0 0 2x $inner-glow;}")
         })
 
         this.electronWindow.webContents.on(
