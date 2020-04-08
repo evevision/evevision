@@ -291,7 +291,7 @@ export default class EveWindow {
     }
 
     private handleChildWindowTitle = (title: string) => {
-        if(this.windowName == "externalsite") {
+        if(!this.closed && this.windowName == "externalsite") {
             this.electronWindow.webContents.send("setTitle", title);
         }
     }
