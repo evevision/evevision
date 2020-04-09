@@ -1,5 +1,14 @@
 # This is dumb but I can't get node-gyp to find these files when its called outside of its directory (i.e. when you yarn install on the root project)
-./flatc --cpp --cpp-std c++17 -o output (Get-Item ./*.fbs) --filename-suffix '""'
+
+if (Test-Path "./flatc" -PathType Leaf) {
+    $flatc = "./flatc"
+} elseif (Get-Command "flatc" -ErrorAction SilentlyContinue) { 
+    $flatc = "flatc"
+} else {
+    throw "flatc command not found.";
+}
+
+Invoke-Expression "$flatc --cpp --cpp-std c++17 -o output (Get-Item ./*.fbs) --filename-suffix '""""'"
 
 Remove-Item -Recurse -Force ../overlay-dll/fb -ErrorAction Ignore
 Remove-Item -Recurse -Force ../overlay-node/fb -ErrorAction Ignore
