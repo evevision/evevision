@@ -54,6 +54,10 @@ export default class EveInstance {
         log.info("Creating window", windowName, itemId)
         const window = new EveWindow(this.characterId, windowName, itemId, windowName !== "welcome", this)
         this.eveWindows.push(window);
+
+        if(windowName == "ricardo" && this.fullscreenOverlay) {
+            this.fullscreenOverlay.electronWindow.webContents.send("ricardo", true)
+        }
     }
 
     public deleteWindow(windowId: number) {
@@ -64,6 +68,9 @@ export default class EveInstance {
     public closeWindow(windowId: number) {
         const window = this.eveWindows.find(w => w.windowId == windowId)
         if(window !== undefined) {
+            if(window.windowName == "ricardo" && this.fullscreenOverlay) {
+                this.fullscreenOverlay.electronWindow.webContents.send("ricardo", false)
+            }
             window.close()
         }
     }

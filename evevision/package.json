@@ -1,7 +1,7 @@
 {
   "name": "evevision",
   "productName": "EveVision",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Does tons of cool shit",
   "scripts": {
     "swagger": "node -r @babel/register ./internals/scripts/GenerateEsiSwagger.js",

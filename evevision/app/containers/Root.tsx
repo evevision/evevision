@@ -12,6 +12,7 @@ import ExternalSite from "../windows/ExternalSite";
 import FSORoot from "../FSORoot";
 import {ipcRenderer} from "electron";
 import {Window} from '../ui/Window';
+import Ricardo from "../windows/Ricardo";
 
 function renderWindowContents(characterId: number, windowName: string, itemId: string) {
   // argv values are objects, not strings
@@ -24,6 +25,7 @@ function renderWindowContents(characterId: number, windowName: string, itemId: s
     case "tools": return <Tools characterId={characterId} />;
     case "auth": return <Auth characterId={characterId}/>
     case "externalsite": return <ExternalSite url={itemId}/>
+    case "ricardo": return <Ricardo/>
     default: return <>UNKNOWN WINDOW {windowName}</>;
   }
 }

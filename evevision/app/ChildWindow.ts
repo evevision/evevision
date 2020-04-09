@@ -1,7 +1,7 @@
 import {Rect} from "./EveWindow";
 import {BrowserWindow, shell} from "electron";
 const log = require('electron-log');
-const { version } = require('../package.json');
+import {version} from './package.json';
 
 // Currently only used for displaying external websites
 export default class ChildWindow {

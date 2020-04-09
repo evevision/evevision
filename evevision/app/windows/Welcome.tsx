@@ -7,7 +7,7 @@ import {AppState} from "../store/rootReducer";
 import {connect} from "react-redux";
 import {ApiConnectionStatus, ApiState, CharacterEsiAuth, CharacterInfo} from "../store/characters/types";
 import superagent from "superagent";
-const { version } = require('../package.json');
+import {version} from '../package.json';
 
 interface WelcomeProps {
     updateCharacterPublicInfo: typeof updateCharacterPublicInfo;
@@ -77,7 +77,8 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
         } else {
             return (
                 <>
-                    <div className={"eve-welcome-bean"}></div>
+                    {this.props.character.public.alliance_id == 99005338 && this.props.character.public.corporation_id != 98148549 ? <div className={"eve-welcome-bean"}></div> : ""}
+                    {this.props.character.public.corporation_id == 98148549 ? <div className={"eve-welcome-bean-capf"}></div> : ""}
                     <Panel>
                         <Typography>
                             <h2 style={{textAlign: 'right', marginLeft: '150px'}}>Welcome to EveVision, {this.props.character.public.name}.</h2>
@@ -100,6 +101,9 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                         <Button onClick={() => {
                             ipcRenderer.send("openWindow", "externalsite", "https://discord.gg/BBBJRkM");
                         }}>Help</Button>
+                        {this.props.character.public.corporation_id != 98148549 ? <Button onClick={() => {
+                            ipcRenderer.send("openWindow", "ricardo");
+                        }}>Morale Boost</Button> : ""}
                         <Button onClick={() => {
                             ipcRenderer.send("openWindow", "about");
                         }}>About</Button>

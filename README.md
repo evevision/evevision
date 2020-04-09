@@ -14,9 +14,11 @@ Need help using or developing EveVision? Have a suggestion or want to show off h
 
 ## Donations
 
-If you would like to donate and have your character name in the EveVision credits forever, you can do so at https://www.patreon.com/evevision. I will put it towards paying for my development tools, the various backend services that EveVision runs on, and probably PLEX for being a credit card warrior.
+You can donate ISK to the character `EveVision` ingame!
 
-You can also donate ISK to `Jaydubs` ingame!
+If you can't code but would still like to contribute to this project and have your character name in the EveVision credits forever, you can do so at https://www.patreon.com/evevision.
+I will put it towards paying for my development tools, the various services that EveVision utilizes, and probably PLEX because I'm a credit card warrior.
+
 
 ## EULA Compliance
 EveVision Core is as EULA legal as your Mumble overlay. CCP commented on this type of tool years ago: https://www.eveonline.com/article/overlays-isk-buyer-amnesty-and-account-security
@@ -44,23 +46,27 @@ This repo is in a very early state for open source development. There's most def
 Issues and pull requests are reviewed. If you have an idea, let me know and I'll let you know if I would pull it in!
 
 ### Internals/Building
-EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `overlay-dll`, and a native node module for communicating with the injected DLL at `/overlay-node`.
+EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `/overlay-dll`, and a native node module for communicating with the injected DLL at `/overlay-node`.
 There is also the native node module that injects the DLL at `/hooker` (which will be merged into the overlay module soon) and FlatBuffer definitions inside of `/fb`
 
 This is obviously a very early release. I haven't finished cleaning up build processes, especially for open source consumption. There isn't much 'development/production' separation at this time. Even the folder structure is likely to change.
 
+You will need to download two dependencies:
+* libminhook
+* flatc.exe
+
 You will need the following installed:
-* Git
+* Python2
 * Node v12
 * Yarn package manager
 * Visual Studio 2019 (will remove this dependency later)
 
 Steps:
-1. Clone repo to a local directory.
-2. Inside the `fb` directory, run `build.ps1` to generate the flatbuffer schema files. This executes flatc.exe, which is included for convenience, but you can of course download the flatbuffer compiler yourself.
+1. Clone (or extract ZIP of) repo to a local directory.
+2. Inside the `fb` directory, run `build.ps1` to generate the flatbuffer schema files.
 3. Inside the `evevision` directory, run `yarn install`.
-4. Open `overlay-dll/overlay.vcxproj` in Visual Studio and build the project.
-5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`
+4. Open `/overlay-dll/overlay.vcxproj` in Visual Studio and build the project.
+5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`. Please ensure Sentry is disabled if you package the app so we don't receive false error reports!
 
 If you want to make changes to overlay-node or hooker and test them, you should use yarn link. Otherwise, you'll need to reinstall the package every time a change is made, since yarn just copies it over otherwise. You need to run `node-gyp rebuild` to compile the changes.
 

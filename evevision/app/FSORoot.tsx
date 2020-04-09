@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {AppState} from "./store/rootReducer";
 import {connect} from "react-redux";
 import OverlayMenu from "./components/OverlayMenu";
+import RicardoOverlay from "./components/RicardoOverlay";
 
 interface OverlayProps {
 }
@@ -20,6 +21,7 @@ class FSORoot extends Component<OverlayProps, OverlayState> {
     render() {
         return <div className="eve-overlay">
             <OverlayMenu />
+            <RicardoOverlay />
         </div>
     }
 }

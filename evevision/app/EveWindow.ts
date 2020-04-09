@@ -13,12 +13,13 @@ ipcMain.on("clearPositionStore", () => positionStore.clear())
 const defaultSizes = {
     "main":         {width: 600, height: 345},
     "welcome":      {width: 410, height: 170},
-    "about":        {width: 300, height: 480},
+    "about":        {width: 600, height: 500},
     "beanwatch":    {width: 400, height: 150},
     "settings":     {width: 400, height: 185},
     "tools":        {width: 375, height: 400},
     "auth":         {width: 400, height: 500},
-    "externalsite": {width: 600, height: 500}
+    "externalsite": {width: 600, height: 500},
+    "ricardo":      {width: 1250, height: 750}
 }
 
 const dragBorder = 5;
@@ -89,7 +90,7 @@ export default class EveWindow {
         this.windowName = windowName
         this.itemId = itemId
         this.isUserClosable = isUserClosable
-        this.isResizable = this.windowName !== "welcome";
+        this.isResizable = this.windowName !== "welcome" && this.windowName !== "about";
 
         const uniqueArgs = [this.characterId.toString(), this.windowName, Buffer.from(this.itemId).toString("base64")]
         this.windowHash = Buffer.from(uniqueArgs.toString()).toString("base64")
@@ -545,7 +546,7 @@ export default class EveWindow {
 
         if(positionStore.has(this.windowHash)) {
             const position = positionStore.get(this.windowHash) as StoredWindowPosition
-            if(this.windowName !== "welcome") {
+            if(this.windowName !== "welcome" && this.windowName !== "about") {
                 // don't read size for the welcome window. Technically it should never change anyways,
                 // but due to a bug with DPI some ended up saving a huge welcome screen that can't be reset without
                 // deleting the appdata files.

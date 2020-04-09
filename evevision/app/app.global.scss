@@ -70,6 +70,16 @@ a {
   }
 }
 
+a {
+  color: $link;
+  font-weight: bold;
+}
+
+a:hover {
+  color: $link-hover;
+  text-decoration: underline;
+}
+
 .new-version-alert {
   animation: text-blink 0.8s linear infinite;
   text-align: right;
@@ -111,13 +121,49 @@ html {
   overflow: hidden;
 }
 
-.hordelogo {
-  width: 100%;
-}
-
 .eve-welcome-bean {
   opacity: 0.8;
   background: url("images/hordelogo.png");
+  background-size: 300px;
+  background-position-y: -30px;
+  background-position-x: -15px;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+@keyframes ricardoFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.ricardo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: url("images/ricardo.gif");
+  background-repeat: repeat-x;
+  background-position-y: bottom;
+  animation: ricardoFade ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 20s;
+  opacity: 0;
+}
+
+.eve-welcome-bean-capf {
+  opacity: 0.8;
+  background: url("images/capf.png");
   background-size: 300px;
   background-position-y: -30px;
   background-position-x: -15px;

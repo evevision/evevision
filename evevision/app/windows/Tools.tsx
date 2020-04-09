@@ -118,6 +118,12 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     }}>Thera Map</Button>
                     <br/><br/><h3>Info</h3>
                     <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://zkillboard.com/character/" + this.props.character!.id);
+                    }}>ZKillboard</Button>
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://evewho.com/");
+                    }}>EVEWho</Button>
+                    <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://wiki.eveuniversity.org/");
                     }}>EVE University</Button>
                     <br/><br/><h3>Entertainment</h3>

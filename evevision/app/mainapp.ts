@@ -119,6 +119,15 @@ export default class MainApp {
                 icon: path.join(__dirname, "evevision.ico"),
                 title: "EveVision is ready"
             })
+
+            app.on('second-instance', (event, commandLine, workingDirectory) => {
+                this.tray!.displayBalloon({
+                    content: "Just login to EVE! Fly without fear, capsuleer.",
+                    iconType: "custom",
+                    icon: path.join(__dirname, "evevision.ico"),
+                    title: "EveVision is already running"
+                })
+            })
         }
     }
 
