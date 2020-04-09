@@ -19,7 +19,8 @@ const About = () => {
                   <div style={{textAlign: 'center'}}>
                       This software is licensed under the GPLv3 license.<br />
                       You can download the source code and new releases from <a href={"https://github.com/evevision/evevision"} target={"_blank"}>https://github.com/evevision/evevision</a>.<br />
-                      For support, please visit our Discord channel at <a href={"https://discord.gg/BBBJRkM"} target={"_blank"}>https://discord.gg/BBBJRkM</a>.
+                      For support, please visit our Discord channel at <a href={"https://discord.gg/BBBJRkM"} target={"_blank"}>https://discord.gg/BBBJRkM</a>.<br />
+                      ISK Donations are accepted to the ingame character <strong>EveVision</strong>.
                   </div><br />
               </Typography><br />
               <Typography>
@@ -28,13 +29,16 @@ const About = () => {
                   Special thanks to CCP for making an awesome game where you can build tools with an API.
               </Typography><br /><br/>
               <Typography>
-                  <h1>Special thanks to Patreon donators!</h1>
-                  You can donate at <a href={"https://patreon.com/evevision"} target={"_blank"}>https://patreon.com/evevision</a> to get your character name here <strong>forever.</strong><br/><br/>
-                  <h3>Deadspace Capsuleers:</h3>
-                  <strong>Mr. Helious Jin-Mei & Mrs. Wheezy Garlic</strong> of <strong>Northern Coalition.</strong><br />
+                  <h1 style={{textAlign: 'center'}}>Special thanks to Patreon donators!</h1>
+                  <h4 style={{textAlign: 'center'}}>You can donate at <a href={"https://patreon.com/evevision"} target={"_blank"}>https://patreon.com/evevision</a> to get your character name here <strong>forever.</strong></h4><br/><br/>
+                  <h1 style={{textAlign: 'center', textDecoration: 'underline'}}>Deadspace Capsuleers</h1>
+                  <h2 style={{textAlign: 'center', fontWeight: 'normal'}}>Mr. Helious Jin-Mei & Mrs. Wheezy Garlic of Northern Coalition.</h2>
                   <br />
-                  <h3>Bronze Capsuleers:</h3>
-                  <strong>Andres M Afanador</strong>
+                  <h2 style={{textAlign: 'center', textDecoration: 'underline'}}>Golden Capsuleers</h2>
+                  <h3  style={{textAlign: 'center', fontWeight: 'normal'}}>Sonya Rovana of Capital Fusion</h3>
+                  <br />
+                  <h3 style={{textAlign: 'center', textDecoration: 'underline'}}>Silver Capsuleers</h3>
+                  <h4 style={{textAlign: 'center', fontWeight: 'normal'}}>Andres M Afanador of DICE / Inner Hell</h4>
               </Typography><br/>
 
             </Panel>
