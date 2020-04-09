@@ -101,7 +101,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                         <Button onClick={() => {
                             ipcRenderer.send("openWindow", "externalsite", "https://discord.gg/BBBJRkM");
                         }}>Help</Button>
-                        {this.props.character.public.corporation_id != 98148549 ? <Button onClick={() => {
+                        {this.props.character.public.corporation_id == 98148549 ? <Button onClick={() => {
                             ipcRenderer.send("openWindow", "ricardo");
                         }}>Morale Boost</Button> : ""}
                         <Button onClick={() => {
