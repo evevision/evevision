@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Panel, Typography, WindowButtons} from '../ui/Layout';
 import {Button} from '../ui/Input';
-import {ipcRenderer, shell} from "electron"
+import {ipcRenderer} from "electron"
 import {updateCharacterPublicInfo} from "../store/characters/actions";
 import {AppState} from "../store/rootReducer";
 import {connect} from "react-redux";
@@ -45,7 +45,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
         // go ahead and update this character's data
         this.props.updateCharacterPublicInfo(this.props.characterId);
         document.title = "EveVision " + version
-        this.versionCheckTimer = setInterval(this.checkForLatestVersion, 10*60*1000) // every 10 minutes
+        this.versionCheckTimer = setInterval(this.checkForLatestVersion, 15*60*1000) // every 15 minutes
         this.checkForLatestVersion();
     }
 
@@ -61,6 +61,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
             case ApiConnectionStatus.CONNECTED: return "Connected to api.eve.vision"
         }
     }
+
     render() {
         if(this.props.character === undefined || this.props.character.public === undefined) {
             return (<>
