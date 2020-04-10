@@ -52,8 +52,7 @@ There is also the native node module that injects the DLL at `/hooker` (which wi
 This is obviously a very early release. I haven't finished cleaning up build processes, especially for open source consumption. There isn't much 'development/production' separation at this time. Even the folder structure is likely to change.
 
 You will need to download two dependencies:
-* libminhook
-* flatc.exe
+* flatc.exe (https://github.com/google/flatbuffers)
 
 You will need the following installed:
 * Python2

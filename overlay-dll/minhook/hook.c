@@ -31,7 +31,7 @@
 #include <tlhelp32.h>
 #include <limits.h>
 
-#include "../include/MinHook.h"
+#include "MinHook.h"
 #include "buffer.h"
 #include "trampoline.h"
 
