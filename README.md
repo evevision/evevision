@@ -51,8 +51,8 @@ There is also the native node module that injects the DLL at `/hooker` (which wi
 
 This is obviously a very early release. I haven't finished cleaning up build processes, especially for open source consumption. There isn't much 'development/production' separation at this time. Even the folder structure is likely to change.
 
-You will need to download two dependencies:
-* flatc.exe (https://github.com/google/flatbuffers)
+You will need to download:
+* flatc.exe (https://github.com/google/flatbuffers) - put this in your PATH or inside the fb directory
 
 You will need the following installed:
 * Python2
@@ -62,9 +62,9 @@ You will need the following installed:
 
 Steps:
 1. Clone (or extract ZIP of) repo to a local directory.
-2. Inside the `fb` directory, run `build.ps1` to generate the flatbuffer schema files.
+2. Inside the `fb` directory, run `build.ps1` to generate and copy the flatbuffer schema files.
 3. Inside the `evevision` directory, run `yarn install`.
-4. Open `/overlay-dll/overlay.vcxproj` in Visual Studio and build the project.
+4. Inside the `overlay-dll` directory, run `build.ps1` to build the overlay DLL.
 5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`. Please ensure Sentry is disabled if you package the app so we don't receive false error reports!
 
 If you want to make changes to overlay-node or hooker and test them, you should use yarn link. Otherwise, you'll need to reinstall the package every time a change is made, since yarn just copies it over otherwise. You need to run `node-gyp rebuild` to compile the changes.
