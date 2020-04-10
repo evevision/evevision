@@ -1,4 +1,5 @@
 # The EVE Online UI you always wanted.
+![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
 ![evevision-ss-1](https://user-images.githubusercontent.com/62183293/79017084-7f2bff00-7b3e-11ea-92c9-0f0fcf91ff19.png)
 ![evevision-ss-2](https://user-images.githubusercontent.com/62183293/79017087-7fc49580-7b3e-11ea-9087-b63dadd9c1dd.png)
 
@@ -18,7 +19,7 @@ There is no complex setup process. Simply download the latest EXE from the [rele
 
 ![ev-ss-4](https://user-images.githubusercontent.com/62183293/79017654-ded6da00-7b3f-11ea-96b5-217b1e9e1274.png)
 
-Log into EVE and play as you normally would - the rest will come naturally to you. If there is a new version available, it will let you know. Note that the bean only shows for members of Pandemic Horde.
+Log into EVE and play as you normally would - the rest will come naturally to you. If there is a new version available, it will let you know. Note that the background only shows for members of Pandemic Horde, this will be customizable soon!
 
 ![ev-ss-5](https://user-images.githubusercontent.com/62183293/79019099-86094080-7b43-11ea-8f43-94f559fb3b53.png)
 
