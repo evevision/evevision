@@ -38,10 +38,13 @@ export default class MainApp {
         } else {
             // packaged
             let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
-            let newDllPath = path.join(dirPath, "../../evevision_overlay.dll"); // should end up in root of temp folder
+            let salt = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
+            let newDllPath = path.join(dirPath, "../../evevision_overlay" + salt + ".dll"); // should end up in root of temp folder
             if(fs.existsSync(tempDllPath)) {
                 // move the DLL. due to an unknown bug with the packaged app extraction, if you rerun evevision it won't extract the DLL the second time
-                fs.renameSync(tempDllPath, newDllPath);
+                if(!fs.existsSync(newDllPath)) {
+                    fs.renameSync(tempDllPath, newDllPath);
+                }
             }
             this.dllPath = newDllPath;
         }
