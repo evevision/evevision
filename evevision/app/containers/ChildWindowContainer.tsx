@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {ipcRenderer} from 'electron';
+const log = require('electron-log');
+
 interface ChildWindowContainerProps {
     url: string
 }
@@ -27,8 +29,13 @@ class ChildWindowContainer extends Component<ChildWindowContainerProps, ChildWin
     }
 
     componentDidMount(): void {
-        const bounds = this.containerRef.current.getBoundingClientRect();
-        ipcRenderer.send("createChildWindow", this.props.url, bounds.x, bounds.y, Math.ceil(bounds.width), Math.ceil(bounds.height))
+        setImmediate(() => {
+            // try pushing it into the next event tick.
+            // not sure why, but sometimes the childwindow initializes with the wrong height.
+            const bounds = this.containerRef.current.getBoundingClientRect();
+            log.info("Initializing child window with dimensions " + Math.ceil(bounds.width) + "x" + Math.ceil(bounds.height))
+            ipcRenderer.send("createChildWindow", this.props.url, bounds.x, bounds.y, Math.ceil(bounds.width), Math.ceil(bounds.height))
+        })
         window.addEventListener("resize", this.updateDimensions)
     }
 
