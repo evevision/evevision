@@ -25,7 +25,7 @@ Log into EVE and play as you normally would - the rest will come naturally to yo
 
 ![ev-ss-5](https://user-images.githubusercontent.com/62183293/79019099-86094080-7b43-11ea-8f43-94f559fb3b53.png)
 
-If you are ever on an official CCP website (i.e. for ESI authentication) the window will flash green.
+If you are ever on an official CCP website (i.e. for ESI authentication) the window will flash green *all the way to the edge of the window as shown below*
 ![flashing window](https://user-images.githubusercontent.com/62183293/79035531-88908800-7b8d-11ea-9b4b-eac06576b91a.gif)
 
 To shut down EveVision, simply select Quit from the tray menu where you change your volume and network settings in Windows.
