@@ -1,0 +1,11 @@
+.eve-jukebox-button-list {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.eve-jukebox-playlist-container {
+    margin-top: 10px;
+    height: calc(100vh - 105px);
+    overflow-y: auto;
+}
