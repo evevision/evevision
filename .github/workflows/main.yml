@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1.4.1
+      with:
+        # Version Spec of the version to use.  Examples: 10.x, 10.15.1, >=10.15.0
+        node-version: 12.6.1
+
+    - name: Setup Python
+      uses: actions/setup-python@v1.2.0
+      with:
+        python-version: 2.x
+        architecture: x64
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+      
+    - name: Run build script
+      run: .\build.ps1
+      shell: powershell
