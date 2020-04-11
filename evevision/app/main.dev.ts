@@ -13,7 +13,7 @@ import {version} from './package.json';
 const locked = app.requestSingleInstanceLock()
 
 if (!locked) {
-    app.quit()
+    app.exit(0)
 } else {
     // this is only for production builds being released on github
     // it reports exceptions so I can know if a new release is causing issues for any number of users immediately
@@ -52,10 +52,8 @@ if (!locked) {
         app.quit()
     });
 
-    app.on('ready', init);
-
-    app.on('activate', () => {
-        if (mainApp === null) init();
+    app.on('ready', () => {
+        if (!mainApp) init();
     });
 
 }
