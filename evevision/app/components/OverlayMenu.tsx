@@ -107,7 +107,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
             <div className="eve-overlay-menu-expander" onClick={this.toggleExpand} onContextMenu={this.minimizeAll}><FontAwesomeIcon icon={faBiohazard} className={"eve-overlay-menu-expander-icon"}/></div>
             <div className="eve-overlay-menu-contents">
                 <div className="eve-overlay-menu-title">Minimized Windows</div>
-                <div className="eve-minimized-windows-list">
+                <div className="eve-minimized-windows-list eve-scrollbar">
                     {this.state.minimizedWindows.map(w => this.windowEntry(w))}
                 </div>
                 <div className="eve-overlay-menu-buttons">
