@@ -62,10 +62,9 @@ export default class MainApp {
     handleLocalEveAuth = (request, callback) => {
         const authCode = request.url.substr(33)
         console.log("Eve ESI auth code intercepted", authCode);
-        // The auth tokens are here on purpose. I want most ESI calls run from the local machine and that requires having
-        // the keys locally. Can't do anything with this without another character's secret key anyways.
+        // ESI is disabled for now.
         superagent.post("https://login.eveonline.com/oauth/token")
-            .auth("98de84087ae042c9aaca2ce0491e1e92", "t7fLccg2KmZVDWbTzvxgOz45P2E0bfHRS64leOJX")
+            .auth("", "")
             .send({grant_type: 'authorization_code', code: authCode})
             .then((success) => {
                 const accessToken = success.body.access_token
@@ -156,6 +155,13 @@ export default class MainApp {
         return this.hooker.injectProcess({...window, dllPath: this.dllPath})
     }
 
+    private initCharacter(characterName: string, id: number) {
+        log.info("Character ID found for " + characterName + ":" + id)
+        const eveInstance = new EveInstance(characterName, id);
+        this.eveInstances.set(characterName, eveInstance);
+        eveInstance.start();
+    }
+
     private startEveInstance(characterName: string, window: Hooker.IWindow) {
         this.injectedPids.add(window.processId)
 
@@ -165,11 +171,19 @@ export default class MainApp {
 
         if(result.injectSucceed) {
             log.info("Injection successful", characterName)
+
+            const state: any = store.getState();
+            if(state && state.characters && state.characters.characters) {
+                const cachedChar = state.characters.characters.find(c => c.public.name === characterName)
+                if(cachedChar) {
+                    log.info("Loaded character ID for '" + characterName + "' from state")
+                    this.initCharacter(characterName, cachedChar.id)
+                    return;
+                }
+            }
+
             getCharacterIdByName(characterName).then((id) => {
-                log.info("Character ID found for " + characterName + ":" + id)
-                const eveInstance = new EveInstance(characterName, id);
-                this.eveInstances.set(characterName, eveInstance);
-                eveInstance.start();
+                this.initCharacter(characterName, id);
             }).catch((err) => {
                 log.error("Error getting character ID for " + characterName, err)
                 // not sure what to do here
