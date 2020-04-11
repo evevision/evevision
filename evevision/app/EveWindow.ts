@@ -19,7 +19,8 @@ const defaultSizes = {
     "tools":        {width: 375, height: 400},
     "auth":         {width: 400, height: 500},
     "externalsite": {width: 600, height: 500},
-    "ricardo":      {width: 1250, height: 750}
+    "ricardo":      {width: 1250, height: 750},
+    "jukebox":      {width: 600, height: 300}
 }
 
 const dragBorder = 5;
@@ -331,7 +332,7 @@ export default class EveWindow {
     sendInputEvent(inputEvent: any) {
 
         if(this.minimized || this.closed) { return; }
-
+        
         // transform the event in eveinstance and pass it here
         if (this.childWindow !== undefined && this.childRect !== undefined) {
 
@@ -374,7 +375,7 @@ export default class EveWindow {
                 }
             }
         } else {
-
+            
             // no child window, just send it to our main window
             this.electronWindow.webContents.sendInputEvent(inputEvent);
         }

@@ -33,8 +33,8 @@ export default class EveInstance {
     }
 
     public createWindow(windowName: string, itemId: string) {
-
-        const uniqueWindows = ["tools", "auth", "beanwatch", "about", "settings"]
+        
+        const uniqueWindows = ["tools", "auth", "beanwatch", "about", "settings", "jukebox"]
 
         if(uniqueWindows.includes(windowName)) {
             // make sure we don't have one open already

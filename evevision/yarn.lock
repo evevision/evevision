@@ -1127,6 +1127,11 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@scarf/scarf@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-0.1.5.tgz#fc4cc88294eca336eed9a91549180346de5e6946"
+  integrity sha512-Fx6atDc7JM1r0WkPCDhNetVZNp+DO21q/HGlomAKBG+k8vb1B8fg8Yige4oCf1P9OWTZWm5tM5i3jlXhrSbNOg==
+
 "@sentry/apm@5.13.2":
   version "5.13.2"
   resolved "https://registry.yarnpkg.com/@sentry/apm/-/apm-5.13.2.tgz#3a0809912426f52e19b1f4a603e99423a0ac8fb9"
@@ -1388,6 +1393,13 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
+
+"@types/react-table@^7.0.15":
+  version "7.0.15"
+  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-7.0.15.tgz#240a8dc9376067b08179d4145517920fd29e3bd3"
+  integrity sha512-DXbBFE0aniirEDYFl0kJh7HGb7AGKyKlD3Z9y80fE/4CXsjVwJ254K643j0/3qaV2tz56oKmkjui1XL4S5Lubg==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-test-renderer@^16.9.2":
   version "16.9.2"
@@ -8350,6 +8362,13 @@ react-redux@^7.2.0:
     loose-envify "^1.4.0"
     prop-types "^15.7.2"
     react-is "^16.9.0"
+
+react-table@^7.0.4:
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.0.4.tgz#456838661982c83c3682f156c59a41b4339a2120"
+  integrity sha512-Uqpj+VnUIvsNWNtNFD1z2i7OCHdlhoJtQt0DWx3XOkZnvDyI/eCghK8YBfA9mY4TW7vEgCDLaRCcREC/fmcx6Q==
+  dependencies:
+    "@scarf/scarf" "^0.1.5"
 
 react-test-renderer@^16.13.0:
   version "16.13.0"

@@ -1,0 +1,407 @@
+{
+    "name": "EVE Soundtrack",
+    "tracks": [
+      {
+        "duration": "6:12",
+        "title": "Miner Stories",
+        "number": 1,
+        "soundCloudTrackId": 62931261
+      },
+      {
+        "duration": "6:38",
+        "title": "Hidden Mementos",
+        "number": 2,
+        "soundCloudTrackId": 62931258
+      },
+      {
+        "duration": "6:14",
+        "title": "War Relics",
+        "number": 3,
+        "soundCloudTrackId": 62931265
+      },
+      {
+        "duration": "5:37",
+        "title": "Red Glowing Dust",
+        "number": 4,
+        "soundCloudTrackId": 62931262
+      },
+      {
+        "duration": "6:01",
+        "title": "Costs of Conflict",
+        "number": 5,
+        "soundCloudTrackId": 46584180
+      },
+      {
+        "duration": "5:02",
+        "title": "Jovian Riddle",
+        "number": 6,
+        "soundCloudTrackId": 62931259
+      },
+      {
+        "duration": "6:01",
+        "title": "Lost Wormhole",
+        "number": 7,
+        "soundCloudTrackId": 46584186
+      },
+      {
+        "duration": "4:37",
+        "title": "Below the Asteroids",
+        "number": 8,
+        "soundCloudTrackId": 62931252
+      },
+      {
+        "duration": "6:59",
+        "title": "Forsaken Ruins",
+        "number": 9,
+        "soundCloudTrackId": 62931267
+      },
+      {
+        "duration": "5:58",
+        "title": "Surplus of Rare Artifacts",
+        "number": 10,
+        "soundCloudTrackId": 62931307
+      },
+      {
+        "duration": "6:25",
+        "title": "The Green Nebula",
+        "number": 11,
+        "soundCloudTrackId": 62931274
+      },
+      {
+        "duration": "5:33",
+        "title": "Primordial Star Clouds",
+        "number": 12,
+        "soundCloudTrackId": 62931296
+      },
+      {
+        "duration": "5:14",
+        "title": "The Jovian Front",
+        "number": 13,
+        "soundCloudTrackId": 62931308
+      },
+      {
+        "duration": "4:54",
+        "title": "My Other Residency",
+        "number": 14,
+        "soundCloudTrackId": 62931285
+      },
+      {
+        "duration": "6:35",
+        "title": "Merchants, Looters, and Ghosts",
+        "number": 15,
+        "soundCloudTrackId": 62931283
+      },
+      {
+        "duration": "5:44",
+        "title": "Safe Trade Routes",
+        "number": 16,
+        "soundCloudTrackId": 62931300
+      },
+      {
+        "duration": "4:54",
+        "title": "Last Power Cell",
+        "number": 17,
+        "soundCloudTrackId": 46584185
+      },
+      {
+        "duration": "5:40",
+        "title": "EVE of Battle",
+        "number": 18,
+        "soundCloudTrackId": 62931257
+      },
+      {
+        "duration": "5:09",
+        "title": "Nouvelle Rouvenor Hero",
+        "number": 19,
+        "soundCloudTrackId": 62931289
+      },
+      {
+        "duration": "6:06",
+        "title": "Inter-Spatial-Flexure",
+        "number": 20,
+        "soundCloudTrackId": 46584184
+      },
+      {
+        "duration": "7:24",
+        "title": "Infinite Distortion of Space and Time",
+        "number": 21,
+        "soundCloudTrackId": 46584183
+      },
+      {
+        "duration": "5:54",
+        "title": "Tomorrows Neverending Yesterday",
+        "number": 22,
+        "soundCloudTrackId": 62931312
+      },
+      {
+        "duration": "5:15",
+        "title": "Gallentean Refuge",
+        "number": 23,
+        "soundCloudTrackId": 62931270
+      },
+      {
+        "duration": "5:40",
+        "title": "Love, Honour and Obey",
+        "number": 24,
+        "soundCloudTrackId": 62931282
+      },
+      {
+        "duration": "4:59",
+        "title": "Everyday Zone",
+        "number": 25,
+        "soundCloudTrackId": 46584182
+      },
+      {
+        "duration": "7:41",
+        "title": "Object Almost Accomplished",
+        "number": 26,
+        "soundCloudTrackId": 46584189
+      },
+      {
+        "duration": "6:25",
+        "title": "Ride Out the Storm",
+        "number": 27,
+        "soundCloudTrackId": 62931298
+      },
+      {
+        "duration": "4:56",
+        "title": "At the End of the Your Journey",
+        "number": 28,
+        "soundCloudTrackId": 46584177
+      },
+      {
+        "duration": "5:49",
+        "title": "Do You Know Where You Are?",
+        "number": 29,
+        "soundCloudTrackId": 62931256
+      },
+      {
+        "duration": "4:28",
+        "title": "Home at Last",
+        "number": 30,
+        "soundCloudTrackId": 62931275
+      },
+      {
+        "duration": "5:30",
+        "title": "Miners Heaven",
+        "number": 31,
+        "soundCloudTrackId": 46584187
+      },
+      {
+        "duration": "4:37",
+        "title": "Quaesitum Finished",
+        "number": 32,
+        "soundCloudTrackId": 62931297
+      },
+      {
+        "duration": "5:22",
+        "title": "My Own Binary System",
+        "number": 33,
+        "soundCloudTrackId": 46584188
+      },
+      {
+        "duration": "4:56",
+        "title": "Something Old, Something New",
+        "number": 34,
+        "soundCloudTrackId": 62931306
+      },
+      {
+        "duration": "4:55",
+        "title": "I Saw Your Ship",
+        "number": 35,
+        "soundCloudTrackId": 62931276
+      },
+      {
+        "duration": "4:21",
+        "title": "We Fight Proud for the Holder",
+        "number": 36,
+        "soundCloudTrackId": 46584196
+      },
+      {
+        "duration": "5:21",
+        "title": "The Hunt",
+        "number": 37,
+        "soundCloudTrackId": 46584192
+      },
+      {
+        "duration": "5:36",
+        "title": "Amongst Allies",
+        "number": 38,
+        "soundCloudTrackId": 62931251
+      },
+      {
+        "duration": "6:26",
+        "title": "Theme of the Universe",
+        "number": 39,
+        "soundCloudTrackId": 62931311
+      },
+      {
+        "duration": "5:13",
+        "title": "Defenders of the Orphic World",
+        "number": 40,
+        "soundCloudTrackId": 62931255
+      },
+      {
+        "duration": "5:25",
+        "title": "Treasure the Obscure",
+        "number": 41,
+        "soundCloudTrackId": 46584195
+      },
+      {
+        "duration": "5:46",
+        "title": "Rose of Victory",
+        "number": 42,
+        "soundCloudTrackId": 62931299
+      },
+      {
+        "duration": "5:00",
+        "title": "It's Full of Stars",
+        "number": 43,
+        "soundCloudTrackId": 62931280
+      },
+      {
+        "duration": "5:23",
+        "title": "Smoke From Down Below",
+        "number": 44,
+        "soundCloudTrackId": 62931304
+      },
+      {
+        "duration": "8:08",
+        "title": "...But Still We Go On",
+        "number": 45,
+        "soundCloudTrackId": 62931253
+      },
+      {
+        "duration": "4:58",
+        "title": "In the Depth of Space",
+        "number": 46,
+        "soundCloudTrackId": 62931278
+      },
+      {
+        "duration": "5:01",
+        "title": "Minmatar Rebel Alliance",
+        "number": 47,
+        "soundCloudTrackId": 62931284
+      },
+      {
+        "duration": "5:46",
+        "title": "All Which Was Lost Has Now Been Regained",
+        "number": 48,
+        "soundCloudTrackId": 62931250
+      },
+      {
+        "duration": "4:57",
+        "title": "Borderlines",
+        "number": 49,
+        "soundCloudTrackId": 46584179
+      },
+      {
+        "duration": "5:00",
+        "title": "Wonderlands of the Mind",
+        "number": 50,
+        "soundCloudTrackId": 62931314
+      },
+      {
+        "duration": "5:04",
+        "title": "Omens",
+        "number": 51,
+        "soundCloudTrackId": 46584190
+      },
+      {
+        "duration": "5:30",
+        "title": "The Solitary Pilot",
+        "number": 52,
+        "soundCloudTrackId": 46584193
+      },
+      {
+        "duration": "5:21",
+        "title": "Times of Sanguinity",
+        "number": 53,
+        "soundCloudTrackId": 46584194
+      },
+      {
+        "duration": "5:00",
+        "title": "Doomed Forever",
+        "number": 54,
+        "soundCloudTrackId": 46584181
+      },
+      {
+        "duration": "5:25",
+        "title": "Path of the Cursed",
+        "number": 55,
+        "soundCloudTrackId": 62931290
+      },
+      {
+        "duration": "5:42",
+        "title": "On the Outskirts",
+        "number": 56,
+        "soundCloudTrackId": 46584191
+      },
+      {
+        "duration": "5:36",
+        "title": "Forgotten Places",
+        "number": 57,
+        "soundCloudTrackId": 62931266
+      },
+      {
+        "duration": "5:01",
+        "title": "Precious Ore",
+        "number": 58,
+        "soundCloudTrackId": 62931295
+      },
+      {
+        "duration": "5:18",
+        "title": "It Ends Here",
+        "number": 59,
+        "soundCloudTrackId": 62931279
+      },
+      {
+        "duration": "5:00",
+        "title": "Shifting the Balance of Power",
+        "number": 60,
+        "soundCloudTrackId": 62931302
+      },
+      {
+        "duration": "5:22",
+        "title": "Where Evil Lurks",
+        "number": 61,
+        "soundCloudTrackId": 62931313
+      },
+      {
+        "duration": "5:03",
+        "title": "Point of No Return",
+        "number": 62,
+        "soundCloudTrackId": 62931294
+      },
+      {
+        "duration": "5:18",
+        "title": "Theme From Jita",
+        "number": 63,
+        "soundCloudTrackId": 62931310
+      },
+      {
+        "duration": "5:21",
+        "title": "New Moon",
+        "number": 64,
+        "soundCloudTrackId": 62931286
+      },
+      {
+        "duration": "5:18",
+        "title": "Seek and You Shall Find",
+        "number": 65,
+        "soundCloudTrackId": 62931301
+      },
+      {
+        "duration": "4:54",
+        "title": "Learning From the Past",
+        "number": 66,
+        "soundCloudTrackId": 62931281
+      },
+      {
+        "duration": "5:45",
+        "title": "Close to a Holy Place",
+        "number": 67,
+        "soundCloudTrackId": 62931254
+      }
+    ]
+  }

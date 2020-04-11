@@ -4,6 +4,7 @@ import Welcome from '../windows/Welcome';
 import Beanwatch from '../windows/Beanwatch';
 import Settings from '../windows/Settings';
 import Tools from '../windows/Tools';
+import Jukebox from '../windows/Jukebox';
 import { hot } from 'react-hot-loader/root';
 import store from "../store/renderer";
 import {Provider} from "react-redux";
@@ -26,6 +27,7 @@ function renderWindowContents(characterId: number, windowName: string, itemId: s
     case "auth": return <Auth characterId={characterId}/>
     case "externalsite": return <ExternalSite url={itemId}/>
     case "ricardo": return <Ricardo/>
+    case "jukebox": return <Jukebox />;
     default: return <>UNKNOWN WINDOW {windowName}</>;
   }
 }
