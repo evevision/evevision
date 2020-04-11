@@ -293,6 +293,18 @@ html {
   border: 1px solid $border-active;
 }
 
+@keyframes secure-blink {
+  50% {
+    background-color: rgba(40, 200, 40, 0.5);
+  }
+}
+
+.eve-panel.secure {
+
+  background-color: rgba(40, 200, 40, 0.8);
+  animation: secure-blink 1s linear infinite;
+}
+
 .eve-overlay {
   display: flex;
   flex-direction: column;

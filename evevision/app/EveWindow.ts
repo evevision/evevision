@@ -287,13 +287,19 @@ export default class EveWindow {
             return;
         }
 
-        this.childWindow = new ChildWindow(url, {size: {width, height}, pos: {x, y}}, this.handleChildWindowPaint, this.handleChildWindowCursor, this.handleChildWindowTitle);
+        this.childWindow = new ChildWindow(url, {size: {width, height}, pos: {x, y}}, this.handleChildWindowPaint, this.handleChildWindowCursor, this.handleChildWindowTitle, this.handleChildWindowSecure);
         this.childRect = {size: {width, height}, pos: {x, y}};
     }
 
     private handleChildWindowTitle = (title: string) => {
         if(!this.closed && this.windowName == "externalsite") {
             this.electronWindow.webContents.send("setTitle", title);
+        }
+    }
+
+    private handleChildWindowSecure = (secure: boolean) => {
+        if(!this.closed && this.windowName == "externalsite") {
+            this.electronWindow.webContents.send("setSecure", secure);
         }
     }
 

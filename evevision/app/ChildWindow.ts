@@ -1,25 +1,48 @@
 import {Rect} from "./EveWindow";
 import {BrowserWindow, shell} from "electron";
-const log = require('electron-log');
 import {version} from './package.json';
+import * as URL from 'url';
+const log = require('electron-log');
+
+// official CCP sites
+const secureHosts = [
+    "eveonline.com",
+    "secure.eveonline.com",
+    "login.eveonline.com",
+    "www.eveonline.com",
+    "forums.eveonline.com",
+    "support.eveonline.com",
+    "updates.eveonline.com",
+    "developers.eveonline.com",
+    "ccpgames.com",
+    "www.ccpgames.com",
+    "store.eve.com",
+    "eveonline-merchandise-store.myshopify.com"
+]
 
 // Currently only used for displaying external websites
 export default class ChildWindow {
 
     public readonly windowId: number
     public url: string
+    public title: string
+    public secure: boolean
+
     private readonly electronWindow: BrowserWindow
     private readonly paintCallback: (dirtyRect: Electron.Rectangle, nativeImage: Electron.NativeImage) => void
     private readonly cursorCallback: (cursor: string) => void
     private readonly titleCallback: (title: string) => void
+    private readonly secureCallback: (secure: boolean) => void
 
-    constructor(url: string, initialRect: Rect, paintCallback: (dirtyRect: Electron.Rectangle, nativeImage: Electron.NativeImage) => void, cursorCallback: (cursor: string) => void, titleCallback: (title: string) => void) {
+    // ok seriously these callbacks are getting dumb, i need to change this
+    constructor(url: string, initialRect: Rect, paintCallback: (dirtyRect: Electron.Rectangle, nativeImage: Electron.NativeImage) => void, cursorCallback: (cursor: string) => void, titleCallback: (title: string) => void, secureCallback: (secure: boolean) => void) {
 
         log.info("Creating child window", url)
 
         this.paintCallback = paintCallback
         this.cursorCallback = cursorCallback
         this.titleCallback = titleCallback
+        this.secureCallback = secureCallback;
         this.url = url
 
         const options: Electron.BrowserWindowConstructorOptions = {
@@ -76,10 +99,49 @@ export default class ChildWindow {
         this.electronWindow.setContentSize(width, height)
     }
 
+    setTitle(title: string): void {
+        this.title = title
+        this.updateTitle();
+    }
+
+    updateTitle(): void {
+        this.titleCallback(this.title + (this.secure ? ' (Verified CCP Website)' : ''))
+    }
+
+    setSecure(secure: boolean): void {
+        this.secureCallback(secure);
+        this.secure = secure;
+        this.updateTitle();
+    }
+
     private hookWindow() {
+        this.electronWindow.webContents.on("will-navigate", (e, url) => {
+            let parsed = URL.parse(url)
+            if(parsed.hostname && secureHosts.includes(parsed.hostname)) {
+                this.setSecure(true);
+            } else {
+                this.setSecure(false);
+            }
+        })
+
+        this.electronWindow.webContents.on("will-redirect", (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) => {
+            if(isMainFrame) {
+                let parsed = URL.parse(url)
+                if(parsed.hostname && secureHosts.includes(parsed.hostname)) {
+                    this.setSecure(true);
+                } else {
+                    this.setSecure(false);
+                }
+            }
+        })
 
         this.electronWindow.webContents.on("page-title-updated", (e, title) => {
-            this.titleCallback(title)
+            if(title.includes("Verified CCP Website")) {
+                // somebody is being bad, get them out of there
+                // TODO: improve this check
+                this.electronWindow.webContents.loadURL("about:blank");
+            }
+            this.setTitle(title);
         })
 
         this.electronWindow.webContents.on("new-window", (e, url) => {
