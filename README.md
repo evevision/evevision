@@ -1,6 +1,8 @@
-# The EVE Online UI you always wanted.
+# The EVE Online UI you've always wanted.
+![eveeye-ss](https://user-images.githubusercontent.com/62183293/79039585-2b59fe00-7bb0-11ea-91d0-6bb15389dbac.png)
 ![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
 ![evevision-ss-1](https://user-images.githubusercontent.com/62183293/79017084-7f2bff00-7b3e-11ea-92c9-0f0fcf91ff19.png)
+![abyssal-ss](https://user-images.githubusercontent.com/62183293/79039631-9b688400-7bb0-11ea-835e-3ce72758e16e.png)
 ![evevision-ss-2](https://user-images.githubusercontent.com/62183293/79017087-7fc49580-7b3e-11ea-9087-b63dadd9c1dd.png)
 
 [Video Demonstration](https://streamable.com/iu729v)
@@ -23,7 +25,8 @@ Log into EVE and play as you normally would - the rest will come naturally to yo
 
 ![ev-ss-5](https://user-images.githubusercontent.com/62183293/79019099-86094080-7b43-11ea-8f43-94f559fb3b53.png)
 
-If you are ever on an official CCP website (i.e. for ESI authentication) the window will flash green.
+If you are ever on an official CCP website (i.e. for ESI authentication) the window will flash green *all the way to the edge of the window as shown below*
+
 ![flashing window](https://user-images.githubusercontent.com/62183293/79035531-88908800-7b8d-11ea-9b4b-eac06576b91a.gif)
 
 To shut down EveVision, simply select Quit from the tray menu where you change your volume and network settings in Windows.

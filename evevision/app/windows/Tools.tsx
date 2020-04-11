@@ -134,6 +134,9 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     }}>EVE University</Button>
                     <br/><br/><h3>Entertainment</h3>
                     <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "jukebox");
+                    }}>Jukebox</Button>
+                    <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://www.youtube.com/");
                     }}>Youtube</Button>
                     <Button onClick={() => {
