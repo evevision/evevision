@@ -88,6 +88,12 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://ore.cerlestes.de/ore");
                     }}>Ore Tables</Button>
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://mutaplasmid.space/");
+                    }}>Abyssal Market</Button>
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://www.eve-mogul.com/");
+                    }}>EVE Mogul</Button>
                     <br/><br/><h3>Communication</h3>
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://translate.google.com/");

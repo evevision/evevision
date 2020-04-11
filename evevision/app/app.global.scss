@@ -159,6 +159,7 @@ html {
   animation-fill-mode: forwards;
   animation-delay: 20s;
   opacity: 0;
+  z-index: -99999;
 }
 
 .eve-welcome-bean-capf {
