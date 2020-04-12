@@ -40,9 +40,6 @@ jobs:
     - name: Build overlay DLL
       run: yarn build-overlay
 
-    - name: Build native node module
-      run: yarn build-native
-
     - name: Build renderer process
       run: yarn build-renderer
 
