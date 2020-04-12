@@ -1,0 +1,18 @@
+{
+  "name": "evevision",
+  "productName": "EveVision",
+  "author": "Jaydubs",
+  "version": "0.4.3",
+  "description": "The EVE UI you've always wanted",
+  "main": "./main.prod.js",
+  "scripts": {
+    "electron-rebuild": "node -r ../scripts/BabelRegister.js ../scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@types/react-redux": "^7.1.7",
+    "@types/superagent": "^4.1.7",
+    "@types/ws": "^7.2.2"
+  }
+}
