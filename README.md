@@ -33,6 +33,16 @@ To shut down EveVision, simply select Quit from the tray menu where you change y
 
 ![ev-ss-3](https://user-images.githubusercontent.com/62183293/79017565-a8995a80-7b3f-11ea-82f0-3c292e0f34bb.png)
 
+#### Want to build it yourself? It's really easy!
+
+Assuming you've got node, python, yarn, and VS2019 build tools installed:
+```
+git clone git@github.com:/evevision/evevision.git
+cd evevision
+yarn package # OR yarn dev to run in development mode!
+```
+Read the rest of the README for more info.
+
 # Donations
 
 You can donate ISK to the character `EveVision` ingame!
@@ -118,10 +128,14 @@ Issues and pull requests are reviewed. If you have an idea, hop on Discord and I
 
 
 ### Tips
-EveVision consists of a Node/React-based Electron app at `/app`, a C++ DLL that is injected into your game's process at `/overlay`, and a native node module for injecting and communicating with the DLL at `/native`. There are also FlatBuffer schemas inside of `/flatbuffers/schema` that are used for communication between the DLL and native node module.
+EveVision consists of the following components:
+* Node/React-based Electron app inside `app`
+* C++ DLL that is injected into your game's process inside `overlay`
+* Native node module for injecting and communicating with the DLL inside `native`. 
+* FlatBuffer schemas inside `/flatbuffers/schema` that are used for communication between the DLL and native node module.
 
 If you have never worked with Electron before, the main thing to know is that there is a **main process** that uses **NodeJS** and then **renderer processes** for each window that are **Chromium**. 
-While they both reside in `/app`, there are two different entry points. The renderer process begins at `/app/index.tsx` and the main process begins at `/app/main.dev.ts`. They communicate via Electron's IPC module.
+While they both reside in `app`, there are two different entry points. The renderer process begins at `app/index.tsx` and the main process begins at `app/main.dev.ts`. They communicate via Electron's IPC module.
 
 It is the renderer process where React developers will feel most at home, as you are doing nothing more than developing a React app. This is where the actual UI is, rather than all the window, input, and process
 management code.
@@ -130,24 +144,26 @@ Think of the renderers as the frontend and the main process as the backend.
 
 ## Building
 
-This application can only be built and run on Windows x64.
+This application can only be built and run on Windows x64. However, it is extraordinarily easy to do so - no prior Windows development experience is required! I'm primarily a linux dev myself, and Windows repos scare me too. Every single thing is handled for you via yarn scripts.
 
 You will need the following installed:
-* [Python2](https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi)
+* [Python 2](https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi)
 * [Node v12](https://nodejs.org/dist/v12.16.2/node-v12.16.2-x64.msi)
 * [Yarn Package Manager](https://classic.yarnpkg.com/latest.msi)
 * [Visual Studio 2017-2019 Build Tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16#) (you only need C++ Build Tools from installer)
 
-Download the repo by cloning it or getting the ZIP and extracting it to a local directory of your choice. Go to the directory in your terminal and then run `yarn install`.
+Download the repo by cloning it or getting the ZIP and extracting it to a local directory of your choice.
 
 #### Packaged Executable
-Run `yarn package` and a packaged executable will be output to `/release/EveVision VERSION.exe`. All components will be built to ensure the latest code is packaged.
-To package the app without running any builds, use `yarn package-no-build` instead.
+Run `yarn package` and a packaged executable will be output to `release/EveVision VERSION.exe`.
+
+All components will be built to ensure the latest code is packaged.
+To quickly repackage the app without running any builds, use `yarn package-no-build` instead.
 
 #### Development Mode
-If you're working on EveVision you'll generally want to use development mode so you can see your changes real-time ingame.
+Simply run `yarn dev`
 
-It's as simple as running `yarn dev`. All components will be built beforehand to ensure the latest code is running. To start development mode without rebuilding any native code, run `yarn dev-skip-build` instead.
+All components will be built beforehand to ensure the latest code is running. To quickly start development mode without running any builds, run `yarn dev-skip-build` instead. Hot-reloading will be enabled so you can see your changes inside EVE in real time.
 
 #### Making changes to C++
 If you make any changes to the C++, you need to know a few things:
