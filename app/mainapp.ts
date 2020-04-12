@@ -33,7 +33,7 @@ export default class MainApp {
 
         let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
         let salt = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
-        let newDllPath = "%appdata%/evevision_overlay_" + salt + ".dll");
+        let newDllPath = process.env.APPDATA + "/evevision_overlay_" + salt + ".dll";
         if(fs.existsSync(tempDllPath)) {
             // move the DLL.
             // in development, we do this so the compiler can replace the file without shutting down EVE.

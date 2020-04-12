@@ -147,7 +147,7 @@ To package the app without running any builds, use `yarn package-no-build` inste
 #### Development Mode
 If you're working on EveVision you'll generally want to use development mode so you can see your changes real-time ingame.
 
-It's as simple as running `yarn dev`. All components will be built beforehand to ensure the latest code is running. To start development mode without rebuilding any native code, run `yarn dev-skip-native` instead.
+It's as simple as running `yarn dev`. All components will be built beforehand to ensure the latest code is running. To start development mode without rebuilding any native code, run `yarn dev-skip-build` instead.
 
 #### Making changes to C++
 If you make any changes to the C++, you need to know a few things:
