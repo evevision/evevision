@@ -28,23 +28,26 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.0
 
-    - name: Install packages
-      run: yarn install
+      # The steps are ordered based on least likely to change to most likely to change.
+      # It makes CICD much more efficient with caches.
 
     - name: Build flatbuffer definitions
       run: yarn build-flatbuffers
 
-    - name: Build native node module
-      run: yarn build-native
+    - name: Install packages
+      run: yarn install
 
     - name: Build overlay DLL
       run: yarn build-overlay
 
-    - name: Build renderer process
-      run: yarn build-renderer
+    - name: Build native node module
+      run: yarn build-native
 
     - name: Build main process
       run: yarn build-main
+
+    - name: Build renderer process
+      run: yarn build-renderer
 
     - name: Package
       run: yarn package-no-build

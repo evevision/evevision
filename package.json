@@ -26,6 +26,10 @@
     "package-no-build": "copyfiles -f output/overlay/Release/evevision_overlay.dll . && electron-builder build --win --x64 --publish never && del evevision_overlay.dll",
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/evevision/evevision.git"
+  },
   "build": {
     "productName": "EveVision",
     "appId": "com.evevision",

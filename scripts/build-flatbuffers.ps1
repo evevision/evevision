@@ -1,5 +1,3 @@
-# This is dumb but I can't get node-gyp to find these files when its called outside of its directory (i.e. when you yarn install on the root project)
-
 function Extract-File($source, $pattern, $destination) {
     Add-Type -Assembly System.IO.Compression.FileSystem
 

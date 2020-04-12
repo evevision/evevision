@@ -6,8 +6,6 @@
   "description": "The EVE UI you've always wanted",
   "main": "./main.prod.js",
   "scripts": {
-    "electron-rebuild": "node -r ../scripts/BabelRegister.js ../scripts/ElectronRebuild.js ../scripts/CleanupNativeBuild.js",
-    "postinstall": "yarn electron-rebuild"
   },
   "license": "GPL-3.0",
   "dependencies": {
