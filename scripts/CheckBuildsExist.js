@@ -3,14 +3,20 @@ import path from 'path';
 import chalk from 'chalk';
 import fs from 'fs';
 
-const mainPath = path.join(__dirname, '..', '..', 'app', 'main.prod.js');
+const mainPath = path.join(__dirname, '..', 'app', 'main.prod.js');
 const rendererPath = path.join(
   __dirname,
-  '..',
   '..',
   'app',
   'dist',
   'renderer.prod.js'
+);
+const nativePath = path.join(
+  __dirname,
+  '..',
+  'build',
+  'Release',
+  'overlay.node'
 );
 
 if (!fs.existsSync(mainPath)) {
@@ -26,5 +32,13 @@ if (!fs.existsSync(rendererPath)) {
     chalk.whiteBright.bgRed.bold(
       'The renderer process is not built yet. Build it by running "yarn build-renderer"'
     )
+  );
+}
+
+if (!fs.existsSync(nativePath)) {
+  throw new Error(
+      chalk.whiteBright.bgRed.bold(
+          'The native node module is not built yet. Build it by running "yarn build-native"'
+      )
   );
 }

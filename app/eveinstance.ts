@@ -1,7 +1,7 @@
 import {ipcMain, IpcMainEvent} from "electron";
 import ApiClient from "./api/client";
 import EveWindow from "./EveWindow";
-import Overlay from 'overlay'
+import Overlay from '../native';
 import FullscreenOverlay from "./FullscreenOverlay";
 const log = require('electron-log');
 

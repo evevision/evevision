@@ -1,5 +1,5 @@
 import {BrowserWindow, shell, ipcMain, IpcMainEvent} from "electron";
-import Overlay from 'overlay';
+import Overlay from '../native';
 import EveInstance from "./eveinstance";
 const log = require('electron-log');
 

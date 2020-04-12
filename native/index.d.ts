@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-declare module "connector" {
+declare namespace overlay {
 
     export interface IRectangle {
         x: number;
@@ -72,3 +72,5 @@ declare module "connector" {
     export function injectProcess(process: IProcessThread): IInjectResult;
 
 }
+
+export = overlay

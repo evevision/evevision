@@ -4,23 +4,26 @@
   "version": "0.4.3",
   "description": "The EVE UI you've always wanted",
   "scripts": {
-    "swagger": "node -r @babel/register ./scripts/GenerateEsiSwagger.js",
-    "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
-    "build-overlay": "node-gyp rebuild",
-    "build-renderer-dev-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
+    "preinstall": "node -r @babel/register ./scripts/CheckYarn.js",
+    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build-renderer-dev-dll",
+    "build": "concurrently \"yarn build-cpp\" \"yarn build-js\"",
+    "build-cpp": "yarn build-flatbuffers && concurrently \"yarn build-native\" \"yarn build-overlay\"",
+    "build-js": "concurrently \"yarn build-renderer\" \"yarn build-main\"",
+    "build-overlay": "node -r @babel/register scripts/BuildOverlay.js",
+    "build-swagger": "node -r @babel/register ./scripts/GenerateEsiSwagger.js",
     "build-main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.main.prod.babel.js --colors",
     "build-renderer": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.renderer.prod.babel.js --colors",
-    "dev": "cross-env START_HOT=1 node -r @babel/register ./scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
-    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
-    "ts": "tsc",
-    "package": "yarn build && electron-builder build --publish never",
-    "package-win": "yarn build && copyfiles ../build/evevision_overlay.dll ./evevision_overlay.dll && electron-builder build --win --x64",
-    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build-renderer-dev-dll",
-    "preinstall": "node ./scripts/CheckYarn.js",
+    "build-flatbuffers": "node -r @babel/register scripts/BuildFlatbuffers.js",
+    "build-native": "node -r @babel/register scripts/BuildNative.js",
+    "build-dev": "concurrently \"yarn build-cpp\" \"yarn build-renderer-dev-dll\"",
     "prestart": "yarn build",
-    "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
+    "start": "node -r @babel/register ./scripts/CheckBuildsExist.js && cross-env NODE_ENV=production electron ./app/main.prod.js",
+    "dev": "cross-env START_HOT=1 node -r @babel/register ./scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
+    "build-renderer-dev-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
+    "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./scripts/BabelRegister ./app/main.dev.ts",
-    "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js"
+    "package": "yarn build && copyfiles -f output/overlay/Release/evevision_overlay.dll . && electron-builder build --win --x64 --publish never && del evevision_overlay.dll",
+    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional"
   },
   "build": {
     "productName": "EveVision",
@@ -35,8 +38,8 @@
       "evevision.ico"
     ],
     "extraResources": [
-      "overlay.node",
-      "evevision_overlay.dll"
+      "evevision_overlay.dll",
+      "build/Release/overlay.node"
     ],
     "win": {
       "target": [
@@ -147,6 +150,7 @@
     "@types/ws": "^7.2.2",
     "bindings": "^1.5.0",
     "core-js": "^3.6.4",
+    "del": "^5.1.0",
     "electron": "^9.0.0-beta.9",
     "electron-debug": "^3.0.1",
     "electron-log": "^4.1.1",

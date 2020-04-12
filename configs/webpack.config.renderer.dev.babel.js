@@ -23,7 +23,8 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dll = path.join(__dirname, '..', 'build', 'renderer-dll');
+const dll = path.join(__dirname, '..', 'output', 'renderer-dll');
+const nativeNode = path.join(__dirname, '..', 'build', 'overlay.vcxproj');
 const manifest = path.resolve(dll, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
@@ -32,13 +33,13 @@ const requiredByDLLConfig = module.parent.filename.includes(
 /**
  * Warn if the DLL is not built
  */
-if (!requiredByDLLConfig && !(fs.existsSync(dll) && fs.existsSync(manifest))) {
+if (!requiredByDLLConfig && (!(fs.existsSync(dll) && fs.existsSync(manifest)) || !fs.existsSync(nativeNode))) {
   console.log(
     chalk.black.bgYellow.bold(
-      'The renderer development DLL files are missing. Sit back while we build them for you with "yarn build-renderer-dev-dll"'
+      'Building native code'
     )
   );
-  execSync('yarn build-renderer-dev-dll');
+  execSync('yarn build-dev');
 }
 
 export default merge.smart(baseConfig, {

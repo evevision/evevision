@@ -19,20 +19,20 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <PlatformToolset>v142</PlatformToolset>
-    <OutputDirectory>$(SolutionDir)\..\build\overlay\$(Configuration)\</OutputDirectory>
+    <OutputDirectory>$(SolutionDir)\..\output\overlay\$(Configuration)\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>Unicode</CharacterSet>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <IntermediateDirectory>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</IntermediateDirectory>
+    <IntermediateDirectory>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</IntermediateDirectory>
     <PrimaryOutput>evevision_overlay</PrimaryOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <PlatformToolset>v142</PlatformToolset>
-    <OutputDirectory>$(SolutionDir)\..\build\overlay\$(Configuration)\</OutputDirectory>
+    <OutputDirectory>$(SolutionDir)\..\output\overlay\$(Configuration)\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>Unicode</CharacterSet>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <IntermediateDirectory>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</IntermediateDirectory>
+    <IntermediateDirectory>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</IntermediateDirectory>
     <PrimaryOutput>evevision_overlay</PrimaryOutput>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -52,24 +52,24 @@
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\build\overlay\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</IntDir>
+    <OutDir>..\output\overlay\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>..\build\overlay\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</IntDir>
+    <OutDir>..\output\overlay\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\;..\flatbuffers\output;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\output\flatbuffers;..\flatbuffers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew /std:c++latest -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
-      <AssemblerListingLocation>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>None</DebugInformationFormat>
       <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ForcedIncludeFiles>stable.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ObjectFileName>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</ObjectFileName>
+      <ObjectFileName>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stable.h</PrecompiledHeaderFile>
@@ -106,15 +106,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\;..\flatbuffers\output;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\output\flatbuffers;..\flatbuffers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew /std:c++latest -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
-      <AssemblerListingLocation>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ForcedIncludeFiles>stable.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ObjectFileName>$(SolutionDir)\..\build\overlay\Objdir\$(Configuration)\</ObjectFileName>
+      <ObjectFileName>$(SolutionDir)\..\output\overlay\Objdir\$(Configuration)\</ObjectFileName>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stable.h</PrecompiledHeaderFile>
@@ -127,7 +127,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\deps\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>

@@ -29,11 +29,4 @@ if (Test-Path "./flatc" -PathType Leaf) {
     Remove-Item "./flatc.zip"
 }
 
-Invoke-Expression "$flatc --cpp --cpp-std c++17 -o output (Get-Item ./*.fbs) --filename-suffix '""""'"
-
-Remove-Item -Recurse -Force ../overlay-dll/fb -ErrorAction Ignore
-Remove-Item -Recurse -Force ../evevision/fb -ErrorAction Ignore
-$null = New-Item -Path ../overlay-dll/fb -ItemType "directory"
-$null = New-Item -Path ../evevision/fb -ItemType "directory"
-Copy-Item -Recurse output/* ../overlay-dll/fb
-Copy-Item -Recurse output/* ../evevision/fb
+Invoke-Expression "$flatc --cpp --cpp-std c++17 -o ../output/flatbuffers (Get-Item ../flatbuffers/schema/*.fbs) --filename-suffix '""""'"

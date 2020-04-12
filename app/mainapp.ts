@@ -7,7 +7,7 @@ const log = require('electron-log');
 import store from "./store/main";
 import {updateCharacterAuth} from "./store/characters/actions";
 import superagent from 'superagent';
-import Overlay from 'overlay';
+import Overlay from '../native';
 
 require('./store/characters/actions') // we have to require it directly otherwise it gets cut out
 require('./store/characters/reducers') // do dis fix it?
@@ -30,13 +30,13 @@ export default class MainApp {
         let dirPath = process.resourcesPath
         if(dirPath.includes("node_modules")) {
             // we're not inside an electron-builder packaged app
-            dirPath = path.join(dirPath, "../../../../../build");
+            dirPath = path.join(dirPath, "../../../../output/overlay/Release");
             this.dllPath = path.join(dirPath, "evevision_overlay.dll");
         } else {
             // packaged
             let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
             let salt = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
-            let newDllPath = path.join(dirPath, "../../evevision_overlay" + salt + ".dll"); // should end up in root of temp folder
+            let newDllPath = path.join(dirPath, "../../evevision_overlay_" + salt + ".dll"); // should end up in root of temp folder
             if(fs.existsSync(tempDllPath)) {
                 // move the DLL. due to an unknown bug with the packaged app extraction, if you rerun evevision it won't extract the DLL the second time
                 if(!fs.existsSync(newDllPath)) {

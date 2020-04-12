@@ -2,7 +2,7 @@
 
 #include "overlay.h"
 
-namespace connector
+namespace overlay
 {
 
 std::map<std::string, std::shared_ptr<OverlayMain>> overlays;
@@ -549,17 +549,17 @@ Napi::Value injectProcess(const Napi::CallbackInfo &info)
 
 Napi::Object Init(Napi::Env env, Napi::Object exports)
 {
-    exports.Set(Napi::String::New(env, "start"), Napi::Function::New(env, connector::start));
-    exports.Set(Napi::String::New(env, "stop"), Napi::Function::New(env, connector::stop));
-    exports.Set(Napi::String::New(env, "setEventCallback"), Napi::Function::New(env, connector::setEventCallback));
-    exports.Set(Napi::String::New(env, "sendCommand"), Napi::Function::New(env, connector::sendCommand));
-    exports.Set(Napi::String::New(env, "addWindow"), Napi::Function::New(env, connector::addWindow));
-    exports.Set(Napi::String::New(env, "closeWindow"), Napi::Function::New(env, connector::closeWindow));
-    exports.Set(Napi::String::New(env, "setWindowPosition"), Napi::Function::New(env, connector::setWindowPosition));
-    exports.Set(Napi::String::New(env, "sendFrameBuffer"), Napi::Function::New(env, connector::sendFrameBuffer));
-    exports.Set(Napi::String::New(env, "translateInputEvent"), Napi::Function::New(env, connector::translateInputEvent));
-    exports.Set(Napi::String::New(env, "getTopWindows"), Napi::Function::New(env, connector::getTopWindows));
-    exports.Set(Napi::String::New(env, "injectProcess"), Napi::Function::New(env, connector::injectProcess));
+    exports.Set(Napi::String::New(env, "start"), Napi::Function::New(env, overlay::start));
+    exports.Set(Napi::String::New(env, "stop"), Napi::Function::New(env, overlay::stop));
+    exports.Set(Napi::String::New(env, "setEventCallback"), Napi::Function::New(env, overlay::setEventCallback));
+    exports.Set(Napi::String::New(env, "sendCommand"), Napi::Function::New(env, overlay::sendCommand));
+    exports.Set(Napi::String::New(env, "addWindow"), Napi::Function::New(env, overlay::addWindow));
+    exports.Set(Napi::String::New(env, "closeWindow"), Napi::Function::New(env, overlay::closeWindow));
+    exports.Set(Napi::String::New(env, "setWindowPosition"), Napi::Function::New(env, overlay::setWindowPosition));
+    exports.Set(Napi::String::New(env, "sendFrameBuffer"), Napi::Function::New(env, overlay::sendFrameBuffer));
+    exports.Set(Napi::String::New(env, "translateInputEvent"), Napi::Function::New(env, overlay::translateInputEvent));
+    exports.Set(Napi::String::New(env, "getTopWindows"), Napi::Function::New(env, overlay::getTopWindows));
+    exports.Set(Napi::String::New(env, "injectProcess"), Napi::Function::New(env, overlay::injectProcess));
 
     return exports;
 }

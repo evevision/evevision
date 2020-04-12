@@ -1,7 +1,7 @@
 import {BrowserWindow, ipcMain, shell, IpcMainEvent} from "electron";
 import ChildWindow from "./ChildWindow";
 import EveInstance from "./eveinstance";
-import Overlay, {IFrameBuffer} from 'overlay';
+import Overlay, {IFrameBuffer} from '../native';
 import Store from "electron-store"
 const log = require('electron-log');
 

@@ -1,7 +1,12 @@
+app/main.prod.js
+*.css.d.ts
+*.sass.d.ts
+*.scss.d.ts
+swagger.json
+
 # generated
+output/
 build/
-evevision/fb
-overlay/fb
 
 .idea
 
@@ -46,7 +51,7 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
+output/Release
 
 # Dependency directories
 node_modules/
