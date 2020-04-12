@@ -23,6 +23,7 @@
                 "./src/utils/node_async_call.cc",
                 "./src/main.cc"
             ],
+            "libraries": ["user32.lib", "Psapi.lib"],
             "defines": ["NAPI_DISABLE_CPP_EXCEPTIONS", "UNICODE"],
             "cflags!": [
                 "-fno-exceptions"

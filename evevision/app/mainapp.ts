@@ -1,13 +1,13 @@
 import {Menu, protocol, Tray, app} from "electron"
 import fs from 'fs';
 import path from 'path';
-import Hooker from 'hooker';
 import EveInstance from "./eveinstance";
 import {getCharacterIdByName} from "./esi/client"
 const log = require('electron-log');
 import store from "./store/main";
 import {updateCharacterAuth} from "./store/characters/actions";
 import superagent from 'superagent';
+import Overlay from 'overlay';
 
 require('./store/characters/actions') // we have to require it directly otherwise it gets cut out
 require('./store/characters/reducers') // do dis fix it?
@@ -16,7 +16,6 @@ require('./store/characters/reducers') // do dis fix it?
 
 export default class MainApp {
     private markQuit = false
-    private hooker: typeof Hooker
     private tray: Electron.Tray | null
     private eveInstances: Map<string, EveInstance>
     private dllPath: string
@@ -25,8 +24,6 @@ export default class MainApp {
 
     constructor() {
         this.tray = null
-        this.mainWindow = null
-        this.hooker = require("hooker")
         this.eveInstances = new Map()
         this.injectedPids = new Set()
 
@@ -148,7 +145,7 @@ export default class MainApp {
     }
 
     public scanForEve() {
-        const topWindows = this.hooker.getTopWindows();
+        const topWindows = Overlay.getTopWindows();
         topWindows.forEach(window => {
             if(window.exeName.endsWith("exefile.exe") && window.title.startsWith("EVE - ") && !this.injectedPids.has(window.processId)) {
                 const characterName = window.title.replace("EVE - ", "")
@@ -161,9 +158,9 @@ export default class MainApp {
         })
     }
 
-    private injectEveClient(window: Hooker.IWindow) {
+    private injectEveClient(window: Overlay.IWindow) {
         this.injectedPids.add(window.processId)
-        return this.hooker.injectProcess({...window, dllPath: this.dllPath})
+        return Overlay.injectProcess({...window, dllPath: this.dllPath})
     }
 
     private initCharacter(characterName: string, id: number) {
@@ -173,7 +170,7 @@ export default class MainApp {
         eveInstance.start();
     }
 
-    private startEveInstance(characterName: string, window: Hooker.IWindow) {
+    private startEveInstance(characterName: string, window: Overlay.IWindow) {
         this.injectedPids.add(window.processId)
 
         log.info("Injecting", characterName, window, this.dllPath)

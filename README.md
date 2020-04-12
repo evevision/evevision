@@ -117,8 +117,7 @@ This repo is in a very early state for open source development. There's most def
 Issues and pull requests are reviewed. If you have an idea, let me know and I'll let you know if I would pull it in!
 
 ### Internals/Building
-EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `/overlay-dll`, and a native node module for communicating with the injected DLL at `/overlay-node`.
-There is also the native node module that injects the DLL at `/hooker` (which will be merged into the overlay module soon) and FlatBuffer definitions inside of `/fb`
+EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `/overlay-dll`, and a native node module for injecting and communicating with the DLL at `/overlay-node`. There are also FlatBuffer definitions inside of `/fb`.
 
 This is obviously a very early release. I haven't finished cleaning up build processes, especially for open source consumption. There isn't much 'development/production' separation at this time. Even the folder structure is likely to change.
 
@@ -138,7 +137,7 @@ Steps:
 4. Inside the `overlay-dll` directory, run `build.ps1` to build the overlay DLL.
 5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`. Please ensure Sentry is disabled if you package the app so we don't receive false error reports!
 
-If you want to make changes to overlay-node or hooker and test them, you should use yarn link. Otherwise, you'll need to reinstall the package every time a change is made, since yarn just copies it over otherwise. You need to run `node-gyp rebuild` to compile the changes.
+If you want to make changes to overlay-node and test them, you should use yarn link. Otherwise, you'll need to reinstall the package every time a change is made, since yarn just copies it over otherwise. You need to run `node-gyp rebuild` to compile the changes.
 
 ## Thanks
 This project uses portions of code from and was inspired by https://github.com/hiitiger/gelectron

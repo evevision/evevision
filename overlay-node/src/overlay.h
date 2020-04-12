@@ -18,6 +18,7 @@
 #include <map>
 #include "CursorCommand.h"
 #include "ClientMessageContainer.h"
+#include <psapi.h>
 
 #define OVERLAY_DISPATCH(type) \
 case EveVision::IPC::GameMessage::##type:\
