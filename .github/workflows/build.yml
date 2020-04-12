@@ -1,0 +1,47 @@
+name: build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1.4.1
+      with:
+        node-version: 12.x
+
+    - name: Setup Python
+      uses: actions/setup-python@v1.2.0
+      with:
+        python-version: 2.x
+        architecture: x64
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+      
+    - name: Build flatbuffers
+      run: .\build.ps1
+      working-directory: .\fb
+      shell: powershell
+
+    - name: Install dependencies and build native modules
+      run: yarn install
+      working-directory: .\evevision
+    
+    - name: Build DLL
+      run: .\build.ps1
+      working-directory: .\overlay-dll
+      shell: powershell
+      
+    - name: Package EveVision
+      run: yarn package-win
+      working-directory: .\evevision
