@@ -5,7 +5,7 @@
   "description": "The EVE UI you've always wanted",
   "scripts": {
     "preinstall": "node -r @babel/register ./scripts/CheckYarn.js",
-    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build-renderer-dev-dll",
+    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps",
     "build": "concurrently \"yarn build-cpp\" \"yarn build-js\"",
     "build-cpp": "yarn build-flatbuffers && concurrently \"yarn build-native\" \"yarn build-overlay\"",
     "build-js": "concurrently \"yarn build-renderer\" \"yarn build-main\"",
@@ -22,7 +22,8 @@
     "build-renderer-dev-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
     "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./scripts/BabelRegister ./app/main.dev.ts",
-    "package": "yarn build && copyfiles -f output/overlay/Release/evevision_overlay.dll . && electron-builder build --win --x64 --publish never && del evevision_overlay.dll",
+    "package": "yarn build && yarn package-no-build",
+    "package-no-build": "copyfiles -f output/overlay/Release/evevision_overlay.dll . && electron-builder build --win --x64 --publish never && del evevision_overlay.dll",
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional"
   },
   "build": {

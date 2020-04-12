@@ -27,21 +27,27 @@ jobs:
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.0
-      
-    - name: Build flatbuffers
-      run: .\build.ps1
-      working-directory: .\fb
-      shell: powershell
 
-    - name: Install dependencies and build native modules
+    - name: Install packages
       run: yarn install
-      working-directory: .\evevision
-    
-    - name: Build DLL
-      run: .\build.ps1
-      working-directory: .\overlay-dll
-      shell: powershell
-      
-    - name: Package EveVision
-      run: yarn package-win
-      working-directory: .\evevision
+
+    - name: Build flatbuffer definitions
+      run: yarn build-flatbuffers
+
+    - name: Build native node module
+      run: yarn build-native
+
+    - name: Build overlay DLL
+      run: yarn build-overlay
+
+    - name: Build native node module
+      run: yarn build-native
+
+    - name: Build renderer process
+      run: yarn build-renderer
+
+    - name: Build main process
+      run: yarn build-main
+
+    - name: Package
+      run: yarn package-no-build
