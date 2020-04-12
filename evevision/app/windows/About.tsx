@@ -26,7 +26,9 @@ const About = () => {
               <Typography>
                   <h1>Credits</h1><br/>
                   <h4>Jaydubs - Creator & Maintainer</h4>
-                  Special thanks to CCP for making an awesome game where you can build tools with an API.
+                  <h4>Niedar - Jukebox</h4>
+                  <h4>Eris Kirke - Build scripts</h4><br />
+                  Thanks to CCP for allowing a tool like this to exist and giving us APIs to interact with our favorite game. Your neverending support of the developer community is forever appreciated.
               </Typography><br /><br/>
               <Typography>
                   <h1 style={{textAlign: 'center'}}>Special thanks to Patreon donators!</h1>
