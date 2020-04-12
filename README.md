@@ -17,7 +17,7 @@ Need help using or developing EveVision? Have a suggestion or want to show off h
 
 # Installation and Usage
 
-There is no complex setup process. Simply download the latest EXE from the [releases page](https://github.com/evevision/evevision/releases), run it once and forget about it.
+There is no complex setup process. Simply download the latest EXE from the [releases page](https://github.com/evevision/evevision/releases), run it once and forget about it. If you would like to build it yourself instead, it is quite simple to do so.
 
 ![ev-ss-4](https://user-images.githubusercontent.com/62183293/79017654-ded6da00-7b3f-11ea-96b5-217b1e9e1274.png)
 
@@ -108,36 +108,57 @@ This tool cannot do anything like read the screen or perform ingame actions auto
 
 However, keep in mind that CCP always retains the final say. They could full well decide in the future that EveVision is too much and should not be allowed - but in its current form there is no risk of a ban. Additionally, unofficial plugins in the future do not fall under this - if they provide an unfair advantage, it is still against the EULA, no matter what.
 
-# Development
+# For Nerds
 
-This repo is in a very early state for open source development. There's most definitely random files and functions that aren't needed or aren't configured right. The whole repo may be split up later.
+Want to tinker around and make your own ingame tools for EVE? It is extremely easy to build and run EveVision yourself! Once you're up and running, you'll be able to run a single command and watch your components update in real-time directly ingame as you save your changes, just like regular web development.
 
-#### If you plan on building private alliance/corp tools, please be aware that the core of this software is not meant to be modified for separate distribution, and the license prevents you from doing so without releasing the full sourcecode. There will be a plugin system in the very near future that will allow you to securely distribute tools.
+Issues and pull requests are reviewed. If you have an idea, hop on Discord and I'll let you know if I would pull it in!
 
-Issues and pull requests are reviewed. If you have an idea, let me know and I'll let you know if I would pull it in!
+##### If you plan on building private alliance/corp tools, please be aware that the core of this software is not meant to be modified for separate distribution, and the license prevents you from doing so without releasing the full sourcecode. There will be a plugin system in the very near future that will allow you to securely distribute tools.
 
-### Internals/Building
-EveVision consists of a Node/React-based Electron app at `/evevision`, a C++ DLL that is injected into your game client at `/overlay-dll`, and a native node module for injecting and communicating with the DLL at `/overlay-node`. There are also FlatBuffer definitions inside of `/fb`.
 
-This is obviously a very early release. I haven't finished cleaning up build processes, especially for open source consumption. There isn't much 'development/production' separation at this time. Even the folder structure is likely to change.
+### Tips
+EveVision consists of a Node/React-based Electron app at `/app`, a C++ DLL that is injected into your game's process at `/overlay`, and a native node module for injecting and communicating with the DLL at `/native`. There are also FlatBuffer schemas inside of `/flatbuffers/schema` that are used for communication between the DLL and native node module.
 
-You will need to download:
-* flatc.exe (https://github.com/google/flatbuffers) - put this in your PATH or inside the fb directory
+If you have never worked with Electron before, the main thing to know is that there is a **main process** that uses **NodeJS** and then **renderer processes** for each window that are **Chromium**. 
+While they both reside in `/app`, there are two different entry points. The renderer process begins at `/app/index.tsx` and the main process begins at `/app/main.dev.ts`. They communicate via Electron's IPC module.
+
+It is the renderer process where React developers will feel most at home, as you are doing nothing more than developing a React app. This is where the actual UI is, rather than all the window, input, and process
+management code.
+
+Think of the renderers as the frontend and the main process as the backend.
+
+## Building
+
+This application can only be built and run on Windows x64.
 
 You will need the following installed:
-* Python2
-* Node v12
-* Yarn package manager
-* Visual Studio 2019 (will remove this dependency later)
+* [Python2](https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi)
+* [Node v12](https://nodejs.org/dist/v12.16.2/node-v12.16.2-x64.msi)
+* [Yarn Package Manager](https://classic.yarnpkg.com/latest.msi)
+* [Visual Studio 2017-2019 Build Tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16#) (you only need C++ Build Tools from installer)
 
-Steps:
-1. Clone (or extract ZIP of) repo to a local directory.
-2. Inside the `fb` directory, run `build.ps1` to generate and copy the flatbuffer schema files.
-3. Inside the `evevision` directory, run `yarn install`.
-4. Inside the `overlay-dll` directory, run `build.ps1` to build the overlay DLL.
-5. Run `yarn dev` inside `/evevision` to start the app in development. Use `yarn package-win` to build a packaged executable, which will be output at `/evevision/release/EveVision VERSION.exe`. Please ensure Sentry is disabled if you package the app so we don't receive false error reports!
+Download the repo by cloning it or getting the ZIP and extracting it to a local directory of your choice. Go to the directory in your terminal and then run `yarn install`.
 
-If you want to make changes to overlay-node and test them, you should use yarn link. Otherwise, you'll need to reinstall the package every time a change is made, since yarn just copies it over otherwise. You need to run `node-gyp rebuild` to compile the changes.
+#### Packaged Executable
+Run `yarn package` and a packaged executable will be output to `/release/EveVision VERSION.exe`. All components will be built to ensure the latest code is packaged.
+To package the app without running any builds, use `yarn package-no-build` instead.
+
+#### Development Mode
+If you're working on EveVision you'll generally want to use development mode so you can see your changes real-time ingame.
+
+It's as simple as running `yarn dev`. All components will be built beforehand to ensure the latest code is running. To start development mode without rebuilding any native code, run `yarn dev-skip-native` instead.
+
+#### Making changes to C++
+If you make any changes to the C++, you need to know a few things:
+* You don't necessarily have to shut down EVE before injecting a new version of the overlay. Old versions sit there doing nothing. However, it's usually a good idea.
+* After making your changes to the overlay DLL, run `yarn build-overlay`. You don't have to restart EveVision for it to inject the latest DLL.
+* After making changes to the node native module, run `yarn build-native`. You **will** have to restart EveVision.
+
+All build commands are run beforehand with `yarn dev` and `yarn package`.
+
+#### Production Mode
+To build and run EveVision but without packaging it into an EXE, simply run `yarn start`.
 
 ## Thanks
 This project uses portions of code from and was inspired by https://github.com/hiitiger/gelectron

@@ -27,24 +27,22 @@ export default class MainApp {
         this.eveInstances = new Map()
         this.injectedPids = new Set()
 
-        let dirPath = process.resourcesPath
-        if(dirPath.includes("node_modules")) {
-            // we're not inside an electron-builder packaged app
-            dirPath = path.join(dirPath, "../../../../output/overlay/Release");
-            this.dllPath = path.join(dirPath, "evevision_overlay.dll");
-        } else {
-            // packaged
-            let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
-            let salt = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
-            let newDllPath = path.join(dirPath, "../../evevision_overlay_" + salt + ".dll"); // should end up in root of temp folder
-            if(fs.existsSync(tempDllPath)) {
-                // move the DLL. due to an unknown bug with the packaged app extraction, if you rerun evevision it won't extract the DLL the second time
-                if(!fs.existsSync(newDllPath)) {
-                    fs.renameSync(tempDllPath, newDllPath);
-                }
+        let dirPath = process.resourcesPath.includes("node_modules") ?
+            path.join(process.resourcesPath, "../../../../output/overlay/Release") :  // not a packaged app, get it from actual output folder
+            process.resourcesPath // packaged app, read from resources folder
+
+        let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
+        let salt = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
+        let newDllPath = "%appdata%/evevision_overlay_" + salt + ".dll");
+        if(fs.existsSync(tempDllPath)) {
+            // move the DLL.
+            // in development, we do this so the compiler can replace the file without shutting down EVE.
+            // in production, it's due to an unknown bug with the packaged app extraction, if you rerun evevision it won't extract the DLL the second time.
+            if(!fs.existsSync(newDllPath)) {
+                fs.renameSync(tempDllPath, newDllPath);
             }
-            this.dllPath = newDllPath;
         }
+        this.dllPath = newDllPath;
     }
 
     public start() {
