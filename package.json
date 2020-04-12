@@ -4,7 +4,7 @@
   "version": "0.4.3",
   "description": "The EVE UI you've always wanted",
   "scripts": {
-    "preinstall": "node -r @babel/register ./scripts/CheckYarn.js",
+    "preinstall": "node ./scripts/CheckYarn.js",
     "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps",
     "build": "concurrently \"yarn build-cpp\" \"yarn build-js\"",
     "build-cpp": "yarn build-flatbuffers && concurrently \"yarn build-native\" \"yarn build-overlay\"",
