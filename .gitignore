@@ -3,6 +3,7 @@ app/main/main.prod.js
 *.sass.d.ts
 *.scss.d.ts
 swagger.json
+*.node
 
 # generated
 output/

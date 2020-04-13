@@ -25,7 +25,7 @@
     "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./scripts/BabelRegister ./app/main/index.ts",
     "package": "yarn install && yarn build && yarn package-skip-build",
-    "package-skip-build": "copyfiles -f output/overlay/Release/evevision_overlay.dll . && electron-builder build --win --x64 --publish never && del evevision_overlay.dll",
+    "package-skip-build": "electron-builder build --win --x64 --publish never",
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional"
   },
   "repository": {
@@ -36,15 +36,41 @@
     "productName": "EveVision",
     "appId": "com.evevision",
     "files": [
-      "node_modules/",
-      "main/main.prod.js",
       "package.json",
-      "evevision.ico"
+      {
+        "from": "../app/main",
+        "to": ".",
+        "filter": [
+          "main.prod.js",
+          "evevision.ico"
+        ]
+      },
+      {
+        "from": "../output/renderer/dist",
+        "to": "./dist",
+        "filter": [
+          "*.woff2",
+          "renderer.prod.js",
+          "style.css"
+        ]
+      }
     ],
+    "extraFiles": [],
     "extraResources": [
-      "evevision_overlay.dll",
-      "build/Release/native.node",
-      "output/renderer/"
+      {
+        "from": "output/overlay/Release",
+        "to": ".",
+        "filter": [
+          "evevision_overlay.dll"
+        ]
+      },
+      {
+        "from": "build/Release",
+        "to": ".",
+        "filter": [
+          "native.node"
+        ]
+      }
     ],
     "win": {
       "target": [

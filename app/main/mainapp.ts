@@ -104,7 +104,7 @@ export default class MainApp {
     public setupSystemTray() {
         if (!this.tray) {
             this.tray = new Tray(
-                path.join(__dirname, "evevision.ico")
+                path.join(app.getAppPath(), 'evevision.ico')
             )
             const contextMenu = Menu.buildFromTemplate([
                 {
@@ -120,7 +120,7 @@ export default class MainApp {
             this.tray.displayBalloon({
                 content: "Log into EVE if you haven't already. Fly without fear, capsuleer.",
                 iconType: "custom",
-                icon: path.join(__dirname, "evevision.ico"),
+                icon: path.join(app.getAppPath(), 'evevision.ico'),
                 title: "EveVision is ready"
             })
 
@@ -128,11 +128,12 @@ export default class MainApp {
                 this.tray!.displayBalloon({
                     content: "Just login to EVE! Fly without fear, capsuleer.",
                     iconType: "custom",
-                    icon: path.join(__dirname, "evevision.ico"),
+                    icon: path.join(app.getAppPath(), 'evevision.ico'),
                     title: "EveVision is already running"
                 })
             })
         }
+        log.info("Tray setup")
     }
 
     public quit() {

@@ -9,6 +9,7 @@ const rendererPath = path.join(
   '..',
   'output',
   'renderer',
+  'dist',
   'renderer.prod.js'
 );
 const nativePath = path.join(
