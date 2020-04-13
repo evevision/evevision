@@ -27,7 +27,7 @@ There is no complex setup process. Simply download the latest EXE from the [rele
 
 ![ev-ss-4](https://user-images.githubusercontent.com/62183293/79017654-ded6da00-7b3f-11ea-96b5-217b1e9e1274.png)
 
-Log into EVE and play as you normally would - the rest will come naturally to you. If there is a new version available, it will let you know. Note that the background only shows for members of Pandemic Horde, this will be customizable soon!
+**Make sure you have DirectX 9 disabled in launcher settings**. Log into EVE and play as you normally would - the rest will come naturally to you. If there is a new version available, it will let you know. Note that the background only shows for members of Pandemic Horde, this will be customizable soon!
 
 ![ev-ss-5](https://user-images.githubusercontent.com/62183293/79019099-86094080-7b43-11ea-8f43-94f559fb3b53.png)
 
