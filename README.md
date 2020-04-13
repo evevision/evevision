@@ -1,6 +1,9 @@
-![build](https://github.com/evevision/evevision/workflows/build/badge.svg?branch=master) ![GitHub All Releases](https://img.shields.io/github/downloads/evevision/evevision/total)
-
 # The EVE Online UI you've always wanted.
+
+![package.json version](https://img.shields.io/github/package-json/v/evevision/evevision)
+![Latest Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/latest/total)
+![Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/total)
+
 ![eveeye-ss](https://user-images.githubusercontent.com/62183293/79039585-2b59fe00-7bb0-11ea-91d0-6bb15389dbac.png)
 ![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
 ![evevision-ss-1](https://user-images.githubusercontent.com/62183293/79017084-7f2bff00-7b3e-11ea-92c9-0f0fcf91ff19.png)
@@ -121,6 +124,12 @@ This tool cannot do anything like read the screen or perform ingame actions auto
 However, keep in mind that CCP always retains the final say. They could full well decide in the future that EveVision is too much and should not be allowed - but in its current form there is no risk of a ban. Additionally, unofficial plugins in the future do not fall under this - if they provide an unfair advantage, it is still against the EULA, no matter what.
 
 # For Nerds
+
+![Build Status](https://github.com/evevision/evevision/workflows/build/badge.svg?branch=master)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/evevision/evevision/latest/master)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/evevision/evevision)
+![Electron Version](https://img.shields.io/github/package-json/dependency-version/evevision/evevision/electron)
+![React Version](https://img.shields.io/github/package-json/dependency-version/evevision/evevision/react)
 
 Want to tinker around and make your own ingame tools for EVE? It is extremely easy to build and run EveVision yourself! Once you're up and running, you'll be able to run a single command and watch your components update in real-time directly ingame as you save your changes, just like regular web development.
 
