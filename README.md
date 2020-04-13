@@ -134,6 +134,8 @@ However, keep in mind that CCP always retains the final say. They could full wel
 
 Want to tinker around and make your own ingame tools for EVE? It is extremely easy to build and run EveVision yourself! Once you're up and running, you'll be able to run a single command and watch your components update in real-time directly ingame as you save your changes, just like regular web development.
 
+![editing](https://user-images.githubusercontent.com/62183293/79146670-bc87cb00-7d90-11ea-9875-815d759dd133.gif)
+
 Issues and pull requests are reviewed. If you have an idea, hop on Discord and I'll let you know if I would pull it in!
 
 ##### If you plan on building private alliance/corp tools, please be aware that the core of this software is not meant to be modified for separate distribution, and the license prevents you from doing so without releasing the full sourcecode. There will be a plugin system in the very near future that will allow you to securely distribute tools.
