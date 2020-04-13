@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-declare namespace overlay {
+declare namespace native {
 
     export interface IRectangle {
         x: number;
@@ -73,4 +73,4 @@ declare namespace overlay {
 
 }
 
-export = overlay
+export = native

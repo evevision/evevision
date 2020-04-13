@@ -1,5 +1,5 @@
 import React from 'react';
-import {SoundCloudWidget} from '../api/soundcloud';
+import {SoundCloudWidget} from '../lib/soundcloud';
 
 interface SoundCloudPlayerProps {
     trackId: number

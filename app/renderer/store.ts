@@ -1,5 +1,5 @@
 import {applyMiddleware, createStore} from 'redux'
-import {rootReducer} from './rootReducer'
+import {rootReducer} from '../shared/store/rootReducer'
 import { forwardToMain, getInitialStateRenderer } from 'electron-redux';
 import promise from 'redux-promise-middleware'
 const initialState = getInitialStateRenderer();

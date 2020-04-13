@@ -1,4 +1,4 @@
-app/main.prod.js
+app/main/main.prod.js
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts

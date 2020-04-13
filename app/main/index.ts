@@ -1,15 +1,13 @@
-// This is the MAIN PROCESS entry point. Despite the .dev.ts name, the production build is ultimately built from this.
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
 import { app, session } from 'electron';
 import MainApp from './mainapp';
-import store from './store/main';
+import store from './store';
 import {replayActionMain} from 'electron-redux';
-const log = require('electron-log');
-import { init as SentryInit } from '@sentry/electron/dist/main';
-import {version} from './package.json';
+import {version} from '../../package.json';
 
+const log = require('electron-log');
 const locked = app.requestSingleInstanceLock()
 
 if (!locked) {

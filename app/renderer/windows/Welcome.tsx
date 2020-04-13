@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {Panel, Typography, WindowButtons} from '../ui/Layout';
 import {Button} from '../ui/Input';
 import {ipcRenderer} from "electron"
-import {updateCharacterPublicInfo} from "../store/characters/actions";
-import {AppState} from "../store/rootReducer";
+import {updateCharacterPublicInfo} from "../../shared/store/characters/actions";
+import {AppState} from "../../shared/store/rootReducer";
 import {connect} from "react-redux";
-import {ApiConnectionStatus, ApiState, CharacterEsiAuth, CharacterInfo} from "../store/characters/types";
+import {ApiConnectionStatus, ApiState, CharacterEsiAuth, CharacterInfo} from "../../shared/store/characters/types";
 import superagent from "superagent";
-import {version} from '../package.json';
+import {version} from '../../../package.json';
 
 interface WelcomeProps {
     updateCharacterPublicInfo: typeof updateCharacterPublicInfo;

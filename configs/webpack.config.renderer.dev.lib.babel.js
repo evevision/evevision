@@ -1,5 +1,6 @@
 /**
- * Builds the DLL for development electron renderer process
+ * Builds the lib for development electron renderer process
+ * normally the resulting file is called a 'dll', but I called it a 'lib' to not confuse things with the overlay dll.
  */
 
 import webpack from 'webpack';
@@ -11,7 +12,7 @@ import CheckNodeEnv from '../scripts/CheckNodeEnv';
 
 CheckNodeEnv('development');
 
-const dist = path.join(__dirname, '..', 'output', 'renderer-dll');
+const dist = path.join(__dirname, '..', 'output', 'renderer');
 
 export default merge.smart(baseConfig, {
   context: path.join(__dirname, '..'),
@@ -36,7 +37,7 @@ export default merge.smart(baseConfig, {
   output: {
     library: 'renderer',
     path: dist,
-    filename: '[name].dev.dll.js',
+    filename: '[name].dev.lib.js',
     libraryTarget: 'var'
   },
 
@@ -62,9 +63,9 @@ export default merge.smart(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
-        context: path.join(__dirname, '..', 'app'),
+        context: path.join(__dirname, '..', 'app', 'renderer'),
         output: {
-          path: path.join(__dirname, '..', 'output', 'renderer-dll')
+          path: path.join(__dirname, '..', 'output', 'renderer')
         }
       }
     })

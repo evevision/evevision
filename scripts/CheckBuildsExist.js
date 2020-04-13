@@ -3,12 +3,12 @@ import path from 'path';
 import chalk from 'chalk';
 import fs from 'fs';
 
-const mainPath = path.join(__dirname, '..', 'app', 'main.prod.js');
+const mainPath = path.join(__dirname, '..', 'app', 'main', 'main.prod.js');
 const rendererPath = path.join(
   __dirname,
   '..',
-  'app',
-  'dist',
+  'output',
+  'renderer',
   'renderer.prod.js'
 );
 const nativePath = path.join(
@@ -16,7 +16,7 @@ const nativePath = path.join(
   '..',
   'build',
   'Release',
-  'overlay.node'
+  'native.node'
 );
 
 if (!fs.existsSync(mainPath)) {

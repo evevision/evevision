@@ -1,8 +1,9 @@
 import {BrowserWindow, ipcMain, shell, IpcMainEvent} from "electron";
 import ChildWindow from "./ChildWindow";
 import EveInstance from "./eveinstance";
-import Overlay, {IFrameBuffer} from '../native';
+import Overlay, {IFrameBuffer} from './native';
 import Store from "electron-store"
+import path from 'path';
 const log = require('electron-log');
 
 const positionStore = new Store({name: "window-positions"})
@@ -110,7 +111,7 @@ export default class EveWindow {
                 nodeIntegration: true,
                 offscreen: true,
                 additionalArguments: args,
-                webviewTag: false
+                webviewTag: false,
             }
         }
 
@@ -129,7 +130,7 @@ export default class EveWindow {
         //if(windowName == "beanwatch") { // only interested in devving beanwatch rn
         //this.electronWindow.webContents.openDevTools({mode: 'detach'})
         //}
-        this.electronWindow.loadURL(`file://${__dirname}/app.html`)
+        this.electronWindow.loadURL(`file://${path.resolve(__dirname, "..", "renderer", "app.html")}`)
 
         this.positionSaveInterval = setInterval(this.updatePositionStore, 1000)
     }

@@ -1,5 +1,3 @@
-// This is the RENDERER PROCESS entry point.
-
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
@@ -8,13 +6,11 @@ import { render } from 'react-dom';
 import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
 import './app.global.scss';
-import store from './store/renderer';
+import store from './store';
 import {replayActionRenderer} from 'electron-redux';
 import Moment from "react-moment";
 import moment from "moment";
 import {ipcRenderer, IpcRendererEvent} from 'electron';
-import { init as SentryInit } from '@sentry/electron/dist/renderer';
-import {version} from './package.json';
 const log = require('electron-log');
 
 // this is only for production builds being released on github
@@ -39,10 +35,10 @@ ipcRenderer.on("setTitle", (event: IpcRendererEvent, title: string) => {
 })
 
 document.addEventListener('DOMContentLoaded', () =>
-  render(
-    <AppContainer>
-      <Root/>
-    </AppContainer>,
-    document.getElementById('root')
-  )
+    render(
+        <AppContainer>
+            <Root/>
+        </AppContainer>,
+        document.getElementById('root')
+    )
 );

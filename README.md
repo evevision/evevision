@@ -129,7 +129,7 @@ Issues and pull requests are reviewed. If you have an idea, hop on Discord and I
 
 ### Tips
 EveVision consists of the following components:
-* Node/React-based Electron app inside `app`
+* NodeJS-based 
 * C++ DLL that is injected into your game's process inside `overlay`
 * Native node module for injecting and communicating with the DLL inside `native`. 
 * FlatBuffer schemas inside `/flatbuffers/schema` that are used for communication between the DLL and native node module.

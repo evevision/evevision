@@ -25,9 +25,9 @@
         const scripts = [];
 
         if (process.env.NODE_ENV === 'development') {
-          // Dynamically insert the DLL script in development env in the
+          // Dynamically insert the renderer library script in development env in the
           // renderer process
-          scripts.push('../dll/renderer.dev.dll.js');
+          scripts.push('../../output/renderer/renderer.dev.lib.js');
         }
         if (process.env.START_HOT) {
           // Dynamically insert the bundled app script in the renderer process

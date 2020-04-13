@@ -6,7 +6,7 @@ import Settings from '../windows/Settings';
 import Tools from '../windows/Tools';
 import Jukebox from '../windows/Jukebox';
 import { hot } from 'react-hot-loader/root';
-import store from "../store/renderer";
+import store from "../store";
 import {Provider} from "react-redux";
 import Auth from "../windows/Auth";
 import ExternalSite from "../windows/ExternalSite";

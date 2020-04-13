@@ -1,9 +1,9 @@
 import WebSocket from 'ws';
-import store from '../store/main';
+import store from '../store';
 import {Unsubscribe} from "redux";
-import {AppState} from "../store/rootReducer";
-import {ApiConnectionStatus, CharacterEsiAuth, CharacterInfo} from "../store/characters/types";
-import {updateApiState, updateCharacterAuth} from "../store/characters/actions";
+import {AppState} from "../../shared/store/rootReducer";
+import {ApiConnectionStatus, CharacterEsiAuth, CharacterInfo} from "../../shared/store/characters/types";
+import {updateApiState, updateCharacterAuth} from "../../shared/store/characters/actions";
 import superagent from "superagent";
 
 // This is where we'll handle updating the ESI creds for now

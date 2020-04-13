@@ -1,6 +1,7 @@
 import {BrowserWindow, shell, ipcMain, IpcMainEvent} from "electron";
-import Overlay from '../native';
+import Overlay from './native';
 import EveInstance from "./eveinstance";
+import path from "path";
 const log = require('electron-log');
 
 export default class FullscreenOverlay {
@@ -46,7 +47,7 @@ export default class FullscreenOverlay {
         this.hookWindow()
         //this.electronWindow.webContents.openDevTools({mode: 'detach'})
 
-        this.electronWindow.loadURL(`file://${__dirname}/app.html`)
+        this.electronWindow.loadURL(`file://${path.resolve(__dirname, "..", "renderer", "app.html")}`)
     }
 
     handleRestoreRequest = (event: IpcMainEvent, windowId: number) => {

@@ -4,7 +4,7 @@
   "author": "Jaydubs",
   "version": "0.4.3",
   "description": "The EVE UI you've always wanted",
-  "main": "./main.prod.js",
+  "main": "main/main.prod.js",
   "scripts": {
   },
   "license": "GPL-3.0",

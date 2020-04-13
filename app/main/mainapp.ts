@@ -2,15 +2,14 @@ import {Menu, protocol, Tray, app} from "electron"
 import fs from 'fs';
 import path from 'path';
 import EveInstance from "./eveinstance";
-import {getCharacterIdByName} from "./esi/client"
-const log = require('electron-log');
-import store from "./store/main";
-import {updateCharacterAuth} from "./store/characters/actions";
+import {getCharacterIdByName} from "../shared/esi/client"
+import store from "./store";
+import {updateCharacterAuth} from "../shared/store/characters/actions";
 import superagent from 'superagent';
-import Overlay from '../native';
-
-require('./store/characters/actions') // we have to require it directly otherwise it gets cut out
-require('./store/characters/reducers') // do dis fix it?
+import Overlay from './native';
+const log = require('electron-log');
+require('../shared/store/characters/actions') // we have to require it directly otherwise it gets cut out by webpack
+require('../shared/store/characters/reducers')
 
 //import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
@@ -39,7 +38,7 @@ export default class MainApp {
             // in development, we do this so the compiler can replace the file without shutting down EVE.
             // in production, it's due to an unknown bug with the packaged app extraction, if you rerun evevision it won't extract the DLL the second time.
             if(!fs.existsSync(newDllPath)) {
-                fs.renameSync(tempDllPath, newDllPath);
+                fs.copyFileSync(tempDllPath, newDllPath);
             }
         }
         this.dllPath = newDllPath;

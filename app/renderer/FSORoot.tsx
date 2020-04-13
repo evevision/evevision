@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppState} from "./store/rootReducer";
+import {AppState} from "../store/rootReducer";
 import {connect} from "react-redux";
 import OverlayMenu from "./components/OverlayMenu";
 import RicardoOverlay from "./components/RicardoOverlay";

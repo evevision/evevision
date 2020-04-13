@@ -23,17 +23,17 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dll = path.join(__dirname, '..', 'output', 'renderer-dll');
-const nativeNode = path.join(__dirname, '..', 'build', 'overlay.vcxproj');
-const manifest = path.resolve(dll, 'renderer.json');
-const requiredByDLLConfig = module.parent.filename.includes(
-  'webpack.config.renderer.dev.dll'
+const rendererOutput = path.join(__dirname, '..', 'output', 'renderer');
+const nativeNode = path.join(__dirname, '..', 'build', 'native.vcxproj');
+const manifest = path.resolve(rendererOutput, 'renderer.json');
+const requiredByLibConfig = module.parent.filename.includes(
+  'webpack.config.renderer.dev.lib'
 );
 
 /**
- * Warn if the DLL is not built
+ * Warn if the lib is not built
  */
-if (!requiredByDLLConfig && (!(fs.existsSync(dll) && fs.existsSync(manifest)) || !fs.existsSync(nativeNode))) {
+if (!requiredByLibConfig && (!(fs.existsSync(rendererOutput) && fs.existsSync(manifest)) || !fs.existsSync(nativeNode))) {
   console.log(
     chalk.black.bgYellow.bold(
       'Building native code'
@@ -53,7 +53,7 @@ export default merge.smart(baseConfig, {
     ...(process.env.PLAIN_HMR ? [] : ['react-hot-loader/patch']),
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    require.resolve('../app/index.tsx')
+    require.resolve('../app/renderer/index.tsx')
   ],
 
   output: {
@@ -196,10 +196,10 @@ export default merge.smart(baseConfig, {
     }
   },
   plugins: [
-    requiredByDLLConfig
+    requiredByLibConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '..', 'dll'),
+          context: path.join(__dirname, '..', 'output', 'renderer'),
           manifest: require(manifest),
           sourceType: 'var'
         }),
@@ -209,7 +209,7 @@ export default merge.smart(baseConfig, {
     }),
 
     new TypedCssModulesPlugin({
-      globPattern: 'app/**/*.{css,scss,sass}'
+      globPattern: 'app/renderer/**/*.{css,scss,sass}'
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),

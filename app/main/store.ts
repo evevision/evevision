@@ -1,7 +1,7 @@
 import {applyMiddleware, createStore} from 'redux'
 import { forwardToRenderer, triggerAlias } from 'electron-redux';
 import promise from 'redux-promise-middleware'
-import {rootReducer} from './rootReducer'
+import {rootReducer} from '../shared/store/rootReducer'
 import { persistStore, persistReducer } from 'redux-persist';
 import createElectronStorage from "redux-persist-electron-storage";
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
