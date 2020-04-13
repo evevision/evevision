@@ -183,7 +183,8 @@ a:hover {
 }
 .eve-table th {
   padding-left: 4px;
-  padding-top: 4px;
+  padding-top: 3px;
+  font-size: 11px;
   border: 1px solid adjust-color($border-light2, $alpha: $transparency);
 }
 
