@@ -1,3 +1,5 @@
+![build](https://github.com/evevision/evevision/workflows/build/badge.svg?branch=master) ![GitHub All Releases](https://img.shields.io/github/downloads/evevision/evevision/total)
+
 # The EVE Online UI you've always wanted.
 ![eveeye-ss](https://user-images.githubusercontent.com/62183293/79039585-2b59fe00-7bb0-11ea-91d0-6bb15389dbac.png)
 ![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
@@ -129,10 +131,10 @@ Issues and pull requests are reviewed. If you have an idea, hop on Discord and I
 
 ### Tips
 EveVision consists of the following components:
-* Electron app inside `app`, with a split codebase for the main and renderer processes.
-* Native node module for injecting and communicating with the DLL inside `app/native`. 
-* C++ DLL that is injected into your game's process inside `overlay`
-* FlatBuffer schemas inside `/flatbuffers/schema` that are used for communication between the DLL and native node module.
+* Electron app inside [app](app), with a split codebase for the [main](app/main) and [renderer](app/renderer) processes.
+* Native node module for injecting and communicating with the DLL inside [app/native](app/native). 
+* C++ DLL that is injected into your game's process inside [overlay](overlay)
+* FlatBuffer schemas inside [flatbuffers/schema](flatbuffers/schema) that are used for communication between the DLL and native node module.
 
 If you have never worked with Electron before, the main thing to know is that there is a **main process** that uses **NodeJS** and then **renderer processes** for each window that are **Chromium**. They have two different
 sets of code, two different entry points and communicate via Electron's IPC module.
