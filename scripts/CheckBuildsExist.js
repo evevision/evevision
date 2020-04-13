@@ -7,7 +7,7 @@ const mainPath = path.join(__dirname, '..', 'app', 'main', 'main.prod.js');
 const rendererPath = path.join(
   __dirname,
   '..',
-  'output',
+  'app',
   'renderer',
   'dist',
   'renderer.prod.js'

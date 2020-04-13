@@ -58,6 +58,17 @@
     "extraFiles": [],
     "extraResources": [
       {
+        "from": "app/renderer",
+        "to": "renderer",
+        "filter": [
+          "app.html"
+        ]
+      },
+      {
+        "from": "app/renderer/dist",
+        "to": "renderer/dist"
+      },
+      {
         "from": "output/overlay/Release",
         "to": ".",
         "filter": [

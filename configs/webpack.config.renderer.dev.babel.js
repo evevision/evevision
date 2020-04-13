@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const rendererOutput = path.join(__dirname, '..', 'output', 'renderer');
+const rendererOutput = path.join(__dirname, '..', 'app', 'renderer');
 const nativeNode = path.join(__dirname, '..', 'build', 'native.vcxproj');
 const manifest = path.resolve(rendererOutput, 'renderer.json');
 const requiredByLibConfig = module.parent.filename.includes(
@@ -199,7 +199,7 @@ export default merge.smart(baseConfig, {
     requiredByLibConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '..', 'output', 'renderer'),
+          context: path.join(__dirname, '..', 'app', 'renderer'),
           manifest: require(manifest),
           sourceType: 'var'
         }),
