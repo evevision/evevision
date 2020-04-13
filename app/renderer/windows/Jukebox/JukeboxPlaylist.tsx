@@ -65,7 +65,7 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = (props) => {
                 const isRowSelected = row.original.soundCloudTrackId === props.currentTrack?.soundCloudTrackId;
                 return (
                     <tr {...row.getRowProps()} className={isRowSelected ? "selected" : ""} onClick={() => props.onTrackClick ? props.onTrackClick({...row.original}) : ""}>
-                        <td>{isRowSelected && <FontAwesomeIcon icon={faPlay} />}</td>
+                        <td>{isRowSelected && <FontAwesomeIcon size={"sm"} icon={faPlay} />}</td>
                         {row.cells.map(cell => {
                             return <td {...cell.getCellProps()}><Typography>{cell.render('Cell')}</Typography></td>
                         })}

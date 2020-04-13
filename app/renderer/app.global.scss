@@ -177,13 +177,16 @@ a:hover {
 }
 .eve-table td {
   padding-left: 4px;
+  padding-top: 4px;
   border-left: 1px solid adjust-color($border-light2, $alpha: $transparency);
   border-right: 1px solid adjust-color($border-light2, $alpha: $transparency);
 }
 .eve-table th {
   padding-left: 4px;
+  padding-top: 4px;
   border: 1px solid adjust-color($border-light2, $alpha: $transparency);
 }
+
 .eve-table tbody tr.selected {
   background-color: adjust-color($input-color, $lightness: 40%, $saturation: 25%, $alpha: $transparency);
 }
