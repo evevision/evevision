@@ -129,18 +129,20 @@ Issues and pull requests are reviewed. If you have an idea, hop on Discord and I
 
 ### Tips
 EveVision consists of the following components:
-* NodeJS-based 
+* Electron app inside `app`, with a split codebase for the main and renderer processes.
+* Native node module for injecting and communicating with the DLL inside `app/native`. 
 * C++ DLL that is injected into your game's process inside `overlay`
-* Native node module for injecting and communicating with the DLL inside `native`. 
 * FlatBuffer schemas inside `/flatbuffers/schema` that are used for communication between the DLL and native node module.
 
-If you have never worked with Electron before, the main thing to know is that there is a **main process** that uses **NodeJS** and then **renderer processes** for each window that are **Chromium**. 
-While they both reside in `app`, there are two different entry points. The renderer process begins at `app/index.tsx` and the main process begins at `app/main.dev.ts`. They communicate via Electron's IPC module.
+If you have never worked with Electron before, the main thing to know is that there is a **main process** that uses **NodeJS** and then **renderer processes** for each window that are **Chromium**. They have two different
+sets of code, two different entry points and communicate via Electron's IPC module.
 
-It is the renderer process where React developers will feel most at home, as you are doing nothing more than developing a React app. This is where the actual UI is, rather than all the window, input, and process
+It is the renderer process where web developers will feel most at home, as you are doing nothing more than developing a React app. This is where the actual UI is, rather than all the window, input, and process
 management code.
 
 Think of the renderers as the frontend and the main process as the backend.
+
+Note that you can rule out most issues with production and development mode. The only time you need to test packaging the app is when new files will be introduced, which is rare.
 
 ## Building
 
@@ -154,16 +156,19 @@ You will need the following installed:
 
 Download the repo by cloning it or getting the ZIP and extracting it to a local directory of your choice.
 
-#### Packaged Executable
+#### Generate Packaged Executable
 Run `yarn package` and a packaged executable will be output to `release/EveVision VERSION.exe`.
 
 All components will be built to ensure the latest code is packaged.
-To quickly repackage the app without running any builds, use `yarn package-no-build` instead.
+To quickly repackage the app without running any builds, use `yarn package-skip-build` instead.
 
 #### Development Mode
 Simply run `yarn dev`
 
 All components will be built beforehand to ensure the latest code is running. To quickly start development mode without running any builds, run `yarn dev-skip-build` instead. Hot-reloading will be enabled so you can see your changes inside EVE in real time.
+
+#### Production Mode
+To build and run EveVision but without packaging it into an EXE, simply run `yarn start`. To quickly run the app without running any builds, use `yarn start-skip-build` instead.
 
 #### Making changes to C++
 If you make any changes to the C++, you need to know a few things:
@@ -171,10 +176,7 @@ If you make any changes to the C++, you need to know a few things:
 * After making your changes to the overlay DLL, run `yarn build-overlay`. You don't have to restart EveVision for it to inject the latest DLL.
 * After making changes to the node native module, run `yarn build-native`. You **will** have to restart EveVision.
 
-All build commands are run beforehand with `yarn dev` and `yarn package`.
-
-#### Production Mode
-To build and run EveVision but without packaging it into an EXE, simply run `yarn start`.
+All build commands are run beforehand with `yarn dev`, `yarn start`, and `yarn package`.
 
 ## Thanks
 This project uses portions of code from and was inspired by https://github.com/hiitiger/gelectron
