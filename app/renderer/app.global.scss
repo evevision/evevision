@@ -185,10 +185,10 @@ a:hover {
   border: 1px solid adjust-color($border-light2, $alpha: $transparency);
 }
 .eve-table tbody tr.selected {
-  background-color: adjust-color($input-color, $lightness: 40%, $saturation: 25%, $alpha: $transparency)
+  background-color: adjust-color($input-color, $lightness: 40%, $saturation: 25%, $alpha: $transparency);
 }
 .eve-table tbody tr:hover {
-  background-color: adjust-color($input-color, $lightness: 30%, $alpha: $transparency)
+  background-color: adjust-color($input-color, $lightness: 30%, $alpha: $transparency);
 }
 
 html {
