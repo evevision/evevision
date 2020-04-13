@@ -51,7 +51,7 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = (props) => {
                         <th align="left" {...column.getHeaderProps(column.getSortByToggleProps())}>
                             <Typography>
                                 {column.render('Header')}
-                                {column.isSorted ? <FontAwesomeIcon icon={column.isSortedDesc ? faSortDown : faSortUp} style={{marginLeft: "4px"}}/> : ''}
+                                {column.isSorted ? <FontAwesomeIcon size={"xs"} icon={column.isSortedDesc ? faSortDown : faSortUp} style={{marginLeft: "4px"}}/> : ''}
                             </Typography>
                         </th>
                     ))}
