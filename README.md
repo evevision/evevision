@@ -142,19 +142,19 @@ Issues and pull requests are reviewed. If you have an idea, hop on Discord and I
 ### Tips
 EveVision consists of the following components:
 * Electron app inside [app](app), with a split codebase for the [main](app/main) and [renderer](app/renderer) processes.
-* Native node module for injecting and communicating with the DLL inside [app/native](app/native). 
-* C++ DLL that is injected into your game's process inside [overlay](overlay)
-* FlatBuffer schemas inside [flatbuffers/schema](flatbuffers/schema) that are used for communication between the DLL and native node module.
+* Overlay DLL that is injected into the EVE Client's process space at [overlay](overlay)
+* Native node module for injecting and communicating with the overlay DLL at [app/main/native](app/main/native). 
+* FlatBuffer schemas that are used for communication between the DLL and native node module at [flatbuffers/schema](flatbuffers/schema)
 
 If you have never worked with Electron before, the main thing to know is that there is a **main process** that uses **NodeJS** and then **renderer processes** for each window that are **Chromium**. They have two different
 sets of code, two different entry points and communicate via Electron's IPC module.
 
-It is the renderer process where web developers will feel most at home, as you are doing nothing more than developing a React app. This is where the actual UI is, rather than all the window, input, and process
+**It is the renderer process where web developers will feel most at home, as you are doing nothing more than developing a React app that is loaded by Chromium.** This is where the actual UI is, rather than all the window, input, and process
 management code.
 
-Think of the renderers as the frontend and the main process as the backend.
+In many ways, the main and renderer processes share the same relationship as the backend and frontend interface of a website.
 
-Note that you can rule out most issues with production and development mode. The only time you need to test packaging the app is when new files will be introduced, which is rare.
+Note that you can rule out most issues with production and development mode. The only time you need to test packaging the app is when new resource files will be introduced, which shouldn't be happening often.
 
 ## Building
 
