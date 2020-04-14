@@ -50,4 +50,4 @@ jobs:
       run: yarn build-renderer
 
     - name: Package
-      run: yarn package-skip-build
+      run: yarn package-ci

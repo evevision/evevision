@@ -1,7 +1,7 @@
 {
   "name": "evevision",
   "productName": "EveVision",
-  "version": "0.0.0-development",
+  "version": "0.0.0-versionless",
   "description": "The EVE UI you've always wanted",
   "author": {
     "name": "Jaydubs",

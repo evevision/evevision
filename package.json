@@ -38,13 +38,28 @@
     "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./scripts/BabelRegister ./app/main/index.ts",
     "package": "yarn install && yarn build && yarn package-skip-build",
-    "package-skip-build": "electron-builder build --win --x64 --publish never",
+    "package-skip-build": "electron-builder --publish never",
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "package-ci": "electron-builder build --win --x64"
+  },
+  "release": {
+    "branches": ["master"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      ["@semantic-release/npm", { "npmPublish": false }],
+      ["@semantic-release/github", {
+        "assets": [
+          {"path": "release/EveVision.exe", "label": "Portable EXE"}
+        ]
+      }]
+    ]
   },
   "build": {
     "productName": "EveVision",
     "appId": "com.evevision",
+    "npmRebuild": false,
     "files": [
       "package.json",
       {
@@ -94,9 +109,17 @@
       }
     ],
     "win": {
+      "artifactName": "EveVision.exe",
+      "compression": "store",
       "target": [
-        "portable"
-      ]
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "app/main/evevision.ico"
     },
     "directories": {
       "buildResources": "resources",
