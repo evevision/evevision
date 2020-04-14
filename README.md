@@ -80,6 +80,7 @@ We want to hear about conflicts so we can fix them! Please, if you can't seem to
 * [DuckDuckGo](https://duckduckgo.com/)
 
 ### Industry
+* [Fuzzwork](https://www.fuzzwork.co.uk/)
 * [EveMarketer](https://evemarketer.com/)
 * [Janice Junk Evaluator](https://janice.e-351.com/)
 * [Evepraisal](https://evepraisal.com/)
@@ -98,6 +99,8 @@ We want to hear about conflicts so we can fix them! Please, if you can't seem to
 * [DScan](https://dscan.info/)
 * [Tripwire](https://tripwire.eve-apps.com/)
 * [Thera Map](https://www.eve-scout.com/thera/map/)
+* [Siggy](https://siggy.borkedlabs.com/)
+* [Anoikis](https://anoik.is/)
 
 ### Information
 * [ZKillboard](https://zkillboard.com/)
@@ -105,6 +108,7 @@ We want to hear about conflicts so we can fix them! Please, if you can't seem to
 * [EVE University](https://wiki.eveuniversity.org/)
 
 ### Entertainment
+* EVE Jukebox
 * [Youtube](https://www.youtube.com/)
 * [Soundcloud](https://www.soundcloud.com/)
 * [Reddit](https://reddit.com/r/eve)

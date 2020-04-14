@@ -80,6 +80,7 @@ EveVision использует некоторые технологии, кото
 * [DuckDuckGo](https://duckduckgo.com/)
  
 ### Производство
+* [Fuzzwork](https://www.fuzzwork.co.uk/)
 * [EveMarketer](https://evemarketer.com/)
 * [Janice Junk Evaluator](https://janice.e-351.com/)
 * [Evepraisal](https://evepraisal.com/)
@@ -98,6 +99,8 @@ EveVision использует некоторые технологии, кото
 * [DScan](https://dscan.info/)
 * [Tripwire](https://tripwire.eve-apps.com/)
 * [Thera Map](https://www.eve-scout.com/thera/map/)
+* [Siggy](https://siggy.borkedlabs.com/)
+* [Anoikis](https://anoik.is/)
  
 ### Информация
 * [ZKillboard](https://zkillboard.com/)
@@ -105,6 +108,7 @@ EveVision использует некоторые технологии, кото
 * [EVE University](https://wiki.eveuniversity.org/)
  
 ### Развлечения
+* EVE Jukebox
 * [Youtube](https://www.youtube.com/)
 * [Soundcloud](https://www.soundcloud.com/)
 * [Reddit](https://reddit.com/r/eve)

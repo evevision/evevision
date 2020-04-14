@@ -78,6 +78,7 @@ Compatibilidad confirmada:
 * [DuckDuckGo](https://duckduckgo.com/)
 
 ### Industria
+* [Fuzzwork](https://www.fuzzwork.co.uk/)
 * [EveMarketer](https://evemarketer.com/)
 * [Janice Junk Evaluator](https://janice.e-351.com/)
 * [Evepraisal](https://evepraisal.com/)
@@ -96,6 +97,8 @@ Compatibilidad confirmada:
 * [DScan](https://dscan.info/)
 * [Tripwire](https://tripwire.eve-apps.com/)
 * [Thera Map](https://www.eve-scout.com/thera/map/)
+* [Siggy](https://siggy.borkedlabs.com/)
+* [Anoikis](https://anoik.is/)
 
 ### Información
 * [ZKillboard](https://zkillboard.com/)
@@ -103,6 +106,7 @@ Compatibilidad confirmada:
 * [EVE University](https://wiki.eveuniversity.org/)
 
 ### Entretenimiento
+* EVE Jukebox
 * [Youtube](https://www.youtube.com/)
 * [Soundcloud](https://www.soundcloud.com/)
 * [Reddit](https://reddit.com/r/eve)
