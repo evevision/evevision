@@ -104,6 +104,22 @@ a:hover {
   box-shadow: inset 0 0 2x $inner-glow;
 }
 
+.eve-credits {
+  width: 100%;
+}
+
+.eve-credits > tr > td:first-child {
+  text-align: right;
+  width: 40%;
+  font-weight: bold;
+}
+
+.eve-credits-container {
+  overflow-y: auto;
+  height: calc(100vh - 75px);
+  padding: 5px;
+}
+
 .new-version-alert {
   animation: text-blink 0.8s linear infinite;
   text-align: right;
