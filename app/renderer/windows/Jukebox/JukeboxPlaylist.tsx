@@ -51,7 +51,7 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = (props) => {
                         <th align="left" {...column.getHeaderProps(column.getSortByToggleProps())}>
                             <Typography>
                                 {column.render('Header')}
-                                {column.isSorted ? <FontAwesomeIcon icon={column.isSortedDesc ? faSortDown : faSortUp} style={{marginLeft: "4px"}}/> : ''}
+                                {column.isSorted ? <FontAwesomeIcon size={"xs"} icon={column.isSortedDesc ? faSortDown : faSortUp} style={{marginLeft: "4px"}}/> : ''}
                             </Typography>
                         </th>
                     ))}
@@ -65,7 +65,7 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = (props) => {
                 const isRowSelected = row.original.soundCloudTrackId === props.currentTrack?.soundCloudTrackId;
                 return (
                     <tr {...row.getRowProps()} className={isRowSelected ? "selected" : ""} onClick={() => props.onTrackClick ? props.onTrackClick({...row.original}) : ""}>
-                        <td>{isRowSelected && <FontAwesomeIcon icon={faPlay} />}</td>
+                        <td>{isRowSelected && <FontAwesomeIcon size={"sm"} icon={faPlay} />}</td>
                         {row.cells.map(cell => {
                             return <td {...cell.getCellProps()}><Typography>{cell.render('Cell')}</Typography></td>
                         })}
