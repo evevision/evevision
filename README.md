@@ -5,7 +5,7 @@
 ![Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/total)
 [![Discord](https://img.shields.io/discord/696546217697476679)](https://discord.gg/wWMasVf)
 
-[🇷🇺 Русские капсулиры](README_ru.md)
+[🇷🇺 Русские капсулиры](README_ru.md) · [Versión en Español](README_es.md)
 
 ![eveeye-ss](https://user-images.githubusercontent.com/62183293/79039585-2b59fe00-7bb0-11ea-91d0-6bb15389dbac.png)
 ![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
