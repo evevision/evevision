@@ -128,6 +128,9 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://siggy.borkedlabs.com/");
                     }}>Siggy</Button>
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "http://anoik.is/");
+                    }}>Anoikis</Button>
                     <br/><br/><h3>Info</h3>
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://zkillboard.com/character/" + this.props.character!.id);
