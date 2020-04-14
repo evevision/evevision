@@ -8,21 +8,12 @@ import {replayActionMain} from 'electron-redux';
 import {version} from '../../package.json';
 
 const log = require('electron-log');
+const sentry = require('./sentry.main.js');
 const locked = app.requestSingleInstanceLock()
 
 if (!locked) {
     app.exit(0)
 } else {
-    // this is only for production builds being released on github
-    // it reports exceptions so I can know if a new release is causing issues for any number of users immediately
-    // please do NOT use this locally
-
-    //SentryInit({
-    //    release: 'evevision@' + version,
-    //    dsn: 'https://6ef229c5e2a94db5ab9c6ae1669b8a25@o374578.ingest.sentry.io/5192804'
-    //});
-    //log.info("Main sentry initialized")
-
     replayActionMain(store);
 
     // hardware acceleration causes issues with offscreen rendering, i.e. blurring while resizing and general slowness, due

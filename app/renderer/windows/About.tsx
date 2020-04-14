@@ -29,8 +29,8 @@ const About = () => {
                       Special thanks to CCP for allowing a tool like this to exist and giving us APIs to interact with our favorite game. Your neverending support of the developer community is forever appreciated.
                       <br />
                       <br />
-                      <h1>EveVision Development Team</h1>
-                      <h2>Software</h2>
+                      <h1>EveVision Contributors</h1>
+                      <h2>General</h2>
                       <hr />
                       <table className={"eve-credits"}>
                           <tr>
@@ -42,8 +42,12 @@ const About = () => {
                               <td>Niedar</td>
                           </tr>
                           <tr>
-                              <td>Build Scripts :</td>
-                              <td>Eris Kirke</td>
+                              <td>Non-English Community Relations :</td>
+                              <td>Andres M Afanador</td>
+                          </tr>
+                          <tr>
+                              <td>Various Repo Contributions :</td>
+                              <td>Eris Kirke, Hitoru Okasaki</td>
                           </tr>
                       </table>
                       <h2>Translations</h2>
@@ -52,6 +56,10 @@ const About = () => {
                           <tr>
                               <td>русский :</td>
                               <td><strong>Mortis en Divalone</strong> of <strong>Inner Hell</strong></td>
+                          </tr>
+                          <tr>
+                              <td>Español :</td>
+                              <td><strong>DR4GONS</strong> of <strong>Anoikis</strong></td>
                           </tr>
                       </table>
                       <br />

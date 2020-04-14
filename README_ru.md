@@ -172,7 +172,7 @@ You will need the following installed:
 Download the repo by cloning it or getting the ZIP and extracting it to a local directory of your choice.
  
 #### Generate Packaged Executable
-Run `yarn package` and a packaged executable will be output to `release/EveVision VERSION.exe`.
+Run `yarn package` and a packaged executable will be output to `release/EveVision.exe`.
  
 All components will be built to ensure the latest code is packaged.
 To quickly repackage the app without running any builds, use `yarn package-skip-build` instead.

@@ -28,6 +28,7 @@ export default class FullscreenOverlay {
             resizable: true,
 
             webPreferences: {
+                preload: path.join(__dirname, 'sentry.preload.js'),
                 nodeIntegration: true,
                 offscreen: true,
                 additionalArguments: [this.parentInstance.characterId.toString(), "fullscreenoverlay", "none", "false"],

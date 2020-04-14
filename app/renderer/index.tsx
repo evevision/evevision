@@ -13,15 +13,6 @@ import moment from "moment";
 import {ipcRenderer, IpcRendererEvent} from 'electron';
 const log = require('electron-log');
 
-// this is only for production builds being released on github
-// it reports exceptions so I can know if a new release is causing issues for any number of users immediately
-// please do NOT use this locally
-//SentryInit({
-//    release: 'evevision@' + version,
-//    dsn: 'https://6ef229c5e2a94db5ab9c6ae1669b8a25@o374578.ingest.sentry.io/5192804'
-//});
-//log.info("Renderer sentry initialized");
-
 moment.relativeTimeThreshold('s', 60);
 moment.relativeTimeThreshold('ss', 0);
 Moment.globalMoment = moment;

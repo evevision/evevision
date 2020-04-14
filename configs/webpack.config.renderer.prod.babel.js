@@ -11,13 +11,11 @@ import merge from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
-import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
 
 CheckNodeEnv('production');
-DeleteSourceMaps();
 
 export default merge.smart(baseConfig, {
-  devtool: process.env.DEBUG_PROD === 'true' ? 'source-map' : 'none',
+  devtool: 'source-map',
 
   mode: 'production',
 

@@ -4,6 +4,7 @@ app/main/main.prod.js
 *.scss.d.ts
 swagger.json
 *.node
+*.js.map
 
 # generated
 output/

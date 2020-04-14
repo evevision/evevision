@@ -108,6 +108,7 @@ export default class EveWindow {
             transparent: true,
             resizable: this.isResizable,
             webPreferences: {
+                preload: path.join(__dirname, 'sentry.preload.js'),
                 nodeIntegration: true,
                 offscreen: true,
                 additionalArguments: args,
