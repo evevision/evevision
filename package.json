@@ -1,13 +1,17 @@
 {
   "name": "evevision",
   "productName": "EveVision",
-  "version": "0.4.3",
+  "version": "0.0.0-development",
   "description": "The EVE UI you've always wanted",
   "author": {
     "name": "Jaydubs",
     "email": "dubs@eve.vision"
   },
-  "keywords": ["eve-online", "game-overlay", "directx"],
+  "keywords": [
+    "eve-online",
+    "game-overlay",
+    "directx"
+  ],
   "contributors": [],
   "repository": "github:evevision/evevision",
   "license": "GPL-3.0",
@@ -35,7 +39,8 @@
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./scripts/BabelRegister ./app/main/index.ts",
     "package": "yarn install && yarn build && yarn package-skip-build",
     "package-skip-build": "electron-builder build --win --x64 --publish never",
-    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional"
+    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional",
+    "semantic-release": "semantic-release"
   },
   "build": {
     "productName": "EveVision",
@@ -174,7 +179,8 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2",
-    "yarn": "^1.22.1"
+    "yarn": "^1.22.1",
+    "semantic-release": "^17.0.4"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.8.3",
@@ -221,6 +227,10 @@
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
-  "os": ["win64"],
-  "cpu": ["x64"]
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ]
 }
