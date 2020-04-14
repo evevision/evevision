@@ -140,14 +140,22 @@ export default class EveInstance {
     private handleOverlayEvent = (event: string, payload: any) => {
         if (event === "game.input") {
             const inputEvent = Overlay.translateInputEvent(payload) // TODO: why is input sent to us by the C++ and then sent back to C++ for translation? probably can just move this all into one spot
+            if(!inputEvent) { return; }
             let window;
             if(this.fullscreenOverlay && payload.windowId == this.fullscreenOverlay.windowId) {
-                window = this.fullscreenOverlay
+                this.fullscreenOverlay.sendInputEvent(inputEvent);
             } else {
                 window = this.eveWindows.find(w => w.windowId == payload.windowId);
-            }
-            if (window) {
-                if (inputEvent) { window.sendInputEvent(inputEvent); }
+                if(window) {
+                    window.sendInputEvent(inputEvent);
+                    if(payload.msg == 524) { // mouse4/5 up
+                        if(payload.wparam == 131072) { // mouse4 up (forward)
+                            window.goForward();
+                        } else if(payload.wparam == 65536) { //mouse5 up (back)
+                            window.goBack();
+                        }
+                    }
+                }
             }
         } else if (event === "graphics.window.event.resize" || event === "graphics.window") {
             this.updateGameResolution(payload.width, payload.height)

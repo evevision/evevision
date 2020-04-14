@@ -76,6 +76,14 @@ export default class ChildWindow {
         //this.electronWindow.webContents.openDevTools({mode: 'detach'})
     }
 
+    goBack(): void {
+        if(this.electronWindow.webContents.canGoBack()) { this.electronWindow.webContents.goBack(); }
+    }
+
+    goForward(): void {
+        if(this.electronWindow.webContents.canGoForward()) { this.electronWindow.webContents.goForward(); }
+    }
+
     sendInputEvent(inputEvent: any): void {
         this.electronWindow.webContents.sendInputEvent(inputEvent)
     }

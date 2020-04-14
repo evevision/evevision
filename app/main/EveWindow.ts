@@ -135,6 +135,14 @@ export default class EveWindow {
         this.positionSaveInterval = setInterval(this.updatePositionStore, 1000)
     }
 
+    public goBack(): void {
+        if(this.childWindow) { this.childWindow.goBack(); }
+    }
+
+    public goForward(): void {
+        if(this.childWindow) { this.childWindow.goForward(); }
+    }
+
     public getTitle(): string {
         return this.electronWindow.webContents.getTitle()
     }
