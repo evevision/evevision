@@ -216,7 +216,7 @@ jobs:
       if: steps.semantic.outputs.new_release_published == 'true'
       run: |
         sentry-cli releases new v${{ steps.semantic.outputs.new_release_version }}
-        sentry-cli releases files v${{ steps.semantic.outputs.new_release_version }} upload-sourcemaps /app
+        sentry-cli releases files v${{ steps.semantic.outputs.new_release_version }} upload-sourcemaps ./app
         sentry-cli releases finalize v${{ steps.semantic.outputs.new_release_version }}
 
     - name: Upload asset to release
