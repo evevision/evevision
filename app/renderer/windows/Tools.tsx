@@ -77,6 +77,9 @@ class Tools extends Component<ToolsProps, ToolsState> {
 
                     <h3>Industry</h3>
                     <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://www.fuzzwork.co.uk/");
+                    }}>Fuzzwork</Button>
+                    <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://evemarketer.com/");
                     }}>EveMarketer</Button>
                     <Button onClick={() => {
@@ -122,6 +125,9 @@ class Tools extends Component<ToolsProps, ToolsState> {
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://www.eve-scout.com/thera/map/");
                     }}>Thera Map</Button>
+                    <Button onClick={() => {
+                        ipcRenderer.send("openWindow", "externalsite", "https://siggy.borkedlabs.com/");
+                    }}>Siggy</Button>
                     <br/><br/><h3>Info</h3>
                     <Button onClick={() => {
                         ipcRenderer.send("openWindow", "externalsite", "https://zkillboard.com/character/" + this.props.character!.id);
