@@ -1,16 +1,24 @@
 {
   "name": "evevision",
   "productName": "EveVision",
-  "author": "Jaydubs",
   "version": "0.4.3",
   "description": "The EVE UI you've always wanted",
+  "author": {
+    "name": "Jaydubs",
+    "email": "dubs@eve.vision"
+  },
+  "keywords": ["eve-online", "game-overlay", "directx"],
+  "contributors": [],
+  "repository": "github:evevision/evevision",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/evevision/evevision",
   "main": "main.prod.js",
   "scripts": {
   },
-  "license": "GPL-3.0",
   "dependencies": {
     "@types/react-redux": "^7.1.7",
     "@types/superagent": "^4.1.7",
     "@types/ws": "^7.2.2"
   }
 }
+

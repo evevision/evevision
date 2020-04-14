@@ -3,6 +3,15 @@
   "productName": "EveVision",
   "version": "0.4.3",
   "description": "The EVE UI you've always wanted",
+  "author": {
+    "name": "Jaydubs",
+    "email": "dubs@eve.vision"
+  },
+  "keywords": ["eve-online", "game-overlay", "directx"],
+  "contributors": [],
+  "repository": "github:evevision/evevision",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/evevision/evevision",
   "scripts": {
     "preinstall": "node ./scripts/CheckYarn.js",
     "install": "rem",
@@ -27,10 +36,6 @@
     "package": "yarn install && yarn build && yarn package-skip-build",
     "package-skip-build": "electron-builder build --win --x64 --publish never",
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/evevision/evevision.git"
   },
   "build": {
     "productName": "EveVision",
@@ -93,14 +98,6 @@
       "output": "release"
     }
   },
-  "author": {
-    "name": "Jaydubs",
-    "email": "dubs@eve.vision",
-    "url": "https://github.com/evevision/evevision"
-  },
-  "contributors": [],
-  "license": "GPL-3.0",
-  "homepage": "https://github.com/evevision/evevision",
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -220,9 +217,10 @@
     "ws": "^7.2.3"
   },
   "devEngines": {
-    "node": ">=7.x",
+    "node": ">=12.x",
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
-  "browserslist": []
+  "os": ["win64"],
+  "cpu": ["x64"]
 }
