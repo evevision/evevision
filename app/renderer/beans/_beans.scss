@@ -47,3 +47,28 @@
   background-position-y: -50px;
   opacity: 0.6;
 }
+
+.eve-welcome-bean.lazerhawks {
+  background-image: url("lazerhawks.png");
+  background-size: 450px;
+  background-position: center;
+}
+
+.eve-welcome-bean.holecontrol {
+  background-image: url("holecontrol.png");
+  background-size: 300px;
+  background-position-x: 10px;
+  background-position-y: -30px;
+  opacity: 0.5;
+}
+
+.eve-welcome-bean.hardknocks {
+  background-image: url("hardknocks.png");
+  background-size: 200px;
+  background-position-x: 10px;
+  background-position-y: 10px;
+}
+
+.eve-welcome-bean.ccp {
+  background-image: url("ccp.png");
+}

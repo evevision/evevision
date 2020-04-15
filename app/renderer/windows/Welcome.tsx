@@ -28,7 +28,13 @@ const beans = {
     498125261: "test",
     1727758877: "nc",
     98148549: "capf",
-    98431483: "innerhell"
+    98431483: "innerhell",
+    99007237: "lazerhawks",
+    99004344: "holecontrol",
+    99005065: "hardknocks",
+    109299958: "ccp",
+    924269309: "ccp", // ISD
+    98075603: "ccp" // ISD CCL
 }
 
 class Welcome extends Component<WelcomeProps, WelcomeState> {
