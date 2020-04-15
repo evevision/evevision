@@ -29,13 +29,13 @@ class ChildWindowContainer extends Component<ChildWindowContainerProps, ChildWin
     }
 
     componentDidMount(): void {
-        setImmediate(() => {
+        setTimeout(() => {
             // try pushing it into the next event tick.
             // not sure why, but sometimes the childwindow initializes with the wrong height.
             const bounds = this.containerRef.current.getBoundingClientRect();
             log.info("Initializing child window with dimensions " + Math.ceil(bounds.width) + "x" + Math.ceil(bounds.height))
             ipcRenderer.send("createChildWindow", this.props.url, bounds.x, bounds.y, Math.ceil(bounds.width), Math.ceil(bounds.height))
-        })
+        }, 500);
         window.addEventListener("resize", this.updateDimensions)
     }
 
