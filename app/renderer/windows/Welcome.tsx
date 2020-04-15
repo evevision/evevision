@@ -96,10 +96,10 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                             ipcRenderer.send("openWindow", "settings");
                         }}>Settings</Button>
                         <Button onClick={() => {
-                            ipcRenderer.send("openWindow", "auth");
-                        }}>ESI Authorization</Button>
+                            ipcRenderer.send("openWindow", "jukebox");
+                        }}>Jukebox</Button>
                         <Button onClick={() => {
-                            ipcRenderer.send("openWindow", "externalsite", "https://discord.gg/BBBJRkM");
+                            ipcRenderer.send("openWindow", "externalsite", "https://discord.gg/wWMasVf");
                         }}>Help</Button>
                         {this.props.character.public.corporation_id == 98148549 ? <Button onClick={() => {
                             ipcRenderer.send("openWindow", "ricardo");
