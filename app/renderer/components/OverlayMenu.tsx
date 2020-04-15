@@ -14,6 +14,9 @@ interface MenuProps {
 }
 
 interface DragInfo {
+    // note that in EVE dragging is done differently for the notification icon than for windows
+    // it doesn't do any scaling when the game size changes, it simply offsets from a corner. we match that behaviour.
+    
     // normally you wouldn't calculate the offset like this, but things can get strange with CSS-based positioning
     // so, we'll just make sure the right spot stays under the mouse
     offsetFromMouseX: number, // translation of box top left from mouse position at start of drag
