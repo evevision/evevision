@@ -29,8 +29,7 @@ El proceso de instalación no es complejo. Simplemente descarga la última versi
 
 **Asegúrate de tener el DirectX 9 deshabilitado en la configuración del launcher**. Inicia sesión en EVE y juega como lo harías normalmente; el resto será algo natural para usted. Si hay una nueva versión disponible, la aplicación te avisara. [¡Hay una pantalla de bienvenida personalizada para la mayoría de las principales alianzas!](BEANS.md)
                                                                                                                                                                                                                                                    
-![ss-gsf](https://user-images.githubusercontent.com/62183293/79319763-c0256a00-7ed6-11ea-9d75-7840865c912a.png)
-![ss-nc](https://user-images.githubusercontent.com/62183293/79319765-c0be0080-7ed6-11ea-85f8-3f8699d2eb6c.png)
+![custom](https://user-images.githubusercontent.com/62183293/79323992-eea64380-7edc-11ea-94a8-66fff247e815.png)
 
 Si alguna vez entras en la web oficial de CCP (es decir, para la autenticación ESI), el borde la ventana parpadeará en verde como se muestra a continuación
 

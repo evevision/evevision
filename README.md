@@ -31,8 +31,7 @@ There is no complex setup process. Simply download the latest EXE from the [rele
 
 **Make sure you have DirectX 9 disabled in launcher settings**. Log into EVE and play as you normally would - the rest will come naturally to you. If there is a new version available, it will let you know. [There is a custom welcome screen for most major alliances!](BEANS.md)
 
-![ss-gsf](https://user-images.githubusercontent.com/62183293/79319763-c0256a00-7ed6-11ea-9d75-7840865c912a.png)
-![ss-nc](https://user-images.githubusercontent.com/62183293/79319765-c0be0080-7ed6-11ea-85f8-3f8699d2eb6c.png)
+![custom](https://user-images.githubusercontent.com/62183293/79323992-eea64380-7edc-11ea-94a8-66fff247e815.png)
 
 If you are ever on an official CCP website (i.e. for ESI authentication) the window will flash green *all the way to the edge of the window as shown below*
 
