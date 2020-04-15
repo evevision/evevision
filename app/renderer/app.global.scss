@@ -3,6 +3,7 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 @import 'fonts/fonts';
+@import 'beans/beans';
 
 /*
 EVE brightens the borders and panel backgrounds whenever the window is focused. Elements and text don't change.
@@ -215,21 +216,6 @@ html {
   overflow: hidden;
 }
 
-.eve-welcome-bean {
-  opacity: 0.8;
-  background: url("images/hordelogo.png");
-  background-size: 300px;
-  background-position-y: -30px;
-  background-position-x: -15px;
-  background-repeat: no-repeat;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: -1;
-}
-
 @keyframes ricardoFade {
   0% {
     opacity: 0;
@@ -254,21 +240,6 @@ html {
   animation-delay: 20s;
   opacity: 0;
   z-index: -99999;
-}
-
-.eve-welcome-bean-capf {
-  opacity: 0.8;
-  background: url("images/capf.png");
-  background-size: 300px;
-  background-position-y: -30px;
-  background-position-x: -15px;
-  background-repeat: no-repeat;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: -1;
 }
 
 .eve-window-buttons {

@@ -1,0 +1,42 @@
+.eve-welcome-bean {
+  opacity: 0.8;
+  background-size: 300px;
+  background-position-y: -30px;
+  background-position-x: -15px;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.eve-welcome-bean.horde {
+  background-image: url("horde.png");
+}
+
+.eve-welcome-bean.capf {
+  background-image: url("capf.png");
+}
+
+.eve-welcome-bean.gsf {
+  background-image: url("gsf.png");
+}
+
+.eve-welcome-bean.test {
+  background-image: url("test.png");
+}
+
+.eve-welcome-bean.nc {
+  background-image: url("nc.png");
+  background-position-x: center;
+}
+
+.eve-welcome-bean.frat {
+  background-image: url("frat.png");
+  background-size: 230px;
+  background-position-x: -30px;
+  background-position-y: -50px;
+  opacity: 0.6;
+}

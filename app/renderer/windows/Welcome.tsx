@@ -21,6 +21,15 @@ interface WelcomeState {
     newVersion?: string // version number if available
 }
 
+const beans = {
+    1354830081: "gsf",
+    99003581: "frat",
+    99005338: "horde",
+    498125261: "test",
+    1727758877: "nc",
+    98148549: "capf"
+}
+
 class Welcome extends Component<WelcomeProps, WelcomeState> {
 
     versionCheckTimer?: NodeJS.Timeout
@@ -62,6 +71,19 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
         }
     }
 
+    bean() {
+        if(!this.props.character || !this.props.character.public) { return "" }
+        let corporationId = this.props.character.public.corporation_id
+        let allianceId = this.props.character.public.alliance_id
+
+        if(corporationId in beans) {
+            return <div className={"eve-welcome-bean " + beans[corporationId]}></div>
+        } else if(allianceId && allianceId in beans) {
+            return <div className={"eve-welcome-bean " + beans[allianceId]}></div>
+        } else {
+            return ""
+        }
+    }
     render() {
         if(this.props.character === undefined || this.props.character.public === undefined) {
             return (<>
@@ -77,14 +99,11 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
         } else {
             return (
                 <>
-                    {this.props.character.public.alliance_id == 99005338 && this.props.character.public.corporation_id != 98148549 ? <div className={"eve-welcome-bean"}></div> : ""}
-                    {this.props.character.public.corporation_id == 98148549 ? <div className={"eve-welcome-bean-capf"}></div> : ""}
+                    {this.bean()}
                     <Panel>
                         <Typography>
                             <h2 style={{textAlign: 'right', marginLeft: '150px'}}>Welcome to EveVision, {this.props.character.public.name}.</h2>
                             <br />
-                            <div style={{textAlign: 'right', marginLeft: '150px'}}>ESI authorization not required.</div>
-                            {this.props.apiState ? <div style={{textAlign: 'right', marginLeft: '150px'}}>{this.apiStateText()}</div> : null}
                             {this.state.newVersion ? <div className={"new-version-alert"} onClick={() => ipcRenderer.send("openWindow", "externalsite", "https://github.com/evevision/evevision/releases")}><strong>Version {this.state.newVersion} available!</strong></div> : null}
                         </Typography>
                     </Panel>
