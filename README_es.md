@@ -25,11 +25,12 @@ En un futuro próximo, habrá un sistema que te permitirá agregar e incluso des
 
 El proceso de instalación no es complejo. Simplemente descarga la última versión del EXE en la [releases page](https://github.com/evevision/evevision/releases), ejecútalo una sola vez y despreocúpate. Si deseas compilarlo tú mismo, el proceso es bastante sencillo.
 
-![ev-ss-4](https://user-images.githubusercontent.com/62183293/79017654-ded6da00-7b3f-11ea-96b5-217b1e9e1274.png)
+![ss1](https://user-images.githubusercontent.com/62183293/79319758-bf8cd380-7ed6-11ea-902b-41fb27973048.png)
 
-**Asegúrate de tener el DirectX 9 deshabilitado en la configuración del launcher**. Inicia sesión en EVE y juega como lo harías normalmente; el resto será algo natural para usted. Si hay una nueva versión disponible, la aplicación te avisara. Ten en cuenta que el fondo solo se muestra para los miembros de Pandemic Horde, ¡Pronto se podrá personalizar!
-
-![ev-ss-5](https://user-images.githubusercontent.com/62183293/79019099-86094080-7b43-11ea-8f43-94f559fb3b53.png)
+**Asegúrate de tener el DirectX 9 deshabilitado en la configuración del launcher**. Inicia sesión en EVE y juega como lo harías normalmente; el resto será algo natural para usted. Si hay una nueva versión disponible, la aplicación te avisara. [¡Hay una pantalla de bienvenida personalizada para la mayoría de las principales alianzas!](BEANS.md)
+                                                                                                                                                                                                                                                   
+![ss-gsf](https://user-images.githubusercontent.com/62183293/79319763-c0256a00-7ed6-11ea-9d75-7840865c912a.png)
+![ss-nc](https://user-images.githubusercontent.com/62183293/79319765-c0be0080-7ed6-11ea-85f8-3f8699d2eb6c.png)
 
 Si alguna vez entras en la web oficial de CCP (es decir, para la autenticación ESI), el borde la ventana parpadeará en verde como se muestra a continuación
 
@@ -37,7 +38,7 @@ Si alguna vez entras en la web oficial de CCP (es decir, para la autenticación 
 
 Para cerrar EveVision, simplemente ve a la bandeja de Windows, haz click derecho en el icono de la aplicación y selecciona Salir en el menú.
 
-![ev-ss-3](https://user-images.githubusercontent.com/62183293/79017565-a8995a80-7b3f-11ea-82f0-3c292e0f34bb.png)
+![ss2](https://user-images.githubusercontent.com/62183293/79319759-bf8cd380-7ed6-11ea-981c-3e3076e9d0be.png)
 
 #### ¿Quiere compilarlo tú mismo? ¡Es realmente fácil!
 

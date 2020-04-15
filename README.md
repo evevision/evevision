@@ -27,11 +27,12 @@ Need help using or developing EveVision? Have a suggestion or want to show off h
 
 There is no complex setup process. Simply download the latest EXE from the [releases page](https://github.com/evevision/evevision/releases), run it once and forget about it. If you would like to build it yourself instead, it is quite simple to do so.
 
-![ev-ss-4](https://user-images.githubusercontent.com/62183293/79017654-ded6da00-7b3f-11ea-96b5-217b1e9e1274.png)
+![ss1](https://user-images.githubusercontent.com/62183293/79319758-bf8cd380-7ed6-11ea-902b-41fb27973048.png)
 
-**Make sure you have DirectX 9 disabled in launcher settings**. Log into EVE and play as you normally would - the rest will come naturally to you. If there is a new version available, it will let you know. Note that the background only shows for members of Pandemic Horde, this will be customizable soon!
+**Make sure you have DirectX 9 disabled in launcher settings**. Log into EVE and play as you normally would - the rest will come naturally to you. If there is a new version available, it will let you know. [There is a custom welcome screen for most major alliances!](BEANS.md)
 
-![ev-ss-5](https://user-images.githubusercontent.com/62183293/79019099-86094080-7b43-11ea-8f43-94f559fb3b53.png)
+![ss-gsf](https://user-images.githubusercontent.com/62183293/79319763-c0256a00-7ed6-11ea-9d75-7840865c912a.png)
+![ss-nc](https://user-images.githubusercontent.com/62183293/79319765-c0be0080-7ed6-11ea-85f8-3f8699d2eb6c.png)
 
 If you are ever on an official CCP website (i.e. for ESI authentication) the window will flash green *all the way to the edge of the window as shown below*
 
@@ -39,7 +40,7 @@ If you are ever on an official CCP website (i.e. for ESI authentication) the win
 
 To shut down EveVision, simply select Quit from the tray menu where you change your volume and network settings in Windows.
 
-![ev-ss-3](https://user-images.githubusercontent.com/62183293/79017565-a8995a80-7b3f-11ea-82f0-3c292e0f34bb.png)
+![ss2](https://user-images.githubusercontent.com/62183293/79319759-bf8cd380-7ed6-11ea-981c-3e3076e9d0be.png)
 
 #### Want to build it yourself? It's really easy!
 
