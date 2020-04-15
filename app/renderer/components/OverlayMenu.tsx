@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {AppState} from "../store/rootReducer";
 import {connect} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import { faBiohazard, faWindowRestore, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faWindowRestore, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 import {Button} from '../ui/Input';
 import {ipcRenderer, IpcRendererEvent} from "electron";
 
@@ -104,7 +104,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
 
     render() {
         return <div className={this.state.expanded ? "eve-overlay-menu expanded" : "eve-overlay-menu collapsed"} onMouseOver={this.handleMouseEnter}>
-            <div className="eve-overlay-menu-expander" onClick={this.toggleExpand} onContextMenu={this.minimizeAll}><FontAwesomeIcon icon={faBiohazard} className={"eve-overlay-menu-expander-icon"}/></div>
+            <div className="eve-overlay-menu-expander" onClick={this.toggleExpand} onContextMenu={this.minimizeAll}><FontAwesomeIcon icon={faWindowRestore} className={"eve-overlay-menu-expander-icon"}/></div>
             <div className="eve-overlay-menu-contents">
                 <div className="eve-overlay-menu-title">Minimized Windows</div>
                 <div className="eve-minimized-windows-list eve-scrollbar">
