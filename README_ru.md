@@ -108,7 +108,8 @@ EveVision использует некоторые технологии, кото
 * [EVE University](https://wiki.eveuniversity.org/)
  
 ### Развлечения
-* EVE Jukebox
+![jukebox](https://user-images.githubusercontent.com/62183293/79378845-0527bb80-7f2c-11ea-9bc1-58a15eb0c00b.png)
+* [Twitch](https://twitch.tv/)
 * [Youtube](https://www.youtube.com/)
 * [Soundcloud](https://www.soundcloud.com/)
 * [Reddit](https://reddit.com/r/eve)
