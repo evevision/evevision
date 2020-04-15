@@ -238,7 +238,7 @@ jobs:
       with:
         severity: info
         color: '#ff00aa'
-        text: New EveVision Released!
+        text: <&699707458175893576> New EveVision Released!
         description: EveVision v${{ steps.semantic.outputs.new_release_version }} has been released!
         details: Visit https://github.com/evevision/evevision/releases to download.
         footer: ${{ github.sha }} Run #${{ github.run_id }}
