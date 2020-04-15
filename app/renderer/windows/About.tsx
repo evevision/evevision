@@ -20,7 +20,7 @@ const About = () => {
                       <div style={{textAlign: 'center'}}>
                           This software is licensed under the GPLv3 license.<br />
                           You can download the source code and new releases from <a href={"https://github.com/evevision/evevision"} target={"_blank"}>https://github.com/evevision/evevision</a>.<br />
-                          For support, please visit our Discord channel at <a href={"https://discord.gg/BBBJRkM"} target={"_blank"}>https://discord.gg/BBBJRkM</a>.<br />
+                          For support, please visit our Discord channel at <a href={"https://discord.gg/wWMasVf"} target={"_blank"}>https://discord.gg/BBBJRkM</a>.<br />
                           <br/>ISK Donations are accepted to the ingame character <strong>EveVision</strong>.<br/>
                       </div><br />
                   </Typography><br />
@@ -30,7 +30,7 @@ const About = () => {
                       <br />
                       <br />
                       <h1>EveVision Contributors</h1>
-                      <h2>General</h2>
+                      <h2>Core</h2>
                       <hr />
                       <table className={"eve-credits"}>
                           <tr>
@@ -50,12 +50,78 @@ const About = () => {
                               <td>Eris Kirke, Hitoru Okasaki</td>
                           </tr>
                       </table>
+                      <h2>External Tools</h2>
+                      <hr/>
+                      <table className={"eve-credits"}>
+                          <tr>
+                              <td>Fuzzwork :</td>
+                              <td>Steve Ronuken</td>
+                          </tr>
+                          <tr>
+                              <td>EveMarketer :</td>
+                              <td>Aplulu</td>
+                          </tr>
+                          <tr>
+                              <td>Janice Junk Evaluator :</td>
+                              <td>Eris Kirke (E-351)</td>
+                          </tr>
+                          <tr>
+                              <td>Evepraisal :</td>
+                              <td>sudorandom</td>
+                          </tr>
+                          <tr>
+                              <td>Ore Tables :</td>
+                              <td>cerlestes</td>
+                          </tr>
+                          <tr>
+                              <td>Abyssal Markets :</td>
+                              <td>Sharad Heft</td>
+                          </tr>
+                          <tr>
+                              <td>EVE-Mogul :</td>
+                              <td>Jeronica</td>
+                          </tr>
+                          <tr>
+                              <td>Dotlan :</td>
+                              <td>Daniel Hoffend</td>
+                          </tr>
+                          <tr>
+                              <td>EveEye Explorer :</td>
+                              <td>Risingson</td>
+                          </tr>
+                          <tr>
+                              <td>Tripwire :</td>
+                              <td>Daimian Mercer</td>
+                          </tr>
+                          <tr>
+                              <td>Eve-Scout Thera Maps :</td>
+                              <td>Signal Cartel</td>
+                          </tr>
+                          <tr>
+                              <td>Siggy :</td>
+                              <td>borkedLabs</td>
+                          </tr>
+                          <tr>
+                              <td>Anoikis :</td>
+                              <td>Eric Wastl</td>
+                          </tr>
+                          <tr>
+                              <td>ZKillboard / EVEWho :</td>
+                              <td>Squizz Caphinator</td>
+                          </tr>
+                          <tr>
+                              <td>Tripwire :</td>
+                              <td>Daimian Mercer</td>
+                          </tr>
+
+
+                      </table>
                       <h2>Translations</h2>
                       <hr />
                       <table className={"eve-credits"}>
                           <tr>
                               <td>русский :</td>
-                              <td><strong>Mortis en Divalone</strong> of <strong>Inner Hell</strong></td>
+                              <td><strong>Mortis en Divalone</strong> of <strong>Inner Hell</strong>, <strong>Mist Amatin</strong> of <strong>Arctic Beans</strong></td>
                           </tr>
                           <tr>
                               <td>Español :</td>
