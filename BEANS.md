@@ -20,6 +20,9 @@ Many of the major alliances have their own custom welcome screen! You will see i
 ### Northern Coalition
 ![ss-nc](https://user-images.githubusercontent.com/62183293/79319765-c0be0080-7ed6-11ea-85f8-3f8699d2eb6c.png)
 
+### Inner Hell
+![innerhell](https://user-images.githubusercontent.com/62183293/79350478-83249c00-7f05-11ea-8943-76e5b7f05059.png)
+
 If you would like to add your own, it is quite easy! [Look at this folder](app/renderer/beans/) and [the Welcome window component](app/renderer/windows/Welcome.tsx).
 
 If you don't know how to program or do pull requests but can do art, send it over and I'll add it for you!
