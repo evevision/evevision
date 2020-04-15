@@ -50,7 +50,7 @@ function Root() {
   const windowContents = renderWindowContents(characterId, windowName, itemId)
 
   if(windowName == "fullscreenoverlay") {
-    return (<Provider store={store}><FSORoot /></Provider>)
+    return (<Provider store={store}><FSORoot characterId={characterId}/></Provider>)
   } else {
     if(isClosable) {
       return (<Provider store={store}><Window onRequestMinimize={onRequestMinimize} onRequestClose={onRequestClose}>{windowContents}</Window></Provider>)

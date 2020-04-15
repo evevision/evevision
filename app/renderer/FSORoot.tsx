@@ -5,6 +5,7 @@ import OverlayMenu from "./components/OverlayMenu";
 import RicardoOverlay from "./components/RicardoOverlay";
 
 interface OverlayProps {
+    characterId: number
 }
 
 interface OverlayState {
@@ -20,7 +21,7 @@ class FSORoot extends Component<OverlayProps, OverlayState> {
 
     render() {
         return <div className="eve-overlay">
-            <OverlayMenu />
+            <OverlayMenu characterId={this.props.characterId}/>
             <RicardoOverlay />
         </div>
     }

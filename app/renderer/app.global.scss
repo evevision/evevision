@@ -389,11 +389,9 @@ html {
 
 .eve-overlay-menu {
   position: absolute;
-  right: 100px;
-  bottom: 12px;
   background-color: $window-background;
   border: 1px solid $border-active;
-  transition: width 0.2s linear, height 0.2s linear;
+  transition: width 0.2s linear, height 0.2s linear, transform 0.2s linear;
   overflow: hidden;
 }
 
@@ -405,6 +403,10 @@ html {
 .eve-overlay-menu.expanded {
   width: 300px;
   height: 300px;
+}
+
+.eve-overlay-menu.dragging {
+  transform: scale(1.2);
 }
 
 .eve-overlay-menu-contents {
@@ -433,6 +435,7 @@ html {
   display: block;
   flex-shrink: 1;
   padding: 5px;
+  text-align: center;
 }
 
 .eve-minimized-windows-list {
@@ -495,8 +498,6 @@ html {
   width: 30px;
   height: 30px;
   position: absolute;
-  right: 0px;
-  bottom: 0px;
   text-align: center;
   z-index: 999;
 }
