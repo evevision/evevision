@@ -1,37 +1,38 @@
-import React, {Component} from 'react';
-import {AppState} from "../store/rootReducer";
-import {connect} from "react-redux";
-import {ipcRenderer, IpcRendererEvent} from "electron";
+import React, { Component } from "react";
+// import { AppState } from "../store/rootReducer";
+// import { connect } from "react-redux";
+import { ipcRenderer, IpcRendererEvent } from "electron";
 
-interface RicardoProps {
-}
+interface RicardoProps {}
 
 interface RicardoState {
-    dancing: boolean
+  dancing: boolean;
 }
 
-export default class RicardoOverlay extends Component<RicardoProps, RicardoState> {
+export default class RicardoOverlay extends Component<
+  RicardoProps,
+  RicardoState
+> {
+  constructor(props: RicardoProps) {
+    super(props);
+    this.state = {
+      dancing: false
+    };
+  }
 
-    constructor(props: RicardoProps) {
-        super(props)
-        this.state = {
-            dancing: false,
-        }
-    }
+  handleRicardo = (_event: IpcRendererEvent, dancing: boolean) => {
+    this.setState({ ...this.state, dancing });
+  };
 
-    handleRicardo = (event: IpcRendererEvent, dancing: boolean) => {
-        this.setState({...this.state, dancing})
-    }
+  componentDidMount(): void {
+    ipcRenderer.on("ricardo", this.handleRicardo);
+  }
 
-    componentDidMount(): void {
-        ipcRenderer.on("ricardo", this.handleRicardo)
-    }
+  componentWillUnmount(): void {
+    ipcRenderer.removeListener("ricardo", this.handleRicardo);
+  }
 
-    componentWillUnmount(): void {
-        ipcRenderer.removeListener("ricardo", this.handleRicardo)
-    }
-
-    render() {
-        return this.state.dancing ? <div className={"ricardo"}></div> : ""
-    }
+  render() {
+    return this.state.dancing ? <div className={"ricardo"}></div> : "";
+  }
 }

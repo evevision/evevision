@@ -1,3 +1,3 @@
-import Jukebox from './Jukebox';
+import Jukebox from "./Jukebox";
 
 export default Jukebox;

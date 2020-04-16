@@ -1,23 +1,23 @@
 // Check if the renderer and main bundles are built
-import path from 'path';
-import chalk from 'chalk';
-import fs from 'fs';
+import path from "path";
+import chalk from "chalk";
+import fs from "fs";
 
-const mainPath = path.join(__dirname, '..', 'app', 'main', 'main.prod.js');
+const mainPath = path.join(__dirname, "..", "app", "main", "main.prod.js");
 const rendererPath = path.join(
   __dirname,
-  '..',
-  'app',
-  'renderer',
-  'dist',
-  'renderer.prod.js'
+  "..",
+  "app",
+  "renderer",
+  "dist",
+  "renderer.prod.js"
 );
 const nativePath = path.join(
   __dirname,
-  '..',
-  'build',
-  'Release',
-  'native.node'
+  "..",
+  "build",
+  "Release",
+  "native.node"
 );
 
 if (!fs.existsSync(mainPath)) {
@@ -38,8 +38,8 @@ if (!fs.existsSync(rendererPath)) {
 
 if (!fs.existsSync(nativePath)) {
   throw new Error(
-      chalk.whiteBright.bgRed.bold(
-          'The native node module is not built yet. Build it by running "yarn build-native"'
-      )
+    chalk.whiteBright.bgRed.bold(
+      'The native node module is not built yet. Build it by running "yarn build-native"'
+    )
   );
 }

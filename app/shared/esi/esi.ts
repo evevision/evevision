@@ -1,5 +1,5 @@
 // tslint:disable
-
+// eslint-disable
 import * as request from "superagent";
 import {
     SuperAgentStatic,
@@ -3674,7 +3674,7 @@ Alternate route: `/v1/alliances/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_alliances
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_alliances(parameters: {
@@ -3753,7 +3753,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_alliances_alliance_id
          * @param {integer} allianceId - An EVE alliance ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_alliances_alliance_id(parameters: {
@@ -3864,7 +3864,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_alliances_alliance_id_contacts
          * @param {integer} allianceId - An EVE alliance ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -3987,7 +3987,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_alliances_alliance_id_contacts_labels
          * @param {integer} allianceId - An EVE alliance ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -4091,7 +4091,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_alliances_alliance_id_corporations
          * @param {integer} allianceId - An EVE alliance ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_alliances_alliance_id_corporations(parameters: {
@@ -4186,7 +4186,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_alliances_alliance_id_icons
          * @param {integer} allianceId - An EVE alliance ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_alliances_alliance_id_icons(parameters: {
@@ -4278,7 +4278,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#post_characters_affiliation
          * @param {} characters - The character IDs to fetch affiliations for. All characters must exist, or none will be returned
-        
+
     */
     post_characters_affiliation(parameters: {
         'characters': Array < number >
@@ -4367,7 +4367,7 @@ This route is cached for up to 86400 seconds
     * @method
     * @name Esi#get_characters_character_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_characters_character_id(parameters: {
@@ -4472,7 +4472,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_agents_research
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -4592,7 +4592,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_assets
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -4714,7 +4714,7 @@ Alternate route: `/v2/characters/{character_id}/assets/locations/`
     * @method
     * @name Esi#post_characters_character_id_assets_locations
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {} itemIds - A list of item ids
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -4838,7 +4838,7 @@ Alternate route: `/v1/characters/{character_id}/assets/names/`
     * @method
     * @name Esi#post_characters_character_id_assets_names
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {} itemIds - A list of item ids
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -4961,7 +4961,7 @@ This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_characters_character_id_attributes
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -5081,7 +5081,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_blueprints
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -5210,7 +5210,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_bookmarks
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -5339,7 +5339,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_bookmarks_folders
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -5468,7 +5468,7 @@ This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_characters_character_id_calendar
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} fromEvent - The event ID to retrieve events from
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
@@ -5596,7 +5596,7 @@ This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_characters_character_id_calendar_event_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} eventId - The id of the event requested
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
@@ -5735,7 +5735,7 @@ Alternate route: `/v3/characters/{character_id}/calendar/{event_id}/`
     * @method
     * @name Esi#put_characters_character_id_calendar_event_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} eventId - The ID of the event requested
          * @param {} response - The response value to set, overriding current value
          * @param {string} token - Access token to use if unable to set a header
@@ -5880,7 +5880,7 @@ This route is cached for up to 600 seconds
     * @method
     * @name Esi#get_characters_character_id_calendar_event_id_attendees
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} eventId - The id of the event requested
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
@@ -6005,7 +6005,7 @@ This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_characters_character_id_clones
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -6124,7 +6124,7 @@ Alternate route: `/v2/characters/{character_id}/contacts/`
     * @name Esi#delete_characters_character_id_contacts
          * @param {integer} characterId - An EVE character ID
          * @param {array} contactIds - A list of contacts to delete
-        
+
          * @param {string} token - Access token to use if unable to set a header
     */
     delete_characters_character_id_contacts(parameters: {
@@ -6252,7 +6252,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_characters_character_id_contacts
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -6401,7 +6401,7 @@ Alternate route: `/v2/characters/{character_id}/contacts/`
     * @name Esi#post_characters_character_id_contacts
          * @param {integer} characterId - An EVE character ID
          * @param {} contactIds - A list of contacts
-        
+
          * @param {array} labelIds - Add custom labels to the new contact
          * @param {number} standing - Standing for the contact
          * @param {string} token - Access token to use if unable to set a header
@@ -6580,7 +6580,7 @@ Alternate route: `/v2/characters/{character_id}/contacts/`
     * @name Esi#put_characters_character_id_contacts
          * @param {integer} characterId - An EVE character ID
          * @param {} contactIds - A list of contacts
-        
+
          * @param {array} labelIds - Add custom labels to the contact
          * @param {number} standing - Standing for the contact
          * @param {string} token - Access token to use if unable to set a header
@@ -6732,7 +6732,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_characters_character_id_contacts_labels
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -6854,7 +6854,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_characters_character_id_contracts
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -6987,7 +6987,7 @@ This route is cached for up to 300 seconds
     * @name Esi#get_characters_character_id_contracts_contract_id_bids
          * @param {integer} characterId - An EVE character ID
          * @param {integer} contractId - ID of a contract
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -7125,7 +7125,7 @@ This route is cached for up to 3600 seconds
     * @name Esi#get_characters_character_id_contracts_contract_id_items
          * @param {integer} characterId - An EVE character ID
          * @param {integer} contractId - ID of a contract
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -7245,7 +7245,7 @@ This route is cached for up to 86400 seconds
     * @method
     * @name Esi#get_characters_character_id_corporationhistory
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_characters_character_id_corporationhistory(parameters: {
@@ -7351,7 +7351,7 @@ Alternate route: `/v4/characters/{character_id}/cspa/`
     * @name Esi#post_characters_character_id_cspa
          * @param {integer} characterId - An EVE character ID
          * @param {} characters - The target characters to calculate the charge for
-        
+
          * @param {string} token - Access token to use if unable to set a header
     */
     post_characters_character_id_cspa(parameters: {
@@ -7473,7 +7473,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_characters_character_id_fatigue
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -7585,7 +7585,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_characters_character_id_fittings
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -7711,7 +7711,7 @@ Alternate route: `/v2/characters/{character_id}/fittings/`
     * @method
     * @name Esi#post_characters_character_id_fittings
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {} fitting - Details about the new fitting
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -7852,7 +7852,7 @@ Alternate route: `/v1/characters/{character_id}/fittings/{fitting_id}/`
     * @method
     * @name Esi#delete_characters_character_id_fittings_fitting_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} fittingId - ID for a fitting of this character
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -7979,7 +7979,7 @@ Warning: This route has an upgrade available
     * @method
     * @name Esi#get_characters_character_id_fleet
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -8091,7 +8091,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_characters_character_id_fw_stats
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -8203,7 +8203,7 @@ This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_characters_character_id_implants
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -8325,7 +8325,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_characters_character_id_industry_jobs
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {boolean} includeCompleted - Whether to retrieve completed character industry jobs. Only includes jobs from the past 90 days
          * @param {string} token - Access token to use if unable to set a header
@@ -8456,7 +8456,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_characters_character_id_killmails_recent
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -8577,7 +8577,7 @@ This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_characters_character_id_location
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -8691,7 +8691,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_loyalty_points
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -8822,7 +8822,7 @@ This route is cached for up to 30 seconds
     * @method
     * @name Esi#get_characters_character_id_mail
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {array} labels - Fetch only mails that match one or more of the given labels
          * @param {integer} lastMailId - List only mail with an ID lower than the given ID, if present
@@ -8968,7 +8968,7 @@ Alternate route: `/v1/characters/{character_id}/mail/`
     * @method
     * @name Esi#post_characters_character_id_mail
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {} mail - The mail to send
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -9101,7 +9101,7 @@ This route is cached for up to 30 seconds
     * @method
     * @name Esi#get_characters_character_id_mail_labels
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -9220,7 +9220,7 @@ Alternate route: `/v2/characters/{character_id}/mail/labels/`
     * @method
     * @name Esi#post_characters_character_id_mail_labels
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {} label - Label to create
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -9352,7 +9352,7 @@ Alternate route: `/v1/characters/{character_id}/mail/labels/{label_id}/`
     * @method
     * @name Esi#delete_characters_character_id_mail_labels_label_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} labelId - An EVE label id
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -9475,7 +9475,7 @@ This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_characters_character_id_mail_lists
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -9594,7 +9594,7 @@ Alternate route: `/v1/characters/{character_id}/mail/{mail_id}/`
     * @method
     * @name Esi#delete_characters_character_id_mail_mail_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} mailId - An EVE mail ID
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -9725,7 +9725,7 @@ This route is cached for up to 30 seconds
     * @method
     * @name Esi#get_characters_character_id_mail_mail_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} mailId - An EVE mail ID
          * @param {string} token - Access token to use if unable to set a header
@@ -9868,7 +9868,7 @@ Alternate route: `/v1/characters/{character_id}/mail/{mail_id}/`
     * @name Esi#put_characters_character_id_mail_mail_id
          * @param {integer} characterId - An EVE character ID
          * @param {} contents - Data used to update the mail
-        
+
          * @param {integer} mailId - An EVE mail ID
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -10007,7 +10007,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_medals
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -10130,7 +10130,7 @@ This route is cached for up to 600 seconds
     * @method
     * @name Esi#get_characters_character_id_mining
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -10251,7 +10251,7 @@ This route is cached for up to 600 seconds
     * @method
     * @name Esi#get_characters_character_id_notifications
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -10365,7 +10365,7 @@ This route is cached for up to 600 seconds
     * @method
     * @name Esi#get_characters_character_id_notifications_contacts
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -10475,7 +10475,7 @@ This route is cached for up to 60 seconds
     * @method
     * @name Esi#get_characters_character_id_online
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -10589,7 +10589,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_opportunities
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -10701,7 +10701,7 @@ This route is cached for up to 1200 seconds
     * @method
     * @name Esi#get_characters_character_id_orders
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -10823,7 +10823,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_orders_history
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -10946,7 +10946,7 @@ This route is cached for up to 600 seconds
     * @method
     * @name Esi#get_characters_character_id_planets
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -11066,7 +11066,7 @@ This route is cached for up to 600 seconds
     * @method
     * @name Esi#get_characters_character_id_planets_planet_id
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} planetId - Planet id of the target planet
          * @param {string} token - Access token to use if unable to set a header
@@ -11185,7 +11185,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_characters_character_id_portrait
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_characters_character_id_portrait(parameters: {
@@ -11288,7 +11288,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_roles
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -11438,7 +11438,7 @@ This route is cached for up to 3600 seconds
          * @param {string} acceptLanguage - Language to use in the response
          * @param {array} categories - Type of entities to search for
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {string} search - The string to search on
@@ -11601,7 +11601,7 @@ This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_characters_character_id_ship
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -11715,7 +11715,7 @@ This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_characters_character_id_skillqueue
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -11827,7 +11827,7 @@ This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_characters_character_id_skills
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -11941,7 +11941,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_standings
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -12053,7 +12053,7 @@ This route is cached for up to 86400 seconds
     * @method
     * @name Esi#get_characters_character_id_stats
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -12167,7 +12167,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_titles
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -12279,7 +12279,7 @@ This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_characters_character_id_wallet
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -12399,7 +12399,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_wallet_journal
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -12530,7 +12530,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_characters_character_id_wallet_transactions
          * @param {integer} characterId - An EVE character ID
-        
+
          * @param {integer} fromId - Only show transactions happened before the one referenced by this id
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
@@ -12653,7 +12653,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_contracts_public_bids_contract_id
          * @param {integer} contractId - ID of a contract
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
     */
@@ -12767,7 +12767,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_contracts_public_items_contract_id
          * @param {integer} contractId - ID of a contract
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
     */
@@ -12881,7 +12881,7 @@ Alternate route: `/v1/contracts/public/{region_id}/`
 This route is cached for up to 1800 seconds
     * @method
     * @name Esi#get_contracts_public_region_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {integer} regionId - An EVE region id
@@ -13009,7 +13009,7 @@ Requires one of the following EVE corporation role(s): Station_Manager
     * @method
     * @name Esi#get_corporation_corporation_id_mining_extractions
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -13145,7 +13145,7 @@ Requires one of the following EVE corporation role(s): Accountant
     * @method
     * @name Esi#get_corporation_corporation_id_mining_observers
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -13289,7 +13289,7 @@ Requires one of the following EVE corporation role(s): Accountant
     * @method
     * @name Esi#get_corporation_corporation_id_mining_observers_observer_id
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} observerId - A mining observer id
          * @param {integer} page - Which page of results to return
@@ -13410,7 +13410,7 @@ Alternate route: `/v1/corporations/npccorps/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_corporations_npccorps
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_corporations_npccorps(parameters: {
@@ -13491,7 +13491,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_corporations_corporation_id(parameters: {
@@ -13586,7 +13586,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_alliancehistory
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_corporations_corporation_id_alliancehistory(parameters: {
@@ -13701,7 +13701,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_assets
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -13827,7 +13827,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#post_corporations_corporation_id_assets_locations
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {} itemIds - A list of item ids
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -13955,7 +13955,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#post_corporations_corporation_id_assets_names
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {} itemIds - A list of item ids
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -14088,7 +14088,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_blueprints
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -14219,7 +14219,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_bookmarks
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -14350,7 +14350,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_bookmarks_folders
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -14479,7 +14479,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_contacts
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -14602,7 +14602,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_contacts_labels
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -14726,7 +14726,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_containers_logs
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -14857,7 +14857,7 @@ This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_contracts
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -14998,7 +14998,7 @@ This route is cached for up to 3600 seconds
     * @name Esi#get_corporations_corporation_id_contracts_contract_id_bids
          * @param {integer} contractId - ID of a contract
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -15145,7 +15145,7 @@ This route is cached for up to 3600 seconds
     * @name Esi#get_corporations_corporation_id_contracts_contract_id_items
          * @param {integer} contractId - ID of a contract
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -15285,7 +15285,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_customs_offices
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -15412,7 +15412,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_divisions
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -15530,7 +15530,7 @@ Requires one of the following EVE corporation role(s): Factory_Manager
     * @method
     * @name Esi#get_corporations_corporation_id_facilities
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -15645,7 +15645,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_corporations_corporation_id_fw_stats
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -15751,7 +15751,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_icons
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_corporations_corporation_id_icons(parameters: {
@@ -15876,7 +15876,7 @@ Requires one of the following EVE corporation role(s): Factory_Manager
     * @method
     * @name Esi#get_corporations_corporation_id_industry_jobs
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {boolean} includeCompleted - Whether to retrieve completed corporation industry jobs. Only includes jobs from the past 90 days
          * @param {integer} page - Which page of results to return
@@ -16020,7 +16020,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_killmails_recent
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -16151,7 +16151,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_medals
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -16286,7 +16286,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_medals_issued
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -16407,7 +16407,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_members
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -16525,7 +16525,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_members_limit
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -16643,7 +16643,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_members_titles
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -16761,7 +16761,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_membertracking
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -16885,7 +16885,7 @@ Requires one of the following EVE corporation role(s): Accountant, Trader
     * @method
     * @name Esi#get_corporations_corporation_id_orders
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -17018,7 +17018,7 @@ Requires one of the following EVE corporation role(s): Accountant, Trader
     * @method
     * @name Esi#get_corporations_corporation_id_orders_history
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -17141,7 +17141,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_roles
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -17267,7 +17267,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_roles_history
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -17402,7 +17402,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_shareholders
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -17533,7 +17533,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_corporations_corporation_id_standings
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -17668,7 +17668,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_starbases
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {string} token - Access token to use if unable to set a header
@@ -17811,7 +17811,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_starbases_starbase_id
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} starbaseId - An EVE starbase (POS) ID
          * @param {integer} systemId - The solar system this starbase (POS) is located in,
@@ -17974,7 +17974,7 @@ Requires one of the following EVE corporation role(s): Station_Manager
     * @name Esi#get_corporations_corporation_id_structures
          * @param {string} acceptLanguage - Language to use in the response
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {integer} page - Which page of results to return
@@ -18115,7 +18115,7 @@ Requires one of the following EVE corporation role(s): Director
     * @method
     * @name Esi#get_corporations_corporation_id_titles
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -18233,7 +18233,7 @@ Requires one of the following EVE corporation role(s): Accountant, Junior_Accoun
     * @method
     * @name Esi#get_corporations_corporation_id_wallets
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -18366,7 +18366,7 @@ Requires one of the following EVE corporation role(s): Accountant, Junior_Accoun
     * @method
     * @name Esi#get_corporations_corporation_id_wallets_division_journal
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {integer} division - Wallet key of the division to fetch journals from
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
@@ -18524,7 +18524,7 @@ Requires one of the following EVE corporation role(s): Accountant, Junior_Accoun
     * @method
     * @name Esi#get_corporations_corporation_id_wallets_division_transactions
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {integer} division - Wallet key of the division to fetch journals from
          * @param {integer} fromId - Only show journal entries happened before the transaction referenced by this id
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
@@ -18645,7 +18645,7 @@ Alternate route: `/v1/dogma/attributes/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_dogma_attributes
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_dogma_attributes(parameters: {
@@ -18728,7 +18728,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_dogma_attributes_attribute_id
          * @param {integer} attributeId - A dogma attribute ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_dogma_attributes_attribute_id(parameters: {
@@ -18834,7 +18834,7 @@ Alternate route: `/v1/dogma/dynamic/items/{type_id}/{item_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_dogma_dynamic_items_type_id_item_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} itemId - item_id integer
          * @param {integer} typeId - type_id integer
@@ -18938,7 +18938,7 @@ Alternate route: `/v1/dogma/effects/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_dogma_effects
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_dogma_effects(parameters: {
@@ -19019,7 +19019,7 @@ Alternate route: `/v2/dogma/effects/{effect_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_dogma_effects_effect_id
-        
+
          * @param {integer} effectId - A dogma effect ID
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
@@ -19125,7 +19125,7 @@ Alternate route: `/v1/fleets/{fleet_id}/`
 This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_fleets_fleet_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} token - Access token to use if unable to set a header
@@ -19243,7 +19243,7 @@ Alternate route: `/v1/fleets/{fleet_id}/`
 
     * @method
     * @name Esi#put_fleets_fleet_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {} newSettings - What to update for this fleet
          * @param {string} token - Access token to use if unable to set a header
@@ -19378,7 +19378,7 @@ This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_fleets_fleet_id_members
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
@@ -19514,7 +19514,7 @@ Alternate route: `/v1/fleets/{fleet_id}/members/`
 
     * @method
     * @name Esi#post_fleets_fleet_id_members
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {} invitation - Details of the invitation
          * @param {string} token - Access token to use if unable to set a header
@@ -19649,7 +19649,7 @@ Alternate route: `/v1/fleets/{fleet_id}/members/{member_id}/`
 
     * @method
     * @name Esi#delete_fleets_fleet_id_members_member_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {integer} memberId - The character ID of a member in this fleet
          * @param {string} token - Access token to use if unable to set a header
@@ -19786,7 +19786,7 @@ Alternate route: `/v1/fleets/{fleet_id}/members/{member_id}/`
 
     * @method
     * @name Esi#put_fleets_fleet_id_members_member_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {integer} memberId - The character ID of a member in this fleet
          * @param {} movement - Details of the invitation
@@ -19932,7 +19932,7 @@ Alternate route: `/v1/fleets/{fleet_id}/squads/{squad_id}/`
 
     * @method
     * @name Esi#delete_fleets_fleet_id_squads_squad_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {integer} squadId - The squad to delete
          * @param {string} token - Access token to use if unable to set a header
@@ -20066,7 +20066,7 @@ Alternate route: `/v1/fleets/{fleet_id}/squads/{squad_id}/`
 
     * @method
     * @name Esi#put_fleets_fleet_id_squads_squad_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {} naming - New name of the squad
          * @param {integer} squadId - The squad to rename
@@ -20215,7 +20215,7 @@ This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_fleets_fleet_id_wings
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
@@ -20342,7 +20342,7 @@ Alternate route: `/v1/fleets/{fleet_id}/wings/`
 
     * @method
     * @name Esi#post_fleets_fleet_id_wings
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -20459,7 +20459,7 @@ Alternate route: `/v1/fleets/{fleet_id}/wings/{wing_id}/`
 
     * @method
     * @name Esi#delete_fleets_fleet_id_wings_wing_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {string} token - Access token to use if unable to set a header
          * @param {integer} wingId - The wing to delete
@@ -20594,7 +20594,7 @@ Alternate route: `/v1/fleets/{fleet_id}/wings/{wing_id}/`
 
     * @method
     * @name Esi#put_fleets_fleet_id_wings_wing_id
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {} naming - New name of the wing
          * @param {string} token - Access token to use if unable to set a header
@@ -20740,7 +20740,7 @@ Alternate route: `/v1/fleets/{fleet_id}/wings/{wing_id}/squads/`
 
     * @method
     * @name Esi#post_fleets_fleet_id_wings_wing_id_squads
-        
+
          * @param {integer} fleetId - ID for a fleet
          * @param {string} token - Access token to use if unable to set a header
          * @param {integer} wingId - The wing_id to create squad in
@@ -20848,7 +20848,7 @@ Alternate route: `/v1/fw/leaderboards/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_fw_leaderboards
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_fw_leaderboards(parameters: {
@@ -20920,7 +20920,7 @@ Alternate route: `/v1/fw/leaderboards/characters/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_fw_leaderboards_characters
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_fw_leaderboards_characters(parameters: {
@@ -20992,7 +20992,7 @@ Alternate route: `/v1/fw/leaderboards/corporations/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_fw_leaderboards_corporations
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_fw_leaderboards_corporations(parameters: {
@@ -21064,7 +21064,7 @@ Alternate route: `/v1/fw/stats/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_fw_stats
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_fw_stats(parameters: {
@@ -21134,7 +21134,7 @@ Alternate route: `/v2/fw/systems/`
 This route is cached for up to 1800 seconds
     * @method
     * @name Esi#get_fw_systems
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_fw_systems(parameters: {
@@ -21206,7 +21206,7 @@ Alternate route: `/v1/fw/wars/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_fw_wars
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_fw_wars(parameters: {
@@ -21280,7 +21280,7 @@ Alternate route: `/v1/incursions/`
 This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_incursions
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_incursions(parameters: {
@@ -21354,7 +21354,7 @@ Alternate route: `/v1/industry/facilities/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_industry_facilities
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_industry_facilities(parameters: {
@@ -21428,7 +21428,7 @@ Alternate route: `/v1/industry/systems/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_industry_systems
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_industry_systems(parameters: {
@@ -21512,7 +21512,7 @@ This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_insurance_prices
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
     */
@@ -21618,7 +21618,7 @@ Alternate route: `/v1/killmails/{killmail_id}/{killmail_hash}/`
 This route is cached for up to 30758400 seconds
     * @method
     * @name Esi#get_killmails_killmail_id_killmail_hash
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} killmailHash - The killmail hash for verification
          * @param {integer} killmailId - The killmail ID to be queried
@@ -21731,7 +21731,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_loyalty_stores_corporation_id_offers
          * @param {integer} corporationId - An EVE corporation ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_loyalty_stores_corporation_id_offers(parameters: {
@@ -21819,7 +21819,7 @@ Alternate route: `/v1/markets/groups/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_markets_groups
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_markets_groups(parameters: {
@@ -21912,7 +21912,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_markets_groups_market_group_id
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {integer} marketGroupId - An Eve item group ID
@@ -22015,7 +22015,7 @@ Alternate route: `/v1/markets/prices/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_markets_prices
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_markets_prices(parameters: {
@@ -22113,7 +22113,7 @@ Alternate route: `/v1/markets/structures/{structure_id}/`
 This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_markets_structures_structure_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {integer} structureId - Return orders in this structure
@@ -22236,7 +22236,7 @@ Alternate route: `/v1/markets/{region_id}/history/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_markets_region_id_history
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} regionId - Return statistics in this region
          * @param {integer} typeId - Return statistics for this type
@@ -22371,7 +22371,7 @@ Alternate route: `/v1/markets/{region_id}/orders/`
 This route is cached for up to 300 seconds
     * @method
     * @name Esi#get_markets_region_id_orders
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} orderType - Filter buy/sell orders, return all orders by default. If you query without type_id, we always return both buy and sell orders
          * @param {integer} page - Which page of results to return
@@ -22509,7 +22509,7 @@ Alternate route: `/v1/markets/{region_id}/types/`
 This route is cached for up to 600 seconds
     * @method
     * @name Esi#get_markets_region_id_types
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {integer} regionId - Return statistics in this region
@@ -22607,7 +22607,7 @@ Alternate route: `/v1/opportunities/groups/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_opportunities_groups
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_opportunities_groups(parameters: {
@@ -22700,7 +22700,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_opportunities_groups_group_id
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {integer} groupId - ID of an opportunities group
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
@@ -22803,7 +22803,7 @@ Alternate route: `/v1/opportunities/tasks/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_opportunities_tasks
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_opportunities_tasks(parameters: {
@@ -22886,7 +22886,7 @@ Alternate route: `/v1/opportunities/tasks/{task_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_opportunities_tasks_task_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} taskId - ID of an opportunities task
     */
@@ -23021,7 +23021,7 @@ This route is cached for up to 86400 seconds
     * @name Esi#get_route_origin_destination
          * @param {array} avoid - avoid solar system ID(s)
          * @param {array} connections - connected solar system pairs
-        
+
          * @param {integer} destination - destination solar system ID
          * @param {string} flag - route security preference
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
@@ -23189,7 +23189,7 @@ This route is cached for up to 3600 seconds
     * @name Esi#get_search
          * @param {string} acceptLanguage - Language to use in the response
          * @param {array} categories - Type of entities to search for
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {string} search - The string to search on
@@ -23314,7 +23314,7 @@ Alternate route: `/v1/sovereignty/campaigns/`
 This route is cached for up to 5 seconds
     * @method
     * @name Esi#get_sovereignty_campaigns
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_sovereignty_campaigns(parameters: {
@@ -23388,7 +23388,7 @@ Alternate route: `/v1/sovereignty/map/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_sovereignty_map
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_sovereignty_map(parameters: {
@@ -23462,7 +23462,7 @@ Alternate route: `/v1/sovereignty/structures/`
 This route is cached for up to 120 seconds
     * @method
     * @name Esi#get_sovereignty_structures
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_sovereignty_structures(parameters: {
@@ -23536,7 +23536,7 @@ Alternate route: `/v1/status/`
 This route is cached for up to 30 seconds
     * @method
     * @name Esi#get_status
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_status(parameters: {
@@ -23643,7 +23643,7 @@ Alternate route: `/v2/ui/autopilot/waypoint/`
     * @name Esi#post_ui_autopilot_waypoint
          * @param {boolean} addToBeginning - Whether this solar system should be added to the beginning of all waypoints
          * @param {boolean} clearOtherWaypoints - Whether clean other waypoints beforing adding this one
-        
+
          * @param {integer} destinationId - The destination to travel to, can be solar system, station or structure's id
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -23779,7 +23779,7 @@ Alternate route: `/v1/ui/openwindow/contract/`
     * @method
     * @name Esi#post_ui_openwindow_contract
          * @param {integer} contractId - The contract to open
-        
+
          * @param {string} token - Access token to use if unable to set a header
     */
     post_ui_openwindow_contract(parameters: {
@@ -23887,7 +23887,7 @@ Alternate route: `/v1/ui/openwindow/information/`
 
     * @method
     * @name Esi#post_ui_openwindow_information
-        
+
          * @param {integer} targetId - The target to open
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -23996,7 +23996,7 @@ Alternate route: `/v1/ui/openwindow/marketdetails/`
 
     * @method
     * @name Esi#post_ui_openwindow_marketdetails
-        
+
          * @param {string} token - Access token to use if unable to set a header
          * @param {integer} typeId - The item type to open in market window
     */
@@ -24107,7 +24107,7 @@ Alternate route: `/v1/ui/openwindow/newmail/`
 
     * @method
     * @name Esi#post_ui_openwindow_newmail
-        
+
          * @param {} newMail - The details of mail to create
          * @param {string} token - Access token to use if unable to set a header
     */
@@ -24217,7 +24217,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_ancestries
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
     */
@@ -24314,7 +24314,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_asteroid_belts_asteroid_belt_id
          * @param {integer} asteroidBeltId - asteroid_belt_id integer
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_asteroid_belts_asteroid_belt_id(parameters: {
@@ -24412,7 +24412,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_bloodlines
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
     */
@@ -24500,7 +24500,7 @@ Alternate route: `/v1/universe/categories/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_categories
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_categories(parameters: {
@@ -24593,7 +24593,7 @@ This route expires daily at 11:05
     * @name Esi#get_universe_categories_category_id
          * @param {string} acceptLanguage - Language to use in the response
          * @param {integer} categoryId - An Eve item category ID
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
     */
@@ -24695,7 +24695,7 @@ Alternate route: `/v1/universe/constellations/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_constellations
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_constellations(parameters: {
@@ -24788,7 +24788,7 @@ This route expires daily at 11:05
     * @name Esi#get_universe_constellations_constellation_id
          * @param {string} acceptLanguage - Language to use in the response
          * @param {integer} constellationId - constellation_id integer
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
     */
@@ -24898,7 +24898,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_factions
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
     */
@@ -24986,7 +24986,7 @@ Alternate route: `/v1/universe/graphics/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_graphics
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_graphics(parameters: {
@@ -25069,7 +25069,7 @@ Alternate route: `/v1/universe/graphics/{graphic_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_graphics_graphic_id
-        
+
          * @param {integer} graphicId - graphic_id integer
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
@@ -25166,7 +25166,7 @@ Alternate route: `/v1/universe/groups/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_groups
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
     */
@@ -25268,7 +25268,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_groups_group_id
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {integer} groupId - An Eve item group ID
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
@@ -25382,7 +25382,7 @@ Alternate route: `/v1/universe/ids/`
     * @method
     * @name Esi#post_universe_ids
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {} names - The names to resolve
     */
@@ -25488,7 +25488,7 @@ Alternate route: `/v1/universe/moons/{moon_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_moons_moon_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} moonId - moon_id integer
     */
@@ -25576,7 +25576,7 @@ Alternate route: `/v3/universe/names/`
 
     * @method
     * @name Esi#post_universe_names
-        
+
          * @param {} ids - The ids to resolve
     */
     post_universe_names(parameters: {
@@ -25668,7 +25668,7 @@ Alternate route: `/v1/universe/planets/{planet_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_planets_planet_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} planetId - planet_id integer
     */
@@ -25767,7 +25767,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_races
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
     */
@@ -25855,7 +25855,7 @@ Alternate route: `/v1/universe/regions/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_regions
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_regions(parameters: {
@@ -25948,7 +25948,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_regions_region_id
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {integer} regionId - region_id integer
@@ -26060,7 +26060,7 @@ Alternate route: `/v1/universe/schematics/{schematic_id}/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_universe_schematics_schematic_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} schematicId - A PI schematic ID
     */
@@ -26158,7 +26158,7 @@ Alternate route: `/v1/universe/stargates/{stargate_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_stargates_stargate_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} stargateId - stargate_id integer
     */
@@ -26256,7 +26256,7 @@ Alternate route: `/v1/universe/stars/{star_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_stars_star_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} starId - star_id integer
     */
@@ -26352,7 +26352,7 @@ Alternate route: `/v2/universe/stations/{station_id}/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_stations_station_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} stationId - station_id integer
     */
@@ -26449,7 +26449,7 @@ Alternate route: `/v1/universe/structures/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_universe_structures
-        
+
          * @param {string} filter - Only list public structures that have this service online
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
@@ -26546,7 +26546,7 @@ Alternate route: `/v2/universe/structures/{structure_id}/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_universe_structures_structure_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} structureId - An Eve structure ID
          * @param {string} token - Access token to use if unable to set a header
@@ -26644,7 +26644,7 @@ Alternate route: `/v1/universe/system_jumps/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_universe_system_jumps
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_system_jumps(parameters: {
@@ -26716,7 +26716,7 @@ Alternate route: `/v2/universe/system_kills/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_universe_system_kills
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_system_kills(parameters: {
@@ -26790,7 +26790,7 @@ Alternate route: `/v1/universe/systems/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_systems
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
     */
     get_universe_systems(parameters: {
@@ -26881,7 +26881,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_systems_system_id
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {integer} systemId - system_id integer
@@ -26992,7 +26992,7 @@ Alternate route: `/v1/universe/types/`
 This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_types
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
     */
@@ -27092,7 +27092,7 @@ This route expires daily at 11:05
     * @method
     * @name Esi#get_universe_types_type_id
          * @param {string} acceptLanguage - Language to use in the response
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {string} language - Language to use in the response, takes precedence over Accept-Language
          * @param {integer} typeId - An Eve item type ID
@@ -27203,7 +27203,7 @@ Alternate route: `/v1/wars/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_wars
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} maxWarId - Only return wars with ID smaller than this
     */
@@ -27295,7 +27295,7 @@ Alternate route: `/v1/wars/{war_id}/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_wars_war_id
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} warId - ID for a war
     */
@@ -27401,7 +27401,7 @@ Alternate route: `/v1/wars/{war_id}/killmails/`
 This route is cached for up to 3600 seconds
     * @method
     * @name Esi#get_wars_war_id_killmails
-        
+
          * @param {string} ifNoneMatch - ETag from a previous request. A 304 will be returned if this matches the current ETag
          * @param {integer} page - Which page of results to return
          * @param {integer} warId - A valid war ID
