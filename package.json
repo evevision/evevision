@@ -43,7 +43,8 @@
     "semantic-release": "semantic-release",
     "enable-sentry": "",
     "package-release": "yarn build-js && electron-builder --config.win.compression=maximum --publish never",
-    "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore --fix \"app/**/*.{js,jsx,ts,tsx}\""
+    "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore --fix \"app/**/*.{js,jsx,ts,tsx}\"",
+    "lint:ci": "eslint --ignore-path .gitignore --ignore-path .eslintignore \"app/**/*.{js,jsx,ts,tsx}\""
   },
   "release": {
     "branches": [
