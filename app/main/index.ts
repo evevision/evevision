@@ -1,6 +1,3 @@
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-
 import { app, session } from 'electron';
 import MainApp from './mainapp';
 import store from './store';
