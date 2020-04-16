@@ -224,9 +224,7 @@ const About = () => {
             <h1
               style={{
                 textAlign: "center",
-
                 fontWeight: "normal",
-
                 textShadow: "0px 2px 2px red"
               }}
             >
@@ -236,9 +234,7 @@ const About = () => {
             <h2
               style={{
                 textAlign: "center",
-
                 fontWeight: "normal",
-
                 textShadow: "0px 2px 2px gold"
               }}
             >
@@ -248,9 +244,7 @@ const About = () => {
             <h4
               style={{
                 textAlign: "center",
-
                 fontWeight: "normal",
-
                 textShadow: "0px 2px 2px silver"
               }}
             >
