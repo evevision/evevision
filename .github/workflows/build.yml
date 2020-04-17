@@ -235,7 +235,7 @@ jobs:
 
       - name: Packaging successful
         uses: rjstone/discord-webhook-notify@v1
-        if: steps.semantic.outputs.new_release_published == 'true'
+        if: steps.semantic.outputs.new_release_published == 'true' && !contains(github.event.head_commit.message, 'skip ping')
         with:
           severity: info
           color: "#ff00aa"
