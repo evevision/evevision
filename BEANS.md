@@ -13,6 +13,9 @@ If you don't know how to program or do pull requests but can do art, send it ove
 ### Capital Fusion
 ![ss-capf](https://user-images.githubusercontent.com/62183293/79319760-c0256a00-7ed6-11ea-91ba-858765bf6c8d.png)
 
+### Army of Mango Alliance
+![mango](https://user-images.githubusercontent.com/62183293/79603139-c45dad00-80b9-11ea-94dd-9063de31c2a8.png)
+
 ### Fraternity
 ![ss-frat](https://user-images.githubusercontent.com/62183293/79319762-c0256a00-7ed6-11ea-88c5-689cfa94ea10.png)
 

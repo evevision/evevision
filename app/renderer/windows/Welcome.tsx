@@ -40,6 +40,7 @@ const beans: {
   99007237: "lazerhawks",
   99004344: "holecontrol",
   99005065: "hardknocks",
+  99009082: "mango",
   109299958: "ccp",
   924269309: "ccp", // ISD
   98075603: "ccp" // ISD CCL
@@ -141,7 +142,8 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
           <Panel>
             <Typography>
               <h2 style={{ textAlign: "right", marginLeft: "150px" }}>
-                Welcome to EveVision,<br />
+                Welcome to EveVision,
+                <br />
                 {this.props.character.public.name}.
               </h2>
               <br />
