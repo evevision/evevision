@@ -16,7 +16,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           message: "Received commit to master branch. Beginning CICD.\nDiff: {{ github.context.payload.compare }}"
           embed: '{ "title": "{{ commit.title }}", "description": "{{ commit.description }}", "url": "{{ commit.url }}", "author": { "name": "{{ commit.author.name }} ({{ commit.author.username }})", "icon_url": "https://avatars.io/gravatar/{{ commit.author.email }}"} }'
-f
+
       - name: Checkout repo
         uses: actions/checkout@v2
 
