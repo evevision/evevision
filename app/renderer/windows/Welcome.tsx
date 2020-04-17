@@ -31,6 +31,7 @@ const beans: {
 } = {
   1354830081: "gsf",
   99003581: "frat",
+  98437227: "bbz", // banished braindead zombies, horde member corp
   99005338: "horde",
   498125261: "test",
   1727758877: "nc",
