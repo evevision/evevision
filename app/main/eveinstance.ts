@@ -40,7 +40,8 @@ export default class EveInstance {
       "beanwatch",
       "about",
       "settings",
-      "jukebox"
+      "jukebox",
+      "toolbrowser"
     ];
 
     if (uniqueWindows.includes(windowName)) {

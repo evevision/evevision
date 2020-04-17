@@ -28,7 +28,8 @@ const defaultSizes: {
   auth: { width: 400, height: 500 },
   externalsite: { width: 600, height: 500 },
   ricardo: { width: 1250, height: 750 },
-  jukebox: { width: 600, height: 300 }
+  jukebox: { width: 600, height: 300 },
+  toolbrowser: { width: 1100, height: 700 }
 };
 
 const dragBorder = 5;
@@ -105,7 +106,7 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.isResizable =
-      this.windowName !== "welcome" && this.windowName !== "about";
+      this.windowName !== "welcome" && this.windowName !== "about" && this.windowName !== "toolbrowser";
 
     const uniqueArgs = [
       this.characterId.toString(),

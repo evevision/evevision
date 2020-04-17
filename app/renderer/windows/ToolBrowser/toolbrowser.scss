@@ -1,0 +1,188 @@
+// window is 1000x700
+@import '../../vars';
+
+$button-gradient: linear-gradient(180deg, rgba(64,113,150,1) 0%, rgba(51,89,119,1) 100%);
+$button-gradient-hover: linear-gradient(180deg, rgba(88,156,207,1) 0%, rgba(75,133,177,1) 100%);
+$button-gradient-active: linear-gradient(180deg, rgba(70,125,165,1) 0%, rgba(59,107,141,1) 100%);
+$button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,31,38,1) 100%);
+
+.container {
+  background-color: black;
+}
+
+.welcome {
+  font-size: 14px;
+  position: absolute;
+  top: 120px;
+  left: 60px;
+  width: 600px;
+  height: 80px;
+}
+
+.welcome > h2 {
+  padding-bottom: 6px;
+}
+
+.toolgrid {
+  position: absolute;
+  top: 260px;
+  left: 0px;
+
+  width: 1080px;
+  height: 400px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+
+  padding: 20px;
+  padding-right: 0px;
+}
+
+.toolgrid > .tool {
+  width: 250px;
+  height: 120px;
+  background-color: $panel-background;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
+  transition: background-color linear 100ms;
+  --notchSize: 10px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}
+
+.toolgrid > .tool:hover {
+  background-color: $panel-background-active
+}
+
+.toolgrid > .tool > .corner {
+  border-right: 4px solid transparent;
+  border-left: 4px solid $text-inactive;
+  border-bottom: 4px solid transparent;
+  height: 2px;
+  width: 2px;
+  position: relative;
+  float: left;
+  top: 0;
+  left: 0;
+  transition: border-left linear 100ms;
+}
+
+.toolgrid > .tool:hover > .corner {
+  border-left: 4px solid $text-active;
+}
+
+.toolgrid > .tool > .icon {
+  background-color: $panel-background-active;
+  background-size: 32px;
+  position: relative;
+  float: left;
+  top: 12px;
+  left: 0px;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+.toolgrid > .tool > .header {
+  width: 230px;
+  height: 32px;
+  padding: 10px;
+}
+
+.toolgrid > .tool > .header > .info-icon {
+  float: right;
+  opacity: 0;
+  transition: opacity 100ms linear;
+}
+
+.toolgrid > .tool:hover > .header > .info-icon {
+  opacity: 1;
+}
+
+.toolgrid > .tool > .header > h1 {
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: condensed;
+}
+
+.toolgrid > .tool > .header > h2 {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: condensed;
+}
+
+.toolgrid > .tool > .header > h3 {
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: condensed;
+  bottom: 0px;
+}
+
+.toolgrid > .tool > .footer {
+  width: 240px;
+  height: 60px;
+  padding: 5px;
+  background-color: black;
+  border-top: 2px solid $border-light;
+}
+
+.toolgrid > .tool > .footer > .tags {
+  float: left;
+  width: 135px;
+  height: 55px;
+  overflow: hidden;
+}
+
+.toolgrid > .tool > .footer > .buttons {
+  float: right;
+}
+
+// button gradient is 51,89,119 to 64,113,150 - only brightness is changed
+// hover increases to 75, 133, 177 to 88, 156, 207
+$tool-button-color: rgba(67, 88, 110, 1);
+
+.toolgrid > .tool > .footer > .buttons > .button {
+  background: $button-gradient;
+  width: 100px;
+
+  margin-bottom: 5px;
+  opacity: 0;
+  transition: opacity 100ms linear;
+  text-align: center;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:hover {
+  background: $button-gradient-hover;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:active {
+  background: $button-gradient-active;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:disabled {
+  background: $button-gradient-disabled;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:nth-of-type(1) {
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:nth-of-type(2) {
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+}
+
+.toolgrid > .tool:hover > .footer > .buttons > .button {
+  opacity: 1;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:nth-child(2) {
+  --notchSize: 6px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}
