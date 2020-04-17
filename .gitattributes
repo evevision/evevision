@@ -1,7 +1,8 @@
-* text eol=lf
+* text eol=crlf
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.ico binary
 *.icns binary
 *.gif binary
+*.woff2 binary
