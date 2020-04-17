@@ -42,7 +42,9 @@
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional",
     "semantic-release": "semantic-release",
     "enable-sentry": "",
-    "package-release": "yarn build-js && electron-builder --config.win.compression=maximum --publish never"
+    "package-release": "yarn build-js && electron-builder --config.win.compression=maximum --publish never",
+    "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore --fix \"app/**/*.{js,jsx,ts,tsx}\"",
+    "lint:ci": "eslint --ignore-path .gitignore --ignore-path .eslintignore \"app/**/*.{js,jsx,ts,tsx}\""
   },
   "release": {
     "branches": [
@@ -179,6 +181,9 @@
     "@types/tapable": "^1.0.5",
     "@types/vfile-message": "^2.0.0",
     "@types/webpack": "^4.41.7",
+    "@types/webpack-env": "^1.15.1",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "adm-zip": "^0.4.14",
     "babel-loader": "^8.0.6",
     "babel-plugin-dev-expression": "^0.2.2",
@@ -194,6 +199,8 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-download": "^4.1.1",
     "electron-rebuild": "^1.10.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
     "fbjs-scripts": "^1.2.0",
     "file-loader": "^5.1.0",
     "identity-obj-proxy": "^3.0.0",
@@ -243,6 +250,13 @@
     "electron-log": "^4.1.1",
     "electron-redux": "^1.4.0",
     "electron-store": "^5.1.1",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react-hooks": "^3.0.0",
     "moment": "^2.24.0",
     "node-addon-api": "^2.0.0",
     "node-gyp": "^6.1.0",
@@ -274,5 +288,21 @@
   ],
   "cpu": [
     "x64"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "scripts/*.js": [
+      "prettier --write"
+    ],
+    "configs/*.js": [
+      "prettier --write"
+    ],
+    "app/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  }
 }
