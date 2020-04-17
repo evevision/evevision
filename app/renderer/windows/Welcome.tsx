@@ -141,7 +141,8 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
           <Panel>
             <Typography>
               <h2 style={{ textAlign: "right", marginLeft: "150px" }}>
-                Welcome to EveVision, {this.props.character.public.name}.
+                Welcome to EveVision,<br />
+                {this.props.character.public.name}.
               </h2>
               <br />
               {this.state.newVersion ? (
