@@ -1,4 +1,4 @@
-import {ExternalToolMeta} from "../../externaltool";
+import { ExternalToolMeta } from "../../externaltool";
 
 export interface ToolDescription {
   name: string;
@@ -34,7 +34,7 @@ const tools: ToolDescription[] = [
         minWidth: 800,
         minHeight: 465,
         maxWidth: 1020,
-        maxHeight: 785,
+        maxHeight: 785
       }
     }
   },
@@ -202,7 +202,7 @@ const tools: ToolDescription[] = [
       initialHeight: 430,
       resizable: {
         minWidth: 500,
-        minHeight: 500,
+        minHeight: 500
       }
     }
   },
@@ -356,7 +356,7 @@ const tools: ToolDescription[] = [
       initialHeight: 525,
       resizable: {
         minWidth: 320,
-        minHeight: 500,
+        minHeight: 500
       }
     }
   },
@@ -372,7 +372,7 @@ const tools: ToolDescription[] = [
       initialHeight: 450,
       resizable: {
         minWidth: 400,
-        minHeight: 450,
+        minHeight: 450
       }
     }
   },
@@ -438,6 +438,10 @@ const tools: ToolDescription[] = [
   }
 ];
 
-export const defaultFavorites: string[] = ["ZKillboard", "DScan Info", "Google Translator"]
+export const defaultFavorites: string[] = [
+  "ZKillboard",
+  "DScan Info",
+  "Google Translator"
+];
 
 export default tools;

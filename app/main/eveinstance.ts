@@ -3,7 +3,7 @@ import ApiClient from "./api/client";
 import EveWindow from "./EveWindow";
 import Overlay from "./native";
 import FullscreenOverlay from "./FullscreenOverlay";
-import {ExternalToolMeta} from "../renderer/externaltool";
+import { ExternalToolMeta } from "../renderer/externaltool";
 const log = require("electron-log");
 
 export default class EveInstance {
@@ -34,7 +34,11 @@ export default class EveInstance {
     this.eveWindows.forEach(w => w.restore());
   }
 
-  public createWindow(windowName: string, itemId: string, externalMeta?: ExternalToolMeta) {
+  public createWindow(
+    windowName: string,
+    itemId: string,
+    externalMeta?: ExternalToolMeta
+  ) {
     const uniqueWindows = [
       "auth",
       "beanwatch",
@@ -67,7 +71,7 @@ export default class EveInstance {
       itemId,
       windowName !== "welcome",
       this,
-        externalMeta
+      externalMeta
     );
     this.eveWindows.push(window);
 
@@ -278,20 +282,16 @@ export default class EveInstance {
   };
 
   private handleOpenExternalToolRequest = (
-      e: IpcMainEvent,
-      meta: ExternalToolMeta
+    e: IpcMainEvent,
+    meta: ExternalToolMeta
   ) => {
     // this event will fire from every EveInstance's windows, make sure it's one of our windows
     if (
-        (this.fullscreenOverlay &&
-            e.sender.id === this.fullscreenOverlay.electronWindow.webContents.id) ||
-        this.eveWindows.find(w => w.webContentsId === e.sender.id) !== undefined
+      (this.fullscreenOverlay &&
+        e.sender.id === this.fullscreenOverlay.electronWindow.webContents.id) ||
+      this.eveWindows.find(w => w.webContentsId === e.sender.id) !== undefined
     ) {
-      this.createWindow(
-          "externalsite",
-          meta.url,
-          meta
-      );
+      this.createWindow("externalsite", meta.url, meta);
     }
   };
 

@@ -38,7 +38,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     this.tags = [];
     this.calculateTags();
   }
-DS
+  DS;
   calculateTags = () => {
     const tagCounts: { tag: string; count: number }[] = [];
     tools.forEach(tool => {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styles from "./FavoritesMenu.scss";
-import { IpcRendererEvent, ipcRenderer } from "electron";
+import { ipcRenderer } from "electron";
 
 interface RemoteFaviconProps {
   url: string;
@@ -15,10 +15,13 @@ class RemoteFavicon extends Component<RemoteFaviconProps, RemoteFaviconState> {
   state: RemoteFaviconState = {};
 
   componentDidMount(): void {
-    ipcRenderer.invoke("resolveFavIcon", this.props.url).then((url) => {
+    ipcRenderer
+      .invoke("resolveFavIcon", this.props.url)
+      .then(url => {
         console.log("FUCK", url);
         this.setState({ url });
-    }).catch((err) => console.log("wtf", err))
+      })
+      .catch(err => console.log("wtf", err));
   }
 
   render() {

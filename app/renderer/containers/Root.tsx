@@ -14,7 +14,6 @@ import { ipcRenderer } from "electron";
 import { Window } from "../ui/Window";
 import Ricardo from "../windows/Ricardo";
 import ToolExplorer from "../windows/ToolExplorer";
-import styles from "../windows/ToolExplorer/ToolExplorer.scss";
 import ReactTooltip from "react-tooltip";
 import tooltipStyle from "../tooltip.scss";
 
@@ -70,10 +69,10 @@ function Root() {
     return (
       <Provider store={store}>
         <ReactTooltip
-            multiline={true}
-            effect={"solid"}
-            arrowColor={"black"}
-            class={tooltipStyle["tooltip"]}
+          multiline={true}
+          effect={"solid"}
+          arrowColor={"black"}
+          class={tooltipStyle["tooltip"]}
         />
         <FSORoot characterId={characterId} />
       </Provider>
@@ -83,10 +82,10 @@ function Root() {
       return (
         <Provider store={store}>
           <ReactTooltip
-              multiline={true}
-              effect={"solid"}
-              arrowColor={"black"}
-              class={tooltipStyle["tooltip"]}
+            multiline={true}
+            effect={"solid"}
+            arrowColor={"black"}
+            class={tooltipStyle["tooltip"]}
           />
           <Window
             onRequestMinimize={onRequestMinimize}
@@ -100,10 +99,10 @@ function Root() {
       return (
         <Provider store={store}>
           <ReactTooltip
-              multiline={true}
-              effect={"solid"}
-              arrowColor={"black"}
-              class={tooltipStyle["tooltip"]}
+            multiline={true}
+            effect={"solid"}
+            arrowColor={"black"}
+            class={tooltipStyle["tooltip"]}
           />
           <Window onRequestMinimize={onRequestMinimize}>
             {windowContents}

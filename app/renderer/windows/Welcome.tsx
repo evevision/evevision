@@ -144,9 +144,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
               </h2>
               <br />
               {this.state.newVersion ? (
-                <div
-                  className={"new-version-alert"}
-                >
+                <div className={"new-version-alert"}>
                   <strong>Version {this.state.newVersion} available!</strong>
                 </div>
               ) : null}

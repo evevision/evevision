@@ -36,13 +36,20 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
     const toolDesc = tools.find(t => t.name === tool);
     if (toolDesc) {
       return (
-        <div className={styles["tool"]} onClick={() => {
-            if(toolDesc.external) {
-                ipcRenderer.send("openWindow", "openExternalTool", toolDesc.external);
+        <div
+          className={styles["tool"]}
+          onClick={() => {
+            if (toolDesc.external) {
+              ipcRenderer.send(
+                "openWindow",
+                "openExternalTool",
+                toolDesc.external
+              );
             } else {
-                ipcRenderer.send("openWindow", toolDesc.windowName);
+              ipcRenderer.send("openWindow", toolDesc.windowName);
             }
-        }}>
+          }}
+        >
           <RemoteFavicon
             url={
               toolDesc.external

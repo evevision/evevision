@@ -27,7 +27,9 @@ class FSORoot extends Component<OverlayProps, OverlayState> {
           icon={faWindowRestore}
           positionKey={"windows"}
           defaultPosition={{ right: 100, bottom: 10 }}
-          tooltip={"Minimized Windows<br />Click, hold, and drag to reposition."}
+          tooltip={
+            "Minimized Windows<br />Click, hold, and drag to reposition."
+          }
         >
           <MinimizedWindowMenu />
         </OverlayMenu>

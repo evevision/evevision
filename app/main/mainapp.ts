@@ -1,4 +1,11 @@
-import { Menu, protocol, Tray, app, IpcMainInvokeEvent, ipcMain } from "electron";
+import {
+  Menu,
+  protocol,
+  Tray,
+  app,
+  IpcMainInvokeEvent,
+  ipcMain
+} from "electron";
 import fs from "fs";
 import path from "path";
 import EveInstance from "./eveinstance";
@@ -7,7 +14,7 @@ import store from "./store";
 import { updateCharacterAuth } from "../shared/store/characters/actions";
 import superagent from "superagent";
 import Overlay from "./native";
-import {default as websiteLogo} from "website-logo";
+import { default as websiteLogo } from "website-logo";
 const log = require("electron-log");
 require("../shared/store/characters/actions"); // we have to require it directly otherwise it gets cut out by webpack
 require("../shared/store/characters/reducers");
@@ -129,28 +136,31 @@ export default class MainApp {
   }
 
   public setupIpc() {
-    ipcMain.handle("resolveFavIcon", async (event: IpcMainInvokeEvent, url: string): Promise<string> => {
-      let newUrl = "https://eveonline.com/favicon.ico"
-      return new Promise((resolve, reject) => {
-        websiteLogo(url, (err, info) => {
-          if(err) {
-            log.error("Error retrieving favicon for", url, err)
-            const purl = new URL(url);
-            newUrl = purl.protocol + "//" + purl.host + "/favicon.ico"
-            resolve(newUrl)
-          } else {
-            if(info.icon && info.icon.href) {
-              console.log(url, info.icon.href)
-              resolve(info.icon.href)
-            } else {
+    ipcMain.handle(
+      "resolveFavIcon",
+      async (event: IpcMainInvokeEvent, url: string): Promise<string> => {
+        let newUrl = "https://eveonline.com/favicon.ico";
+        return new Promise((resolve, reject) => {
+          websiteLogo(url, (err, info) => {
+            if (err) {
+              log.error("Error retrieving favicon for", url, err);
               const purl = new URL(url);
-              newUrl = purl.protocol + "//" + purl.host + "/favicon.ico"
-              resolve(newUrl)
+              newUrl = purl.protocol + "//" + purl.host + "/favicon.ico";
+              resolve(newUrl);
+            } else {
+              if (info.icon && info.icon.href) {
+                console.log(url, info.icon.href);
+                resolve(info.icon.href);
+              } else {
+                const purl = new URL(url);
+                newUrl = purl.protocol + "//" + purl.host + "/favicon.ico";
+                resolve(newUrl);
+              }
             }
-          }
-        })
-      });
-    })
+          });
+        });
+      }
+    );
   }
 
   public setupSystemTray() {
