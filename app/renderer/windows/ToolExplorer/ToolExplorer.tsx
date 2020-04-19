@@ -6,6 +6,7 @@ import {ipcRenderer} from "electron";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
 import Store from "electron-store";
+import RemoteFavicon from "./RemoteFavicon";
 
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
 
@@ -126,13 +127,6 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     }
 
     tool = (tool: ToolDescription) => {
-        let icon
-        if(tool.external) {
-            const url = new URL(tool.external.url)
-            icon = "https://" + url.host + "/favicon.ico"
-        } else {
-            icon = "https://eveonline.com/favicon.ico"
-        }
         const handleClick = () => {
             if(tool.external) {
                 ipcRenderer.send("openWindow", "externalsite", tool.external.url)
@@ -146,9 +140,9 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
         return (
             <div className={styles["tool"] + (visible ? " " + styles["visible"] : "")}>
                 <div className={styles["corner"]}></div>
-                <div className={styles["icon"]} style={{
-                    backgroundImage: "url(" + icon + ")"
-                }}></div>
+                <div className={styles["icon"]}>
+                    <RemoteFavicon url={tool.external ? tool.external.url : "https://eveonline.com/favicon.ico"} size={32}/>
+                </div>
                 <div className={styles["header"]}>
                     <FontAwesomeIcon size={"lg"} icon={faInfoCircle} className={styles["info-icon"]} data-tip={tool.description}/>
                     <h1>{tool.name}</h1>

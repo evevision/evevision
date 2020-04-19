@@ -53,10 +53,10 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 }
 
 .shadow-container {
-  filter: drop-shadow(-1px 0px 0px $border) // left
-  drop-shadow(1px 0px 0px $border) // right
-  drop-shadow(0px -1px 0px $border) // top
-  drop-shadow(0px 1px 0px $border); // bottom
+  filter: drop-shadow(-1px 0px 0px $border)
+  drop-shadow(1px 0px 0px $border)
+  drop-shadow(0px -1px 0px $border)
+  drop-shadow(0px 1px 0px $border);
 }
 
 .headertag {

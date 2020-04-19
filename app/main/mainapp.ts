@@ -1,4 +1,4 @@
-import { Menu, protocol, Tray, app } from "electron";
+import { Menu, protocol, Tray, app, IpcMainEvent, ipcMain } from "electron";
 import fs from "fs";
 import path from "path";
 import EveInstance from "./eveinstance";
@@ -7,6 +7,7 @@ import store from "./store";
 import { updateCharacterAuth } from "../shared/store/characters/actions";
 import superagent from "superagent";
 import Overlay from "./native";
+import fetchFavicon from '@getstation/fetch-favicon';
 const log = require("electron-log");
 require("../shared/store/characters/actions"); // we have to require it directly otherwise it gets cut out by webpack
 require("../shared/store/characters/reducers");
@@ -68,6 +69,7 @@ export default class MainApp {
 
     this.hookLocalEveAuth();
     this.setupSystemTray();
+    this.setupIpc();
   }
 
   handleLocalEveAuth = (request: any, _callback: any) => {
@@ -124,6 +126,17 @@ export default class MainApp {
       clearInterval(this.scanner);
     }
     this.eveInstances.forEach(instance => instance.stop());
+  }
+
+  public setupIpc() {
+    ipcMain.on("resolveFavIcon", (event: IpcMainEvent, url: string) => {
+      fetchFavicon(url).then((data) => {
+        event.sender.send("resolveFavIcon", data, url);
+      }).catch((error) => {
+        const purl = new URL(url)
+        event.sender.send("resolveFavIcon", purl.protocol + "//" + purl.host + "/favicon.ico", url)
+      })
+    })
   }
 
   public setupSystemTray() {

@@ -169,7 +169,7 @@ export default class ChildWindow {
         // TODO: improve this check
         this.electronWindow.webContents.loadURL("about:blank");
       }
-      this.setTitle(title);
+      this.setTitle(title.substr(0, 100));
     });
 
     this.electronWindow.webContents.on("new-window", (e, url) => {

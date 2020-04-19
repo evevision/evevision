@@ -4,6 +4,8 @@ import {ipcRenderer} from "electron";
 import Store from "electron-store";
 import styles from "./FavoritesMenu.scss";
 import {default as tools, ToolDescription} from "./tools";
+import { fetchFavIcons } from "@getstation/fetch-favicon";
+import RemoteFavicon from "./RemoteFavicon";
 
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
 
@@ -36,17 +38,8 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
     tool = (tool: string) => {
         const toolDesc = tools.find(t => t.name === tool)
         if(toolDesc) {
-            let icon
-            if(toolDesc.external) {
-                const url = new URL(toolDesc.external.url)
-                icon = "https://" + url.host + "/favicon.ico"
-            } else {
-                icon = "https://eveonline.com/favicon.ico"
-            }
             return <div className={styles["tool"]}>
-                <div className={styles["icon"]} style={{
-                    backgroundImage: "url(" + icon + ")"
-                }}></div>
+                <RemoteFavicon url={toolDesc.external ? toolDesc.external.url : "https://eveonline.com/favicon.ico"} size={32}/>
                 <div className={styles["name"]}>{tool}</div>
             </div>
         } else {
