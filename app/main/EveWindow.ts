@@ -146,9 +146,9 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    //if(windowName == "beanwatch") { // only interested in devving beanwatch rn
-    //this.electronWindow.webContents.openDevTools({mode: 'detach'})
-    //}
+    if(windowName == "toolbrowser") {
+    this.electronWindow.webContents.openDevTools({mode: 'detach'})
+    }
     this.electronWindow.loadURL(
       `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
     );

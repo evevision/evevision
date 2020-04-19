@@ -13,7 +13,7 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 .welcome {
   font-size: 14px;
   position: absolute;
-  top: 120px;
+  top: 100px;
   left: 60px;
   width: 600px;
   height: 80px;
@@ -23,7 +23,36 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   padding-bottom: 6px;
 }
 
+.headertags {
+  background-color: $panel-background;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+
+  position: absolute;
+  width: 1100px;
+  height: 50px;
+  top: 210px;
+  left: 0px;
+}
+
+.headertags > .headertag {
+  background-color: $button-color;
+  float: left;
+  padding: 10px 15px 10px 15px;
+  margin-left: 5px;
+  --notchSize: 10px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}
+
+.headertags > .headertag:hover {
+  background-color: $button-color-active;
+}
 .toolgrid {
+  background-color: adjust-color($panel-background, $lightness: -25%);
+
   position: absolute;
   top: 260px;
   left: 0px;
@@ -39,13 +68,15 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 
   padding: 20px;
   padding-right: 0px;
+
+  overflow-y: scroll;
 }
 
 .toolgrid > .tool {
   width: 250px;
   height: 120px;
   background-color: $panel-background;
-  margin-right: 20px;
+  margin-left: 10px;
   margin-bottom: 20px;
 
   transition: background-color linear 100ms;
@@ -134,6 +165,10 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   width: 135px;
   height: 55px;
   overflow: hidden;
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag {
+  background-color: red;
 }
 
 .toolgrid > .tool > .footer > .buttons {

@@ -24,14 +24,14 @@ export interface ToolDescription {
 const tools: ToolDescription[] = [
     {
         name: "Jukebox",
-        author: "RisingSon",
-        tags: ["music"],
+        author: "Niedar",
+        tags: ["core", "music"],
         windowName: "jukebox"
     },
     {
         name: "EveEye Explorer",
         author: "RisingSon",
-        tags: ["exploration"],
+        tags: ["third party", "exploration"],
         external: {
             url: "https://eveeye.com/"
         }
@@ -39,7 +39,7 @@ const tools: ToolDescription[] = [
     {
         name: "Fuzzwork",
         author: "Steve Ronuken",
-        tags: ["industry"],
+        tags: ["third party", "industry"],
         external: {
             url: "https://www.fuzzwork.co.uk/"
         }
@@ -47,7 +47,7 @@ const tools: ToolDescription[] = [
     {
         name: "EveMarketer",
         author: "Aplulu",
-        tags: ["market"],
+        tags: ["third party", "market"],
         external: {
             url: "https://evemarketer.com/"
         }
@@ -55,7 +55,7 @@ const tools: ToolDescription[] = [
     {
         name: "Evepraisal",
         author: "sudorandom",
-        tags: ["trading", "appraisal"],
+        tags: ["third party", "trading", "appraisal"],
         external: {
             url: "https://evepraisal.com/"
         }
@@ -63,7 +63,7 @@ const tools: ToolDescription[] = [
     {
         name: "Ore Tables",
         author: "cerlestes",
-        tags: ["industry", "mining"],
+        tags: ["third party", "industry", "mining"],
         external: {
             url: "https://ore.cerlestes.de/ore",
         }
@@ -71,7 +71,7 @@ const tools: ToolDescription[] = [
     {
         name: "Abyssal Markets",
         author: "Sharad Heft",
-        tags: ["industry", "trading", "deadspace"],
+        tags: ["third party", "industry", "trading", "deadspace"],
         external: {
             url: "https://mutaplasmid.space/"
         }
@@ -79,7 +79,7 @@ const tools: ToolDescription[] = [
     {
         name: "EVE-Mogul",
         author: "Jeronica",
-        tags: ["industry", "trading"],
+        tags: ["third party", "industry", "trading"],
         external: {
             url: "https://www.eve-mogul.com/"
         }
@@ -87,7 +87,7 @@ const tools: ToolDescription[] = [
     {
         name: "Dotlan",
         author: "Daniel Hoffend",
-        tags: ["exploration"],
+        tags: ["third party", "exploration"],
         external: {
             url: "https://evemaps.dotlan.net/"
         }
@@ -95,7 +95,7 @@ const tools: ToolDescription[] = [
     {
         name: "Tripwire",
         author: "Daimian Mercer",
-        tags: ["exploration", "wormhole"],
+        tags: ["third party", "exploration", "wormhole"],
         external: {
             url: "https://tripwire.eve-apps.com/"
         }
@@ -103,7 +103,7 @@ const tools: ToolDescription[] = [
     {
         name: "Thera Maps",
         author: "Signal Cartel",
-        tags: ["exploration", "wormhole"],
+        tags: ["third party", "exploration", "wormhole"],
         external: {
             url: "https://www.eve-scout.com/thera/map/"
         }
@@ -111,7 +111,7 @@ const tools: ToolDescription[] = [
     {
         name: "Siggy",
         author: "borkedLabs",
-        tags: ["exploration", "wormhole"],
+        tags: ["third party", "exploration", "wormhole"],
         external: {
             url: "https://siggy.borkedlabs.com/"
         }
@@ -119,7 +119,7 @@ const tools: ToolDescription[] = [
     {
         name: "Anoikis",
         author: "Eric Wastl",
-        tags: ["exploration", "wormhole"],
+        tags: ["third party", "exploration", "wormhole"],
         external: {
             url: "http://anoik.is/"
         }
@@ -127,7 +127,7 @@ const tools: ToolDescription[] = [
     {
         name: "ZKillboard",
         author: "Squizz Caphinator",
-        tags: ["killboard"],
+        tags: ["third party", "killboard"],
         external: {
             url: "https://zkillboard.com"
         }
@@ -135,11 +135,38 @@ const tools: ToolDescription[] = [
     {
         name: "EVEWho",
         author: "Squizz Caphinator",
-        tags: ["information"],
+        tags: ["third party", "information"],
         external: {
             url: "https://evewho.com"
         }
     },
+    {
+        name: "SoundCloud",
+        author: "SoundCloud",
+        tags: ["third party", "music"],
+        external: {
+            url: "https://soundcloud.com"
+        }
+    },
 ]
+
+const tagCounts: {tag: string, count: number}[] = []
+
+tools.forEach(tool => {
+    tool.tags.forEach(tag => {
+        const tagCount = tagCounts.find(tc => tc.tag === tag);
+        if (tagCount) {
+            tagCount.count += 1;
+        } else {
+            tagCounts.push({tag: tag, count: 1});
+        }
+    })
+})
+
+const allTags: string[] = []
+
+tagCounts.sort((a,b) => b.count-a.count).forEach(tagCount => allTags.push(tagCount.tag))
+
+export const AllTags = allTags;
 
 export default tools;
