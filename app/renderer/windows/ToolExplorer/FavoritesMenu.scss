@@ -11,8 +11,9 @@
 
 .tools > .tool {
   width: calc(50% - 10px);
+  display: flex;
+  justify-content: start;
   height: 32px;
-  line-height: 32px;
   overflow: hidden;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -36,5 +37,6 @@
 }
 
 .tools > .tool > .name {
-
+  margin-top: auto;
+  margin-bottom: auto;
 }

@@ -3,7 +3,7 @@ import { Button } from "../../ui/Input";
 import { ipcRenderer } from "electron";
 import Store from "electron-store";
 import styles from "./FavoritesMenu.scss";
-import { default as tools } from "./tools";
+import { default as tools, defaultFavorites } from "./tools";
 import RemoteFavicon from "./RemoteFavicon";
 
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
@@ -16,7 +16,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
   toolsCallback?: () => void;
 
   state = {
-    favoriteTools: favoriteTools.get("favoriteTools")
+    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites
   };
 
   componentDidMount(): void {
@@ -38,7 +38,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
       return (
         <div className={styles["tool"]} onClick={() => {
             if(toolDesc.external) {
-                ipcRenderer.send("openWindow", "externalsite", toolDesc.external.url);
+                ipcRenderer.send("openWindow", "openExternalTool", toolDesc.external);
             } else {
                 ipcRenderer.send("openWindow", toolDesc.windowName);
             }

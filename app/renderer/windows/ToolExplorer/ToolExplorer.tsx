@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ToolExplorer.scss";
-import { default as tools, ToolDescription } from "./tools";
+import { default as tools, ToolDescription, defaultFavorites } from "./tools";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { ipcRenderer } from "electron";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,7 +29,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
   state: ToolExplorerState = {
     selectedTags: [],
-    favoriteTools: favoriteTools.get("favoriteTools")
+    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites
   };
 
   constructor(props: {}) {
@@ -38,7 +38,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     this.tags = [];
     this.calculateTags();
   }
-
+DS
   calculateTags = () => {
     const tagCounts: { tag: string; count: number }[] = [];
     tools.forEach(tool => {
@@ -168,7 +168,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   tool = (tool: ToolDescription) => {
     const handleClick = () => {
       if (tool.external) {
-        ipcRenderer.send("openWindow", "externalsite", tool.external.url);
+        ipcRenderer.send("openExternalTool", tool.external);
       } else {
         ipcRenderer.send("openWindow", tool.windowName);
       }
@@ -228,12 +228,6 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   render() {
     return (
       <div className={styles["container"]}>
-        <ReactTooltip
-          multiline={true}
-          effect={"solid"}
-          arrowColor={"black"}
-          class={styles["tooltip"]}
-        />
         <div id="explorer" ref={this.explorerRef}>
           <div className={styles["welcome"]}>
             <h2>Welcome to the Tool Explorer</h2>

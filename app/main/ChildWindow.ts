@@ -90,12 +90,14 @@ export default class ChildWindow {
   goBack(): void {
     if (this.electronWindow.webContents.canGoBack()) {
       this.electronWindow.webContents.goBack();
+      this.setSecure(false); // TODO: find out if the back page is secure
     }
   }
 
   goForward(): void {
     if (this.electronWindow.webContents.canGoForward()) {
       this.electronWindow.webContents.goForward();
+      this.setSecure(false); // TODO: find out if the forward page is secure
     }
   }
 

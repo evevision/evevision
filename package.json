@@ -83,7 +83,7 @@
     "files": [
       "package.json",
       {
-        "from": "../app/main",
+        "from": "./main",
         "to": ".",
         "filter": [
           "main.prod.js",
@@ -91,7 +91,7 @@
         ]
       },
       {
-        "from": "../output/renderer/dist",
+        "from": "./renderer/dist",
         "to": "./dist",
         "filter": [
           "*.woff2",

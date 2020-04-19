@@ -3,7 +3,6 @@ import About from "../windows/About";
 import Welcome from "../windows/Welcome";
 import Beanwatch from "../windows/Beanwatch";
 import Settings from "../windows/Settings";
-import Tools from "../windows/Tools";
 import Jukebox from "../windows/Jukebox";
 import { hot } from "react-hot-loader/root";
 import store from "../store";
@@ -15,6 +14,9 @@ import { ipcRenderer } from "electron";
 import { Window } from "../ui/Window";
 import Ricardo from "../windows/Ricardo";
 import ToolExplorer from "../windows/ToolExplorer";
+import styles from "../windows/ToolExplorer/ToolExplorer.scss";
+import ReactTooltip from "react-tooltip";
+import tooltipStyle from "../tooltip.scss";
 
 function renderWindowContents(
   characterId: number,
@@ -32,8 +34,6 @@ function renderWindowContents(
       return <Beanwatch characterId={characterId} />;
     case "settings":
       return <Settings characterId={characterId} />;
-    case "tools":
-      return <Tools characterId={characterId} />;
     case "auth":
       return <Auth characterId={characterId} />;
     case "externalsite":
@@ -42,7 +42,7 @@ function renderWindowContents(
       return <Ricardo />;
     case "jukebox":
       return <Jukebox />;
-    case "ToolExplorer":
+    case "toolexplorer":
       return <ToolExplorer />;
     default:
       return <>UNKNOWN WINDOW {windowName}</>;
@@ -69,6 +69,12 @@ function Root() {
   if (windowName === "fullscreenoverlay") {
     return (
       <Provider store={store}>
+        <ReactTooltip
+            multiline={true}
+            effect={"solid"}
+            arrowColor={"black"}
+            class={tooltipStyle["tooltip"]}
+        />
         <FSORoot characterId={characterId} />
       </Provider>
     );
@@ -76,6 +82,12 @@ function Root() {
     if (isClosable) {
       return (
         <Provider store={store}>
+          <ReactTooltip
+              multiline={true}
+              effect={"solid"}
+              arrowColor={"black"}
+              class={tooltipStyle["tooltip"]}
+          />
           <Window
             onRequestMinimize={onRequestMinimize}
             onRequestClose={onRequestClose}
@@ -87,6 +99,12 @@ function Root() {
     } else {
       return (
         <Provider store={store}>
+          <ReactTooltip
+              multiline={true}
+              effect={"solid"}
+              arrowColor={"black"}
+              class={tooltipStyle["tooltip"]}
+          />
           <Window onRequestMinimize={onRequestMinimize}>
             {windowContents}
           </Window>

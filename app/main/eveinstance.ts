@@ -3,6 +3,7 @@ import ApiClient from "./api/client";
 import EveWindow from "./EveWindow";
 import Overlay from "./native";
 import FullscreenOverlay from "./FullscreenOverlay";
+import {ExternalToolMeta} from "../renderer/externaltool";
 const log = require("electron-log");
 
 export default class EveInstance {
@@ -33,15 +34,14 @@ export default class EveInstance {
     this.eveWindows.forEach(w => w.restore());
   }
 
-  public createWindow(windowName: string, itemId: string) {
+  public createWindow(windowName: string, itemId: string, externalMeta?: ExternalToolMeta) {
     const uniqueWindows = [
-      "tools",
       "auth",
       "beanwatch",
       "about",
       "settings",
       "jukebox",
-      "ToolExplorer"
+      "toolexplorer"
     ];
 
     if (uniqueWindows.includes(windowName)) {
@@ -66,7 +66,8 @@ export default class EveInstance {
       windowName,
       itemId,
       windowName !== "welcome",
-      this
+      this,
+        externalMeta
     );
     this.eveWindows.push(window);
 
@@ -245,6 +246,7 @@ export default class EveInstance {
   private setupIpc() {
     // comes from any window
     ipcMain.on("openWindow", this.handleOpenWindowRequest);
+    ipcMain.on("openExternalTool", this.handleOpenExternalToolRequest);
 
     // comes from the window that wants to close/minimize
     ipcMain.on("closeMe", this.handleCloseRequest);
@@ -271,6 +273,24 @@ export default class EveInstance {
       this.createWindow(
         windowName,
         itemId === "" || itemId === undefined ? "none" : itemId
+      );
+    }
+  };
+
+  private handleOpenExternalToolRequest = (
+      e: IpcMainEvent,
+      meta: ExternalToolMeta
+  ) => {
+    // this event will fire from every EveInstance's windows, make sure it's one of our windows
+    if (
+        (this.fullscreenOverlay &&
+            e.sender.id === this.fullscreenOverlay.electronWindow.webContents.id) ||
+        this.eveWindows.find(w => w.webContentsId === e.sender.id) !== undefined
+    ) {
+      this.createWindow(
+          "externalsite",
+          meta.url,
+          meta
       );
     }
   };

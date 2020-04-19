@@ -27,6 +27,7 @@ class FSORoot extends Component<OverlayProps, OverlayState> {
           icon={faWindowRestore}
           positionKey={"windows"}
           defaultPosition={{ right: 100, bottom: 10 }}
+          tooltip={"Minimized Windows<br />Click, hold, and drag to reposition."}
         >
           <MinimizedWindowMenu />
         </OverlayMenu>
@@ -36,6 +37,7 @@ class FSORoot extends Component<OverlayProps, OverlayState> {
           icon={faStar}
           positionKey={"favorites"}
           defaultPosition={{ right: 150, bottom: 10 }}
+          tooltip={"Favorite Tools<br />Click, hold, and drag to reposition."}
         >
           <FavoritesMenu />
         </OverlayMenu>

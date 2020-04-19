@@ -11,6 +11,7 @@ interface MenuProps {
   characterId: number;
   children: React.ReactNode;
   icon: IconProp;
+  tooltip: string;
   positionKey: string;
   defaultPosition: {
     left?: number;
@@ -104,6 +105,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
       expander.style.right = this.props.defaultPosition.right ? 0 : null;
       expander.style.top = this.props.defaultPosition.top ? 0 : null;
       expander.style.bottom = this.props.defaultPosition.bottom ? 0 : null;
+      console.log("default om", this.props.defaultPosition, menu.style, expander.style)
     }
     this.positionSaveInterval = setInterval(this.updatePositionStore, 1000);
   }
@@ -144,7 +146,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
       this.closeTimer = setTimeout(() => {
         this.setExpanded(false);
         this.closeTimer = undefined;
-      }, 30000);
+      }, 1000);
     }
   };
 
@@ -268,6 +270,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
           <FontAwesomeIcon
             icon={this.props.icon}
             className={"eve-overlay-menu-expander-icon"}
+            data-tip={this.props.tooltip}
           />
         </div>
         <div className="eve-overlay-menu-contents">{this.props.children}</div>
