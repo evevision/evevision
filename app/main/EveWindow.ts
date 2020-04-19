@@ -106,7 +106,9 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.isResizable =
-      this.windowName !== "welcome" && this.windowName !== "about" && this.windowName !== "ToolExplorer";
+      this.windowName !== "welcome" &&
+      this.windowName !== "about" &&
+      this.windowName !== "ToolExplorer";
 
     const uniqueArgs = [
       this.characterId.toString(),
@@ -146,8 +148,8 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    if(windowName == "ToolExplorer") {
-      this.electronWindow.webContents.openDevTools({mode: 'detach'})
+    if (windowName === "toolexplorer") {
+      this.electronWindow.webContents.openDevTools({ mode: "detach" });
     }
     this.electronWindow.loadURL(
       `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`

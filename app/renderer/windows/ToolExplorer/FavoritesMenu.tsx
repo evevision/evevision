@@ -1,68 +1,78 @@
 import React, { Component } from "react";
 import { Button } from "../../ui/Input";
-import {ipcRenderer} from "electron";
+import { ipcRenderer } from "electron";
 import Store from "electron-store";
 import styles from "./FavoritesMenu.scss";
-import {default as tools, ToolDescription} from "./tools";
-import { fetchFavIcons } from "@getstation/fetch-favicon";
+import { default as tools } from "./tools";
 import RemoteFavicon from "./RemoteFavicon";
 
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
 
 interface FavoritesMenuState {
-    favoriteTools: string[]
+  favoriteTools: string[];
 }
 
 class FavoritesMenu extends Component<{}, FavoritesMenuState> {
+  toolsCallback?: () => void;
 
-    toolsCallback?: () => void;
+  state = {
+    favoriteTools: favoriteTools.get("favoriteTools")
+  };
 
-    state = {
-        favoriteTools: favoriteTools.get("favoriteTools")
-    };
+  componentDidMount(): void {
+    this.toolsCallback = favoriteTools.onDidChange(
+      "favoriteTools",
+      (newValue, oldValue) => {
+        this.setState({ ...this.state, favoriteTools: newValue });
+      }
+    );
+  }
 
-    constructor(props: {}) {
-        super(props);
+  componentWillUnmount(): void {
+    this.toolsCallback(); // unsubscribe
+  }
+
+  tool = (tool: string) => {
+    const toolDesc = tools.find(t => t.name === tool);
+    if (toolDesc) {
+      return (
+        <div className={styles["tool"]}>
+          <RemoteFavicon
+            url={
+              toolDesc.external
+                ? toolDesc.external.url
+                : "https://eveonline.com/favicon.ico"
+            }
+            size={32}
+          />
+          <div className={styles["name"]}>{tool}</div>
+        </div>
+      );
+    } else {
+      return "";
     }
+  };
 
-    componentDidMount(): void {
-        this.toolsCallback = favoriteTools.onDidChange("favoriteTools", (newValue, oldValue) => {
-            this.setState({...this.state, favoriteTools: newValue})
-        });
-    }
-
-    componentWillUnmount(): void {
-        this.toolsCallback(); // unsubscribe
-    }
-
-    tool = (tool: string) => {
-        const toolDesc = tools.find(t => t.name === tool)
-        if(toolDesc) {
-            return <div className={styles["tool"]}>
-                <RemoteFavicon url={toolDesc.external ? toolDesc.external.url : "https://eveonline.com/favicon.ico"} size={32}/>
-                <div className={styles["name"]}>{tool}</div>
-            </div>
-        } else {
-            return ""
-        }
-    }
-
-    render() {
-        return (
-            <>
-                <div className="eve-overlay-menu-title">Favorite Tools</div>
-                <div className="eve-minimized-windows-list eve-scrollbar">
-                    <div className={styles["tools"]}>
-                        {this.state.favoriteTools.map(this.tool)}
-                    </div>
-                </div>
-                <div className="eve-overlay-menu-buttons">
-                    <Button onClick={() => {
-                        ipcRenderer.send("openWindow", "ToolExplorer");
-                    }}>Open Tool Explorer</Button>
-                </div>
-            </>
-        );
-    }
+  render() {
+    return (
+      <>
+        <div className="eve-overlay-menu-title">Favorite Tools</div>
+        <div className="eve-minimized-windows-list eve-scrollbar">
+          <div className={styles["tools"]}>
+            {this.state.favoriteTools.map(this.tool)}
+          </div>
+        </div>
+        <div className="eve-overlay-menu-buttons">
+          <Button
+            onClick={() => {
+              ipcRenderer.send("openWindow", "ToolExplorer");
+            }}
+          >
+            Open Tool Explorer
+          </Button>
+        </div>
+      </>
+    );
+  }
 }
 export default FavoritesMenu;

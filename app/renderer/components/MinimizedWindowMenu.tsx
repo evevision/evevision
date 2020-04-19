@@ -7,7 +7,7 @@ import {
 import { Button } from "../ui/Input";
 import { ipcRenderer, IpcRendererEvent } from "electron";
 
-interface MinimizedWindowMenuState  {
+interface MinimizedWindowMenuState {
   minimizedWindows: MinimizedWindow[];
 }
 
@@ -18,7 +18,6 @@ interface MinimizedWindow {
 }
 
 class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
-
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -125,16 +124,16 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
 
   render() {
     return (
-        <>
-          <div className="eve-overlay-menu-title">Minimized Windows</div>
-          <div className="eve-minimized-windows-list eve-scrollbar">
-            {this.state.minimizedWindows.map(w => this.windowEntry(w))}
-          </div>
-          <div className="eve-overlay-menu-buttons">
-            <Button onClick={this.restoreAll}>Restore All</Button>
-            <Button onClick={this.minimizeAll}>Minimize Open Windows</Button>
-          </div>
-        </>
+      <>
+        <div className="eve-overlay-menu-title">Minimized Windows</div>
+        <div className="eve-minimized-windows-list eve-scrollbar">
+          {this.state.minimizedWindows.map(w => this.windowEntry(w))}
+        </div>
+        <div className="eve-overlay-menu-buttons">
+          <Button onClick={this.restoreAll}>Restore All</Button>
+          <Button onClick={this.minimizeAll}>Minimize Open Windows</Button>
+        </div>
+      </>
     );
   }
 }
