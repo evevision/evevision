@@ -40,10 +40,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
           className={styles["tool"]}
           onClick={() => {
             if (toolDesc.external) {
-              ipcRenderer.send(
-                "openExternalTool",
-                toolDesc.external
-              );
+              ipcRenderer.send("openExternalTool", toolDesc.external);
             } else {
               ipcRenderer.send("openWindow", toolDesc.windowName);
             }
