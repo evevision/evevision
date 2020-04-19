@@ -149,7 +149,6 @@ export default class MainApp {
               resolve(newUrl);
             } else {
               if (info.icon && info.icon.href) {
-                console.log(url, info.icon.href);
                 resolve(info.icon.href);
               } else {
                 const purl = new URL(url);

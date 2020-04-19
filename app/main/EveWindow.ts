@@ -27,7 +27,7 @@ const defaultSizes: {
   auth: { width: 400, height: 500 },
   ricardo: { width: 1250, height: 750 },
   jukebox: { width: 600, height: 300 },
-  toolexplorer: { width: 1100, height: 700 }
+  toolexplorer: { width: 1100, height: 600 }
 };
 
 const dragBorder = 5;

@@ -41,7 +41,6 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
           onClick={() => {
             if (toolDesc.external) {
               ipcRenderer.send(
-                "openWindow",
                 "openExternalTool",
                 toolDesc.external
               );
