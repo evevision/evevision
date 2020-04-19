@@ -297,6 +297,22 @@ const tools: ToolDescription[] = [
       }
     }
   },
+  {
+    name: "EVE Forums",
+    author: "CCP",
+    description: "The official EVE Online forums",
+    tags: ["communication", "info"],
+    external: {
+      url: "  https://forums.eveonline.com/",
+      initialWidth: 1400,
+      initialHeight: 900,
+      resizable: {
+        minWidth: 575,
+        minHeight: 250
+      }
+    }
+  },
+
   //
   // Non EVE tools
   //
