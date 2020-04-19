@@ -49,3 +49,12 @@ jobs:
 
       - name: Test packaging
         run: yarn package-skip-build
+
+      - name: Package artifact
+        run: yarn package-release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: EveVision.exe
+          path: ./release/EveVision.exe
