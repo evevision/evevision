@@ -179,7 +179,7 @@ const tools: ToolDescription[] = [
     description: "Copy directional scan info to share with fleet members",
     tags: ["intel"],
     external: {
-      url: "https://dscan.infoi"
+      url: "https://dscan.info"
     }
   },
   {

@@ -50,7 +50,7 @@ export default class FullscreenOverlay {
     this.linkWindowToOverlay();
     this.setupIpc();
     this.hookWindow();
-    this.electronWindow.webContents.openDevTools({ mode: "detach" });
+    //this.electronWindow.webContents.openDevTools({ mode: "detach" });
 
     this.electronWindow.loadURL(
       `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`

@@ -14,23 +14,11 @@ interface RemoteFaviconState {
 class RemoteFavicon extends Component<RemoteFaviconProps, RemoteFaviconState> {
   state: RemoteFaviconState = {};
 
-  handleFavIcon = (
-    _event: IpcRendererEvent,
-    url: string,
-    sourceUrl: string
-  ) => {
-    if (sourceUrl === this.props.url) {
-      this.setState({ url });
-    }
-  };
-
   componentDidMount(): void {
-    ipcRenderer.on("resolveFavIcon", this.handleFavIcon);
-    ipcRenderer.send("resolveFavIcon", this.props.url);
-  }
-
-  componentWillUnmount(): void {
-    ipcRenderer.removeListener("resolveFavIcon", this.handleFavIcon);
+    ipcRenderer.invoke("resolveFavIcon", this.props.url).then((url) => {
+        console.log("FUCK", url);
+        this.setState({ url });
+    }).catch((err) => console.log("wtf", err))
   }
 
   render() {

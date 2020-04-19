@@ -36,7 +36,13 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
     const toolDesc = tools.find(t => t.name === tool);
     if (toolDesc) {
       return (
-        <div className={styles["tool"]}>
+        <div className={styles["tool"]} onClick={() => {
+            if(toolDesc.external) {
+                ipcRenderer.send("openWindow", "externalsite", toolDesc.external.url);
+            } else {
+                ipcRenderer.send("openWindow", toolDesc.windowName);
+            }
+        }}>
           <RemoteFavicon
             url={
               toolDesc.external
@@ -65,7 +71,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
         <div className="eve-overlay-menu-buttons">
           <Button
             onClick={() => {
-              ipcRenderer.send("openWindow", "ToolExplorer");
+              ipcRenderer.send("openWindow", "toolexplorer");
             }}
           >
             Open Tool Explorer
