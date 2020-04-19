@@ -2,18 +2,23 @@ import React, { Component } from "react";
 import { AppState } from "../store";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faWindowRestore,
-  faWindowClose
-} from "@fortawesome/free-solid-svg-icons";
-import { Button } from "../ui/Input";
-import { ipcRenderer, IpcRendererEvent } from "electron";
 import Store from "electron-store";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const positionStore = new Store({ name: "window-positions" });
 
 interface MenuProps {
   characterId: number;
+  children: React.ReactNode;
+  icon: IconProp;
+  tooltip: string;
+  positionKey: string;
+  defaultPosition: {
+    left?: number;
+    right?: number;
+    top?: number;
+    bottom?: number;
+  };
 }
 
 interface DragInfo {
@@ -32,13 +37,6 @@ interface DragInfo {
 interface MenuState {
   expanded: boolean;
   dragging?: DragInfo;
-  minimizedWindows: MinimizedWindow[];
-}
-
-interface MinimizedWindow {
-  windowId: number;
-  windowTitle: string;
-  closable: boolean;
 }
 
 interface StoredMenuPosition {
@@ -56,57 +54,29 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
   private dragWaitTimer?: NodeJS.Timeout;
   private positionSaveInterval?: NodeJS.Timeout;
   private hasUnsavedPosition: boolean = false; // if we have changed bounds and have not saved it
-  private positionKey: string;
 
   constructor(props: MenuProps) {
     super(props);
-    this.positionKey = this.props.characterId + "-overlayMenuPosition";
     this.menuRef = React.createRef();
     this.expanderRef = React.createRef();
     this.state = {
-      expanded: false,
-      minimizedWindows: []
+      expanded: false
     };
   }
 
-  handleAddMinimizedWindow = (
-    _event: IpcRendererEvent,
-    windowId: number,
-    windowTitle: string,
-    closable: boolean
-  ) => {
-    this.setState({
-      ...this.state,
-      minimizedWindows: [
-        ...this.state.minimizedWindows,
-        { windowId, windowTitle, closable }
-      ]
-    });
-  };
-
-  handleRemoveMinimizedWindow = (
-    _event: IpcRendererEvent,
-    windowId: number
-  ) => {
-    this.setState({
-      ...this.state,
-      minimizedWindows: this.state.minimizedWindows.filter(
-        w => w.windowId !== windowId
-      )
-    });
+  getPositionKey = (): string => {
+    return "om-" + this.props.characterId + this.props.positionKey;
   };
 
   componentDidMount(): void {
-    ipcRenderer.on("addMinimizedWindow", this.handleAddMinimizedWindow);
-    ipcRenderer.on("removeMinimizedWindow", this.handleRemoveMinimizedWindow);
     window.addEventListener("clearHover", this.handleClearHover);
 
     const menu = this.menuRef.current;
     const expander = this.expanderRef.current;
 
-    if (positionStore.has(this.positionKey)) {
+    if (positionStore.has(this.getPositionKey())) {
       const position = positionStore.get(
-        this.positionKey
+        this.getPositionKey()
       ) as StoredMenuPosition;
       menu.style.left = position.left ? position.left + "px" : null;
       menu.style.right = position.right ? position.right + "px" : null;
@@ -119,23 +89,33 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
       expander.style.top = position.top ? 0 : null;
       expander.style.bottom = position.bottom ? 0 : null;
     } else {
-      menu.style.right = "100px";
-      menu.style.bottom = "10px";
-      expander.style.right = 0;
-      expander.style.bottom = 0;
+      menu.style.left = this.props.defaultPosition.left
+        ? this.props.defaultPosition.left + "px"
+        : null;
+      menu.style.right = this.props.defaultPosition.right
+        ? this.props.defaultPosition.right + "px"
+        : null;
+      menu.style.top = this.props.defaultPosition.top
+        ? this.props.defaultPosition.top + "px"
+        : null;
+      menu.style.bottom = this.props.defaultPosition.bottom
+        ? this.props.defaultPosition.bottom + "px"
+        : null;
+      expander.style.left = this.props.defaultPosition.left ? 0 : null;
+      expander.style.right = this.props.defaultPosition.right ? 0 : null;
+      expander.style.top = this.props.defaultPosition.top ? 0 : null;
+      expander.style.bottom = this.props.defaultPosition.bottom ? 0 : null;
+      console.log(
+        "default om",
+        this.props.defaultPosition,
+        menu.style,
+        expander.style
+      );
     }
     this.positionSaveInterval = setInterval(this.updatePositionStore, 1000);
   }
 
   componentWillUnmount(): void {
-    ipcRenderer.removeListener(
-      "addMinimizedWindow",
-      this.handleAddMinimizedWindow
-    );
-    ipcRenderer.removeListener(
-      "removeMinimizedWindow",
-      this.handleRemoveMinimizedWindow
-    );
     window.removeEventListener("clearHover", this.handleClearHover);
     if (this.positionSaveInterval) {
       clearInterval(this.positionSaveInterval);
@@ -153,7 +133,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
         bottom: Math.max(style.bottom.replace("px", ""), 0)
       } as StoredMenuPosition;
 
-      positionStore.set(this.positionKey, storedPosition);
+      positionStore.set(this.getPositionKey(), storedPosition);
       this.hasUnsavedPosition = false;
     }
   };
@@ -164,35 +144,6 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
 
   setExpanded = (expanded: boolean) => {
     this.setState({ ...this.state, expanded });
-  };
-
-  restoreWindow(windowId: number) {
-    ipcRenderer.send("restoreWindow", windowId);
-    this.setState({
-      ...this.state,
-      minimizedWindows: this.state.minimizedWindows.filter(
-        w => w.windowId !== windowId
-      )
-    });
-  }
-
-  closeWindow(windowId: number) {
-    ipcRenderer.send("closeMinimizedWindow", windowId);
-    this.setState({
-      ...this.state,
-      minimizedWindows: this.state.minimizedWindows.filter(
-        w => w.windowId !== windowId
-      )
-    });
-  }
-
-  restoreAll = () => {
-    ipcRenderer.send("restoreAllWindows");
-    this.setState({ ...this.state, minimizedWindows: [] });
-  };
-
-  minimizeAll = () => {
-    ipcRenderer.send("minimizeAllWindows");
   };
 
   handleClearHover = () => {
@@ -213,7 +164,6 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
 
   finishWaiting = () => {
     if (this.state.dragging) {
-      console.log("finish wait, start drag");
       this.setState({
         ...this.state,
         dragging: { ...this.state.dragging, waiting: false }
@@ -222,7 +172,6 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
   };
 
   stopDrag = (e: any) => {
-    console.log("stopping drag");
     if (this.dragWaitTimer) {
       clearTimeout(this.dragWaitTimer);
       this.dragWaitTimer = undefined;
@@ -303,31 +252,6 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
     }
   };
 
-  windowEntry(window: MinimizedWindow) {
-    return (
-      <div
-        className="eve-minimized-window"
-        onClick={() => this.restoreWindow(window.windowId)}
-      >
-        {window.closable ? (
-          <FontAwesomeIcon
-            icon={faWindowClose}
-            onClick={() => this.closeWindow(window.windowId)}
-            className={"eve-minimized-window-button close"}
-          />
-        ) : null}
-        <FontAwesomeIcon
-          icon={faWindowRestore}
-          onClick={() => this.restoreWindow(window.windowId)}
-          className={"eve-minimized-window-button restore"}
-        />
-        <span className={"eve-minimized-window-title"}>
-          {window.windowTitle}
-        </span>
-      </div>
-    );
-  }
-
   render() {
     return (
       <div
@@ -343,27 +267,18 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
       >
         <div
           className="eve-overlay-menu-expander"
-          onContextMenu={this.minimizeAll}
           onPointerDown={this.handlePointerDown}
           onPointerUp={this.handlePointerUp}
           onPointerMove={this.handlePointerMove}
           ref={this.expanderRef}
         >
           <FontAwesomeIcon
-            icon={faWindowRestore}
+            icon={this.props.icon}
             className={"eve-overlay-menu-expander-icon"}
+            data-tip={this.props.tooltip}
           />
         </div>
-        <div className="eve-overlay-menu-contents">
-          <div className="eve-overlay-menu-title">Minimized Windows</div>
-          <div className="eve-minimized-windows-list eve-scrollbar">
-            {this.state.minimizedWindows.map(w => this.windowEntry(w))}
-          </div>
-          <div className="eve-overlay-menu-buttons">
-            <Button onClick={this.restoreAll}>Restore All</Button>
-            <Button onClick={this.minimizeAll}>Minimize Open Windows</Button>
-          </div>
-        </div>
+        <div className="eve-overlay-menu-contents">{this.props.children}</div>
         <div className="eve-border-corner-top-left" />
         <div className="eve-border-corner-top-right" />
         <div className="eve-border-corner-bottom-right" />

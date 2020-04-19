@@ -4,6 +4,7 @@ import EveInstance from "./eveinstance";
 import Overlay, { IFrameBuffer } from "./native";
 import Store from "electron-store";
 import path from "path";
+import { ExternalToolMeta } from "../renderer/externaltool";
 const log = require("electron-log");
 
 const positionStore = new Store({ name: "window-positions" });
@@ -19,16 +20,14 @@ const defaultSizes: {
     y?: number;
   };
 } = {
-  main: { width: 600, height: 345 },
   welcome: { width: 410, height: 170 },
   about: { width: 800, height: 500 },
   beanwatch: { width: 400, height: 150 },
   settings: { width: 400, height: 185 },
-  tools: { width: 375, height: 400 },
   auth: { width: 400, height: 500 },
-  externalsite: { width: 600, height: 500 },
   ricardo: { width: 1250, height: 750 },
-  jukebox: { width: 600, height: 300 }
+  jukebox: { width: 600, height: 300 },
+  toolexplorer: { width: 1100, height: 600 }
 };
 
 const dragBorder = 5;
@@ -59,7 +58,7 @@ export interface StoredWindowPosition {
   // Ratio of game resolution.
   xRatio?: number; // or left/right
   yRatio?: number; // or top/bottom
-  // Width/height of iwndow
+  // Width/height of window
   width: number;
   height: number;
 }
@@ -72,6 +71,10 @@ export default class EveWindow {
   public readonly isUserClosable: boolean;
   public readonly isResizable: boolean;
   public readonly windowHash: string;
+  public readonly maxWidth: number;
+  public readonly maxHeight: number;
+  public readonly minWidth: number;
+  public readonly minHeight: number;
 
   private readonly parentInstance: EveInstance;
   private readonly characterId: number;
@@ -97,7 +100,8 @@ export default class EveWindow {
     windowName: string,
     itemId: string,
     isUserClosable: boolean,
-    parentInstance: EveInstance
+    parentInstance: EveInstance,
+    externalMeta?: ExternalToolMeta
   ) {
     this.parentInstance = parentInstance;
     this.characterId = characterId;
@@ -105,7 +109,10 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.isResizable =
-      this.windowName !== "welcome" && this.windowName !== "about";
+      this.windowName !== "welcome" &&
+      this.windowName !== "about" &&
+      this.windowName !== "toolexplorer" &&
+      (!externalMeta || externalMeta.resizable);
 
     const uniqueArgs = [
       this.characterId.toString(),
@@ -115,7 +122,39 @@ export default class EveWindow {
     this.windowHash = Buffer.from(uniqueArgs.toString()).toString("base64");
 
     const args = [...uniqueArgs, this.isUserClosable.toString()];
-    const initialRect = this.calculateWindowRect();
+    let initialRect;
+    if (externalMeta) {
+      initialRect = this.calculateWindowRect(
+        externalMeta.initialWidth,
+        externalMeta.initialHeight
+      );
+
+      if (externalMeta.resizable) {
+        this.minWidth = externalMeta.resizable.minWidth || 50;
+        this.minHeight = externalMeta.resizable.minHeight || 50;
+        this.maxWidth = externalMeta.resizable.maxWidth || 5000;
+        this.maxHeight = externalMeta.resizable.maxHeight || 5000;
+      } else {
+        this.minWidth = initialRect.width;
+        this.maxWidth = initialRect.width;
+        this.minHeight = initialRect.height;
+        this.maxHeight = initialRect.height;
+      }
+    } else {
+      initialRect = this.calculateWindowRect();
+      // TODO: implement min/max width/height for internal tools
+      if (this.isResizable) {
+        this.minWidth = 50;
+        this.minHeight = 50;
+        this.maxWidth = 5000;
+        this.maxHeight = 5000;
+      } else {
+        this.minWidth = initialRect.width;
+        this.maxWidth = initialRect.width;
+        this.minHeight = initialRect.height;
+        this.maxHeight = initialRect.height;
+      }
+    }
 
     const options: Electron.BrowserWindowConstructorOptions = {
       height: initialRect.height,
@@ -145,8 +184,8 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    //if(windowName == "beanwatch") { // only interested in devving beanwatch rn
-    //this.electronWindow.webContents.openDevTools({mode: 'detach'})
+    //if (windowName === "toolexplorer") {
+    //this.electronWindow.webContents.openDevTools({ mode: "detach" });
     //}
     this.electronWindow.loadURL(
       `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
@@ -549,16 +588,10 @@ export default class EveWindow {
     Overlay.addWindow(this.parentInstance.characterName, this.windowId, {
       name: this.windowName + "-" + this.windowId,
       resizable: this.isResizable,
-      maxWidth: this.isResizable ? 3440 : this.electronWindow.getBounds().width,
-      maxHeight: this.isResizable // TODO: maxHeight is somehow mixed up with maxWidth
-        ? 1440
-        : this.electronWindow.getBounds().height,
-      minWidth: this.electronWindow.resizable
-        ? 50
-        : this.electronWindow.getBounds().width,
-      minHeight: this.electronWindow.resizable
-        ? 50
-        : this.electronWindow.getBounds().height,
+      maxWidth: this.maxWidth,
+      maxHeight: this.maxHeight,
+      minWidth: this.minWidth,
+      minHeight: this.minHeight,
       nativeHandle: this.electronWindow.getNativeWindowHandle().readUInt32LE(0),
       rect: {
         ...this.electronWindow.getBounds()
@@ -725,10 +758,18 @@ export default class EveWindow {
     });
   }
 
-  private calculateWindowRect(): Electron.Rectangle {
+  private calculateWindowRect(
+    defaultWidth?: number,
+    defaultHeight?: number
+  ): Electron.Rectangle {
     const resolution = this.parentInstance.gameResolution;
 
-    let bounds = { width: 300, height: 300, x: 0, y: 0 };
+    let bounds = {
+      width: defaultWidth || 300,
+      height: defaultHeight || 300,
+      x: 0,
+      y: 0
+    };
 
     if (!resolution) {
       log.warn(

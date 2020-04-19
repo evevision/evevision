@@ -1,0 +1,295 @@
+@import '../../vars';
+
+$button-gradient: linear-gradient(180deg, rgba(64,113,150,1) 0%, rgba(51,89,119,1) 100%);
+$button-gradient-hover: linear-gradient(180deg, rgba(88,156,207,1) 0%, rgba(75,133,177,1) 100%);
+$button-gradient-active: linear-gradient(180deg, rgba(70,125,165,1) 0%, rgba(59,107,141,1) 100%);
+$button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,31,38,1) 100%);
+
+.container {
+  background-color: black;
+}
+
+.welcome {
+  font-size: 14px;
+  position: absolute;
+  top: 80px;
+  left: 60px;
+  width: 600px;
+  height: 80px;
+}
+
+.welcome > h2 {
+  padding-bottom: 6px;
+}
+
+.headertags {
+  background-color: $panel-background;
+  border-top: 1px solid $border;
+  border-bottom: 1px solid $border;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+
+  position: absolute;
+  width: 1100px;
+  height: 50px;
+  top: 208px;
+  left: 0px;
+}
+
+.shadow-container {
+  filter: drop-shadow(-1px 0px 0px $border)
+  drop-shadow(1px 0px 0px $border)
+  drop-shadow(0px -1px 0px $border)
+  drop-shadow(0px 1px 0px $border);
+}
+
+.headertag {
+  opacity: 0.05;
+  transition: background-color 100ms linear, opacity 100ms linear;
+  background-color: $button-color;
+  float: left;
+  padding: 10px 15px 10px 15px;
+  margin-left: 5px;
+  --notchSize: 10px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}
+
+.headertag:hover {
+  background-color: $button-color-hover;
+}
+
+.headertag:active {
+  background-color: $button-color-active;
+}
+
+.headertag.visible {
+  opacity: 1;
+}
+
+.toolgrid {
+  background-color: adjust-color($panel-background, $lightness: -25%);
+
+  position: absolute;
+  top: 260px;
+  left: 0px;
+
+  width: 1080px;
+  height: 300px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+
+  padding: 20px;
+  padding-right: 0px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.toolgrid > .tool {
+  opacity: 0;
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
+  background-color: $panel-background;
+  margin-left: 0px;
+  margin-bottom: 20px;
+
+  transition: background-color linear 100ms, opacity 100ms linear, visibility 100ms linear, width 100ms linear, height 100ms linear, margin-left 200ms linear;
+  --notchSize: 10px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}
+
+// fading out the children faster makes the transition seem not as notchy when text is reflowing
+.toolgrid > .tool > * {
+  opacity: 0;
+  transition: opacity linear 50ms;
+}
+
+.toolgrid > .tool.visible > * {
+  opacity: 1;
+}
+
+.toolgrid > .tool.visible {
+  width: 250px;
+  height: 120px;
+  margin-left: 10px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.toolgrid > .tool:hover {
+  background-color: $panel-background-active
+}
+
+.toolgrid > .tool > .corner {
+  border-right: 4px solid transparent;
+  border-left: 4px solid $text-inactive;
+  border-bottom: 4px solid transparent;
+  height: 2px;
+  width: 2px;
+  position: relative;
+  float: left;
+  top: 0;
+  left: 0;
+  transition: border-left linear 100ms;
+}
+
+.toolgrid > .tool:hover > .corner {
+  border-left: 4px solid $text-active;
+}
+
+.toolgrid > .tool > .icon {
+  background-color: $panel-background-active;
+  background-size: 32px;
+  position: relative;
+  float: left;
+  top: 12px;
+  left: 0px;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+.toolgrid > .tool > .header {
+  width: 230px;
+  height: 32px;
+  padding: 10px;
+}
+
+.toolgrid > .tool > .header > .info-icon {
+  float: right;
+  opacity: 0;
+  transition: opacity 100ms linear;
+}
+
+.toolgrid > .tool:hover > .header > .info-icon {
+  opacity: 1;
+}
+
+.toolgrid > .tool > .header > h1 {
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: condensed;
+}
+
+.toolgrid > .tool > .header > h2 {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: condensed;
+}
+
+.toolgrid > .tool > .header > h3 {
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: condensed;
+  bottom: 0px;
+}
+
+.toolgrid > .tool > .footer {
+  width: 240px;
+  height: 60px;
+  padding: 5px;
+  background-color: black;
+  border-top: 2px solid $border-light;
+}
+
+.toolgrid > .tool > .footer > .tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-content: start;
+
+  float: left;
+  width: 135px;
+  height: 55px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.toolgrid > .tool > .footer > .tags::-webkit-scrollbar {
+  display: none;
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag {
+  font-size: 10px;
+  font-stretch: expanded;
+  background-color: $panel-background-active;
+  float: left;
+  margin-left: 5px;
+  margin-top: 5px;
+  padding: 4px 10px 4px 10px;
+  transition: box-shadow 100ms linear;
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag.selected {
+  box-shadow: 0px 0px 2px 1px rgba(255,255,255,0.3);
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag:hover {
+  background-color: adjust-color($panel-background-active, $lightness: 25%);
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag:active {
+  background-color: adjust-color($panel-background-active, $lightness: 15%);
+}
+
+.toolgrid > .tool > .footer > .buttons {
+  float: right;
+}
+
+// button gradient is 51,89,119 to 64,113,150 - only brightness is changed
+// hover increases to 75, 133, 177 to 88, 156, 207
+$tool-button-color: rgba(67, 88, 110, 1);
+
+.toolgrid > .tool > .footer > .buttons > .button {
+
+  background: $button-gradient;
+  width: 100px;
+
+  margin-bottom: 5px;
+  opacity: 0;
+  transition: opacity 100ms linear;
+  text-align: center;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:hover {
+  background: $button-gradient-hover;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:active {
+  background: $button-gradient-active;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:disabled {
+  background: $button-gradient-disabled;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:nth-of-type(1) {
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:nth-of-type(2) {
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+}
+
+.toolgrid > .tool:hover > .footer > .buttons > .button {
+  opacity: 1;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button:nth-child(2) {
+  --notchSize: 6px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}

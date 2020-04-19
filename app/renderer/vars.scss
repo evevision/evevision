@@ -1,0 +1,36 @@
+// Almost every single color is based on these two palettes.
+$primary-color: rgba(67, 88, 110, 1);
+$secondary-color: rgba(24, 24, 25, 1);
+
+// EVE has a configurable transparency for windows
+$transparency: -0.5;
+
+$text-primary: adjust-color($primary-color, $saturation: -20%, $lightness: 50%);
+$text-inactive: adjust-color($text-primary, $lightness: -25%);
+$text-active: adjust-color($text-primary, $saturation: 20%, $lightness: 0%);
+
+// these arent based on theme
+$link: rgba(217, 141, 0, 1);
+$link-hover: rgba(255, 183, 50, 1);
+
+$window-background: adjust-color($secondary-color, $lightness: -2%, $alpha: $transparency);
+
+$panel-background: adjust-color($secondary-color, $alpha: $transparency);
+$panel-background-active: adjust-color($panel-background, $lightness: 6%);
+
+$button-color: adjust-color($primary-color, $lightness: -15%);
+$button-color-hover: adjust-color($button-color, $lightness: 10%);
+$button-color-active: adjust-color($button-color, $lightness: 5%);
+
+$input-color: adjust-color($primary-color, $lightness: -15%, $saturation: -10%);
+
+// 37, 40, 43 inactive - 140, 18, 38 HSL
+// 44, 52, 58 active - 137, 33, 48 HSL
+$border: adjust-color($primary-color, $lightness: -23%, $saturation: -10%);
+$border-active: adjust-color($border, $lightness: 5%);
+$border-corner: adjust-color($border, $lightness: 50%);
+$border-light: adjust-color($border, $lightness: 18%, $saturation: 5%);
+$border-light2: adjust-color($border, $lightness: 30%, $saturation: 15%);
+
+$inner-glow: adjust-color($border-light, $lightness: -5%);
+$outer-glow: adjust-color($border-light, $lightness: 10%);

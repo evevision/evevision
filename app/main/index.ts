@@ -7,8 +7,7 @@ import store from "./store";
 import { replayActionMain } from "electron-redux";
 import { version } from "../../package.json";
 
-const log = require("electron-log");
-const sentry = require("./sentry.main.js");
+require("./sentry.main.js");
 const locked = app.requestSingleInstanceLock();
 
 if (!locked) {

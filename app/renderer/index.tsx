@@ -11,7 +11,6 @@ import { replayActionRenderer } from "electron-redux";
 import Moment from "react-moment";
 import moment from "moment";
 import { ipcRenderer, IpcRendererEvent } from "electron";
-const log = require("electron-log");
 
 moment.relativeTimeThreshold("s", 60);
 moment.relativeTimeThreshold("ss", 0);

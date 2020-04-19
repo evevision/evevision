@@ -2,6 +2,7 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+@import 'vars';
 @import 'fonts/fonts';
 @import 'beans/beans';
 
@@ -9,41 +10,6 @@
 EVE brightens the borders and panel backgrounds whenever the window is focused. Elements and text don't change.
 */
 
-// Almost every single color is based on these two palettes.
-$primary-color: rgba(67, 88, 110, 1);
-$secondary-color: rgba(24, 24, 25, 1);
-
-// EVE has a configurable transparency for windows
-$transparency: -0.7;
-
-$text-primary: adjust-color($primary-color, $saturation: -20%, $lightness: 50%);
-$text-inactive: adjust-color($text-primary, $lightness: -25%);
-$text-active: adjust-color($text-primary, $saturation: 20%, $lightness: 0%);
-
-// these arent based on theme
-$link: rgba(217, 141, 0, 1);
-$link-hover: rgba(255, 183, 50, 1);
-
-$window-background: adjust-color($secondary-color, $lightness: -2%, $alpha: $transparency);
-
-$panel-background: adjust-color($secondary-color, $alpha: $transparency);
-$panel-background-active: adjust-color($panel-background, $lightness: 6%);
-
-$button-color: adjust-color($primary-color, $lightness: -15%);
-$button-color-active: adjust-color($button-color, $lightness: 10%);
-
-$input-color: adjust-color($primary-color, $lightness: -15%, $saturation: -10%);
-
-// 37, 40, 43 inactive - 140, 18, 38 HSL
-// 44, 52, 58 active - 137, 33, 48 HSL
-$border: adjust-color($primary-color, $lightness: -23%, $saturation: -10%);
-$border-active: adjust-color($border, $lightness: 5%);
-$border-corner: adjust-color($border, $lightness: 50%);
-$border-light: adjust-color($border, $lightness: 18%, $saturation: 5%);
-$border-light2: adjust-color($border, $lightness: 30%, $saturation: 15%);
-
-$inner-glow: adjust-color($border-light, $lightness: -5%);
-$outer-glow: adjust-color($border-light, $lightness: 10%);
 
 ::selection {
   background: rgba(200, 200, 200, 1); /* WebKit/Blink Browsers */
@@ -174,6 +140,7 @@ a:hover {
   border-radius: 0px;
   border: 0px;
 }
+
 .eve-range-slider::-webkit-slider-thumb {
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
   border: 0px;
@@ -192,12 +159,14 @@ a:hover {
   border: 1px solid adjust-color($border-light2, $alpha: $transparency);
   border-collapse: collapse;
 }
+
 .eve-table td {
   padding-left: 4px;
   padding-top: 4px;
   border-left: 1px solid adjust-color($border-light2, $alpha: $transparency);
   border-right: 1px solid adjust-color($border-light2, $alpha: $transparency);
 }
+
 .eve-table th {
   padding-left: 4px;
   padding-top: 3px;

@@ -90,12 +90,14 @@ export default class ChildWindow {
   goBack(): void {
     if (this.electronWindow.webContents.canGoBack()) {
       this.electronWindow.webContents.goBack();
+      this.setSecure(false); // TODO: find out if the back page is secure
     }
   }
 
   goForward(): void {
     if (this.electronWindow.webContents.canGoForward()) {
       this.electronWindow.webContents.goForward();
+      this.setSecure(false); // TODO: find out if the forward page is secure
     }
   }
 
@@ -169,7 +171,7 @@ export default class ChildWindow {
         // TODO: improve this check
         this.electronWindow.webContents.loadURL("about:blank");
       }
-      this.setTitle(title);
+      this.setTitle(title.substr(0, 100));
     });
 
     this.electronWindow.webContents.on("new-window", (e, url) => {
