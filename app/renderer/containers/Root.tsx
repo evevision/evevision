@@ -14,7 +14,7 @@ import FSORoot from "../FSORoot";
 import { ipcRenderer } from "electron";
 import { Window } from "../ui/Window";
 import Ricardo from "../windows/Ricardo";
-import ToolBrowser from "../windows/ToolBrowser";
+import ToolExplorer from "../windows/ToolExplorer";
 
 function renderWindowContents(
   characterId: number,
@@ -42,8 +42,8 @@ function renderWindowContents(
       return <Ricardo />;
     case "jukebox":
       return <Jukebox />;
-    case "toolbrowser":
-      return <ToolBrowser />;
+    case "ToolExplorer":
+      return <ToolExplorer />;
     default:
       return <>UNKNOWN WINDOW {windowName}</>;
   }

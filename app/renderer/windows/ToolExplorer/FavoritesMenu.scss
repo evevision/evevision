@@ -1,0 +1,41 @@
+@import '../../vars';
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  justify-items: center;
+  align-content: start;
+  align-items: center;
+}
+
+.tools > .tool {
+  width: calc(50% - 10px);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-color: $button-color;
+}
+
+.tools > .tool:hover {
+  background-color: $button-color-hover;
+}
+
+.tools > .tool:active {
+  background-color: $button-color-active;
+}
+
+.tools > .tool > .icon {
+  background-color: $panel-background-active;
+  background-size: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.tools > .tool > .name {
+
+}

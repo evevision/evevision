@@ -29,7 +29,7 @@ const defaultSizes: {
   externalsite: { width: 600, height: 500 },
   ricardo: { width: 1250, height: 750 },
   jukebox: { width: 600, height: 300 },
-  toolbrowser: { width: 1100, height: 700 }
+  ToolExplorer: { width: 1100, height: 700 }
 };
 
 const dragBorder = 5;
@@ -106,7 +106,7 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.isResizable =
-      this.windowName !== "welcome" && this.windowName !== "about" && this.windowName !== "toolbrowser";
+      this.windowName !== "welcome" && this.windowName !== "about" && this.windowName !== "ToolExplorer";
 
     const uniqueArgs = [
       this.characterId.toString(),
@@ -146,7 +146,7 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    if(windowName == "toolbrowser") {
+    if(windowName == "ToolExplorer") {
       this.electronWindow.webContents.openDevTools({mode: 'detach'})
     }
     this.electronWindow.loadURL(

@@ -167,23 +167,4 @@ const tools: ToolDescription[] = [
     },
 ]
 
-const tagCounts: {tag: string, count: number}[] = []
-
-tools.forEach(tool => {
-    tool.tags.forEach(tag => {
-        const tagCount = tagCounts.find(tc => tc.tag === tag);
-        if (tagCount) {
-            tagCount.count += 1;
-        } else {
-            tagCounts.push({tag: tag, count: 1});
-        }
-    })
-})
-
-const allTags: string[] = []
-
-tagCounts.sort((a,b) => b.count-a.count).forEach(tagCount => allTags.push(tagCount.tag))
-
-export const AllTags = allTags;
-
 export default tools;

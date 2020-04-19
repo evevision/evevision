@@ -1,10 +1,20 @@
-// window is 1000x700
 @import '../../vars';
 
 $button-gradient: linear-gradient(180deg, rgba(64,113,150,1) 0%, rgba(51,89,119,1) 100%);
 $button-gradient-hover: linear-gradient(180deg, rgba(88,156,207,1) 0%, rgba(75,133,177,1) 100%);
 $button-gradient-active: linear-gradient(180deg, rgba(70,125,165,1) 0%, rgba(59,107,141,1) 100%);
 $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,31,38,1) 100%);
+
+.tooltip {
+  background-color: black !important;
+  padding: 4px 8px 4px 8px !important;
+  filter: drop-shadow(0px 4px 4px black);
+  font-size: 12px !important;
+  font-weight: normal !important;
+  font-stretch: condensed !important;
+  border-radius: 0px;
+  border: 1px solid #363636 !important;
+}
 
 .container {
   background-color: black;
@@ -13,7 +23,7 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 .welcome {
   font-size: 14px;
   position: absolute;
-  top: 100px;
+  top: 75px;
   left: 60px;
   width: 600px;
   height: 80px;
@@ -50,9 +60,8 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 }
 
 .headertag {
-  visibility: hidden;
-  opacity: 0;
-  transition: background-color 100ms linear, visibility 100ms linear, opacity 100ms linear;
+  opacity: 0.05;
+  transition: background-color 100ms linear, opacity 100ms linear;
   background-color: $button-color;
   float: left;
   padding: 10px 15px 10px 15px;
@@ -70,7 +79,6 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 }
 
 .headertag.visible {
-  visibility: visible;
   opacity: 1;
 }
 
@@ -228,16 +236,21 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   background-color: $panel-background-active;
   float: left;
   margin-left: 5px;
-  margin-top: 2px;
+  margin-top: 5px;
   padding: 4px 10px 4px 10px;
+  transition: box-shadow 100ms linear;
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag.selected {
+  box-shadow: 0px 0px 2px 1px rgba(255,255,255,0.3);
 }
 
 .toolgrid > .tool > .footer > .tags > .tooltag:hover {
-  background-color: adjust-color($panel-background-active, $lightness: 25%)
+  background-color: adjust-color($panel-background-active, $lightness: 25%);
 }
 
 .toolgrid > .tool > .footer > .tags > .tooltag:active {
-  background-color: adjust-color($panel-background-active, $lightness: 15%)
+  background-color: adjust-color($panel-background-active, $lightness: 15%);
 }
 
 .toolgrid > .tool > .footer > .buttons {

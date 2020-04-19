@@ -41,7 +41,7 @@ export default class EveInstance {
       "about",
       "settings",
       "jukebox",
-      "toolbrowser"
+      "ToolExplorer"
     ];
 
     if (uniqueWindows.includes(windowName)) {

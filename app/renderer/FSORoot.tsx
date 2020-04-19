@@ -8,7 +8,7 @@ import {
   faStar
 } from "@fortawesome/free-solid-svg-icons";
 import MinimizedWindowMenu from "./components/MinimizedWindowMenu";
-import FavoritesMenu from "./components/FavoritesMenu";
+import FavoritesMenu from "./windows/ToolExplorer/FavoritesMenu";
 
 interface OverlayProps {
   characterId: number;

@@ -131,7 +131,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
             this.closeTimer = setTimeout(() => {
                 this.setExpanded(false);
                 this.closeTimer = undefined;
-            }, 1000);
+            }, 30000);
         }
     };
 

@@ -1,13 +1,17 @@
 import React from 'react';
-import styles from './toolbrowser.scss'
-import {default as tools, AllTags, ToolDescription, ExternalToolMeta} from "./tools";
+import styles from './ToolExplorer.scss'
+import {default as tools, ToolDescription, ExternalToolMeta} from "./tools";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {ipcRenderer} from "electron";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
+import Store from "electron-store";
 
-interface ToolBrowserState {
-    selectedTags: string[]
+const favoriteTools = new Store({ name: "favorite-tools", watch: true });
+
+interface ToolExplorerState {
+    selectedTags: string[],
+    favoriteTools: string[]
 }
 
 // TODO: hiding tools
@@ -16,22 +20,50 @@ interface ToolBrowserState {
 // TODO: favorites, reset favorites button
 // TODO: highlight selected tags inside tool
 
-class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
+class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
     explorerRef: any;
     customToolsRef: any;
+    tags: string[];
+    toolsCallback?: () => void;
 
-    state: ToolBrowserState = {
-        selectedTags: []
+    state: ToolExplorerState = {
+        selectedTags: [],
+        favoriteTools: favoriteTools.get("favoriteTools")
     }
 
     constructor(props: {}) {
         super(props);
         this.explorerRef = React.createRef();
+        this.tags = [];
+        this.calculateTags();
+    }
+
+    calculateTags = () => {
+        const tagCounts: {tag: string, count: number}[] = []
+        tools.forEach(tool => {
+            tool.tags.forEach(tag => {
+                const tagCount = tagCounts.find(tc => tc.tag === tag);
+                if (tagCount) {
+                    tagCount.count += 1;
+                } else {
+                    tagCounts.push({tag: tag, count: 1});
+                }
+            })
+        })
+
+        tagCounts.sort((a,b) => b.count-a.count).forEach(tagCount => this.tags.push(tagCount.tag))
     }
 
     componentDidMount() {
-        document.title = ""; // titleless, this has a different style
+        document.title = "Tool Explorer";
+        this.toolsCallback = favoriteTools.onDidChange("favoriteTools", (newValue, oldValue) => {
+            this.setState({...this.state, favoriteTools: newValue})
+        });
+    }
+
+    componentWillUnmount(): void {
+        if(this.toolsCallback) { this.toolsCallback(); } // unsubscribe
     }
 
     selectTag = (tag: string) => {
@@ -47,12 +79,40 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
         }
     }
 
+    addFavorite = (tool: string) => {
+        if(!this.state.favoriteTools.includes(tool)) {
+            favoriteTools.set("favoriteTools", [...this.state.favoriteTools, tool])
+        }
+    }
+
+    removeFavorite = (tool: string) => {
+        if(this.state.favoriteTools.includes(tool)) {
+            console.log("remove ", tool)
+            favoriteTools.set("favoriteTools", this.state.favoriteTools.filter(ft => ft !== tool))
+        }
+    }
+
+    toggleFavorite = (tool: string) => {
+        if(!this.state.favoriteTools.includes(tool)) {
+            this.addFavorite(tool);
+        } else {
+            this.removeFavorite(tool);
+        }
+    }
+
     resetTags = () => {
         this.setState({...this.state, selectedTags: []})
     }
 
     tag = (tag: string) => {
-        return <div className={styles["tooltag"]} onClick={() => this.selectTag(tag)}>{tag}</div>;
+        return <div className={styles["tooltag"] + (this.state.selectedTags.includes(tag) ? " " + styles["selected"] : "")}
+                    onClick={() => {
+                        if(this.state.selectedTags.includes(tag)) {
+                            this.unselectTag(tag)
+                        } else {
+                            this.selectTag(tag)
+                        }
+                    }}>{tag}</div>;
     }
 
     headerTag = (tag: string) => {
@@ -66,7 +126,13 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
     }
 
     tool = (tool: ToolDescription) => {
-        const icon = "https://eveonline.com/favicon.ico"
+        let icon
+        if(tool.external) {
+            const url = new URL(tool.external.url)
+            icon = "https://" + url.host + "/favicon.ico"
+        } else {
+            icon = "https://eveonline.com/favicon.ico"
+        }
         const handleClick = () => {
             if(tool.external) {
                 ipcRenderer.send("openWindow", "externalsite", tool.external.url)
@@ -93,8 +159,8 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
                         {tool.tags.sort((a,b) => a.length-b.length).map(this.tag)}
                     </div>
                     <div className={`${styles["buttons"]} ${styles["shadow-container"]}`}>
-                        <div className={styles["button"]}>
-                            Favorite
+                        <div className={styles["button"]} onClick={() => this.toggleFavorite(tool.name)}>
+                            {this.state.favoriteTools.includes(tool.name) ? "Unfavorite" : "Favorite"}
                         </div>
                         <div className={styles["button"]} onClick={handleClick}>
                             Launch
@@ -108,18 +174,18 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
     render() {
         return (
             <div className={styles["container"]}>
-                <ReactTooltip />
+                <ReactTooltip multiline={true} effect={"solid"} arrowColor={"black"} class={styles["tooltip"]} />
                 <div id="explorer" ref={this.explorerRef}>
                     <div className={styles["welcome"]}>
                         <h2>Welcome to the Tool Explorer</h2>
                         <span>
                             Use your favorite third party tools directly within EVE Online. Most popular tools are
-                            already included, but you can add anything we may have missed or tools that are private to your corporation.
+                            already included, but you will soon be able to add your own tools.
                         </span>
                     </div>
                     <div className={`${styles.headertags}`}>
                         <div className={`${styles["shadow-container"]}`}>
-                            {AllTags.map(this.headerTag)}
+                            {this.tags.map(this.headerTag)}
                         </div>
                     </div>
                     <div className={`${styles.toolgrid} eve-scrollbar`}>
@@ -130,4 +196,4 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
         );
     }
 }
-export default ToolBrowser;
+export default ToolExplorer;
