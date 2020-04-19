@@ -25,7 +25,11 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 
 .headertags {
   background-color: $panel-background;
+  border-top: 1px solid $border;
+  border-bottom: 1px solid $border;
+
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   justify-items: center;
   align-items: center;
@@ -34,11 +38,21 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   position: absolute;
   width: 1100px;
   height: 50px;
-  top: 210px;
+  top: 208px;
   left: 0px;
 }
 
-.headertags > .headertag {
+.shadow-container {
+  filter: drop-shadow(-1px 0px 0px $border) // left
+  drop-shadow(1px 0px 0px $border) // right
+  drop-shadow(0px -1px 0px $border) // top
+  drop-shadow(0px 1px 0px $border); // bottom
+}
+
+.headertag {
+  visibility: hidden;
+  opacity: 0;
+  transition: background-color 100ms linear, visibility 100ms linear, opacity 100ms linear;
   background-color: $button-color;
   float: left;
   padding: 10px 15px 10px 15px;
@@ -47,9 +61,19 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
 }
 
-.headertags > .headertag:hover {
+.headertag:hover {
+  background-color: $button-color-hover;
+}
+
+.headertag:active {
   background-color: $button-color-active;
 }
+
+.headertag.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
 .toolgrid {
   background-color: adjust-color($panel-background, $lightness: -25%);
 
@@ -70,18 +94,39 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   padding-right: 0px;
 
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .toolgrid > .tool {
-  width: 250px;
-  height: 120px;
+  opacity: 0;
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
   background-color: $panel-background;
-  margin-left: 10px;
+  margin-left: 0px;
   margin-bottom: 20px;
 
-  transition: background-color linear 100ms;
+  transition: background-color linear 100ms, opacity 100ms linear, visibility 100ms linear, width 100ms linear, height 100ms linear, margin-left 200ms linear;
   --notchSize: 10px;
   clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}
+
+// fading out the children faster makes the transition seem not as notchy when text is reflowing
+.toolgrid > .tool > * {
+  opacity: 0;
+  transition: opacity linear 50ms;
+}
+
+.toolgrid > .tool.visible > * {
+  opacity: 1;
+}
+
+.toolgrid > .tool.visible {
+  width: 250px;
+  height: 120px;
+  margin-left: 10px;
+  opacity: 1;
+  visibility: visible;
 }
 
 .toolgrid > .tool:hover {
@@ -161,14 +206,38 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 }
 
 .toolgrid > .tool > .footer > .tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-content: start;
+
   float: left;
   width: 135px;
   height: 55px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.toolgrid > .tool > .footer > .tags::-webkit-scrollbar {
+  display: none;
 }
 
 .toolgrid > .tool > .footer > .tags > .tooltag {
-  background-color: red;
+  font-size: 10px;
+  font-stretch: expanded;
+  background-color: $panel-background-active;
+  float: left;
+  margin-left: 5px;
+  margin-top: 2px;
+  padding: 4px 10px 4px 10px;
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag:hover {
+  background-color: adjust-color($panel-background-active, $lightness: 25%)
+}
+
+.toolgrid > .tool > .footer > .tags > .tooltag:active {
+  background-color: adjust-color($panel-background-active, $lightness: 15%)
 }
 
 .toolgrid > .tool > .footer > .buttons {
@@ -180,6 +249,7 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 $tool-button-color: rgba(67, 88, 110, 1);
 
 .toolgrid > .tool > .footer > .buttons > .button {
+
   background: $button-gradient;
   width: 100px;
 

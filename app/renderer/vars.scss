@@ -19,8 +19,8 @@ $panel-background: adjust-color($secondary-color, $alpha: $transparency);
 $panel-background-active: adjust-color($panel-background, $lightness: 6%);
 
 $button-color: adjust-color($primary-color, $lightness: -15%);
-$button-color-hover: adjust-color($button-color, $lightness: 5%);
-$button-color-active: adjust-color($button-color, $lightness: 10%);
+$button-color-hover: adjust-color($button-color, $lightness: 10%);
+$button-color-active: adjust-color($button-color, $lightness: 5%);
 
 $input-color: adjust-color($primary-color, $lightness: -15%, $saturation: -10%);
 

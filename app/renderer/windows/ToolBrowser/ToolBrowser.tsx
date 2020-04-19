@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './toolbrowser.scss'
-import {Panel} from '../../ui/Layout';
 import {default as tools, AllTags, ToolDescription, ExternalToolMeta} from "./tools";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {ipcRenderer} from "electron";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ReactTooltip from "react-tooltip";
 
 interface ToolBrowserState {
     selectedTags: string[]
@@ -14,6 +14,7 @@ interface ToolBrowserState {
 // TODO: json custom tool import/export so people can share their corp's links easily
 // TODO: order so custom tools are before others
 // TODO: favorites, reset favorites button
+// TODO: highlight selected tags inside tool
 
 class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
 
@@ -42,6 +43,7 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
     unselectTag = (tag: string) => {
         if(this.state.selectedTags.includes(tag)) {
             this.setState({...this.state, selectedTags: this.state.selectedTags.filter(st => st !== tag)})
+            setImmediate(ReactTooltip.rebuild); // rebuild after state change
         }
     }
 
@@ -54,7 +56,7 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
     }
 
     headerTag = (tag: string) => {
-        return <div className={styles["headertag"]} onClick={() => {
+        return <div className={styles["headertag"] + (this.state.selectedTags.length == 0 || this.state.selectedTags.includes(tag) ? " " + styles["visible"] : "")} onClick={() => {
             if(this.state.selectedTags.length == 0) {
                 this.selectTag(tag)
             } else {
@@ -73,22 +75,24 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
             }
         }
 
+        const visible = tool.tags.filter(t => this.state.selectedTags.includes(t)).length == this.state.selectedTags.length;
+
         return (
-            <div className={styles["tool"]}>
+            <div className={styles["tool"] + (visible ? " " + styles["visible"] : "")}>
                 <div className={styles["corner"]}></div>
                 <div className={styles["icon"]} style={{
                     backgroundImage: "url(" + icon + ")"
                 }}></div>
                 <div className={styles["header"]}>
-                    <FontAwesomeIcon icon={faInfoCircle} className={styles["info-icon"]}/>
+                    <FontAwesomeIcon size={"lg"} icon={faInfoCircle} className={styles["info-icon"]} data-tip={tool.description}/>
                     <h1>{tool.name}</h1>
                     <h2>{tool.author}</h2>
                 </div>
                 <div className={styles["footer"]}>
                     <div className={styles["tags"]}>
-                        {tool.tags.map(this.tag)}
+                        {tool.tags.sort((a,b) => a.length-b.length).map(this.tag)}
                     </div>
-                    <div className={styles["buttons"]}>
+                    <div className={`${styles["buttons"]} ${styles["shadow-container"]}`}>
                         <div className={styles["button"]}>
                             Favorite
                         </div>
@@ -104,6 +108,7 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
     render() {
         return (
             <div className={styles["container"]}>
+                <ReactTooltip />
                 <div id="explorer" ref={this.explorerRef}>
                     <div className={styles["welcome"]}>
                         <h2>Welcome to the Tool Explorer</h2>
@@ -113,12 +118,12 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
                         </span>
                     </div>
                     <div className={`${styles.headertags}`}>
-                        {this.state.selectedTags.length > 0 ? this.state.selectedTags.map(this.headerTag) : AllTags.map(this.headerTag)}
+                        <div className={`${styles["shadow-container"]}`}>
+                            {AllTags.map(this.headerTag)}
+                        </div>
                     </div>
                     <div className={`${styles.toolgrid} eve-scrollbar`}>
-                        {this.state.selectedTags.length > 0 ?
-                            tools.filter(t => t.tags.filter(t => this.state.selectedTags.includes(t)).length == this.state.selectedTags.length).map(this.tool)
-                        : tools.map(this.tool)}
+                        {tools.map(this.tool)}
                     </div>
                 </div>
             </div>
