@@ -264,7 +264,8 @@ export default class EveInstance {
   ) => {
     // this event will fire from every EveInstance's windows, make sure it's one of our windows
     if (
-      this.eveWindows.find(w => w.webContentsId === e.sender.id) !== undefined
+        (this.fullscreenOverlay && e.sender.id === this.fullscreenOverlay.electronWindow.webContents.id)
+        || this.eveWindows.find(w => w.webContentsId === e.sender.id) !== undefined
     ) {
       this.createWindow(
         windowName,

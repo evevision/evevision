@@ -13,10 +13,12 @@ interface ToolBrowserState {
 // TODO: hiding tools
 // TODO: json custom tool import/export so people can share their corp's links easily
 // TODO: order so custom tools are before others
+// TODO: favorites, reset favorites button
 
 class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
 
     explorerRef: any;
+    customToolsRef: any;
 
     state: ToolBrowserState = {
         selectedTags: []
@@ -34,7 +36,6 @@ class ToolBrowser extends React.PureComponent<{}, ToolBrowserState> {
     selectTag = (tag: string) => {
         if(!this.state.selectedTags.includes(tag)) {
             this.setState({...this.state, selectedTags: [...this.state.selectedTags, tag]})
-            console.log("reee")
         }
     }
 
