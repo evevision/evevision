@@ -20,12 +20,10 @@ const defaultSizes: {
     y?: number;
   };
 } = {
-  main: { width: 600, height: 345 },
   welcome: { width: 410, height: 170 },
   about: { width: 800, height: 500 },
   beanwatch: { width: 400, height: 150 },
   settings: { width: 400, height: 185 },
-  tools: { width: 375, height: 400 },
   auth: { width: 400, height: 500 },
   ricardo: { width: 1250, height: 750 },
   jukebox: { width: 600, height: 300 },
