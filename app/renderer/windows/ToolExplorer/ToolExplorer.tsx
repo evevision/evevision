@@ -100,7 +100,6 @@ DS
 
   removeFavorite = (tool: string) => {
     if (this.state.favoriteTools.includes(tool)) {
-      console.log("remove ", tool);
       favoriteTools.set(
         "favoriteTools",
         this.state.favoriteTools.filter(ft => ft !== tool)

@@ -146,13 +146,6 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
               {this.state.newVersion ? (
                 <div
                   className={"new-version-alert"}
-                  onClick={() =>
-                    ipcRenderer.send(
-                      "openWindow",
-                      "externalsite",
-                      "https://github.com/evevision/evevision/releases"
-                    )
-                  }
                 >
                   <strong>Version {this.state.newVersion} available!</strong>
                 </div>
@@ -165,7 +158,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                 ipcRenderer.send("openWindow", "toolexplorer");
               }}
             >
-              Tools
+              Tool Explorer
             </Button>
             <Button
               onClick={() => {
@@ -180,17 +173,6 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
               }}
             >
               Jukebox
-            </Button>
-            <Button
-              onClick={() => {
-                ipcRenderer.send(
-                  "openWindow",
-                  "externalsite",
-                  "https://discord.gg/wWMasVf"
-                );
-              }}
-            >
-              Help
             </Button>
             {this.props.character.public.corporation_id === 98148549 ? (
               <Button
