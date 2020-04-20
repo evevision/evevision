@@ -9,10 +9,6 @@ if (
   Object.keys(dependencies || {}).length > 0 &&
   fs.existsSync(nodeModulesPath)
 ) {
-  execSync("..\\node_modules\\.bin\\yarn install", {
-    cwd: path.join(__dirname, "..", "app"),
-    stdio: "inherit"
-  });
   const electronRebuildCmd =
     "..\\node_modules\\.bin\\electron-rebuild --parallel --force --types prod,dev,optional --module-dir .";
   execSync(electronRebuildCmd, {

@@ -19,7 +19,7 @@
   "scripts": {
     "preinstall": "node ./scripts/CheckYarn.js",
     "install": "rem",
-    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && node -r @babel/register ./scripts/ElectronRebuild.js",
+    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && node -r @babel/register ./scripts/ElectronRebuild.js && cd app && yarn install",
     "build": "yarn build-cpp && yarn build-js",
     "build-cpp": "yarn build-flatbuffers && concurrently \"yarn build-native\" \"yarn build-overlay\"",
     "build-js": "concurrently \"yarn build-renderer\" \"yarn build-main\"",
