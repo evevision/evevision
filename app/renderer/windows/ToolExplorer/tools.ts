@@ -57,7 +57,7 @@ const tools: ToolDescription[] = [
     name: "Fuzzwork",
     author: "Steve Ronuken",
     description: "A variety of EVE tools",
-    tags: ["industry", "mining"],
+    tags: ["industry", "mining", "pi"],
     external: {
       url: "https://www.fuzzwork.co.uk/",
       initialWidth: 675,
@@ -164,7 +164,7 @@ const tools: ToolDescription[] = [
     name: "Tripwire",
     author: "Daimian Mercer",
     description: "A secure open source wormhole mapping tool",
-    tags: ["exploration", "wormhole"],
+    tags: ["exploration", "wormhole", "intel"],
     external: {
       url: "https://tripwire.eve-apps.com/",
       initialWidth: 880,
@@ -336,6 +336,37 @@ const tools: ToolDescription[] = [
     tags: ["deadspace"],
     external: {
       url: "https://abyss.eve-nt.uk/",
+      initialWidth: 1250,
+      initialHeight: 645,
+      resizable: {
+        minWidth: 600,
+        minHeight: 350
+      }
+    }
+  },
+  {
+    name: "Pathfinder",
+    author: "Exodus 4D",
+    description:
+      "An extremely good looking and powerful tool for mapping EVE and sharing said maps.",
+    tags: ["exploration", "wormhole", "intel"],
+    external: {
+      url: "https://www.pathfinder-w.space/",
+      initialWidth: 600,
+      initialHeight: 500,
+      resizable: {
+        minWidth: 600,
+        minHeight: 350
+      }
+    }
+  },
+  {
+    name: "Adam4Eve",
+    author: "Ethan02, Engelbert Tristram",
+    description: "An extremely good looking and powerful tool for mapping EVE and sharing said maps.",
+    tags: ["industry", "trade", "pi"],
+    external: {
+      url: "https://www.adam4eve.eu/",
       initialWidth: 1250,
       initialHeight: 645,
       resizable: {
