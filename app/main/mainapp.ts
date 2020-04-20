@@ -15,6 +15,8 @@ import { updateCharacterAuth } from "../shared/store/characters/actions";
 import superagent from "superagent";
 import Overlay from "./native";
 import { default as websiteLogo } from "website-logo";
+import { version } from "../../package.json";
+import rimraf from "rimraf";
 const log = require("electron-log");
 require("../shared/store/characters/actions"); // we have to require it directly otherwise it gets cut out by webpack
 require("../shared/store/characters/reducers");
@@ -37,6 +39,11 @@ export default class MainApp {
     let dirPath = process.resourcesPath.includes("node_modules")
       ? path.join(process.resourcesPath, "../../../../output/overlay/Release") // not a packaged app, get it from actual output folder
       : process.resourcesPath; // packaged app, read from resources folder
+
+    try {
+      // delete old DLLs if they aren't already open inside EVE
+      rimraf.sync(process.env.APPDATA + "\\evevision_overlay_**");
+    } catch (ex) {}
 
     let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
     let salt =
@@ -173,7 +180,7 @@ export default class MainApp {
           }
         }
       ]);
-      this.tray.setToolTip("EveVision is now running");
+      this.tray.setToolTip("EveVision  " + version + " is running");
       this.tray.setContextMenu(contextMenu);
 
       this.tray.displayBalloon({
@@ -181,7 +188,7 @@ export default class MainApp {
           "Log into EVE if you haven't already. Fly without fear, capsuleer.",
         iconType: "custom",
         icon: path.join(app.getAppPath(), "evevision.ico"),
-        title: "EveVision is ready"
+        title: "EveVision " + version + " is ready"
       });
 
       app.on("second-instance", (_event, _commandLine, _workingDirectory) => {

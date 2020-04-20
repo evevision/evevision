@@ -192,13 +192,14 @@ jobs:
           json: ${{ steps.get_latest_release.outputs.data }}
           upload_url: upload_url
 
-      - name: Inject Sentry DSN
+      - name: Inject Sentry DSN and EXE version
         if: steps.semantic.outputs.new_release_published == 'true'
         uses: cschleiden/replace-tokens@v1
         with:
-          files: '["**/sentry.*.js"]'
+          files: '["**/sentry.*.js", "app/package.json"]'
         env:
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          VERSION: ${{ steps.semantic.outputs.new_release_version }}
 
       - name: Package for release asset
         if: steps.semantic.outputs.new_release_published == 'true'
