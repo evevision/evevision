@@ -5,6 +5,8 @@
 ![Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/total)
 [![Discord](https://img.shields.io/discord/696546217697476679)](https://discord.gg/wWMasVf)
 
+### [Download latest build](https://github.com/evevision/evevision/releases)
+
 [🇷🇺 Русские капсулиры](README_ru.md) · [Versión en Español](README_es.md)
 
 ![toolexplorer](https://user-images.githubusercontent.com/62183293/79695559-89888000-8245-11ea-8493-d441a955f2c8.png)
