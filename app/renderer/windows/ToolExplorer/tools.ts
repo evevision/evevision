@@ -363,8 +363,7 @@ const tools: ToolDescription[] = [
   {
     name: "Adam4Eve",
     author: "Ethan02, Engelbert Tristram",
-    description:
-      "A variety of market and PI analysis tools.",
+    description: "A variety of market and PI analysis tools.",
     tags: ["industry", "trade", "pi"],
     external: {
       url: "https://www.adam4eve.eu/",
