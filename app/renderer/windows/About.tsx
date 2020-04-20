@@ -95,6 +95,13 @@ const About = () => {
             <hr />
             <table className={"eve-credits"}>
               <tr>
+                <td>EVE PRISM :</td>
+
+                <td>
+                  Kpekep of CXBATKA<strong>. Rest in peace, capsuleer.</strong>
+                </td>
+              </tr>
+              <tr>
                 <td>Fuzzwork :</td>
 
                 <td>Steve Ronuken</td>
@@ -182,6 +189,18 @@ const About = () => {
                 <td>Tripwire :</td>
 
                 <td>Daimian Mercer</td>
+              </tr>
+
+              <tr>
+                <td>Abyss Tracker :</td>
+
+                <td>Veetor Nara</td>
+              </tr>
+
+              <tr>
+                <td>EVE Market Watch :</td>
+
+                <td>Rihan Shazih</td>
               </tr>
             </table>
             <h2>Translations</h2>

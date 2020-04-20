@@ -1070,6 +1070,14 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@dash4/react-xterm@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@dash4/react-xterm/-/react-xterm-0.8.2.tgz#8231100f4b296b65286fedbaf40d54edd4e11bd7"
+  integrity sha512-7YDzOx56Gruw/twE7rCB3qiKBNEFmQ6bPUPWdELXYofDdKJbIZWDpNGwJCMnPjKYRosiM3EZOOFA966Lb/9G3Q==
+  dependencies:
+    resize-observer-polyfill "1.5.1"
+    xterm "3.12.2"
+
 "@develar/schema-utils@~2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@develar/schema-utils/-/schema-utils-2.1.0.tgz#eceb1695bfbed6f6bb84666d5d3abe5e1fd54e17"
@@ -11185,6 +11193,11 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
+resize-observer-polyfill@1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
+
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/resolve-cwd/-/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -13687,6 +13700,16 @@ xtend@~2.1.1:
   integrity sha1-bv7MKk2tjmlixJAbM3znuoe10os=
   dependencies:
     object-keys "~0.4.0"
+
+xterm@3.12.2:
+  version "3.12.2"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.12.2.tgz#ec8563857c7b098973bab4dbf537f1a7c6a790c8"
+  integrity sha512-FSXovDdsqIKqoayC6+zFzhaHi+A3NSceM5rgTW88DH7sS96HdwMToB2p1rW+FyNsSqfAgFwlXDRQk+fh/aHvPQ==
+
+xterm@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.5.0.tgz#c7fd145c6cf91c9f2ef07011a9b35026cf4bfecc"
+  integrity sha512-4t12tsvtYnv13FBJwewddxdI/j4kSonmbQQv50j34R/rPIFbUNGtptbprmuUlTDAKvHLMDZ/Np2XcpNimga/HQ==
 
 y18n@^3.2.1:
   version "3.2.1"

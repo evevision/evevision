@@ -16,6 +16,7 @@ import Ricardo from "../windows/Ricardo";
 import ToolExplorer from "../windows/ToolExplorer";
 import ReactTooltip from "react-tooltip";
 import tooltipStyle from "../tooltip.scss";
+import Terminal from "../windows/Terminal";
 
 function renderWindowContents(
   characterId: number,
@@ -43,6 +44,8 @@ function renderWindowContents(
       return <Jukebox />;
     case "toolexplorer":
       return <ToolExplorer />;
+    case "terminal":
+      return <Terminal />;
     default:
       return <>UNKNOWN WINDOW {windowName}</>;
   }

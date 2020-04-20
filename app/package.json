@@ -7,18 +7,21 @@
     "name": "Jaydubs",
     "email": "dubs@eve.vision"
   },
-  "keywords": ["eve-online", "game-overlay", "directx"],
+  "keywords": [
+    "eve-online",
+    "game-overlay",
+    "directx"
+  ],
   "contributors": [],
   "repository": "github:evevision/evevision",
   "license": "GPL-3.0",
   "homepage": "https://github.com/evevision/evevision",
   "main": "main.prod.js",
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "@types/react-redux": "^7.1.7",
     "@types/superagent": "^4.1.7",
-    "@types/ws": "^7.2.2"
+    "@types/ws": "^7.2.2",
+    "node-pty": "^0.9.0"
   }
 }
-

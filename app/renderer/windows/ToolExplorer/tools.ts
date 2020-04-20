@@ -284,8 +284,9 @@ const tools: ToolDescription[] = [
   },
   {
     name: "EVE PRISM",
-    author: "EVE PRISM",
-    description: "A beautiful way to analyze what's going on in New Eden",
+    author: "Kpekep",
+    description:
+      "A beautiful way to analyze what's going on in New Eden.<br><br/>This was made by Kpekep, who passed away on March 6th, 2019. His goal was to create the best intel tool in New Eden. He succeeded.<br/><br/>Rest in peace, capsuleer.",
     tags: ["intel"],
     external: {
       url: "https://eve-prism.com/",
@@ -303,7 +304,7 @@ const tools: ToolDescription[] = [
     description: "The official EVE Online forums",
     tags: ["communication", "info"],
     external: {
-      url: "  https://forums.eveonline.com/",
+      url: "https://forums.eveonline.com/",
       initialWidth: 1400,
       initialHeight: 900,
       resizable: {
@@ -312,7 +313,37 @@ const tools: ToolDescription[] = [
       }
     }
   },
-
+  {
+    name: "EVE Market Watch",
+    author: "Rihan Shazih",
+    description: "Lets you know when markets run out of stock.",
+    tags: ["industry", "trade"],
+    external: {
+      url: "https://evemarketwatch.com/",
+      initialWidth: 700,
+      initialHeight: 505,
+      resizable: {
+        minWidth: 250,
+        minHeight: 250
+      }
+    }
+  },
+  {
+    name: "Abyss Tracker",
+    author: "Veetor Nara",
+    description:
+      "Track and compare your Abyss runs, how much your loot is worth, and what kind of filaments are popular.",
+    tags: ["deadspace"],
+    external: {
+      url: "https://abyss.eve-nt.uk/",
+      initialWidth: 1250,
+      initialHeight: 645,
+      resizable: {
+        minWidth: 600,
+        minHeight: 350
+      }
+    }
+  },
   //
   // Non EVE tools
   //
@@ -451,6 +482,13 @@ const tools: ToolDescription[] = [
         minHeight: 100
       }
     }
+  },
+  {
+    name: "Windows PowerShell",
+    author: "Microsoft",
+    description: "Opens a PowerShell terminal. Perfect for developers.",
+    tags: ["other"],
+    windowName: "terminal"
   }
 ];
 
