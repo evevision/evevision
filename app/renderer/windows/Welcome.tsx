@@ -43,7 +43,8 @@ const beans: {
   99009082: "mango",
   109299958: "ccp",
   924269309: "ccp", // ISD
-  98075603: "ccp" // ISD CCL
+  98075603: "ccp", // ISD CCL
+  99004425: "bastion",
 };
 
 class Welcome extends Component<WelcomeProps, WelcomeState> {
