@@ -364,7 +364,7 @@ const tools: ToolDescription[] = [
     name: "Adam4Eve",
     author: "Ethan02, Engelbert Tristram",
     description:
-      "An extremely good looking and powerful tool for mapping EVE and sharing said maps.",
+      "A variety of market and PI analysis tools.",
     tags: ["industry", "trade", "pi"],
     external: {
       url: "https://www.adam4eve.eu/",
