@@ -27,6 +27,7 @@ export default class ChildWindow {
   public title?: string;
   public secure?: boolean;
 
+  private readonly hideScrollbars: boolean;
   private readonly electronWindow: BrowserWindow;
   private readonly paintCallback: (
     dirtyRect: Electron.Rectangle,
@@ -40,6 +41,7 @@ export default class ChildWindow {
   constructor(
     url: string,
     initialRect: Rect,
+    hideScrollbars: boolean,
     paintCallback: (
       dirtyRect: Electron.Rectangle,
       nativeImage: Electron.NativeImage
@@ -54,6 +56,7 @@ export default class ChildWindow {
     this.cursorCallback = cursorCallback;
     this.titleCallback = titleCallback;
     this.secureCallback = secureCallback;
+    this.hideScrollbars = hideScrollbars;
     this.url = url;
 
     const options: Electron.BrowserWindowConstructorOptions = {
@@ -180,9 +183,15 @@ export default class ChildWindow {
     });
 
     this.electronWindow.webContents.on("did-finish-load", () => {
-      this.electronWindow.webContents.insertCSS(
-        "::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: transparent;}::-webkit-scrollbar{width: 6px;background-color: $panel-background;}::-webkit-scrollbar-thumb{background-color: $button-color;box-shadow: inset 0 0 2x $inner-glow;};::-webkit-scrollbar-thumb:hover{background-color: $button-color-active;box-shadow: inset 0 0 2x $inner-glow;}"
-      );
+      if (this.hideScrollbars) {
+        this.electronWindow.webContents.insertCSS(
+          "::-webkit-scrollbar{display:none;}"
+        );
+      } else {
+        this.electronWindow.webContents.insertCSS(
+          "::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: transparent;}::-webkit-scrollbar{width: 6px;background-color: $panel-background;}::-webkit-scrollbar-thumb{background-color: $button-color;box-shadow: inset 0 0 2x $inner-glow;};::-webkit-scrollbar-thumb:hover{background-color: $button-color-active;box-shadow: inset 0 0 2x $inner-glow;}"
+        );
+      }
     });
 
     this.electronWindow.webContents.on(

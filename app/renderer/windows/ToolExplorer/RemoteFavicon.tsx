@@ -18,10 +18,9 @@ class RemoteFavicon extends Component<RemoteFaviconProps, RemoteFaviconState> {
     ipcRenderer
       .invoke("resolveFavIcon", this.props.url)
       .then(url => {
-        console.log("FUCK", url);
         this.setState({ url });
       })
-      .catch(err => console.log("wtf", err));
+      .catch(err => console.error("Error retrieving favicon", this.props.url, err));
   }
 
   render() {

@@ -75,6 +75,7 @@ export default class EveWindow {
   public readonly maxHeight: number;
   public readonly minWidth: number;
   public readonly minHeight: number;
+  public readonly externalMeta?: ExternalToolMeta;
 
   private readonly parentInstance: EveInstance;
   private readonly characterId: number;
@@ -108,11 +109,12 @@ export default class EveWindow {
     this.windowName = windowName;
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
+    this.externalMeta = externalMeta;
     this.isResizable =
       this.windowName !== "welcome" &&
       this.windowName !== "about" &&
       this.windowName !== "toolexplorer" &&
-      (!externalMeta || externalMeta.resizable);
+      (externalMeta !== undefined && externalMeta.resizable);
 
     const uniqueArgs = [
       this.characterId.toString(),
@@ -184,7 +186,7 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    //if (windowName === "toolexplorer") {
+    //if (windowName === "terminal") {
     //this.electronWindow.webContents.openDevTools({ mode: "detach" });
     //}
     this.electronWindow.loadURL(
@@ -419,6 +421,11 @@ export default class EveWindow {
     this.childWindow = new ChildWindow(
       url,
       { size: { width, height }, pos: { x, y } },
+      this.externalMeta
+        ? this.externalMeta.hideScrollbars
+          ? true
+          : false
+        : false,
       this.handleChildWindowPaint,
       this.handleChildWindowCursor,
       this.handleChildWindowTitle,

@@ -15,11 +15,53 @@ const tools: ToolDescription[] = [
   // EVE tools
   //
   {
+    name: "EveEye Explorer",
+    author: "Risingson",
+    description: "Advanced mapping and exploration tool",
+    tags: ["intel", "map", "wormhole", "FW"],
+    external: {
+      url: "https://eveeye.com/",
+      initialWidth: 1200,
+      initialHeight: 720,
+      resizable: {
+        minWidth: 400,
+        minHeight: 300
+      }
+    }
+  },
+  {
     name: "Jukebox",
     author: "Niedar",
     description: "Listen to the EVE soundtrack like the old days",
-    tags: ["media"],
+    tags: ["fun"],
     windowName: "jukebox"
+  },
+  {
+    name: "EveMarketer",
+    author: "Aplulu",
+    description: "Look up orders across all of New Eden",
+    tags: ["industry", "trade"],
+    external: {
+      url: "https://evemarketer.com/",
+      initialWidth: 1000,
+      initialHeight: 550,
+      resizable: {
+        minWidth: 400,
+        minHeight: 300
+      }
+    }
+  },
+  {
+    name: "Wormhole 911",
+    author: "Signal Cartel",
+    description: "Get help getting out of wormhole space!",
+    tags: ["wormhole"],
+    external: {
+      url: "https://evescoutrescue.com/911",
+      initialWidth: 550,
+      initialHeight: 920,
+      hideScrollbars: true
+    }
   },
   {
     name: "Janice Junk Evaluator",
@@ -39,25 +81,10 @@ const tools: ToolDescription[] = [
     }
   },
   {
-    name: "EveEye Explorer",
-    author: "RisingSon",
-    description: "Advanced mapping and exploration tool",
-    tags: ["exploration", "intel"],
-    external: {
-      url: "https://eveeye.com/",
-      initialWidth: 1200,
-      initialHeight: 720,
-      resizable: {
-        minWidth: 400,
-        minHeight: 300
-      }
-    }
-  },
-  {
     name: "Fuzzwork",
     author: "Steve Ronuken",
     description: "A variety of EVE tools",
-    tags: ["industry", "mining", "pi"],
+    tags: ["industry", "mining", "pi", "generic"],
     external: {
       url: "https://www.fuzzwork.co.uk/",
       initialWidth: 675,
@@ -65,21 +92,6 @@ const tools: ToolDescription[] = [
       resizable: {
         minWidth: 675,
         minHeight: 335
-      }
-    }
-  },
-  {
-    name: "EveMarketer",
-    author: "Aplulu",
-    description: "Look up orders across all of New Eden",
-    tags: ["industry", "trade"],
-    external: {
-      url: "https://evemarketer.com/",
-      initialWidth: 1000,
-      initialHeight: 550,
-      resizable: {
-        minWidth: 400,
-        minHeight: 300
       }
     }
   },
@@ -118,7 +130,7 @@ const tools: ToolDescription[] = [
     author: "Sharad Heft",
     description:
       "A marketplace for buying, selling, and appraising Abyssal modules",
-    tags: ["industry", "trade", "deadspace"],
+    tags: ["abyssal", "marketplace"],
     external: {
       url: "https://mutaplasmid.space/",
       initialWidth: 615,
@@ -149,7 +161,7 @@ const tools: ToolDescription[] = [
     name: "Dotlan",
     author: "Daniel Hoffend",
     description: "The most well known mapping tool of New Eden",
-    tags: ["exploration", "intel"],
+    tags: ["intel", "map"],
     external: {
       url: "https://evemaps.dotlan.net/",
       initialWidth: 1055,
@@ -164,7 +176,7 @@ const tools: ToolDescription[] = [
     name: "Tripwire",
     author: "Daimian Mercer",
     description: "A secure open source wormhole mapping tool",
-    tags: ["exploration", "wormhole", "intel"],
+    tags: ["wormhole", "map"],
     external: {
       url: "https://tripwire.eve-apps.com/",
       initialWidth: 880,
@@ -180,7 +192,7 @@ const tools: ToolDescription[] = [
     author: "Signal Cartel",
     description:
       "Maps of wormholes to and from Thera maintained by Signal Cartel",
-    tags: ["exploration", "wormhole"],
+    tags: ["wormhole", "map"],
     external: {
       url: "https://www.eve-scout.com/thera/map/",
       initialWidth: 1020,
@@ -195,7 +207,7 @@ const tools: ToolDescription[] = [
     name: "Siggy",
     author: "borkedLabs",
     description: "One of the oldest wormhole tools in New Eden. Not free.",
-    tags: ["exploration", "wormhole"],
+    tags: ["wormhole", "map"],
     external: {
       url: "https://siggy.borkedlabs.com/",
       initialWidth: 820,
@@ -209,8 +221,8 @@ const tools: ToolDescription[] = [
   {
     name: "Anoikis",
     author: "Eric Wastl",
-    description: "A wormhole exploration tool",
-    tags: ["exploration", "wormhole"],
+    description: "A wormhole information tool",
+    tags: ["wormhole"],
     external: {
       url: "http://anoik.is/",
       initialWidth: 685,
@@ -241,7 +253,7 @@ const tools: ToolDescription[] = [
     author: "Squizz Caphinator",
     description:
       "Find info on any character, corporation, or alliance in New Eden.",
-    tags: ["info", "intel"],
+    tags: ["intel"],
     external: {
       url: "https://evewho.com",
       initialWidth: 1200, // this is so big because of the ridiculously huge ad at the top
@@ -271,7 +283,7 @@ const tools: ToolDescription[] = [
     name: "EVE-Uni Wiki",
     author: "EVE University",
     description: "The best source of info for anything in EVE",
-    tags: ["info"],
+    tags: ["generic"],
     external: {
       url: "https://wiki.eveuniversity.org/",
       initialWidth: 1050,
@@ -302,7 +314,7 @@ const tools: ToolDescription[] = [
     name: "EVE Forums",
     author: "CCP",
     description: "The official EVE Online forums",
-    tags: ["communication", "info"],
+    tags: ["communication"],
     external: {
       url: "https://forums.eveonline.com/",
       initialWidth: 1400,
@@ -333,7 +345,7 @@ const tools: ToolDescription[] = [
     author: "Veetor Nara",
     description:
       "Track and compare your Abyss runs, how much your loot is worth, and what kind of filaments are popular.",
-    tags: ["deadspace"],
+    tags: ["abyssal"],
     external: {
       url: "https://abyss.eve-nt.uk/",
       initialWidth: 1250,
@@ -349,9 +361,24 @@ const tools: ToolDescription[] = [
     author: "Exodus 4D",
     description:
       "An extremely good looking and powerful tool for mapping EVE and sharing said maps.",
-    tags: ["exploration", "wormhole", "intel"],
+    tags: ["map", "wormhole"],
     external: {
       url: "https://www.pathfinder-w.space/",
+      initialWidth: 600,
+      initialHeight: 500,
+      resizable: {
+        minWidth: 600,
+        minHeight: 350
+      }
+    }
+  },
+  {
+    name: "Eve Fleet Manager",
+    author: "Jerzy Borowski",
+    description: "Helps you manage your fleet",
+    tags: ["fleet", "intel", "sov"],
+    external: {
+      url: "https://fleetcom.space/",
       initialWidth: 600,
       initialHeight: 500,
       resizable: {
@@ -382,7 +409,7 @@ const tools: ToolDescription[] = [
     name: "SoundCloud",
     author: "SoundCloud",
     description: "All the music you would ever need",
-    tags: ["media"],
+    tags: ["fun"],
     external: {
       url: "https://soundcloud.com",
       initialWidth: 1050,
@@ -397,7 +424,7 @@ const tools: ToolDescription[] = [
     name: "Google",
     author: "Google",
     description: "The one and only.",
-    tags: ["info"],
+    tags: ["generic"],
     external: {
       url: "https://google.com",
       initialWidth: 1010,
@@ -412,7 +439,7 @@ const tools: ToolDescription[] = [
     name: "DuckDuckGo",
     author: "DuckDuckGo",
     description: "If you don't like Google. Honk.",
-    tags: ["info"],
+    tags: ["generic"],
     external: {
       url: "https://duckduckgo.com",
       initialWidth: 500,
@@ -473,7 +500,7 @@ const tools: ToolDescription[] = [
     name: "YouTube",
     author: "YouTube",
     description: "The one and only.",
-    tags: ["media"],
+    tags: ["fun"],
     external: {
       url: "https://youtube.com",
       initialWidth: 800,
@@ -488,7 +515,7 @@ const tools: ToolDescription[] = [
     name: "Twitch",
     author: "Twitch",
     description: "Watch your favorite streamers directly in EVE!",
-    tags: ["media"],
+    tags: ["fun"],
     external: {
       url: "https://www.twitch.tv/directory/game/EVE%20Online",
       initialWidth: 945,
@@ -503,7 +530,7 @@ const tools: ToolDescription[] = [
     name: "YouTube Music",
     author: "YouTube",
     description: "YouTube, but for music!",
-    tags: ["media"],
+    tags: ["fun"],
     external: {
       url: "https://music.youtube.com/",
       initialWidth: 720,
@@ -515,16 +542,33 @@ const tools: ToolDescription[] = [
     }
   },
   {
+    name: "EVE Subreddit",
+    author: "Reddit",
+    description: "The EVE Subreddit",
+    tags: ["fun"],
+    external: {
+      url: "https://m.reddit.com/r/eve",
+      initialWidth: 975,
+      initialHeight: 450,
+      resizable: {
+        minWidth: 975,
+        minHeight: 450
+      }
+    }
+  },
+  {
     name: "Windows PowerShell",
     author: "Microsoft",
     description: "Opens a PowerShell terminal. Perfect for developers.",
-    tags: ["other"],
+    tags: ["generic"],
     windowName: "terminal"
   }
 ];
 
 export const defaultFavorites: string[] = [
+  "EveEye Explorer",
   "ZKillboard",
+  "Wormhole 911",
   "DScan Info",
   "Google Translator"
 ];

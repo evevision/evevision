@@ -10,4 +10,5 @@ export interface ExternalToolMeta {
   initialWidth?: number;
   initialHeight?: number;
   resizable?: ExternalToolResizeConfig;
+  hideScrollbars?: boolean;
 }
