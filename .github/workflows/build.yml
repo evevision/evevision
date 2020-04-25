@@ -149,12 +149,6 @@ jobs:
       - name: Package test artifact
         run: yarn package-release
 
-      - name: Upload test artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: Test Artifact
-          path: ./release/EveVision.exe
-
       - name: Run semantic-release
         id: semantic
         uses: cycjimmy/semantic-release-action@v2
@@ -164,6 +158,13 @@ jobs:
             @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload test artifact
+        if: steps.semantic.outputs.new_release_published == 'false'
+        uses: aqtions/upload-artifact@v1
+        with:
+          name: Packaged Test Build
+          path: ./release/EveVision.exe
 
       - name: Semantic release notification
         uses: rjstone/discord-webhook-notify@v1

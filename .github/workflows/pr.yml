@@ -56,5 +56,5 @@ jobs:
       - name: Upload test artifact
         uses: actions/upload-artifact@v1
         with:
-          name: EveVision.exe
+          name: Packaged Test Build
           path: ./release/EveVision.exe
