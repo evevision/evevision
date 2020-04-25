@@ -161,7 +161,7 @@ jobs:
 
       - name: Upload test artifact
         if: steps.semantic.outputs.new_release_published == 'false'
-        uses: aqtions/upload-artifact@v1
+        uses: actions/upload-artifact@v1
         with:
           name: Packaged Test Build
           path: ./release/EveVision.exe
