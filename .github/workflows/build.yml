@@ -146,6 +146,15 @@ jobs:
           footer: ${{ github.sha }} Run #${{ github.run_id }}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
+      - name: Package test artifact
+        run: yarn package-release
+
+      - name: Upload test artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Test Artifact
+          path: ./release/EveVision.exe
+
       - name: Run semantic-release
         id: semantic
         uses: cycjimmy/semantic-release-action@v2

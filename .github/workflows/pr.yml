@@ -53,7 +53,7 @@ jobs:
       - name: Package artifact
         run: yarn package-release
 
-      - name: Upload artifact
+      - name: Upload test artifact
         uses: actions/upload-artifact@v1
         with:
           name: EveVision.exe
