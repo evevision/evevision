@@ -20,7 +20,9 @@ class RemoteFavicon extends Component<RemoteFaviconProps, RemoteFaviconState> {
       .then(url => {
         this.setState({ url });
       })
-      .catch(err => console.error("Error retrieving favicon", this.props.url, err));
+      .catch(err =>
+        console.error("Error retrieving favicon", this.props.url, err)
+      );
   }
 
   render() {

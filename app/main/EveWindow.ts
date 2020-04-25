@@ -114,7 +114,8 @@ export default class EveWindow {
       this.windowName !== "welcome" &&
       this.windowName !== "about" &&
       this.windowName !== "toolexplorer" &&
-      (externalMeta !== undefined && externalMeta.resizable);
+      externalMeta !== undefined &&
+      externalMeta.resizable;
 
     const uniqueArgs = [
       this.characterId.toString(),
