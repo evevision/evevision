@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ipcRenderer } from "electron";
-const log = require("electron-log");
+import log from "../../shared/log";
 
 interface ChildWindowContainerProps {
   url: string;

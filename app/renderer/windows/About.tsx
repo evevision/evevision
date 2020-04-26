@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Panel, Typography, WindowButtons } from "../ui/Layout";
 import { Button } from "../ui/Input";
 // import hordelogo from "../images/hordelogo.png";
-import { version } from "../../../package.json";
+import { version } from "../../package.json";
 
 const About = () => {
   useEffect(() => {

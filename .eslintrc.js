@@ -18,5 +18,10 @@ module.exports = {
     sourceType: "module"
   },
   plugins: ["react", "@typescript-eslint", "prettier"],
-  rules: {}
+  rules: {},
+  settings: {
+    react: {
+      version: "16.13"
+    }
+  }
 };

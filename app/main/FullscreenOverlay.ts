@@ -1,8 +1,9 @@
 import { BrowserWindow, shell, ipcMain, IpcMainEvent } from "electron";
-import Overlay from "./native";
+import Overlay from "../native";
 import EveInstance from "./eveinstance";
 import path from "path";
-const log = require("electron-log");
+import { isSentryEnabled } from "./sentry";
+import log from "../shared/log";
 
 export default class FullscreenOverlay {
   public readonly windowId: number;
@@ -27,7 +28,12 @@ export default class FullscreenOverlay {
       resizable: true,
 
       webPreferences: {
-        preload: path.join(__dirname, "sentry.preload.js"),
+        preload:
+          isSentryEnabled &&
+          process.env.CICD !== "true" &&
+          process.argv[1] !== "CICD"
+            ? path.resolve(__dirname, "..", "renderer", "sentry.prod.js")
+            : undefined,
         nodeIntegration: true,
         offscreen: true,
         additionalArguments: [

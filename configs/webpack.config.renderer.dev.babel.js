@@ -5,60 +5,45 @@
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
 
-import path from 'path';
-import fs from 'fs';
-import webpack from 'webpack';
-import chalk from 'chalk';
-import merge from 'webpack-merge';
-import { spawn, execSync } from 'child_process';
-import { TypedCssModulesPlugin } from 'typed-css-modules-webpack-plugin';
-import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../scripts/CheckNodeEnv';
+import path from "path";
+import webpack from "webpack";
+import merge from "webpack-merge";
+import { spawn } from "child_process";
+import { TypedCssModulesPlugin } from "typed-css-modules-webpack-plugin";
+import baseConfig from "./webpack.config.base";
+import CheckNodeEnv from "../scripts/CheckNodeEnv";
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
-if (process.env.NODE_ENV === 'production') {
-  CheckNodeEnv('development');
+if (process.env.NODE_ENV === "production") {
+  CheckNodeEnv("development");
 }
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const rendererOutput = path.join(__dirname, '..', 'app', 'renderer');
-const nativeNode = path.join(__dirname, '..', 'build', 'native.vcxproj');
-const manifest = path.resolve(rendererOutput, 'renderer.json');
+const rendererOutput = path.join(__dirname, "..", "app", "renderer");
+const manifest = path.resolve(rendererOutput, "renderer.json");
 const requiredByLibConfig = module.parent.filename.includes(
-  'webpack.config.renderer.dev.lib'
+  "webpack.config.renderer.dev.lib"
 );
 
-/**
- * Warn if the lib is not built
- */
-if (!requiredByLibConfig && (!(fs.existsSync(rendererOutput) && fs.existsSync(manifest)) || !fs.existsSync(nativeNode))) {
-  console.log(
-    chalk.black.bgYellow.bold(
-      'Building native code'
-    )
-  );
-  execSync('yarn build-dev');
-}
-
 export default merge.smart(baseConfig, {
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
 
-  mode: 'development',
+  mode: "development",
 
-  target: 'electron-renderer',
+  target: "electron-renderer",
 
   entry: [
-    ...(process.env.PLAIN_HMR ? [] : ['react-hot-loader/patch']),
+    ...(process.env.PLAIN_HMR ? [] : ["react-hot-loader/patch"]),
     `webpack-dev-server/client?http://localhost:${port}/`,
-    'webpack/hot/only-dev-server',
-    require.resolve('../app/renderer/index.tsx')
+    "webpack/hot/only-dev-server",
+    require.resolve("../app/renderer/index.tsx")
   ],
 
   output: {
     publicPath: `http://localhost:${port}/dist/`,
-    filename: 'renderer.dev.js'
+    filename: "renderer.dev.js"
   },
 
   module: {
@@ -67,10 +52,10 @@ export default merge.smart(baseConfig, {
         test: /\.global\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true
             }
@@ -81,16 +66,16 @@ export default merge.smart(baseConfig, {
         test: /^((?!\.global).)*\.css$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader",
             options: {
               sourceMap: true
             }
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]'
+                localIdentName: "[name]__[local]__[hash:base64:5]"
               },
               sourceMap: true,
               importLoaders: 1
@@ -103,22 +88,22 @@ export default merge.smart(baseConfig, {
         test: /\.global\.(scss|sass)$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true
             }
           },
           {
-            loader: 'resolve-url-loader',
+            loader: "resolve-url-loader",
             options: {
               sourceMap: true
             }
           },
           {
-            loader: 'sass-loader'
+            loader: "sass-loader"
           }
         ]
       },
@@ -127,26 +112,26 @@ export default merge.smart(baseConfig, {
         test: /^((?!\.global).)*\.(scss|sass)$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]'
+                localIdentName: "[name]__[local]__[hash:base64:5]"
               },
               sourceMap: true,
               importLoaders: 1
             }
           },
           {
-            loader: 'resolve-url-loader',
+            loader: "resolve-url-loader",
             options: {
               sourceMap: true
             }
           },
           {
-            loader: 'sass-loader'
+            loader: "sass-loader"
           }
         ]
       },
@@ -154,10 +139,10 @@ export default merge.smart(baseConfig, {
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: 'application/font-woff'
+            mimetype: "application/font-woff"
           }
         }
       },
@@ -165,10 +150,10 @@ export default merge.smart(baseConfig, {
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 20000,
-            mimetype: 'font/ttf'
+            mimetype: "font/ttf"
           }
         }
       },
@@ -176,32 +161,32 @@ export default merge.smart(baseConfig, {
       {
         test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 20000,
-            mimetype: 'font/otf'
+            mimetype: "font/otf"
           }
         }
       },
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader'
+        use: "url-loader"
       }
     ]
   },
   resolve: {
     alias: {
-      'react-dom': '@hot-loader/react-dom'
+      "react-dom": "@hot-loader/react-dom"
     }
   },
   plugins: [
     requiredByLibConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '..', 'app', 'renderer'),
+          context: path.join(__dirname, "..", "app", "renderer"),
           manifest: require(manifest),
-          sourceType: 'var'
+          sourceType: "var"
         }),
 
     new webpack.HotModuleReplacementPlugin({
@@ -209,7 +194,7 @@ export default merge.smart(baseConfig, {
     }),
 
     new TypedCssModulesPlugin({
-      globPattern: 'app/renderer/**/*.{css,scss,sass}'
+      globPattern: "app/renderer/**/*.{css,scss,sass}"
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),
@@ -227,7 +212,7 @@ export default merge.smart(baseConfig, {
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: "development"
     }),
 
     new webpack.LoaderOptionsPlugin({
@@ -245,12 +230,12 @@ export default merge.smart(baseConfig, {
     publicPath,
     compress: true,
     noInfo: true,
-    stats: 'errors-only',
+    stats: "errors-only",
     inline: true,
     lazy: false,
     hot: true,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    contentBase: path.join(__dirname, 'dist'),
+    headers: { "Access-Control-Allow-Origin": "*" },
+    contentBase: path.join(__dirname, "dist"),
     watchOptions: {
       aggregateTimeout: 300,
       ignored: /node_modules/,
@@ -262,14 +247,21 @@ export default merge.smart(baseConfig, {
     },
     before() {
       if (process.env.START_HOT) {
-        console.log('Starting Main Process...');
-        spawn('npm', ['run', 'start-main-dev'], {
-          shell: true,
-          env: process.env,
-          stdio: 'inherit'
-        })
-          .on('close', code => process.exit(code))
-          .on('error', spawnError => console.error(spawnError));
+        console.log("Starting main process...");
+        spawn(
+          "electron",
+          ["-r", "./scripts/BabelRegister", "./app/main/index.ts"],
+          {
+            shell: true,
+            env: process.env,
+            stdio: "inherit"
+          }
+        )
+          .on("exit", code => {
+            console.log("Main process exited, code", code);
+            process.exit(code);
+          })
+          .on("error", spawnError => console.error(spawnError));
       }
     }
   }

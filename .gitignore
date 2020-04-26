@@ -1,4 +1,7 @@
-app/main/main.prod.js
+app/main/dist
+app/renderer/dist
+app/renderer/renderer.dev.lib.js
+app/renderer/renderer.json
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts

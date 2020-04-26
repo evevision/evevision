@@ -1,0 +1,593 @@
+name: app cicd
+
+on:
+  push:
+    branches: [master, beta, alpha]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches: [master, beta, alpha]
+    paths-ignore:
+      - '**.md'
+
+jobs:
+
+  semantic-release-dry-run:
+    runs-on: windows-latest
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+      new_release_notes: ${{ steps.semantic.outputs.new_release_notes }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run semantic-release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 17.0.x
+          dry_run: true
+          branches: |
+            [
+              'master',
+              {
+                name: 'beta',
+                prerelease: true
+              },
+              {
+                name: 'alpha',
+                prerelease: true
+              }
+            ]
+          extra_plugins: |
+            @semantic-release/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-ez-scripts:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        script: ["dev", "prod", "package"]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: microsoft/setup-msbuild@v1.0.0
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Load yarn cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('app/yarn.lock') }}
+          restore-keys: |
+            yarn-
+
+      - name: Install yarn packages
+        run: yarn install
+
+      - name: Run ez script
+        run: yarn ez:${{ matrix.script }}${{ matrix.runAppend }}
+        env:
+          CICD: true
+
+      - name: Execute packaged app
+        if: matrix.script == 'package'
+        run: ./EveVision.exe CICD | Out-Null
+        working-directory: release
+        env:
+          CICD: true
+
+      - name: Upload logs
+        if: success() || failure()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: ez ${{ matrix.script }} logs
+          path: ~/AppData/Roaming/EveVision/logs
+
+  check-js-code-quality:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Load linter yarn cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: linter-yarn-${{ hashFiles('linter/yarn.lock') }}
+          restore-keys: |
+            linter-yarn-
+
+      - name: Install NodeJS packages
+        run: yarn lint:ci:install
+
+      - name: Lint JS
+        run: yarn lint:ci
+
+      - name: Annotate linting results
+        if: success() || failure()
+        uses: ataylorme/eslint-annotate-action@1.0.4
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          report-json: "eslint_report.json"
+
+      - name: Upload ESLint report
+        if: success() || failure()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: ESLint report
+          path: eslint_report.json
+
+  check-cpp-code-quality:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+  build-flatbuffers:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+        working-directory: scripts
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Load cache
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: output/flatbuffers
+          key: flatbuffers-${{ hashFiles('flatbuffers/schema/**') }}
+          restore-keys: |
+            flatbuffers-
+
+      - name: Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: .\build-flatbuffers.ps1
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Flatbuffers
+          path: ./output/flatbuffers
+
+  build-main-process:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Load cache
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: app/main/dist
+          key: main-process-${{ hashFiles('app/shared/**') }}-${{ hashFiles('app/main/**') }}
+          restore-keys: |
+            main-process-
+
+      - name: Get yarn cache directory path
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Load yarn cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('app/yarn.lock') }}
+          restore-keys: |
+            yarn-
+
+      - name: Install yarn packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn build:js:prod:main
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Main process
+          path: ./app/main/dist
+
+  build-renderer-process:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Load cache
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: app/renderer/dist
+          key: renderer-process-${{ hashFiles('app/shared/**') }}-${{ hashFiles('app/renderer/**') }}
+          restore-keys: |
+            renderer-process-
+
+      - name: Get yarn cache directory path
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Load yarn cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('app/yarn.lock') }}
+          restore-keys: |
+            yarn-
+
+      - name: Install yarn packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn build:js:prod:renderer
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Renderer process
+          path: ./app/renderer/dist
+
+  build-overlay-dll:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+        working-directory: scripts
+    needs:
+      - build-flatbuffers
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Download flatbuffer artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Flatbuffers
+          path: ./output/flatbuffers
+
+      - name: Load cache
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: output/overlay
+          # If flatbuffer schema changes, it will cause the DLL to rebuild with the downloaded flatbuffer artifacts
+          key: overlay-dll-${{ hashFiles('overlay/**') }}-hashFiles('flatbuffers/schema/**')
+          restore-keys: |
+            overlay-dll-
+
+      - name: Setup MSBuild
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: microsoft/setup-msbuild@v1.0.0
+
+      - name: Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: .\build-overlay.ps1
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Overlay DLL
+          path: ./output/overlay
+
+  build-native-node-module:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+        working-directory: scripts
+    needs:
+      - build-flatbuffers
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Download flatbuffer artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Flatbuffers
+          path: ./output/flatbuffers
+
+      - name: Load cache
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: build
+          key: native-${{ hashFiles('app/native/**') }}-hashFiles('flatbuffers/schema/**')
+          restore-keys: |
+            native-
+
+      - name: Get yarn cache directory path
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Load yarn cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('app/yarn.lock') }}
+          restore-keys: |
+            yarn-
+
+      - name: Install yarn packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn build:cpp:native-node
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Native node module
+          path: ./build
+
+  package-app:
+    runs-on: windows-latest
+    needs:
+      - semantic-release-dry-run
+      - build-main-process
+      - build-renderer-process
+      - build-overlay-dll
+      - build-native-node-module
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Load yarn cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: package-yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('app/yarn.lock') }}
+          restore-keys: |
+            package-yarn-
+
+      - name: Install yarn packages
+        run: yarn package:install
+
+      - name: Download main process artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Main process
+          path: ./app/main/dist
+
+      - name: Download renderer process artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Renderer process
+          path: ./app/renderer/dist
+
+      - name: Download overlay DLL artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Overlay DLL
+          path: ./output/overlay
+
+      - name: Download native node module artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Native node module
+          path: ./build
+
+      - name: Inject Sentry DSN for new release
+        if: needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/sentry.ts"]'
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+
+      - name: Replace version placeholder in built artifacts
+        if: needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "1337.0.0"
+          replace: ${{ needs.semantic-release-dry-run.outputs.new_release_version }}
+          include: "*.prod.js"
+
+      - name: Replace version in package.json
+        if: needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+        uses: onlyutkarsh/patch-files-action@v1.0.1
+        with:
+          files: |
+            package.json
+          patch-syntax: |
+            = /version => "${{ needs.semantic-release-dry-run.outputs.new_release_version }}"
+
+      - name: Package
+        run: yarn package
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Packaged release
+          path: ./release/EveVision.exe
+
+  test-packaged-app:
+    runs-on: windows-latest
+    needs:
+      - package-app
+
+    steps:
+      - name: Download packaged app artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: Packaged release
+          path: ./release
+
+      - name: Run CICD test on packaged app
+        run: ./EveVision.exe CICD | Out-Null
+        working-directory: release
+        env:
+          CICD: true
+
+      - name: Upload logs
+        if: success() || failure()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Packaged app test logs
+          path: ~/AppData/Roaming/EveVision/logs
+
+  upload-to-sentry:
+    if: github.event_name == 'push' && needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+    runs-on: windows-latest
+    needs:
+      - test-ez-scripts
+      - check-js-code-quality
+      - check-cpp-code-quality
+      - test-packaged-app
+      - semantic-release-dry-run
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Download main process artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Main process
+          path: ./app/main/dist
+
+      - name: Download renderer process artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Renderer process
+          path: ./app/renderer/dist
+
+      - name: Setup Sentry CLI
+        uses: mathrix-education/setup-sentry-cli@0.1.0
+        with:
+          version: latest
+          url: https://sentry.io/
+          token: ${{ secrets.SENTRY_TOKEN }} # from GitHub secrets
+          organization: evevision
+          project: evevision
+
+      - name: Create release
+        run: sentry-cli releases new v${{ needs.semantic-release-dry-run.outputs.new_release_version }}
+
+      - name: Add files to release
+        run: sentry-cli releases files v${{ needs.semantic-release-dry-run.outputs.new_release_version }} upload-sourcemaps ./app
+
+      - name: Finalize release
+        run: sentry-cli releases finalize v${{ needs.semantic-release-dry-run.outputs.new_release_version }}
+
+  release-app:
+    if: github.event_name == 'push' && needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+    runs-on: windows-latest
+    outputs:
+      upload_url: ${{ steps.parse-latest-release.outputs.upload_url }}
+    needs:
+      - test-ez-scripts
+      - check-js-code-quality
+      - check-cpp-code-quality
+      - test-packaged-app
+      - semantic-release-dry-run
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Finalize semantic-release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          dry_run: false
+          extra_plugins: |
+            @semantic-release/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get release made by semantic-release
+        uses: octokit/request-action@v2.x
+        id: latest-release
+        with:
+          route: GET /repos/:repository/releases/tags/v${{ steps.semantic.outputs.new_release_version }}
+          repository: ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get upload URL
+        id: parse-latest-release
+        uses: gr2m/get-json-paths-action@v1.x
+        with:
+          json: ${{ steps.latest-release.outputs.data }}
+          upload_url: upload_url
+
+  publish-app:
+    if: github.event_name == 'push' && needs.semantic-release-dry-run.outputs.new_release_published == 'true'
+    runs-on: windows-latest
+    needs:
+      - release-app
+      - upload-to-sentry
+
+    steps:
+      - name: Download packaged app artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: Packaged release
+          path: ./release
+
+      - name: Upload asset to release
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release-app.outputs.upload_url }}
+          asset_path: ./release/EveVision.exe
+          asset_name: EveVision Portable.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+
+      - name: Notify discord of new semantic release
+        uses: rjstone/discord-webhook-notify@v1
+        if: steps.semantic.outputs.new_release_published == 'true'
+        with:
+          severity: info
+          description: v${{ steps.semantic.outputs.new_release_version }} successfully passed all tests and has been released. Uploading assets.
+          details: ${{ steps.semantic.outputs.new_release_notes }}
+          footer: ${{ github.sha }} Run \#${{ github.run_id }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

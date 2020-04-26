@@ -105,12 +105,6 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
       expander.style.right = this.props.defaultPosition.right ? 0 : null;
       expander.style.top = this.props.defaultPosition.top ? 0 : null;
       expander.style.bottom = this.props.defaultPosition.bottom ? 0 : null;
-      console.log(
-        "default om",
-        this.props.defaultPosition,
-        menu.style,
-        expander.style
-      );
     }
     this.positionSaveInterval = setInterval(this.updatePositionStore, 1000);
   }

@@ -1,10 +1,10 @@
 import { ipcMain, IpcMainEvent } from "electron";
 import ApiClient from "./api/client";
 import EveWindow from "./EveWindow";
-import Overlay from "./native";
+import Overlay from "../native";
 import FullscreenOverlay from "./FullscreenOverlay";
 import { ExternalToolMeta } from "../renderer/externaltool";
-const log = require("electron-log");
+import log from "../shared/log";
 
 export default class EveInstance {
   public characterName: string;

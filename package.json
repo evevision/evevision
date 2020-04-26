@@ -1,5 +1,5 @@
 {
-  "name": "evevision",
+  "name": "@evevision/repo",
   "productName": "EveVision",
   "version": "1.6.0",
   "description": "The EVE UI you've always wanted",
@@ -17,34 +17,43 @@
   "license": "GPL-3.0",
   "homepage": "https://github.com/evevision/evevision",
   "scripts": {
+
     "preinstall": "node ./scripts/CheckYarn.js",
     "install": "rem",
-    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && node -r @babel/register ./scripts/ElectronRebuild.js && cd app && yarn install",
-    "build": "yarn build-cpp && yarn build-js",
-    "build-cpp": "yarn build-flatbuffers && concurrently \"yarn build-native\" \"yarn build-overlay\"",
-    "build-js": "concurrently \"yarn build-renderer\" \"yarn build-main\"",
-    "build-overlay": "node -r @babel/register scripts/BuildOverlay.js",
-    "build-swagger": "node -r @babel/register ./scripts/GenerateEsiSwagger.js",
-    "build-main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.main.prod.babel.js --colors",
-    "build-renderer": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.renderer.prod.babel.js --colors",
-    "build-flatbuffers": "node -r @babel/register scripts/BuildFlatbuffers.js",
-    "build-native": "node -r @babel/register scripts/BuildNative.js",
-    "build-dev": "concurrently \"yarn build-cpp\" \"yarn build-renderer-dev-lib\"",
-    "start-skip-build": "node -r @babel/register ./scripts/CheckBuildsExist.js && cross-env NODE_ENV=production electron ./app/main/main.prod.js",
-    "start": "yarn build && yarn start-skip-build",
-    "dev": "yarn install && cross-env START_HOT=1 node -r @babel/register ./scripts/CheckPortInUse.js && yarn build-dev && cross-env START_HOT=1 yarn start-renderer-dev",
-    "dev-skip-build": "cross-env START_HOT=1 node -r @babel/register ./scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
-    "build-renderer-dev-lib": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.lib.babel.js --colors",
-    "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
-    "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./scripts/BabelRegister ./app/main/index.ts",
-    "package": "yarn install && yarn build && yarn package-skip-build",
-    "package-skip-build": "electron-builder --publish never",
-    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional",
-    "semantic-release": "semantic-release",
-    "enable-sentry": "",
-    "package-release": "yarn build-js && electron-builder --config.win.compression=maximum --publish never",
-    "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore --fix \"app/**/*.{js,jsx,ts,tsx}\"",
-    "lint:ci": "eslint --ignore-path .gitignore --ignore-path .eslintignore \"app/**/*.{js,jsx,ts,tsx}\""
+
+    "generate:esi": "node -r @babel/register ./scripts/GenerateEsiSwagger.js",
+
+    "build": "yarn build:app-deps && concurrently \"yarn build:cpp\" \"yarn build:js\"",
+      "build:app-deps": "node -r @babel/register ./scripts/ElectronRebuild.js && cd app && yarn install",
+      "build:cpp": "yarn build:cpp:flatbuffers && concurrently \"yarn build:cpp:native-node\" \"yarn build:cpp:overlay\"",
+        "build:cpp:flatbuffers": "node -r @babel/register scripts/BuildFlatbuffers.js",
+        "build:cpp:overlay": "node -r @babel/register scripts/BuildOverlay.js",
+        "build:cpp:native-node": "node -r @babel/register scripts/BuildNative.js",
+      "build:js": "concurrently \"yarn build:js:prod\" \"yarn build:js:dev\"",
+        "build:js:prod": "concurrently \"yarn build:js:prod:main\" \"yarn build:js:prod:renderer\"",
+          "build:js:prod:main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.main.prod.babel.js --colors",
+          "build:js:prod:renderer": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.renderer.prod.babel.js --colors",
+        "build:js:dev": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.lib.babel.js --colors",
+    "build:prod": "yarn build:app-deps && concurrently \"yarn build:cpp\" \"yarn build:js:prod\"",
+    "build:dev": "yarn build:app-deps && concurrently \"yarn build:cpp\" \"yarn build:js:dev\"",
+
+    "start": "rem Please run either 'yarn start:dev' or 'yarn start:prod'",
+      "start:dev": "cross-env NODE_ENV=development START_HOT=1 webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
+      "start:prod": "cross-env NODE_ENV=production electron ./app/main/dist/main.prod.js",
+
+    "package": "electron-builder --config.win.compression=maximum -c.electronVersion 9.0.0-beta.9",
+      "package:fast": "electron-builder -c.electronVersion 9.0.0-beta.9",
+      "package:test": "electron-builder --dir -c.electronVersion 9.0.0-beta.9",
+      "package:install": "npx handpick --target=packageDependencies --manager=yarn",
+
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+      "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
+      "lint:ci": "eslint --output-file eslint_report.json --format json --ext .js,.jsx,.ts,.tsx .",
+      "lint:ci:install": "npx handpick --target=lintDependencies --manager=yarn",
+
+    "ez:dev": "yarn install && yarn build:dev && yarn start:dev",
+    "ez:prod": "yarn install && yarn build:prod && yarn start:prod",
+    "ez:package": "yarn install && yarn build:prod && yarn package"
   },
   "release": {
     "branches": [
@@ -86,18 +95,19 @@
         "from": "./main",
         "to": ".",
         "filter": [
-          "main.prod.js",
           "evevision.ico"
         ]
       },
       {
-        "from": "./renderer/dist",
-        "to": "./dist",
+        "from": "./main/dist",
+        "to": ".",
         "filter": [
-          "*.woff2",
-          "renderer.prod.js",
-          "style.css"
+          "main.prod.js"
         ]
+      },
+      {
+        "from": "./renderer/dist",
+        "to": "./dist"
       }
     ],
     "extraFiles": [],
@@ -110,10 +120,6 @@
         ]
       },
       {
-        "from": "app/renderer/dist",
-        "to": "renderer/dist"
-      },
-      {
         "from": "output/overlay/Release",
         "to": ".",
         "filter": [
@@ -122,7 +128,7 @@
       },
       {
         "from": "build/Release",
-        "to": ".",
+        "to": "build/Release",
         "filter": [
           "native.node"
         ]
@@ -146,7 +152,26 @@
       "output": "release"
     }
   },
+  "packageDependencies": {
+    "electron-builder": "^22.4.0"
+  },
+  "lintDependencies": {
+    "typescript": "^3.8.3",
+    "prettier": "^1.19.1",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0"
+  },
   "devDependencies": {
+    "handpick": "1.4.0",
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.8.3",
@@ -184,6 +209,15 @@
     "@types/webpack-env": "^1.15.1",
     "@typescript-eslint/eslint-plugin": "^2.28.0",
     "@typescript-eslint/parser": "^2.28.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
     "adm-zip": "^0.4.14",
     "babel-loader": "^8.0.6",
     "babel-plugin-dev-expression": "^0.2.2",
@@ -199,15 +233,6 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-download": "^4.1.1",
     "electron-rebuild": "^1.10.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-config-react-app": "^5.2.1",
-    "eslint-plugin-flowtype": "^4.7.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^3.0.0",
     "fbjs-scripts": "^1.2.0",
     "file-loader": "^5.1.0",
     "identity-obj-proxy": "^3.0.0",

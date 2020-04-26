@@ -152,7 +152,7 @@ EveVision использует некоторые технологии, кото
 EveVision consists of the following components:
 * Electron app inside [app](app), with a split codebase for the [main](app/main) and [renderer](app/renderer) processes.
 * Overlay DLL that is injected into the EVE Client's process space at [overlay](overlay)
-* Native node module for injecting and communicating with the overlay DLL at [app/main/native](app/main/native).
+* Native node module for injecting and communicating with the overlay DLL at [app/native](app/native).
 * FlatBuffer schemas that are used for communication between the DLL and native node module at [flatbuffers/schema](flatbuffers/schema)
  
 If you have never worked with Electron before, the main thing to know is that there is a **main process** that uses **NodeJS** and then **renderer processes** for each window that are **Chromium**. They have two different

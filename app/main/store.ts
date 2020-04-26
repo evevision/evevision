@@ -5,7 +5,7 @@ import { rootReducer } from "../shared/store/rootReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import createElectronStorage from "redux-persist-electron-storage";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
-const log = require("electron-log");
+import log from "../shared/log";
 
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
 const persistConfig = {

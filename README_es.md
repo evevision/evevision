@@ -150,7 +150,7 @@ Se están revisando los problemas y las solicitudes de extracción. Si tienes al
 EveVision consta de los siguientes componentes:
 * Electron dentro de la aplicación con una base de código dividida para los procesos principales y la renderizacion.
 * Superposición DLL que se inyecta en los procesos del cliente EVE durante la superposición
-* Modulo nativo para inyectar y comunicarse con la superposición DLL en [app/main/native](app/main/native). 
+* Modulo nativo para inyectar y comunicarse con la superposición DLL en [app/native](app/native). 
 * Esquemas FlatBuffer que se utilizan para la comunicación entre el DLL y el modulo del nodo nativo en [flatbuffers/schema](flatbuffers/schema)
 
 Si nunca antes has trabajado con Electron, lo principal que debes saber es que hay un proceso principal que usa NodeJS y luego renderiza los procesos para cada ventana en Chromium. Tienen dos conjuntos diferentes de código, dos puntos de entrada diferentes y se comunican a través del módulo IPC de Electron.

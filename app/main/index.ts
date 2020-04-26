@@ -1,18 +1,35 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-
 import { app, session } from "electron";
 import MainApp from "./mainapp";
 import store from "./store";
 import { replayActionMain } from "electron-redux";
-import { version } from "../../package.json";
+import { version } from "../package.json";
+import { init as SentryInit } from "@sentry/electron/dist/main";
+import { isSentryEnabled, dsn } from "./sentry";
+import log from "../shared/log";
 
-require("./sentry.main.js");
+const cicd = process.env.CICD === "true" || process.argv[1] === "CICD";
+
+if (cicd) {
+  log.info("CICD environment detected");
+}
+
+if (isSentryEnabled && !cicd) {
+  SentryInit({
+    release: "v" + version,
+    dsn: dsn
+  });
+}
+
+log.info("Initializing EveVision " + version);
 const locked = app.requestSingleInstanceLock();
 
 if (!locked) {
-  app.exit(0);
+  log.warn("Could not acquire single instance lock, exiting");
+  app.exit(1);
 } else {
+  log.info("Initializing store");
   replayActionMain(store);
 
   // hardware acceleration causes issues with offscreen rendering, i.e. blurring while resizing and general slowness, due
@@ -40,11 +57,8 @@ if (!locked) {
     mainApp.start();
   };
 
-  app.on("window-all-closed", () => {
-    app.quit();
-  });
-
   app.on("ready", () => {
+    log.info("Electron ready, initializing EveVision " + version);
     if (!mainApp) init();
   });
 }

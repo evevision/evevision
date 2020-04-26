@@ -2,28 +2,26 @@
  * Webpack config for production electron main process
  */
 
-import path from 'path';
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import TerserPlugin from 'terser-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../scripts/CheckNodeEnv';
+import path from "path";
+import webpack from "webpack";
+import merge from "webpack-merge";
+import baseConfig from "./webpack.config.base";
+import CheckNodeEnv from "../scripts/CheckNodeEnv";
 
-CheckNodeEnv('production');
+CheckNodeEnv("production");
 
 export default merge.smart(baseConfig, {
-  devtool: 'source-map',
+  devtool: "source-map",
 
-  mode: 'production',
+  mode: "production",
 
-  target: 'electron-main',
+  target: "electron-main",
 
-  entry: './app/main/index.ts',
+  entry: "./app/main/index.ts",
 
   output: {
-    path: path.join(__dirname, '..', 'app', 'main'),
-    filename: 'main.prod.js'
+    path: path.join(__dirname, "..", "app", "main", "dist"),
+    filename: "main.prod.js"
   },
 
   plugins: [
@@ -37,12 +35,11 @@ export default merge.smart(baseConfig, {
      * development checks
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production',
+      NODE_ENV: "production",
       DEBUG_PROD: false,
       START_MINIMIZED: false
     }),
     new webpack.DefinePlugin({ "global.GENTLY": false })
-
   ],
 
   /**

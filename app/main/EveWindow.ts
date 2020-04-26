@@ -1,11 +1,12 @@
 import { BrowserWindow, ipcMain, shell, IpcMainEvent } from "electron";
 import ChildWindow from "./ChildWindow";
 import EveInstance from "./eveinstance";
-import Overlay, { IFrameBuffer } from "./native";
+import Overlay, { IFrameBuffer } from "../native";
 import Store from "electron-store";
 import path from "path";
 import { ExternalToolMeta } from "../renderer/externaltool";
-const log = require("electron-log");
+import { isSentryEnabled } from "./sentry";
+import log from "../shared/log";
 
 const positionStore = new Store({ name: "window-positions" });
 
@@ -167,7 +168,12 @@ export default class EveWindow {
       transparent: true,
       resizable: this.isResizable,
       webPreferences: {
-        preload: path.join(__dirname, "sentry.preload.js"),
+        preload:
+          isSentryEnabled &&
+          process.env.CICD !== "true" &&
+          process.argv[1] !== "CICD"
+            ? path.resolve(__dirname, "..", "renderer", "sentry.prod.js")
+            : undefined,
         nodeIntegration: true,
         offscreen: true,
         additionalArguments: args,

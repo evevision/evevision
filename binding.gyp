@@ -5,16 +5,16 @@
             "cflags!": ["-fno-exceptions"],
             "cflags_cc!": ["-fno-exceptions"],
             "include_dirs": [
-                "./app/main/native",
+                "./app/native",
                 "./output/flatbuffers",
                 "./flatbuffers/include",
                 "<!@(node -p \"require('node-addon-api').include\")"
             ],
             "sources": [
-                "./app/main/native/main.cc",
-                "./app/main/native/ipc/ipclink.cc",
-                "./app/main/native/ipc/ipccenter.cc",
-                "./app/main/native/utils/node_async_call.cc",
+                "./app/native/main.cc",
+                "./app/native/ipc/ipclink.cc",
+                "./app/native/ipc/ipccenter.cc",
+                "./app/native/utils/node_async_call.cc",
             ],
             "libraries": ["user32.lib", "Psapi.lib"],
             "defines": ["NAPI_DISABLE_CPP_EXCEPTIONS", "UNICODE"],

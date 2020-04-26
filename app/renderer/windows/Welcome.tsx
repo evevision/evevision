@@ -12,7 +12,7 @@ import {
   CharacterInfo
 } from "../../shared/store/characters/types";
 import superagent from "superagent";
-import { version } from "../../../package.json";
+import { version } from "../../package.json";
 
 interface WelcomeProps {
   updateCharacterPublicInfo: typeof updateCharacterPublicInfo;

@@ -4,7 +4,8 @@ import {
   Tray,
   app,
   IpcMainInvokeEvent,
-  ipcMain
+  ipcMain,
+  BrowserWindow
 } from "electron";
 import fs from "fs";
 import path from "path";
@@ -13,11 +14,11 @@ import { getCharacterIdByName } from "../shared/esi/client";
 import store from "./store";
 import { updateCharacterAuth } from "../shared/store/characters/actions";
 import superagent from "superagent";
-import Overlay from "./native";
+import Overlay from "../native";
 import { default as websiteLogo } from "website-logo";
-import { version } from "../../package.json";
+import { version } from "../package.json";
 import rimraf from "rimraf";
-const log = require("electron-log");
+import log from "../shared/log";
 require("../shared/store/characters/actions"); // we have to require it directly otherwise it gets cut out by webpack
 require("../shared/store/characters/reducers");
 
@@ -30,6 +31,10 @@ export default class MainApp {
   private dllPath: string;
   private injectedPids: Set<number>;
   private scanner?: NodeJS.Timeout;
+
+  // used in CICD
+  private didOverlayLoad: boolean = false;
+  private didWelcomeLoad: boolean = false;
 
   constructor() {
     this.tray = null;
@@ -66,6 +71,73 @@ export default class MainApp {
     this.dllPath = newDllPath;
   }
 
+  public test() {
+    // This is run by the CICD system
+
+    const welcomeOptions: Electron.BrowserWindowConstructorOptions = {
+      height: 500,
+      width: 500,
+      frame: false,
+      show: true,
+      resizable: true,
+      webPreferences: {
+        nodeIntegration: true,
+        webviewTag: false,
+        additionalArguments: ["2116631148", "welcome", "none", "false"]
+      }
+    };
+
+    const fsoOptions: Electron.BrowserWindowConstructorOptions = {
+      height: 1000,
+      width: 1000,
+      frame: false,
+      show: true,
+      resizable: true,
+      webPreferences: {
+        nodeIntegration: true,
+        additionalArguments: [
+          "2116631148",
+          "fullscreenoverlay",
+          "none",
+          "false"
+        ],
+        webviewTag: false
+      }
+    };
+
+    const welcomeWindow = new BrowserWindow(welcomeOptions);
+    const fsoWindow = new BrowserWindow(fsoOptions);
+
+    const checkLoads = () => {
+      if (this.didWelcomeLoad && this.didOverlayLoad) {
+        log.info("CICD test successful");
+        setImmediate(() => this.quit()); // for some reason calling it in this event loop causes a segfault
+      }
+    };
+
+    welcomeWindow.webContents.on("did-finish-load", () => {
+      log.info("Welcome window loaded");
+      this.didWelcomeLoad = true;
+      checkLoads();
+    });
+
+    fsoWindow.webContents.on("did-finish-load", () => {
+      log.info("Overlay loaded");
+      this.didOverlayLoad = true;
+      checkLoads();
+    });
+
+    welcomeWindow.loadURL(
+      `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
+    );
+
+    fsoWindow.loadURL(
+      `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
+    );
+
+    log.info("Finished initializing CICD test");
+  }
+
   public start() {
     log.info("Starting MainApp");
 
@@ -75,15 +147,19 @@ export default class MainApp {
       }, 1000);
     }
 
-    /*
-        installExtension(REACT_DEVELOPER_TOOLS)
-            .then((name) => log.info(`Added Extension:  ${name}`))
-            .catch((err) => log.info('An error occurred: ', err));
-        */
-
     this.hookLocalEveAuth();
     this.setupSystemTray();
     this.setupIpc();
+
+    if (process.env.CICD === "true" || process.argv[1] === "CICD") {
+      log.info("CICD detected. Running test.");
+      this.test();
+      setTimeout(() => {
+        log.error("CICD test failed, took too long to initialize.");
+        process.exitCode = 1337;
+        this.quit();
+      }, 60000);
+    }
   }
 
   handleLocalEveAuth = (request: any, _callback: any) => {
@@ -170,8 +246,16 @@ export default class MainApp {
   }
 
   public setupSystemTray() {
+    const devPath = path.resolve(__dirname, "evevision.ico");
+    const prodPath = path.resolve(__dirname, "..", "evevision.ico");
+    let iconPath: string;
+    if (fs.existsSync(devPath)) {
+      iconPath = devPath;
+    } else if (fs.existsSync(prodPath)) {
+      iconPath = prodPath;
+    }
     if (!this.tray) {
-      this.tray = new Tray(path.join(app.getAppPath(), "evevision.ico"));
+      this.tray = new Tray(iconPath);
       const contextMenu = Menu.buildFromTemplate([
         {
           label: "Quit",
@@ -187,7 +271,7 @@ export default class MainApp {
         content:
           "Log into EVE if you haven't already. Fly without fear, capsuleer.",
         iconType: "custom",
-        icon: path.join(app.getAppPath(), "evevision.ico"),
+        icon: iconPath,
         title: "EveVision " + version + " is ready"
       });
 
@@ -195,7 +279,7 @@ export default class MainApp {
         this.tray!.displayBalloon({
           content: "Just login to EVE! Fly without fear, capsuleer.",
           iconType: "custom",
-          icon: path.join(app.getAppPath(), "evevision.ico"),
+          icon: iconPath,
           title: "EveVision is already running"
         });
       });

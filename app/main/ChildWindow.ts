@@ -1,8 +1,7 @@
 import { Rect } from "./EveWindow";
 import { BrowserWindow, shell } from "electron";
-// import { version } from "./package.json";
 import * as URL from "url";
-const log = require("electron-log");
+import log from "../shared/log";
 
 // official CCP sites
 const secureHosts = [
