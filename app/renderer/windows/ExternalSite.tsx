@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Panel } from "../ui/Layout";
-import ChildWindowContainer from "../containers/ChildWindowContainer";
+import ChildWindowContainer from "../components/ChildWindowContainer";
 import { ipcRenderer, IpcRendererEvent } from "electron";
 
 type Props = {

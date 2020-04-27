@@ -11,7 +11,7 @@
         ) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
-          link.href = './dist/style.css';
+          link.href = '../renderer-dist/style.css';
           // HACK: Writing the script path should be done with webpack
           document.getElementsByTagName('head')[0].appendChild(link);
         }
@@ -27,14 +27,14 @@
         if (process.env.NODE_ENV === 'development') {
           // Dynamically insert the renderer library script in development env in the
           // renderer process
-          scripts.push('../../output/renderer/renderer.dev.lib.js');
+          scripts.push('../../output/renderer-lib/renderer.dev.lib.js');
         }
         if (process.env.START_HOT) {
           // Dynamically insert the bundled app script in the renderer process
           const port = process.env.PORT || 1212;
           scripts.push(`http://localhost:${port}/dist/renderer.dev.js`);
         } else {
-          scripts.push('./dist/renderer.prod.js');
+          scripts.push('../renderer-dist/renderer.prod.js');
         }
 
         if (scripts.length) {

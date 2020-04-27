@@ -1,7 +1,5 @@
-app/main/dist
-app/renderer/dist
-app/renderer/renderer.dev.lib.js
-app/renderer/renderer.json
+app/main-dist
+app/renderer-dist
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts

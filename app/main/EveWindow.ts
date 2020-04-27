@@ -193,12 +193,11 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    //if (windowName === "terminal") {
-    //this.electronWindow.webContents.openDevTools({ mode: "detach" });
+    //if (process.env.NODE_ENV !== "production") {
+    this.electronWindow.webContents.openDevTools({ mode: "detach" });
     //}
-    this.electronWindow.loadURL(
-      `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
-    );
+
+    this.electronWindow.loadFile("../renderer/app.html");
 
     this.positionSaveInterval = setInterval(this.updatePositionStore, 1000);
   }

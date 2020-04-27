@@ -1,8 +1,10 @@
 app/shared/esi/esi.ts
 app/renderer/lib/soundcloud.js
-app/main/dist/*
-app/renderer/dist/*
-app/renderer/renderer.dev.lib.js
+app/main-dist/*
+app/renderer-dist/*
+release
+output
+build
 **/node_modules
 *.scss.d.ts
 *.css.d.ts

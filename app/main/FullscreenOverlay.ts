@@ -56,11 +56,12 @@ export default class FullscreenOverlay {
     this.linkWindowToOverlay();
     this.setupIpc();
     this.hookWindow();
-    //this.electronWindow.webContents.openDevTools({ mode: "detach" });
 
-    this.electronWindow.loadURL(
-      `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
-    );
+    //if (process.env.NODE_ENV !== "production") {
+    this.electronWindow.webContents.openDevTools({ mode: "detach" });
+    //  }
+
+    this.electronWindow.loadFile("../renderer/app.html");
   }
 
   handleRestoreRequest = (event: IpcMainEvent, windowId: number) => {

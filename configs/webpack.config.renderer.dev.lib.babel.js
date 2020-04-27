@@ -12,7 +12,7 @@ import CheckNodeEnv from "../scripts/CheckNodeEnv";
 
 CheckNodeEnv("development");
 
-const dist = path.join(__dirname, "..", "app", "renderer");
+const dist = path.join(__dirname, "..", "output", "renderer-lib");
 
 export default merge.smart(baseConfig, {
   context: path.join(__dirname, ".."),
@@ -47,15 +47,6 @@ export default merge.smart(baseConfig, {
       name: "[name]"
     }),
 
-    /**
-     * Create global constants which can be configured at compile time.
-     *
-     * Useful for allowing different behaviour between development builds and
-     * release builds
-     *
-     * NODE_ENV should be production so that modules do not perform certain
-     * development checks
-     */
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development"
     }),
@@ -65,7 +56,7 @@ export default merge.smart(baseConfig, {
       options: {
         context: path.join(__dirname, "..", "app", "renderer"),
         output: {
-          path: path.join(__dirname, "..", "app", "renderer")
+          path: path.join(__dirname, "..", "output", "renderer-lib")
         }
       }
     })
