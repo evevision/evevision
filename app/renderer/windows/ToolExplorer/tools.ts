@@ -557,6 +557,21 @@ const tools: ToolDescription[] = [
     }
   },
   {
+    name: "aD",
+    author: "hfo df",
+    description: "aD is a small site that makes life for bigger entities in Eve-online easier.",
+    tags: ["intel", "fleet", "sov"],
+    external: {
+      url: "https://adashboard.info",
+      initialWidth: 975,
+      initialHeight: 450,
+      resizable: {
+        minWidth: 975,
+        minHeight: 450
+      }
+    }
+  },
+  {
     name: "Windows PowerShell",
     author: "Microsoft",
     description: "Opens a PowerShell terminal. Perfect for developers.",
