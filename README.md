@@ -18,11 +18,11 @@
 </p>
 
 
-# The era of having to leave EVE to play EVE is over.
+# Play EVE without leaving EVE.
 
-If you play EVE, you are probably used to having to alt+tab to web-based tools every single time you play. These tools are part of what makes EVE Online unique. However, it also ruins the immersion of the beautiful world CCP built.
+If you live in New Eden, you are probably used to having to alt+tab to web-based tools nearly every time you play. These tools are part of what makes playing EVE Online unlike any other game. However, it also ruins the immersion of the beautiful world CCP built.
 
-EveVision is a EULA-legal way to extend the UI of EVE Online, bringing the tools you love directly into the game client.
+EveVision is a [EULA-legal](#eula-compliance) way to extend the UI of EVE Online, bringing the tools you love directly into the game client.
 
 In the near future, there will be a system allowing you to pick and choose (or develop!) plugins much like apps on your phone, complete with Android-style permissions for accessing your ESI data and EULA-legal-to-read files. You will be able to install and run anyone's tools while feeling safe about your computer and character's data.
 
