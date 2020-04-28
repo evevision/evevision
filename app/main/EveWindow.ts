@@ -111,12 +111,14 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.externalMeta = externalMeta;
-    this.isResizable =
-      this.windowName !== "welcome" &&
-      this.windowName !== "about" &&
-      this.windowName !== "toolexplorer" &&
-      externalMeta !== undefined &&
-      externalMeta.resizable;
+    if (this.externalMeta) {
+      this.isResizable = externalMeta.resizable !== undefined;
+    } else {
+      this.isResizable =
+        this.windowName !== "welcome" &&
+        this.windowName !== "about" &&
+        this.windowName !== "toolexplorer";
+    }
 
     const uniqueArgs = [
       this.characterId.toString(),
