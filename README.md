@@ -8,9 +8,13 @@
   <img src="https://img.shields.io/discord/696546217697476679)](https://discord.gg/wWMasVf">
 </p>
 
-### [Download latest build](https://github.com/evevision/evevision/releases)
+<p align="center">
+  <a href="README_ru.md">Русские капсулиры</a> · <a href="README_es.md">Versión en Español</a>
+</p>
 
-[🇷🇺 Русские капсулиры](README_ru.md) · [Versión en Español](README_es.md)
+<p align="center">
+  <a href="https://github.com/evevision/evevision/releases/latest">Download latest release</a>
+</p>
 
 
 # What is this?
@@ -21,12 +25,44 @@ In the near future, there will be a system allowing you to pick and choose (or d
 
 Need help using or developing EveVision? Have a suggestion or want to show off how you're using it? [Join our Discord channel!](https://discord.gg/wWMasVf)
 
+### Screenshots
+
+<details>
+<summary>Tool Explorer</summary>
+  
 ![toolexplorer](https://user-images.githubusercontent.com/62183293/79695559-89888000-8245-11ea-8493-d441a955f2c8.png)
+
+</details>
+<details>
+<summary>EveEye and Thera Maps</summary>
+
 ![eveeye-ss](https://user-images.githubusercontent.com/62183293/79039585-2b59fe00-7bb0-11ea-91d0-6bb15389dbac.png)
+
+</details>
+<details>
+<summary>EveMarketer</summary>
+
 ![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
+
+</details>
+<details>
+<summary>Google Translator</summary>
+ 
 ![evevision-ss-1](https://user-images.githubusercontent.com/62183293/79017084-7f2bff00-7b3e-11ea-92c9-0f0fcf91ff19.png)
+
+</details>
+<details>
+<summary>Abyssal Markets</summary>
+  
 ![abyssal-ss](https://user-images.githubusercontent.com/62183293/79039631-9b688400-7bb0-11ea-835e-3ce72758e16e.png)
+
+</details>
+<details>
+<summary>D-Scan and Dotlan</summary>
+  
 ![evevision-ss-2](https://user-images.githubusercontent.com/62183293/79017087-7fc49580-7b3e-11ea-9087-b63dadd9c1dd.png)
+
+</details>
 
 ### [Video Demonstration](https://streamable.com/iu729v)
 
