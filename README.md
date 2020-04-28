@@ -19,7 +19,7 @@
 
 # The era of having to leave EVE to play EVE is over.
 
-If you play EVE, you are probably used to having to alt+tab to web-based tools every single time you play. These tools are one of the many things that makes EVE Online unique. However, it also ruins the immersion of the beautiful world CCP built.
+If you play EVE, you are probably used to having to alt+tab to web-based tools every single time you play. These tools are part of what makes EVE Online unique. However, it also ruins the immersion of the beautiful world CCP built.
 
 EveVision is a EULA-legal way to extend the UI of EVE Online, bringing the tools you love directly into the game client.
 
