@@ -64,7 +64,7 @@ jobs:
 
   test-ez-scripts:
     runs-on: windows-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -378,6 +378,9 @@ jobs:
 
       - name: Install yarn packages
         run: yarn install
+
+      - name: Build app dependencies
+        run: yarn build:app-deps
 
       - name: Download main process artifacts
         uses: actions/download-artifact@v1
