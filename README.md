@@ -1,10 +1,11 @@
 <p align="center">
   <img width="400" src="https://user-images.githubusercontent.com/62183293/80457142-d2eb6600-88fc-11ea-8299-6e9540bbd75b.png">
 </p>
+
 <p align="center">
-  <img src="https://img.shields.io/github/package-json/v/evevision/evevision?color=5e2424&style=for-the-badge">
-  <img src="https://img.shields.io/github/downloads/evevision/evevision/latest/total?color=5e2424&style=for-the-badge">
   <img src="https://img.shields.io/github/downloads/evevision/evevision/total?color=5e2424&style=for-the-badge">
+  <img src="https://img.shields.io/github/downloads/evevision/evevision/latest/total?color=5e2424&style=for-the-badge">
+  <img src="https://img.shields.io/github/package-json/v/evevision/evevision?color=5e2424&style=for-the-badge">
   <a href="https://discord.gg/wWMasVf"><img alt="Discord" src="https://img.shields.io/discord/696546217697476679?color=5e2424&label=discord&style=for-the-badge"></a>
 </p>
 
