@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62183293/80456596-db8f6c80-88fb-11ea-9083-647535e1ea01.png">
+  <img width="400" src="https://user-images.githubusercontent.com/62183293/80457142-d2eb6600-88fc-11ea-8299-6e9540bbd75b.png">
 </p>
 <p align="center">
   <img src="https://img.shields.io/github/package-json/v/evevision/evevision">
@@ -81,11 +81,17 @@ We want to hear about conflicts so we can fix them! Please, if you can't seem to
 
 # Currently Available Tools
 
-### Generic
+<details>
+<summary>Generic</summary>
+
 * [Google](https://google.com/)
 * [DuckDuckGo](https://duckduckgo.com/)
 
-### Industry
+</details>
+
+<details>
+<summary>Industry</summary>
+
 * [Fuzzwork](https://www.fuzzwork.co.uk/)
 * [EveMarketer](https://evemarketer.com/)
 * [Janice Junk Evaluator](https://janice.e-351.com/)
@@ -94,12 +100,18 @@ We want to hear about conflicts so we can fix them! Please, if you can't seem to
 * [Abyssal Market](https://mutaplasmid.space/)
 * [EVE Mogul](https://www.eve-mogul.com/)
 
-### Communication
+</details>
+<details>
+<summary>Communication</summary>
+
 * [Google Translate](https://translate.google.com/)
 * [DeepL Translate](https://www.deepl.com/en/translator)
 * [Discord](https://discordapp.com/app)
 
-### Exploration
+</details>
+<details>
+<summary>Exploration</summary>
+
 * [Dotlan](https://evemaps.dotlan.net/)
 * [EveEye](https://eveeye.com/)
 * [DScan](https://dscan.info/)
@@ -108,17 +120,25 @@ We want to hear about conflicts so we can fix them! Please, if you can't seem to
 * [Siggy](https://siggy.borkedlabs.com/)
 * [Anoikis](https://anoik.is/)
 
-### Information
+</details>
+<details>
+<summary>Information</summary>
+  
 * [ZKillboard](https://zkillboard.com/)
 * [EVEWho](https://evewho.com/)
 * [EVE University](https://wiki.eveuniversity.org/)
 
-### Entertainment
+</details>
+<details>
+<summary>Entertainment</summary>
+  
 ![jukebox](https://user-images.githubusercontent.com/62183293/79378845-0527bb80-7f2c-11ea-9bc1-58a15eb0c00b.png)
 * [Twitch](https://twitch.tv/)
 * [Youtube](https://www.youtube.com/)
 * [Soundcloud](https://www.soundcloud.com/)
 * [Reddit](https://reddit.com/r/eve)
+
+</details>
 
 # EULA Compliance
 EveVision Core is as EULA legal as your Mumble overlay. CCP commented on this type of tool years ago: https://www.eveonline.com/article/overlays-isk-buyer-amnesty-and-account-security
