@@ -44,7 +44,6 @@
     "package": "electron-builder --config.win.compression=maximum -c.electronVersion 9.0.0-beta.9",
       "package:fast": "electron-builder -c.electronVersion 9.0.0-beta.9",
       "package:test": "electron-builder --dir -c.electronVersion 9.0.0-beta.9",
-      "package:install": "npx handpick --target=packageDependencies --manager=yarn",
 
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
       "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
@@ -153,10 +152,6 @@
       "buildResources": "resources",
       "output": "release"
     }
-  },
-  "packageDependencies": {
-    "electron-builder": "^22.4.0",
-    "node-pty": "^0.9.0"
   },
   "lintDependencies": {
     "typescript": "^3.8.3",

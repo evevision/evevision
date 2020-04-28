@@ -377,7 +377,7 @@ jobs:
             yarn-
 
       - name: Install yarn packages
-        run: yarn package:install
+        run: yarn install
 
       - name: Download main process artifacts
         uses: actions/download-artifact@v1
