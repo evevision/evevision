@@ -1,9 +1,12 @@
-# The EVE Online UI you've always wanted.
-
-![package.json version](https://img.shields.io/github/package-json/v/evevision/evevision)
-![Latest Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/latest/total)
-![Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/total)
-[![Discord](https://img.shields.io/discord/696546217697476679)](https://discord.gg/wWMasVf)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/62183293/80456596-db8f6c80-88fb-11ea-9083-647535e1ea01.png">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/github/package-json/v/evevision/evevision">
+  <img src="https://img.shields.io/github/downloads/evevision/evevision/latest/total">
+  <img src="https://img.shields.io/github/downloads/evevision/evevision/total">
+  <img src="https://img.shields.io/discord/696546217697476679)](https://discord.gg/wWMasVf">
+</p>
 
 ### [Download latest build](https://github.com/evevision/evevision/releases)
 
