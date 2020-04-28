@@ -116,67 +116,6 @@ Confirmed to work:
 
 We want to hear about conflicts so we can fix them! Please, if you can't seem to get EveVision to work, [join our Discord channel](https://discord.gg/wWMasVf) and help us figure out what it might be.
 
-# Currently Available Tools
-
-<details>
-<summary>Generic</summary>
-
-* [Google](https://google.com/)
-* [DuckDuckGo](https://duckduckgo.com/)
-
-</details>
-
-<details>
-<summary>Industry</summary>
-
-* [Fuzzwork](https://www.fuzzwork.co.uk/)
-* [EveMarketer](https://evemarketer.com/)
-* [Janice Junk Evaluator](https://janice.e-351.com/)
-* [Evepraisal](https://evepraisal.com/)
-* [Ore Tables](https://ore.cerlestes.de/ore)
-* [Abyssal Market](https://mutaplasmid.space/)
-* [EVE Mogul](https://www.eve-mogul.com/)
-
-</details>
-<details>
-<summary>Communication</summary>
-
-* [Google Translate](https://translate.google.com/)
-* [DeepL Translate](https://www.deepl.com/en/translator)
-* [Discord](https://discordapp.com/app)
-
-</details>
-<details>
-<summary>Exploration</summary>
-
-* [Dotlan](https://evemaps.dotlan.net/)
-* [EveEye](https://eveeye.com/)
-* [DScan](https://dscan.info/)
-* [Tripwire](https://tripwire.eve-apps.com/)
-* [Thera Map](https://www.eve-scout.com/thera/map/)
-* [Siggy](https://siggy.borkedlabs.com/)
-* [Anoikis](https://anoik.is/)
-
-</details>
-<details>
-<summary>Information</summary>
-  
-* [ZKillboard](https://zkillboard.com/)
-* [EVEWho](https://evewho.com/)
-* [EVE University](https://wiki.eveuniversity.org/)
-
-</details>
-<details>
-<summary>Entertainment</summary>
-  
-![jukebox](https://user-images.githubusercontent.com/62183293/79378845-0527bb80-7f2c-11ea-9bc1-58a15eb0c00b.png)
-* [Twitch](https://twitch.tv/)
-* [Youtube](https://www.youtube.com/)
-* [Soundcloud](https://www.soundcloud.com/)
-* [Reddit](https://reddit.com/r/eve)
-
-</details>
-
 # EULA Compliance
 EveVision Core is as EULA legal as your Mumble overlay. CCP commented on this type of tool years ago: https://www.eveonline.com/article/overlays-isk-buyer-amnesty-and-account-security
 
