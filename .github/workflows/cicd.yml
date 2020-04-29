@@ -526,7 +526,7 @@ jobs:
           echo '${{ secrets.AURA_BOT_GPG_KEY }}' | base64 -d | gpg --batch --yes --import
           git config commit.gpgsign true
           git config --global user.signingkey ${{ secrets.AURA_BOT_GPG_KEY_ID }}
-          git config --global user.name "Aura Bot"
+          git config --global user.name "Aura"
           git config --global user.email "dubs+bot@eve.vision"
 
       - name: Finalize semantic-release
@@ -537,9 +537,9 @@ jobs:
           extra_plugins: |
             @semantic-release/git
         env:
-          GIT_AUTHOR_NAME: Aura Bot
+          GIT_AUTHOR_NAME: Aura
           GIT_AUTHOR_EMAIL: dubs+bot@eve.vision
-          GIT_COMMITTER_NAME: Aura Bot
+          GIT_COMMITTER_NAME: Aura
           GIT_COMMITTER_EMAIL: dubs+bot@eve.vision
           GIT_EMAIL: dubs+bot@eve.vision
           GIT_USERNAME: aura-bot
