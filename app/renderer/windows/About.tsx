@@ -21,7 +21,7 @@ const About = () => {
             <br />
 
             <h2 style={{ textAlign: "center" }}>
-              Hurga durga durga. This is a test alpha release durga burga.
+              This tool is not endorsed or approved by CCP.
             </h2>
 
             <div style={{ textAlign: "center" }}>
