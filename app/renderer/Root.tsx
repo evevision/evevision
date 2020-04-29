@@ -1,22 +1,22 @@
-import React from "react";
-import About from "../windows/About";
-import Welcome from "../windows/Welcome";
-import Beanwatch from "../windows/Beanwatch";
-import Settings from "../windows/Settings";
-import Jukebox from "../windows/Jukebox";
+import React, { useEffect } from "react";
+import About from "./windows/About";
+import Welcome from "./windows/Welcome";
+import Beanwatch from "./windows/Beanwatch";
+import Settings from "./windows/Settings";
+import Jukebox from "./windows/Jukebox";
 import { hot } from "react-hot-loader/root";
-import store from "../store";
+import store from "./store";
 import { Provider } from "react-redux";
-import Auth from "../windows/Auth";
-import ExternalSite from "../windows/ExternalSite";
-import FSORoot from "../FSORoot";
+import Auth from "./windows/Auth";
+import ExternalSite from "./windows/ExternalSite";
+import FSORoot from "./FSORoot";
 import { ipcRenderer } from "electron";
-import { Window } from "../ui/Window";
-import Ricardo from "../windows/Ricardo";
-import ToolExplorer from "../windows/ToolExplorer";
+import { Window } from "./ui/Window";
+import Ricardo from "./windows/Ricardo";
+import ToolExplorer from "./windows/ToolExplorer";
 import ReactTooltip from "react-tooltip";
-import tooltipStyle from "../tooltip.scss";
-import Terminal from "../windows/Terminal";
+import tooltipStyle from "./tooltip.scss";
+import Terminal from "./windows/Terminal";
 
 function renderWindowContents(
   characterId: number,
@@ -67,6 +67,10 @@ function Root() {
   const isClosable = args[3] === "true";
   const characterId = Number(characterIdStr);
   const windowContents = renderWindowContents(characterId, windowName, itemId);
+
+  useEffect(() => {
+    ipcRenderer.send("initialRender"); // tell main we've successfully rendered to DOM
+  }, []);
 
   if (windowName === "fullscreenoverlay") {
     return (

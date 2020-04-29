@@ -1,6 +1,6 @@
 import React from "react";
 import { Panel } from "../ui/Layout";
-import ChildWindowContainer from "../containers/ChildWindowContainer";
+import ChildWindowContainer from "../components/ChildWindowContainer";
 
 const Ricardo = () => {
   return (

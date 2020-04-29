@@ -112,7 +112,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
     } else if (allianceId && allianceId in beans) {
       return <div className={"eve-welcome-bean " + beans[allianceId]}></div>;
     } else {
-      return "";
+      return <div className={"eve-welcome-bean default"}></div>;
     }
   }
   render() {

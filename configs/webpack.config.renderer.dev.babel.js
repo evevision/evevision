@@ -9,7 +9,6 @@ import path from "path";
 import webpack from "webpack";
 import merge from "webpack-merge";
 import { spawn } from "child_process";
-import { TypedCssModulesPlugin } from "typed-css-modules-webpack-plugin";
 import baseConfig from "./webpack.config.base";
 import CheckNodeEnv from "../scripts/CheckNodeEnv";
 
@@ -21,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const rendererOutput = path.join(__dirname, "..", "app", "renderer");
+const rendererOutput = path.join(__dirname, "..", "output", "renderer-lib");
 const manifest = path.resolve(rendererOutput, "renderer.json");
 const requiredByLibConfig = module.parent.filename.includes(
   "webpack.config.renderer.dev.lib"
@@ -146,28 +145,6 @@ export default merge.smart(baseConfig, {
           }
         }
       },
-      // TTF Font
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            limit: 20000,
-            mimetype: "font/ttf"
-          }
-        }
-      },
-      // OTF Font
-      {
-        test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            limit: 20000,
-            mimetype: "font/otf"
-          }
-        }
-      },
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
@@ -184,7 +161,7 @@ export default merge.smart(baseConfig, {
     requiredByLibConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, "..", "app", "renderer"),
+          context: path.join(__dirname, "..", "output", "renderer-lib"),
           manifest: require(manifest),
           sourceType: "var"
         }),
@@ -193,24 +170,8 @@ export default merge.smart(baseConfig, {
       multiStep: true
     }),
 
-    new TypedCssModulesPlugin({
-      globPattern: "app/renderer/**/*.{css,scss,sass}"
-    }),
-
     new webpack.NoEmitOnErrorsPlugin(),
 
-    /**
-     * Create global constants which can be configured at compile time.
-     *
-     * Useful for allowing different behaviour between development builds and
-     * release builds
-     *
-     * NODE_ENV should be production so that modules do not perform certain
-     * development checks
-     *
-     * By default, use 'development' as NODE_ENV. This can be overriden with
-     * 'staging', for example, by changing the ENV variables in the npm scripts
-     */
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development"
     }),

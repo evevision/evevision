@@ -5,7 +5,8 @@ import {
   app,
   IpcMainInvokeEvent,
   ipcMain,
-  BrowserWindow
+  BrowserWindow,
+  IpcMainEvent
 } from "electron";
 import fs from "fs";
 import path from "path";
@@ -33,8 +34,8 @@ export default class MainApp {
   private scanner?: NodeJS.Timeout;
 
   // used in CICD
-  private didOverlayLoad: boolean = false;
-  private didWelcomeLoad: boolean = false;
+  private didOverlayRender: boolean = false;
+  private didWelcomeRender: boolean = false;
 
   constructor() {
     this.tray = null;
@@ -109,31 +110,31 @@ export default class MainApp {
     const fsoWindow = new BrowserWindow(fsoOptions);
 
     const checkLoads = () => {
-      if (this.didWelcomeLoad && this.didOverlayLoad) {
+      if (this.didWelcomeRender && this.didOverlayRender) {
         log.info("CICD test successful");
-        setImmediate(() => this.quit()); // for some reason calling it in this event loop causes a segfault
+        setTimeout(() => this.quit(), 5000); // for some reason calling it in this event loop causes a segfault
       }
     };
 
     welcomeWindow.webContents.on("did-finish-load", () => {
       log.info("Welcome window loaded");
-      this.didWelcomeLoad = true;
+      this.didWelcomeRender = true;
       checkLoads();
     });
 
-    fsoWindow.webContents.on("did-finish-load", () => {
-      log.info("Overlay loaded");
-      this.didOverlayLoad = true;
+    ipcMain.on("initialRender", (event: IpcMainEvent) => {
+      if (event.sender.id === welcomeWindow.webContents.id) {
+        log.info("Welcome window loaded");
+        this.didWelcomeRender = true;
+      } else if (event.sender.id === fsoWindow.webContents.id) {
+        log.info("Overlay loaded");
+        this.didOverlayRender = true;
+      }
       checkLoads();
     });
 
-    welcomeWindow.loadURL(
-      `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
-    );
-
-    fsoWindow.loadURL(
-      `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
-    );
+    welcomeWindow.loadFile("../renderer/app.html");
+    fsoWindow.loadFile("../renderer/app.html");
 
     log.info("Finished initializing CICD test");
   }
@@ -219,6 +220,10 @@ export default class MainApp {
   }
 
   public setupIpc() {
+    ipcMain.on("initialRender", (event: IpcMainEvent) => {
+      log.info(event.sender.id, "initial render");
+    });
+
     ipcMain.handle(
       "resolveFavIcon",
       async (event: IpcMainInvokeEvent, url: string): Promise<string> => {
@@ -246,14 +251,11 @@ export default class MainApp {
   }
 
   public setupSystemTray() {
-    const devPath = path.resolve(__dirname, "evevision.ico");
-    const prodPath = path.resolve(__dirname, "..", "evevision.ico");
-    let iconPath: string;
-    if (fs.existsSync(devPath)) {
-      iconPath = devPath;
-    } else if (fs.existsSync(prodPath)) {
-      iconPath = prodPath;
+    let iconPath: string = path.resolve(__dirname, "..", "evevision.ico");
+    if (!fs.existsSync(iconPath)) {
+      throw new Error("App icon not found");
     }
+
     if (!this.tray) {
       this.tray = new Tray(iconPath);
       const contextMenu = Menu.buildFromTemplate([

@@ -3,7 +3,6 @@
  */
 
 import path from "path";
-import webpack from "webpack";
 import { dependencies as externals } from "../app/package.json";
 
 export default {
@@ -11,17 +10,6 @@ export default {
 
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        loader: "node-bindings-loader"
-      },
-      {
-        test: /\.node$/,
-        loader: "native-ext-loader",
-        options: {
-          basePath: [".."]
-        }
-      },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
@@ -35,26 +23,11 @@ export default {
     ]
   },
 
-  output: {
-    path: path.join(__dirname, "..", "app"),
-    // https://github.com/webpack/webpack/issues/1114
-    libraryTarget: "commonjs2",
-    filename: "[name].entry.js"
-  },
-
   /**
    * Determine the array of extensions that should be used to resolve modules.
    */
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
     modules: [path.join(__dirname, "..", "app"), "node_modules"]
-  },
-
-  plugins: [
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: "production"
-    }),
-
-    new webpack.NamedModulesPlugin()
-  ]
+  }
 };

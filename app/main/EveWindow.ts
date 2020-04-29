@@ -111,12 +111,14 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.externalMeta = externalMeta;
-    this.isResizable =
-      this.windowName !== "welcome" &&
-      this.windowName !== "about" &&
-      this.windowName !== "toolexplorer" &&
-      externalMeta !== undefined &&
-      externalMeta.resizable;
+    if (this.externalMeta) {
+      this.isResizable = externalMeta.resizable !== undefined;
+    } else {
+      this.isResizable =
+        this.windowName !== "welcome" &&
+        this.windowName !== "about" &&
+        this.windowName !== "toolexplorer";
+    }
 
     const uniqueArgs = [
       this.characterId.toString(),
@@ -193,12 +195,11 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    //if (windowName === "terminal") {
-    //this.electronWindow.webContents.openDevTools({ mode: "detach" });
-    //}
-    this.electronWindow.loadURL(
-      `file://${path.resolve(__dirname, "..", "renderer", "app.html")}`
-    );
+    if (process.env.NODE_ENV !== "production") {
+      this.electronWindow.webContents.openDevTools({ mode: "detach" });
+    }
+
+    this.electronWindow.loadFile("../renderer/app.html");
 
     this.positionSaveInterval = setInterval(this.updatePositionStore, 1000);
   }

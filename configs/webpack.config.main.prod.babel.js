@@ -20,33 +20,17 @@ export default merge.smart(baseConfig, {
   entry: "./app/main/index.ts",
 
   output: {
-    path: path.join(__dirname, "..", "app", "main", "dist"),
-    filename: "main.prod.js"
+    path: path.join(__dirname, ".."),
+    filename: "./app/main-dist/main.prod.js"
   },
 
   plugins: [
-    /**
-     * Create global constants which can be configured at compile time.
-     *
-     * Useful for allowing different behaviour between development builds and
-     * release builds
-     *
-     * NODE_ENV should be production so that modules do not perform certain
-     * development checks
-     */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: "production",
-      DEBUG_PROD: false,
-      START_MINIMIZED: false
+      NODE_ENV: "production"
     }),
     new webpack.DefinePlugin({ "global.GENTLY": false })
   ],
 
-  /**
-   * Disables webpack processing of __dirname and __filename.
-   * If you run the bundle in node.js it falls back to these values of node.js.
-   * https://github.com/webpack/webpack/issues/2010
-   */
   node: {
     __dirname: false,
     __filename: false

@@ -16,7 +16,7 @@
   "repository": "github:evevision/evevision",
   "license": "GPL-3.0",
   "homepage": "https://github.com/evevision/evevision",
-  "main": "main.prod.js",
+  "main": "main-dist/main.prod.js",
   "scripts": {},
   "dependencies": {
     "@types/react-redux": "^7.1.7",
