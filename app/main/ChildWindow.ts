@@ -87,7 +87,7 @@ export default class ChildWindow {
 
     this.electronWindow.loadURL(url);
     if (process.env.NODE_ENV !== "production") {
-      this.electronWindow.webContents.openDevTools({mode: 'detach'})
+      this.electronWindow.webContents.openDevTools({ mode: "detach" });
     }
   }
 
