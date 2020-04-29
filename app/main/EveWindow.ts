@@ -195,9 +195,9 @@ export default class EveWindow {
     this.hookWindow();
     this.setupIpc();
 
-    //if (process.env.NODE_ENV !== "production") {
-    this.electronWindow.webContents.openDevTools({ mode: "detach" });
-    //}
+    if (process.env.NODE_ENV !== "production") {
+      this.electronWindow.webContents.openDevTools({ mode: "detach" });
+    }
 
     this.electronWindow.loadFile("../renderer/app.html");
 

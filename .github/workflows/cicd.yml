@@ -458,7 +458,7 @@ jobs:
           path: ~/AppData/Roaming/EveVision/logs
 
   upload-to-sentry:
-    if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+    if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true' && !contains(github.event.head_commit.message, 'skip ci')
     runs-on: windows-latest
     needs:
       - test-ez-scripts
@@ -505,7 +505,7 @@ jobs:
         run: sentry-cli releases finalize v${{ needs.get-version.outputs.new_release_version }}
 
   release-app:
-    if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+    if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true' && !contains(github.event.head_commit.message, 'skip ci')
     runs-on: windows-latest
     outputs:
       upload_url: ${{ steps.parse-latest-release.outputs.upload_url }}

@@ -57,9 +57,9 @@ export default class FullscreenOverlay {
     this.setupIpc();
     this.hookWindow();
 
-    //if (process.env.NODE_ENV !== "production") {
-    this.electronWindow.webContents.openDevTools({ mode: "detach" });
-    //  }
+    if (process.env.NODE_ENV !== "production") {
+      this.electronWindow.webContents.openDevTools({ mode: "detach" });
+    }
 
     this.electronWindow.loadFile("../renderer/app.html");
   }
