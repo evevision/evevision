@@ -1,30 +1,73 @@
-# The EVE Online UI you've always wanted.
+<p align="center">
+  <img width="400" src="https://user-images.githubusercontent.com/62183293/80457142-d2eb6600-88fc-11ea-8299-6e9540bbd75b.png">
+</p>
 
-![package.json version](https://img.shields.io/github/package-json/v/evevision/evevision)
-![Latest Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/latest/total)
-![Release Downloads](https://img.shields.io/github/downloads/evevision/evevision/total)
-[![Discord](https://img.shields.io/discord/696546217697476679)](https://discord.gg/wWMasVf)
+<p align="center">
+  <img src="https://img.shields.io/github/downloads/evevision/evevision/total?color=5e2424&style=for-the-badge">
+  <img src="https://img.shields.io/github/downloads/evevision/evevision/latest/total?color=5e2424&style=for-the-badge">
+  <img src="https://img.shields.io/github/package-json/v/evevision/evevision?color=5e2424&style=for-the-badge">
+  <a href="https://discord.gg/wWMasVf"><img alt="Discord" src="https://img.shields.io/discord/696546217697476679?color=5e2424&label=discord&style=for-the-badge"></a>
+</p>
 
-### [Download latest build](https://github.com/evevision/evevision/releases)
+<p align="center">
+  <a href="README_ru.md">Русские капсулиры</a> · <a href="README_es.md">Versión en Español</a>
+</p>
 
-[🇷🇺 Русские капсулиры](README_ru.md) · [Versión en Español](README_es.md)
+<p align="center">
+  <a href="https://github.com/evevision/evevision/releases/latest">Download latest release</a>
+</p>
 
-![toolexplorer](https://user-images.githubusercontent.com/62183293/79695559-89888000-8245-11ea-8493-d441a955f2c8.png)
-![eveeye-ss](https://user-images.githubusercontent.com/62183293/79039585-2b59fe00-7bb0-11ea-91d0-6bb15389dbac.png)
-![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
-![evevision-ss-1](https://user-images.githubusercontent.com/62183293/79017084-7f2bff00-7b3e-11ea-92c9-0f0fcf91ff19.png)
-![abyssal-ss](https://user-images.githubusercontent.com/62183293/79039631-9b688400-7bb0-11ea-835e-3ce72758e16e.png)
-![evevision-ss-2](https://user-images.githubusercontent.com/62183293/79017087-7fc49580-7b3e-11ea-9087-b63dadd9c1dd.png)
 
-### [Video Demonstration](https://streamable.com/iu729v)
+# Play EVE without leaving EVE.
 
-# What is this?
+If you live in New Eden, you are probably used to having to alt+tab to web-based tools nearly every time you play. These tools are part of what makes playing EVE Online unlike any other game. However, it also ruins the immersion of the beautiful world CCP built.
 
-This is a desktop application and platform for extending the user interface of the MMO EVE Online. The tools we've spent years using outside of the game have now finally been brought into the game, greatly increasing immersion and usability.
+EveVision is a [EULA-legal](#eula-compliance) way to extend the UI of EVE Online, bringing the tools you love directly into the game client.
 
 In the near future, there will be a system allowing you to pick and choose (or develop!) plugins much like apps on your phone, complete with Android-style permissions for accessing your ESI data and EULA-legal-to-read files. You will be able to install and run anyone's tools while feeling safe about your computer and character's data.
 
 Need help using or developing EveVision? Have a suggestion or want to show off how you're using it? [Join our Discord channel!](https://discord.gg/wWMasVf)
+
+### Screenshots
+
+<details>
+<summary>Tool Explorer</summary>
+  
+![toolexplorer](https://user-images.githubusercontent.com/62183293/79695559-89888000-8245-11ea-8493-d441a955f2c8.png)
+
+</details>
+<details>
+<summary>EveEye and Thera Maps</summary>
+
+![eveeye-ss](https://user-images.githubusercontent.com/62183293/79039585-2b59fe00-7bb0-11ea-91d0-6bb15389dbac.png)
+
+</details>
+<details>
+<summary>EveMarketer</summary>
+
+![ev-ss-6](https://user-images.githubusercontent.com/62183293/79019786-201db880-7b45-11ea-9d36-45f1fa95fd27.png)
+
+</details>
+<details>
+<summary>Google Translator</summary>
+ 
+![evevision-ss-1](https://user-images.githubusercontent.com/62183293/79017084-7f2bff00-7b3e-11ea-92c9-0f0fcf91ff19.png)
+
+</details>
+<details>
+<summary>Abyssal Markets</summary>
+  
+![abyssal-ss](https://user-images.githubusercontent.com/62183293/79039631-9b688400-7bb0-11ea-835e-3ce72758e16e.png)
+
+</details>
+<details>
+<summary>D-Scan and Dotlan</summary>
+  
+![evevision-ss-2](https://user-images.githubusercontent.com/62183293/79017087-7fc49580-7b3e-11ea-9087-b63dadd9c1dd.png)
+
+</details>
+
+### [Video Demonstration](https://streamable.com/iu729v)
 
 # Installation and Usage
 
@@ -75,47 +118,6 @@ Confirmed to work:
 * EVE-O Preview (you can even see EveVision windows in the previews!)
 
 We want to hear about conflicts so we can fix them! Please, if you can't seem to get EveVision to work, [join our Discord channel](https://discord.gg/wWMasVf) and help us figure out what it might be.
-
-# Currently Available Tools
-
-### Generic
-* [Google](https://google.com/)
-* [DuckDuckGo](https://duckduckgo.com/)
-
-### Industry
-* [Fuzzwork](https://www.fuzzwork.co.uk/)
-* [EveMarketer](https://evemarketer.com/)
-* [Janice Junk Evaluator](https://janice.e-351.com/)
-* [Evepraisal](https://evepraisal.com/)
-* [Ore Tables](https://ore.cerlestes.de/ore)
-* [Abyssal Market](https://mutaplasmid.space/)
-* [EVE Mogul](https://www.eve-mogul.com/)
-
-### Communication
-* [Google Translate](https://translate.google.com/)
-* [DeepL Translate](https://www.deepl.com/en/translator)
-* [Discord](https://discordapp.com/app)
-
-### Exploration
-* [Dotlan](https://evemaps.dotlan.net/)
-* [EveEye](https://eveeye.com/)
-* [DScan](https://dscan.info/)
-* [Tripwire](https://tripwire.eve-apps.com/)
-* [Thera Map](https://www.eve-scout.com/thera/map/)
-* [Siggy](https://siggy.borkedlabs.com/)
-* [Anoikis](https://anoik.is/)
-
-### Information
-* [ZKillboard](https://zkillboard.com/)
-* [EVEWho](https://evewho.com/)
-* [EVE University](https://wiki.eveuniversity.org/)
-
-### Entertainment
-![jukebox](https://user-images.githubusercontent.com/62183293/79378845-0527bb80-7f2c-11ea-9bc1-58a15eb0c00b.png)
-* [Twitch](https://twitch.tv/)
-* [Youtube](https://www.youtube.com/)
-* [Soundcloud](https://www.soundcloud.com/)
-* [Reddit](https://reddit.com/r/eve)
 
 # EULA Compliance
 EveVision Core is as EULA legal as your Mumble overlay. CCP commented on this type of tool years ago: https://www.eveonline.com/article/overlays-isk-buyer-amnesty-and-account-security
