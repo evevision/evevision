@@ -524,8 +524,8 @@ jobs:
         shell: bash
         run: |
           echo '${{ secrets.AURA_BOT_GPG_KEY }}' | base64 -d | gpg --batch --yes --import
-          echo '/usr/bin/gpg2 --passphrase ${{ secrets.AURA_BOT_GPG_PASSPHRASE }} --batch --no-tty "$@"' > /gpg-with-passphrase && chmod +x /gpg-with-passphrase
-          git config gpg.program "/gpg-with-passphrase"
+          echo '/usr/bin/gpg2 --passphrase ${{ secrets.AURA_BOT_GPG_PASSPHRASE }} --batch --no-tty "$@"' > /gpg-with-passphrase.bat && chmod +x /gpg-with-passphrase.bat
+          git config gpg.program "/gpg-with-passphrase.bat"
           git config commit.gpgsign true
           git config --global user.signingkey ${{ secrets.AURA_BOT_GPG_KEY_ID }}
 
