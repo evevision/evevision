@@ -402,6 +402,21 @@ const tools: ToolDescription[] = [
       }
     }
   },
+  {
+    name: "aD",
+    author: "hfo df",
+    description: "aD is a small site that makes life for bigger entities in Eve-online easier.",
+    tags: ["intel", "fleet", "sov"],
+    external: {
+      url: "https://adashboard.info",
+      initialWidth: 975,
+      initialHeight: 450,
+      resizable: {
+        minWidth: 975,
+        minHeight: 450
+      }
+    }
+  },
   //
   // Non EVE tools
   //
@@ -548,21 +563,6 @@ const tools: ToolDescription[] = [
     tags: ["fun"],
     external: {
       url: "https://m.reddit.com/r/eve",
-      initialWidth: 975,
-      initialHeight: 450,
-      resizable: {
-        minWidth: 975,
-        minHeight: 450
-      }
-    }
-  },
-  {
-    name: "aD",
-    author: "hfo df",
-    description: "aD is a small site that makes life for bigger entities in Eve-online easier.",
-    tags: ["intel", "fleet", "sov"],
-    external: {
-      url: "https://adashboard.info",
       initialWidth: 975,
       initialHeight: 450,
       resizable: {
