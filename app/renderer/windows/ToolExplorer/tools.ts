@@ -39,7 +39,8 @@ const tools: ToolDescription[] = [
   {
     name: "Fleet Overview",
     author: "t3chfreak",
-    description: "The perfect tool for an FC. See a live chart of your current fleet composition and apply filters to it.",
+    description:
+      "The perfect tool for an FC. See a live chart of your current fleet composition and apply filters to it.",
     tags: ["fleet"],
     external: {
       url: "https://fleet-overview.alwaysbait.com/",
