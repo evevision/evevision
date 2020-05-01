@@ -202,7 +202,7 @@ If you make any changes to the C++, you need to know a few things:
 * After making your changes to the overlay DLL, run `yarn build:cpp:overlay`. You don't have to restart EveVision for it to inject the latest DLL.
 * After making changes to the node native module, run `yarn build:cpp:native-node`. You **will** have to restart EveVision.
 
-All build commands are run beforehand with `yarn dev`, `yarn start`, and `yarn package`.
+All build commands are run beforehand with `yarn ez:dev`, `yarn ez:prod`, and `yarn ez:package`.
 
 ## Thanks
 This project uses portions of code from and was inspired by https://github.com/hiitiger/gelectron
