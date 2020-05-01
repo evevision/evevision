@@ -199,8 +199,8 @@ To build and run EveVision but without packaging it into an EXE, simply run `yar
 #### Making changes to C++
 If you make any changes to the C++, you need to know a few things:
 * You don't necessarily have to shut down EVE before injecting a new version of the overlay. Old versions sit there doing nothing. However, it's usually a good idea.
-* After making your changes to the overlay DLL, run `yarn build-overlay`. You don't have to restart EveVision for it to inject the latest DLL.
-* After making changes to the node native module, run `yarn build-native`. You **will** have to restart EveVision.
+* After making your changes to the overlay DLL, run `yarn build:cpp:overlay`. You don't have to restart EveVision for it to inject the latest DLL.
+* After making changes to the node native module, run `yarn build:cpp:native-node`. You **will** have to restart EveVision.
 
 All build commands are run beforehand with `yarn dev`, `yarn start`, and `yarn package`.
 
