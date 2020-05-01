@@ -285,7 +285,9 @@ export default class EveInstance {
     e: IpcMainEvent,
     meta: ExternalToolMeta
   ) => {
-    if(e.sender.isDestroyed()) {return;}
+    if (e.sender.isDestroyed()) {
+      return;
+    }
     // this event will fire from every EveInstance's windows, make sure it's one of our windows
     if (
       (this.fullscreenOverlay &&
