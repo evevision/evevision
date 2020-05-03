@@ -47,29 +47,11 @@ export default class MainApp {
       : process.resourcesPath; // packaged app, read from resources folder
 
     try {
-      // delete old DLLs if they aren't already open inside EVE
+      // delete old DLLs from the way we did it before
       rimraf.sync(process.env.APPDATA + "\\evevision_overlay_**");
     } catch (ex) {}
 
-    let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
-    let salt =
-      Math.random()
-        .toString(36)
-        .substring(2, 6) +
-      Math.random()
-        .toString(36)
-        .substring(2, 6);
-    let newDllPath =
-      process.env.APPDATA + "/evevision_overlay_" + salt + ".dll";
-    if (fs.existsSync(tempDllPath)) {
-      // move the DLL.
-      // in development, we do this so the compiler can replace the file without shutting down EVE.
-      // in production, it's due to an unknown bug with the packaged app extraction, if you rerun evevision it won't extract the DLL the second time.
-      if (!fs.existsSync(newDllPath)) {
-        fs.copyFileSync(tempDllPath, newDllPath);
-      }
-    }
-    this.dllPath = newDllPath;
+    this.dllPath = path.join(dirPath, "evevision_overlay.dll");
   }
 
   public test() {

@@ -8,16 +8,10 @@ import Root from "./Root";
 import "./app.global.scss";
 import store from "./store";
 import { replayActionRenderer } from "electron-redux";
-import Moment from "react-moment";
-import moment from "moment";
 import { ipcRenderer, IpcRendererEvent } from "electron";
 import log from "../shared/log";
 
 log.info("Starting renderer process");
-
-moment.relativeTimeThreshold("s", 60);
-moment.relativeTimeThreshold("ss", 0);
-Moment.globalMoment = moment;
 
 replayActionRenderer(store);
 
