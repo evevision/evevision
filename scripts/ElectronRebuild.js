@@ -13,6 +13,6 @@ if (
     "..\\node_modules\\.bin\\electron-rebuild --parallel --force --types prod,dev,optional --module-dir .";
   execSync(electronRebuildCmd, {
     cwd: path.join(__dirname, "..", "app"),
-    stdio: "inherit"
+    stdio: "inherit",
   });
 }

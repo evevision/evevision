@@ -16,7 +16,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
   toolsCallback?: () => void;
 
   state = {
-    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites
+    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites,
   };
 
   componentDidMount(): void {
@@ -33,7 +33,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
   }
 
   tool = (tool: string) => {
-    const toolDesc = tools.find(t => t.name === tool);
+    const toolDesc = tools.find((t) => t.name === tool);
     if (toolDesc) {
       return (
         <div

@@ -60,7 +60,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
     this.menuRef = React.createRef();
     this.expanderRef = React.createRef();
     this.state = {
-      expanded: false
+      expanded: false,
     };
   }
 
@@ -124,7 +124,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
         top: Math.max(style.top.replace("px", ""), 0),
         left: Math.max(style.left.replace("px", ""), 0),
         right: Math.max(style.right.replace("px", ""), 0),
-        bottom: Math.max(style.bottom.replace("px", ""), 0)
+        bottom: Math.max(style.bottom.replace("px", ""), 0),
       } as StoredMenuPosition;
 
       positionStore.set(this.getPositionKey(), storedPosition);
@@ -160,7 +160,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
     if (this.state.dragging) {
       this.setState({
         ...this.state,
-        dragging: { ...this.state.dragging, waiting: false }
+        dragging: { ...this.state.dragging, waiting: false },
       });
     }
   };
@@ -195,7 +195,7 @@ class OverlayMenu extends Component<MenuProps, MenuState> {
       offsetFromMouseY: bounds.y - e.clientY,
       startX: e.clientX,
       startY: e.clientY,
-      waiting: true
+      waiting: true,
     };
 
     e.target.setPointerCapture(e.pointerId);

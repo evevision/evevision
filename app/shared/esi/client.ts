@@ -1,6 +1,6 @@
 import Esi, {
   Response_get_characters_character_id_200,
-  Response_get_search_200
+  Response_get_search_200,
 } from "./esi";
 
 export interface EsiError {
@@ -17,7 +17,7 @@ export function getCharacter(
     (resolve, reject) => {
       new Esi()
         .get_characters_character_id({ characterId: characterId })
-        .then(success => {
+        .then((success) => {
           switch (success.status) {
             case 200:
               return resolve(
@@ -26,21 +26,21 @@ export function getCharacter(
             case 304:
               return reject({
                 message: "ETag response received when not using etags",
-                error: null
+                error: null,
               } as EsiError);
             default:
               return reject({
                 message: "Unknown response while retrieving characters",
-                error: null
+                error: null,
               } as EsiError);
           }
         })
-        .catch(failure => {
+        .catch((failure) => {
           switch (failure.status) {
             case 404:
               return reject({
                 message: "Character not found",
-                error: null
+                error: null,
               } as EsiError);
             case 400:
             case 420:
@@ -49,12 +49,12 @@ export function getCharacter(
             case 504:
               return reject({
                 message: "System error while retrieving characters",
-                error: failure.response.body.error
+                error: failure.response.body.error,
               } as EsiError);
             default:
               return reject({
                 message: "Unknown response while retrieving characters",
-                error: null
+                error: null,
               } as EsiError);
           }
         });
@@ -70,9 +70,9 @@ export function getCharacterIdByName(
       .get_search({
         categories: ["character"],
         search: characterName,
-        strict: true
+        strict: true,
       })
-      .then(async success => {
+      .then(async (success) => {
         switch (success.status) {
           case 200:
             const response = success.body as Response_get_search_200;
@@ -92,33 +92,33 @@ export function getCharacterIdByName(
                 return reject({
                   message:
                     "ESI returned other characters but not the one we want",
-                  error: null
+                  error: null,
                 } as EsiError);
               }
             } else {
               return reject({
                 message: "Missing character array in response",
-                error: null
+                error: null,
               } as EsiError);
             }
           case 304:
             return reject({
               message: "ETag response received when not using etags",
-              error: null
+              error: null,
             } as EsiError);
           default:
             return reject({
               message: "Unknown response while searching for character",
-              error: null
+              error: null,
             } as EsiError);
         }
       })
-      .catch(failure => {
+      .catch((failure) => {
         switch (failure.status) {
           case 404:
             return reject({
               message: "Character not found",
-              error: null
+              error: null,
             } as EsiError);
           case 400:
           case 420:
@@ -127,12 +127,12 @@ export function getCharacterIdByName(
           case 504:
             return reject({
               message: "System error while retrieving characters",
-              error: failure.response.body.error
+              error: failure.response.body.error,
             } as EsiError);
           default:
             return reject({
               message: "Unknown response while retrieving characters",
-              error: null
+              error: null,
             } as EsiError);
         }
       });

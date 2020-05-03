@@ -25,16 +25,16 @@ const tools: ToolDescription[] = [
       initialHeight: 720,
       resizable: {
         minWidth: 400,
-        minHeight: 300
-      }
-    }
+        minHeight: 300,
+      },
+    },
   },
   {
     name: "Jukebox",
     author: "Niedar",
     description: "Listen to the EVE soundtrack like the old days",
     tags: ["fun"],
-    windowName: "jukebox"
+    windowName: "jukebox",
   },
   {
     name: "Fleet Overview",
@@ -48,9 +48,9 @@ const tools: ToolDescription[] = [
       initialHeight: 580,
       resizable: {
         minWidth: 400,
-        minHeight: 300
-      }
-    }
+        minHeight: 300,
+      },
+    },
   },
   {
     name: "EveMarketer",
@@ -63,9 +63,9 @@ const tools: ToolDescription[] = [
       initialHeight: 550,
       resizable: {
         minWidth: 400,
-        minHeight: 300
-      }
-    }
+        minHeight: 300,
+      },
+    },
   },
   {
     name: "Wormhole 911",
@@ -76,8 +76,8 @@ const tools: ToolDescription[] = [
       url: "https://evescoutrescue.com/911",
       initialWidth: 550,
       initialHeight: 920,
-      hideScrollbars: true
-    }
+      hideScrollbars: true,
+    },
   },
   {
     name: "Janice Junk Evaluator",
@@ -92,9 +92,9 @@ const tools: ToolDescription[] = [
         minWidth: 800,
         minHeight: 465,
         maxWidth: 1020,
-        maxHeight: 785
-      }
-    }
+        maxHeight: 785,
+      },
+    },
   },
   {
     name: "Fuzzwork",
@@ -107,9 +107,9 @@ const tools: ToolDescription[] = [
       initialHeight: 335,
       resizable: {
         minWidth: 675,
-        minHeight: 335
-      }
-    }
+        minHeight: 335,
+      },
+    },
   },
   {
     name: "Evepraisal",
@@ -122,9 +122,9 @@ const tools: ToolDescription[] = [
       initialHeight: 410,
       resizable: {
         minWidth: 600,
-        minHeight: 410
-      }
-    }
+        minHeight: 410,
+      },
+    },
   },
   {
     name: "Ore Tables",
@@ -137,9 +137,9 @@ const tools: ToolDescription[] = [
       initialHeight: 580,
       resizable: {
         minWidth: 585,
-        minHeight: 200
-      }
-    }
+        minHeight: 200,
+      },
+    },
   },
   {
     name: "Abyssal Markets",
@@ -153,9 +153,9 @@ const tools: ToolDescription[] = [
       initialHeight: 784,
       resizable: {
         minWidth: 615,
-        minHeight: 225
-      }
-    }
+        minHeight: 225,
+      },
+    },
   },
   {
     name: "EVE-Mogul",
@@ -169,9 +169,9 @@ const tools: ToolDescription[] = [
       initialHeight: 520,
       resizable: {
         minWidth: 1000,
-        minHeight: 520
-      }
-    }
+        minHeight: 520,
+      },
+    },
   },
   {
     name: "Dotlan",
@@ -184,9 +184,9 @@ const tools: ToolDescription[] = [
       initialHeight: 200,
       resizable: {
         minWidth: 1055,
-        minHeight: 300
-      }
-    }
+        minHeight: 300,
+      },
+    },
   },
   {
     name: "Tripwire",
@@ -199,9 +199,9 @@ const tools: ToolDescription[] = [
       initialHeight: 510,
       resizable: {
         minHeight: 430,
-        minWidth: 360
-      }
-    }
+        minWidth: 360,
+      },
+    },
   },
   {
     name: "Thera Maps",
@@ -215,9 +215,9 @@ const tools: ToolDescription[] = [
       initialHeight: 555,
       resizable: {
         minWidth: 400,
-        minHeight: 400
-      }
-    }
+        minHeight: 400,
+      },
+    },
   },
   {
     name: "Siggy",
@@ -230,9 +230,9 @@ const tools: ToolDescription[] = [
       initialHeight: 430,
       resizable: {
         minWidth: 500,
-        minHeight: 500
-      }
-    }
+        minHeight: 500,
+      },
+    },
   },
   {
     name: "Anoikis",
@@ -245,9 +245,9 @@ const tools: ToolDescription[] = [
       initialHeight: 450,
       resizable: {
         minWidth: 685,
-        minHeight: 230
-      }
-    }
+        minHeight: 230,
+      },
+    },
   },
   {
     name: "ZKillboard",
@@ -260,9 +260,9 @@ const tools: ToolDescription[] = [
       initialHeight: 775,
       resizable: {
         minWidth: 400,
-        minHeight: 400
-      }
-    }
+        minHeight: 400,
+      },
+    },
   },
   {
     name: "EVEWho",
@@ -276,9 +276,9 @@ const tools: ToolDescription[] = [
       initialHeight: 980,
       resizable: {
         minWidth: 400,
-        minHeight: 400
-      }
-    }
+        minHeight: 400,
+      },
+    },
   },
   {
     name: "DScan Info",
@@ -291,9 +291,9 @@ const tools: ToolDescription[] = [
       initialHeight: 450,
       resizable: {
         minWidth: 500,
-        minHeight: 400
-      }
-    }
+        minHeight: 400,
+      },
+    },
   },
   {
     name: "EVE-Uni Wiki",
@@ -306,9 +306,9 @@ const tools: ToolDescription[] = [
       initialHeight: 550,
       resizable: {
         minWidth: 722, // there's an issue with the search bar breaking
-        minHeight: 250
-      }
-    }
+        minHeight: 250,
+      },
+    },
   },
   {
     name: "EVE PRISM",
@@ -322,9 +322,9 @@ const tools: ToolDescription[] = [
       initialHeight: 942,
       resizable: {
         minWidth: 1224,
-        minHeight: 942
-      }
-    }
+        minHeight: 942,
+      },
+    },
   },
   {
     name: "EVE Forums",
@@ -337,9 +337,9 @@ const tools: ToolDescription[] = [
       initialHeight: 900,
       resizable: {
         minWidth: 575,
-        minHeight: 250
-      }
-    }
+        minHeight: 250,
+      },
+    },
   },
   {
     name: "EVE Market Watch",
@@ -352,9 +352,9 @@ const tools: ToolDescription[] = [
       initialHeight: 505,
       resizable: {
         minWidth: 250,
-        minHeight: 250
-      }
-    }
+        minHeight: 250,
+      },
+    },
   },
   {
     name: "Abyss Tracker",
@@ -368,9 +368,9 @@ const tools: ToolDescription[] = [
       initialHeight: 645,
       resizable: {
         minWidth: 600,
-        minHeight: 350
-      }
-    }
+        minHeight: 350,
+      },
+    },
   },
   {
     name: "Pathfinder",
@@ -384,9 +384,9 @@ const tools: ToolDescription[] = [
       initialHeight: 500,
       resizable: {
         minWidth: 600,
-        minHeight: 350
-      }
-    }
+        minHeight: 350,
+      },
+    },
   },
   {
     name: "Eve Fleet Manager",
@@ -399,9 +399,9 @@ const tools: ToolDescription[] = [
       initialHeight: 500,
       resizable: {
         minWidth: 600,
-        minHeight: 350
-      }
-    }
+        minHeight: 350,
+      },
+    },
   },
   {
     name: "Adam4Eve",
@@ -414,9 +414,9 @@ const tools: ToolDescription[] = [
       initialHeight: 645,
       resizable: {
         minWidth: 600,
-        minHeight: 350
-      }
-    }
+        minHeight: 350,
+      },
+    },
   },
   {
     name: "aD",
@@ -430,9 +430,9 @@ const tools: ToolDescription[] = [
       initialHeight: 450,
       resizable: {
         minWidth: 975,
-        minHeight: 450
-      }
-    }
+        minHeight: 450,
+      },
+    },
   },
   //
   // Non EVE tools
@@ -448,9 +448,9 @@ const tools: ToolDescription[] = [
       initialHeight: 670,
       resizable: {
         minWidth: 990,
-        minHeight: 90
-      }
-    }
+        minHeight: 90,
+      },
+    },
   },
   {
     name: "Google",
@@ -463,9 +463,9 @@ const tools: ToolDescription[] = [
       initialHeight: 550,
       resizable: {
         minWidth: 250,
-        minHeight: 250
-      }
-    }
+        minHeight: 250,
+      },
+    },
   },
   {
     name: "DuckDuckGo",
@@ -478,9 +478,9 @@ const tools: ToolDescription[] = [
       initialHeight: 350,
       resizable: {
         minWidth: 250,
-        minHeight: 250
-      }
-    }
+        minHeight: 250,
+      },
+    },
   },
   {
     name: "Google Translator",
@@ -493,9 +493,9 @@ const tools: ToolDescription[] = [
       initialHeight: 525,
       resizable: {
         minWidth: 320,
-        minHeight: 500
-      }
-    }
+        minHeight: 500,
+      },
+    },
   },
   {
     name: "DeepL Translate",
@@ -509,9 +509,9 @@ const tools: ToolDescription[] = [
       initialHeight: 450,
       resizable: {
         minWidth: 400,
-        minHeight: 450
-      }
-    }
+        minHeight: 450,
+      },
+    },
   },
   {
     name: "Discord",
@@ -524,9 +524,9 @@ const tools: ToolDescription[] = [
       initialHeight: 622,
       resizable: {
         minWidth: 856,
-        minHeight: 622
-      }
-    }
+        minHeight: 622,
+      },
+    },
   },
   {
     name: "YouTube",
@@ -539,9 +539,9 @@ const tools: ToolDescription[] = [
       initialHeight: 480,
       resizable: {
         minWidth: 250,
-        minHeight: 250
-      }
-    }
+        minHeight: 250,
+      },
+    },
   },
   {
     name: "Twitch",
@@ -554,9 +554,9 @@ const tools: ToolDescription[] = [
       initialHeight: 900,
       resizable: {
         minWidth: 250,
-        minHeight: 250
-      }
-    }
+        minHeight: 250,
+      },
+    },
   },
   {
     name: "YouTube Music",
@@ -569,9 +569,9 @@ const tools: ToolDescription[] = [
       initialHeight: 450,
       resizable: {
         minWidth: 140,
-        minHeight: 100
-      }
-    }
+        minHeight: 100,
+      },
+    },
   },
   {
     name: "EVE Subreddit",
@@ -584,17 +584,17 @@ const tools: ToolDescription[] = [
       initialHeight: 450,
       resizable: {
         minWidth: 975,
-        minHeight: 450
-      }
-    }
+        minHeight: 450,
+      },
+    },
   },
   {
     name: "Windows PowerShell",
     author: "Microsoft",
     description: "Opens a PowerShell terminal. Perfect for developers.",
     tags: ["generic"],
-    windowName: "terminal"
-  }
+    windowName: "terminal",
+  },
 ];
 
 export const defaultFavorites: string[] = [
@@ -602,7 +602,7 @@ export const defaultFavorites: string[] = [
   "ZKillboard",
   "Wormhole 911",
   "DScan Info",
-  "Google Translator"
+  "Google Translator",
 ];
 
 export default tools;

@@ -244,7 +244,7 @@ const About = () => {
               style={{
                 textAlign: "center",
                 fontWeight: "normal",
-                textShadow: "0px 2px 2px red"
+                textShadow: "0px 2px 2px red",
               }}
             >
               Mr. Helious Jin-Mei & Mrs. Wheezy Garlic of Northern Coalition.
@@ -254,7 +254,7 @@ const About = () => {
               style={{
                 textAlign: "center",
                 fontWeight: "normal",
-                textShadow: "0px 2px 2px gold"
+                textShadow: "0px 2px 2px gold",
               }}
             >
               Sonya Rovana of Capital Fusion
@@ -264,7 +264,7 @@ const About = () => {
               style={{
                 textAlign: "center",
                 fontWeight: "normal",
-                textShadow: "0px 2px 2px silver"
+                textShadow: "0px 2px 2px silver",
               }}
             >
               Andres M Afanador of DICE / Inner Hell

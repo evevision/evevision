@@ -21,18 +21,18 @@ export default merge.smart(baseConfig, {
 
   output: {
     path: path.join(__dirname, ".."),
-    filename: "./app/main-dist/main.prod.js"
+    filename: "./app/main-dist/main.prod.js",
   },
 
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: "production"
+      NODE_ENV: "production",
     }),
-    new webpack.DefinePlugin({ "global.GENTLY": false })
+    new webpack.DefinePlugin({ "global.GENTLY": false }),
   ],
 
   node: {
     __dirname: false,
-    __filename: false
-  }
+    __filename: false,
+  },
 });

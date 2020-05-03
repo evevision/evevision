@@ -16,11 +16,11 @@ export default {
         use: {
           loader: "babel-loader",
           options: {
-            cacheDirectory: true
-          }
-        }
-      }
-    ]
+            cacheDirectory: true,
+          },
+        },
+      },
+    ],
   },
 
   /**
@@ -28,6 +28,6 @@ export default {
    */
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
-    modules: [path.join(__dirname, "..", "app"), "node_modules"]
-  }
+    modules: [path.join(__dirname, "..", "app"), "node_modules"],
+  },
 };

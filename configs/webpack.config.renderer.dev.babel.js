@@ -37,12 +37,12 @@ export default merge.smart(baseConfig, {
     ...(process.env.PLAIN_HMR ? [] : ["react-hot-loader/patch"]),
     `webpack-dev-server/client?http://localhost:${port}/`,
     "webpack/hot/only-dev-server",
-    require.resolve("../app/renderer/index.tsx")
+    require.resolve("../app/renderer/index.tsx"),
   ],
 
   output: {
     publicPath: `http://localhost:${port}/dist/`,
-    filename: "renderer.dev.js"
+    filename: "renderer.dev.js",
   },
 
   module: {
@@ -51,15 +51,15 @@ export default merge.smart(baseConfig, {
         test: /\.global\.css$/,
         use: [
           {
-            loader: "style-loader"
+            loader: "style-loader",
           },
           {
             loader: "css-loader",
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /^((?!\.global).)*\.css$/,
@@ -67,72 +67,72 @@ export default merge.smart(baseConfig, {
           {
             loader: "style-loader",
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: "css-loader",
             options: {
               modules: {
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               },
               sourceMap: true,
-              importLoaders: 1
-            }
-          }
-        ]
+              importLoaders: 1,
+            },
+          },
+        ],
       },
       // SASS support - compile all .global.scss files and pipe it to style.css
       {
         test: /\.global\.(scss|sass)$/,
         use: [
           {
-            loader: "style-loader"
+            loader: "style-loader",
           },
           {
             loader: "css-loader",
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: "resolve-url-loader",
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
-            loader: "sass-loader"
-          }
-        ]
+            loader: "sass-loader",
+          },
+        ],
       },
       // SASS support - compile all other .scss files and pipe it to style.css
       {
         test: /^((?!\.global).)*\.(scss|sass)$/,
         use: [
           {
-            loader: "style-loader"
+            loader: "style-loader",
           },
           {
             loader: "css-loader",
             options: {
               modules: {
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               },
               sourceMap: true,
-              importLoaders: 1
-            }
+              importLoaders: 1,
+            },
           },
           {
             loader: "resolve-url-loader",
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
-            loader: "sass-loader"
-          }
-        ]
+            loader: "sass-loader",
+          },
+        ],
       },
       // WOFF2 Font
       {
@@ -141,21 +141,21 @@ export default merge.smart(baseConfig, {
           loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: "application/font-woff"
-          }
-        }
+            mimetype: "application/font-woff",
+          },
+        },
       },
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: "url-loader"
-      }
-    ]
+        use: "url-loader",
+      },
+    ],
   },
   resolve: {
     alias: {
-      "react-dom": "@hot-loader/react-dom"
-    }
+      "react-dom": "@hot-loader/react-dom",
+    },
   },
   plugins: [
     requiredByLibConfig
@@ -163,27 +163,27 @@ export default merge.smart(baseConfig, {
       : new webpack.DllReferencePlugin({
           context: path.join(__dirname, "..", "output", "renderer-lib"),
           manifest: require(manifest),
-          sourceType: "var"
+          sourceType: "var",
         }),
 
     new webpack.HotModuleReplacementPlugin({
-      multiStep: true
+      multiStep: true,
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),
 
     new webpack.EnvironmentPlugin({
-      NODE_ENV: "development"
+      NODE_ENV: "development",
     }),
 
     new webpack.LoaderOptionsPlugin({
-      debug: true
-    })
+      debug: true,
+    }),
   ],
 
   node: {
     __dirname: false,
-    __filename: false
+    __filename: false,
   },
 
   devServer: {
@@ -200,11 +200,11 @@ export default merge.smart(baseConfig, {
     watchOptions: {
       aggregateTimeout: 300,
       ignored: /node_modules/,
-      poll: 100
+      poll: 100,
     },
     historyApiFallback: {
       verbose: true,
-      disableDotRule: false
+      disableDotRule: false,
     },
     before() {
       if (process.env.START_HOT) {
@@ -215,15 +215,15 @@ export default merge.smart(baseConfig, {
           {
             shell: true,
             env: process.env,
-            stdio: "inherit"
+            stdio: "inherit",
           }
         )
-          .on("exit", code => {
+          .on("exit", (code) => {
             console.log("Main process exited, code", code);
             process.exit(code);
           })
-          .on("error", spawnError => console.error(spawnError));
+          .on("error", (spawnError) => console.error(spawnError));
       }
-    }
-  }
+    },
+  },
 });

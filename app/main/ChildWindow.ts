@@ -16,7 +16,7 @@ const secureHosts = [
   "ccpgames.com",
   "www.ccpgames.com",
   "store.eve.com",
-  "eveonline-merchandise-store.myshopify.com"
+  "eveonline-merchandise-store.myshopify.com",
 ];
 
 // Currently only used for displaying external websites
@@ -75,8 +75,8 @@ export default class ChildWindow {
         webgl: false,
         nodeIntegration: false,
         devTools: true,
-        offscreen: true
-      }
+        offscreen: true,
+      },
     };
 
     this.electronWindow = new BrowserWindow(options);

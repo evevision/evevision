@@ -26,7 +26,7 @@ class Beanwatch extends Component<BeanwatchProps, BeanwatchState> {
       panic: false,
       panicConfirmed: false,
       cancelling: false,
-      buttonHovered: false
+      buttonHovered: false,
     };
   }
 
@@ -56,7 +56,7 @@ class Beanwatch extends Component<BeanwatchProps, BeanwatchState> {
           ...this.state,
           buttonClicks: 0,
           panic: true,
-          buttonHovered: false
+          buttonHovered: false,
         });
         this.sendPanicAlert();
       } else {
@@ -70,7 +70,7 @@ class Beanwatch extends Component<BeanwatchProps, BeanwatchState> {
           buttonClicks: 0,
           cancelling: true,
           panic: false,
-          panicConfirmed: false
+          panicConfirmed: false,
         });
         this.cancelPanicAlert();
       } else {

@@ -47,7 +47,7 @@ export const SliderInput: React.FC<SliderProps> = (props: SliderProps) => {
       min={props.min}
       max={props.max}
       value={props.value}
-      onChange={e =>
+      onChange={(e) =>
         props.onChange ? props.onChange(parseInt(e.target.value)) : ""
       }
       style={props.style}
