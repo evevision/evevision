@@ -20,6 +20,8 @@ import { default as websiteLogo } from "website-logo";
 import { version } from "../package.json";
 import rimraf from "rimraf";
 import log from "../shared/log";
+import { ExternalToolMeta } from "../shared/externaltool";
+import EveWindow from "./EveWindow";
 require("../shared/store/characters/actions"); // we have to require it directly otherwise it gets cut out by webpack
 require("../shared/store/characters/reducers");
 
@@ -29,6 +31,7 @@ export default class MainApp {
   private markQuit = false;
   private tray: Electron.Tray | null;
   private eveInstances: Map<string, EveInstance>;
+  private windowInstanceMap: Map<number, EveInstance>; // maps browser windows to eve instances (web content IDs)
   private dllPath: string;
   private injectedPids: Set<number>;
   private scanner?: NodeJS.Timeout;
@@ -40,6 +43,7 @@ export default class MainApp {
   constructor() {
     this.tray = null;
     this.eveInstances = new Map();
+    this.windowInstanceMap = new Map();
     this.injectedPids = new Set();
 
     let dirPath = process.resourcesPath.includes("node_modules")
@@ -186,6 +190,15 @@ export default class MainApp {
       );
   };
 
+  public registerWindow(webContentsId: number, instance: EveInstance) {
+    log.info(
+      "registering window to instance",
+      webContentsId,
+      instance.characterName
+    );
+    this.windowInstanceMap.set(webContentsId, instance);
+  }
+
   public hookLocalEveAuth() {
     protocol.registerStringProtocol(
       "eveauth-evevision",
@@ -202,6 +215,80 @@ export default class MainApp {
   }
 
   public setupIpc() {
+    ipcMain.on("external-windowClose",(e: IpcMainEvent) => {
+      if (!e.sender.isDestroyed()) {
+        log.info("External site requesting close");
+        const parentWindowInstance = this.windowInstanceMap.get(e.sender.id);
+        if (parentWindowInstance) {
+          // this came from a childwindow
+          const childWindowParent = parentWindowInstance.eveWindows.find(ew => ew.childWindow !== undefined && ew.childWindow.webContentsId === e.sender.id);
+          childWindowParent.close();
+        }
+      }
+    })
+    
+    ipcMain.handle(
+      "external-windowOpen",
+      (
+        e: IpcMainInvokeEvent,
+        args: {
+          origin: string;
+          url: string;
+          target?: string;
+          features?: string;
+          replace?: boolean;
+        }
+      ): number => {
+        if (!e.sender.isDestroyed()) {
+          log.info("External site requesting new window", args.origin, args.url);
+          const parentWindowInstance = this.windowInstanceMap.get(e.sender.id);
+          if (parentWindowInstance) {
+            let targetUrl;
+            if (args.url.startsWith("/")) {
+              // relative URL
+              const parsedOrigin = new URL(args.origin);
+              targetUrl =
+                parsedOrigin.protocol + "//" + parsedOrigin.host + args.url;
+            } else if (
+              args.url.startsWith("https://") ||
+              args.url.startsWith("http://")
+            ) {
+              targetUrl = args.url;
+            } else {
+              log.error("URL not valid for external window open", args.url);
+              return -1;
+            }
+
+            const meta: ExternalToolMeta = {
+              url: targetUrl,
+              initialWidth: 1200,
+              initialHeight: 720,
+              resizable: {
+                minWidth: 400,
+                minHeight: 300,
+              },
+            };
+
+            const window: EveWindow = parentWindowInstance.createWindow(
+              "externalsite",
+              targetUrl,
+              meta,
+                parentWindowInstance.eveWindows.find(
+                    (w) => w.childWindow && w.childWindow.webContentsId === e.sender.id
+                )
+            );
+
+            return window.windowId;
+          } else {
+            log.error("Window not found", e.sender.id);
+            return -1;
+          }
+        } else {
+          return -1;
+        }
+      }
+    );
+
     ipcMain.on("initialRender", (event: IpcMainEvent) => {
       log.info(event.sender.id, "initial render");
     });
@@ -302,7 +389,7 @@ export default class MainApp {
 
   private initCharacter(characterName: string, id: number) {
     log.info("Character ID found for " + characterName + ":" + id);
-    const eveInstance = new EveInstance(characterName, id);
+    const eveInstance = new EveInstance(characterName, id, this);
     this.eveInstances.set(characterName, eveInstance);
     eveInstance.start();
   }

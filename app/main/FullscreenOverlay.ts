@@ -62,6 +62,10 @@ export default class FullscreenOverlay {
     }
 
     this.electronWindow.loadFile("../renderer/app.html");
+    this.parentInstance.app.registerWindow(
+      this.webContentsId,
+      this.parentInstance
+    );
   }
 
   handleRestoreRequest = (event: IpcMainEvent, windowId: number) => {

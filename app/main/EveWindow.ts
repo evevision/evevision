@@ -4,7 +4,7 @@ import EveInstance from "./eveinstance";
 import Overlay, { IFrameBuffer } from "../native";
 import Store from "electron-store";
 import path from "path";
-import { ExternalToolMeta } from "../renderer/externaltool";
+import { ExternalToolMeta } from "../shared/externaltool";
 import { isSentryEnabled } from "./sentry";
 import log from "../shared/log";
 
@@ -77,17 +77,17 @@ export default class EveWindow {
   public readonly minWidth: number;
   public readonly minHeight: number;
   public readonly externalMeta?: ExternalToolMeta;
+  public readonly electronWindow: BrowserWindow;
+  public readonly parentWindow?: EveWindow;
 
   private readonly parentInstance: EveInstance;
   private readonly characterId: number;
-
-  private electronWindow: BrowserWindow;
 
   private lastImage?: IFrameBuffer;
   private lastChildImage?: IFrameBuffer;
 
   private childRect?: Rect;
-  private childWindow?: ChildWindow;
+  public childWindow?: ChildWindow;
 
   private closed: boolean = false;
   private minimized: boolean = false;
@@ -103,7 +103,8 @@ export default class EveWindow {
     itemId: string,
     isUserClosable: boolean,
     parentInstance: EveInstance,
-    externalMeta?: ExternalToolMeta
+    externalMeta?: ExternalToolMeta,
+    parentWindow?: EveWindow
   ) {
     this.parentInstance = parentInstance;
     this.characterId = characterId;
@@ -111,6 +112,7 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.externalMeta = externalMeta;
+    this.parentWindow = parentWindow;
     if (this.externalMeta) {
       this.isResizable = externalMeta.resizable !== undefined;
     } else {
@@ -292,6 +294,14 @@ export default class EveWindow {
     clearInterval(this.positionSaveInterval);
 
     log.info("window closed", this.windowName, this.windowId);
+    if (this.parentWindow && this.parentWindow.childWindow) {
+      // in case we are the popup of an external site, we need to send the preload script the notification that we are
+      // closing
+      log.info("sending close notification", "window-closed-" + this.windowId);
+      this.parentWindow.childWindow.electronWindow.webContents.send(
+        "window-closed-" + this.windowId
+      );
+    }
   }
 
   restore() {
@@ -437,7 +447,9 @@ export default class EveWindow {
       this.handleChildWindowPaint,
       this.handleChildWindowCursor,
       this.handleChildWindowTitle,
-      this.handleChildWindowSecure
+      this.handleChildWindowSecure,
+      this.handleChildWindowClose,
+      this.parentInstance
     );
     this.childRect = { size: { width, height }, pos: { x, y } };
   };
@@ -451,6 +463,12 @@ export default class EveWindow {
   private handleChildWindowSecure = (secure: boolean) => {
     if (!this.closed && this.windowName === "externalsite") {
       this.electronWindow.webContents.send("setSecure", secure);
+    }
+  };
+
+  private handleChildWindowClose = () => {
+    if (!this.closed && this.windowName === "externalsite") {
+      this.close();
     }
   };
 
