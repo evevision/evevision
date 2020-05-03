@@ -18,7 +18,7 @@ export interface CharacterInfo {
 export enum ApiConnectionStatus {
   CONNECTING,
   CONNECTED,
-  DISCONNECTED
+  DISCONNECTED,
 }
 
 export interface ApiState {

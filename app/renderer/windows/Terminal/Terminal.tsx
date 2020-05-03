@@ -13,12 +13,8 @@ class Terminal extends React.PureComponent<{}, {}> {
   constructor(props: {}) {
     super(props);
     this.uid =
-      Math.random()
-        .toString(36)
-        .substring(2, 6) +
-      Math.random()
-        .toString(36)
-        .substring(2, 6);
+      Math.random().toString(36).substring(2, 6) +
+      Math.random().toString(36).substring(2, 6);
   }
 
   handlePtyData = (data: string) => {
@@ -44,7 +40,7 @@ class Terminal extends React.PureComponent<{}, {}> {
       name: "xterm-color",
       cols: 80,
       rows: 10,
-      cwd: process.env.HOME
+      cwd: process.env.HOME,
     });
     if (this.pty) {
       this.pty.on("data", this.handlePtyData);
@@ -65,7 +61,7 @@ class Terminal extends React.PureComponent<{}, {}> {
 
   handleTermData = (...args: any[]): void => {
     if (this.pty) {
-      args.forEach(arg => this.pty!.write(arg));
+      args.forEach((arg) => this.pty!.write(arg));
     }
   };
 

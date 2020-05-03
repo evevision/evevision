@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSortUp,
   faSortDown,
-  faPlay
+  faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface JukeboxPlaylistProps {
@@ -31,7 +31,7 @@ interface JukeboxPlaylistProps {
     soundCloudTrackId: number;
   }) => void;
 }
-const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = props => {
+const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = (props) => {
   const columns: Column<{
     title: string;
     number: number;
@@ -41,16 +41,16 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = props => {
     () => [
       {
         Header: "Number",
-        accessor: "number"
+        accessor: "number",
       },
       {
         Header: "Title",
-        accessor: "title"
+        accessor: "title",
       },
       {
         Header: "Duration",
-        accessor: "duration"
-      }
+        accessor: "duration",
+      },
     ],
     []
   );
@@ -60,16 +60,16 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = props => {
     getTableBodyProps,
     headerGroups,
     rows,
-    prepareRow
+    prepareRow,
   } = useTable({ columns, data }, useSortBy);
 
   return (
     <table className="eve-table" {...getTableProps()}>
       <thead>
-        {headerGroups.map(headerGroup => (
+        {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             <th style={{ width: "15px" }} />
-            {headerGroup.headers.map(column => (
+            {headerGroup.headers.map((column) => (
               <th
                 align="left"
                 {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -93,7 +93,7 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = props => {
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map(row => {
+        {rows.map((row) => {
           prepareRow(row);
           const isRowSelected =
             row.original.soundCloudTrackId ===
@@ -111,7 +111,7 @@ const JukeboxPlaylist: React.FC<JukeboxPlaylistProps> = props => {
               <td>
                 {isRowSelected && <FontAwesomeIcon size={"sm"} icon={faPlay} />}
               </td>
-              {row.cells.map(cell => {
+              {row.cells.map((cell) => {
                 return (
                   <td {...cell.getCellProps()}>
                     <Typography>{cell.render("Cell")}</Typography>

@@ -29,7 +29,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
   state: ToolExplorerState = {
     selectedTags: [],
-    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites
+    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites,
   };
 
   constructor(props: {}) {
@@ -41,9 +41,9 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
   calculateTags = () => {
     const tagCounts: { tag: string; count: number }[] = [];
-    tools.forEach(tool => {
-      tool.tags.forEach(tag => {
-        const tagCount = tagCounts.find(tc => tc.tag === tag);
+    tools.forEach((tool) => {
+      tool.tags.forEach((tag) => {
+        const tagCount = tagCounts.find((tc) => tc.tag === tag);
         if (tagCount) {
           tagCount.count += 1;
         } else {
@@ -54,7 +54,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
     tagCounts
       .sort((a, b) => b.count - a.count)
-      .forEach(tagCount => this.tags.push(tagCount.tag));
+      .forEach((tagCount) => this.tags.push(tagCount.tag));
   };
 
   componentDidMount() {
@@ -77,7 +77,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     if (!this.state.selectedTags.includes(tag)) {
       this.setState({
         ...this.state,
-        selectedTags: [...this.state.selectedTags, tag]
+        selectedTags: [...this.state.selectedTags, tag],
       });
     }
   };
@@ -86,7 +86,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     if (this.state.selectedTags.includes(tag)) {
       this.setState({
         ...this.state,
-        selectedTags: this.state.selectedTags.filter(st => st !== tag)
+        selectedTags: this.state.selectedTags.filter((st) => st !== tag),
       });
       setImmediate(ReactTooltip.rebuild); // rebuild after state change
     }
@@ -102,7 +102,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     if (this.state.favoriteTools.includes(tool)) {
       favoriteTools.set(
         "favoriteTools",
-        this.state.favoriteTools.filter(ft => ft !== tool)
+        this.state.favoriteTools.filter((ft) => ft !== tool)
       );
     }
   };
@@ -174,7 +174,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     };
 
     const visible =
-      tool.tags.filter(t => this.state.selectedTags.includes(t)).length ===
+      tool.tags.filter((t) => this.state.selectedTags.includes(t)).length ===
       this.state.selectedTags.length;
 
     return (

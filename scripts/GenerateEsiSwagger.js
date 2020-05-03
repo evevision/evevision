@@ -7,9 +7,9 @@ superagent
   .end((err, res) => {
     const tsSourceCode = CodeGen.getTypescriptCode({
       className: "Esi",
-      swagger: res.body
+      swagger: res.body,
     });
-    fs.writeFile("app/esi/esi.ts", tsSourceCode, function(err) {
+    fs.writeFile("app/esi/esi.ts", tsSourceCode, function (err) {
       if (err) {
         console.error("Error writing swagger files!", err);
       }

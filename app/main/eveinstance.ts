@@ -23,7 +23,7 @@ export default class EveInstance {
   }
 
   public restoreWindow(windowId: number) {
-    const window = this.eveWindows.find(w => w.windowId === windowId);
+    const window = this.eveWindows.find((w) => w.windowId === windowId);
     if (window) {
       window.restore();
     }
@@ -31,7 +31,7 @@ export default class EveInstance {
 
   public restoreAllWindows() {
     log.info("Restoring all windows");
-    this.eveWindows.forEach(w => w.restore());
+    this.eveWindows.forEach((w) => w.restore());
   }
 
   public createWindow(
@@ -45,12 +45,12 @@ export default class EveInstance {
       "about",
       "settings",
       "jukebox",
-      "toolexplorer"
+      "toolexplorer",
     ];
 
     if (uniqueWindows.includes(windowName)) {
       // make sure we don't have one open already
-      const window = this.eveWindows.find(w => w.windowName === windowName);
+      const window = this.eveWindows.find((w) => w.windowName === windowName);
       if (window) {
         log.info("Restoring unique window", windowName);
         if (this.fullscreenOverlay) {
@@ -82,11 +82,11 @@ export default class EveInstance {
 
   public deleteWindow(windowId: number) {
     // this gets called back by window.close() once its done everything else, although maybe we should just put in closewindow
-    this.eveWindows = this.eveWindows.filter(w => w.windowId !== windowId);
+    this.eveWindows = this.eveWindows.filter((w) => w.windowId !== windowId);
   }
 
   public closeWindow(windowId: number) {
-    const window = this.eveWindows.find(w => w.windowId === windowId);
+    const window = this.eveWindows.find((w) => w.windowId === windowId);
     if (window !== undefined) {
       if (window.windowName === "ricardo" && this.fullscreenOverlay) {
         this.fullscreenOverlay.electronWindow.webContents.send(
@@ -99,7 +99,7 @@ export default class EveInstance {
   }
 
   public minimizeWindow(windowId: number) {
-    const window = this.eveWindows.find(w => w.windowId === windowId);
+    const window = this.eveWindows.find((w) => w.windowId === windowId);
     if (window && this.fullscreenOverlay) {
       if (window.minimize()) {
         this.fullscreenOverlay.electronWindow.webContents.send(
@@ -113,7 +113,7 @@ export default class EveInstance {
   }
 
   public minimizeAllWindows() {
-    this.eveWindows.forEach(w => this.minimizeWindow(w.windowId));
+    this.eveWindows.forEach((w) => this.minimizeWindow(w.windowId));
   }
 
   public stop() {
@@ -126,7 +126,7 @@ export default class EveInstance {
     if (this.fullscreenOverlay !== undefined) {
       this.fullscreenOverlay.stop();
     }
-    this.eveWindows.forEach(window => window.close());
+    this.eveWindows.forEach((window) => window.close());
     this.teardownIpc();
     Overlay.stop(this.characterName);
     this.started = false;
@@ -170,7 +170,7 @@ export default class EveInstance {
     if (this.fullscreenOverlay !== undefined) {
       this.fullscreenOverlay.resize(width, height);
     }
-    this.eveWindows.forEach(w => w.reposition()); // reposition all the windows
+    this.eveWindows.forEach((w) => w.reposition()); // reposition all the windows
   }
 
   private handleOverlayEvent = (event: string, payload: any) => {
@@ -186,7 +186,7 @@ export default class EveInstance {
       ) {
         this.fullscreenOverlay.sendInputEvent(inputEvent);
       } else {
-        window = this.eveWindows.find(w => w.windowId === payload.windowId);
+        window = this.eveWindows.find((w) => w.windowId === payload.windowId);
         if (window) {
           window.sendInputEvent(inputEvent);
           if (payload.msg === 524) {
@@ -208,7 +208,7 @@ export default class EveInstance {
       this.updateGameResolution(payload.width, payload.height);
     } else if (event === "game.window.focused") {
       // focusing doesnt work on ingame windows
-      this.eveWindows.forEach(window => {
+      this.eveWindows.forEach((window) => {
         if (window.windowId !== payload.focusWindowId) {
           window.blur();
         }
@@ -217,27 +217,27 @@ export default class EveInstance {
         this.fullscreenOverlay.blur();
       }
       const focusWin = this.eveWindows.find(
-        w => w.windowId === payload.focusWindowId
+        (w) => w.windowId === payload.focusWindowId
       );
       if (focusWin) {
         focusWin.focus();
       }
     } else if (event === "game.clearhover") {
-      this.eveWindows.forEach(window => {
+      this.eveWindows.forEach((window) => {
         window.clearHover();
       });
       if (this.fullscreenOverlay !== undefined) {
         this.fullscreenOverlay.clearHover();
       }
     } else if (event === "game.window.boundsrequest") {
-      const win = this.eveWindows.find(w => w.windowId === payload.windowId);
+      const win = this.eveWindows.find((w) => w.windowId === payload.windowId);
       if (win) {
         win.setBounds({
           size: {
             width: payload.width as number,
-            height: payload.height as number
+            height: payload.height as number,
           },
-          pos: { x: payload.x as number, y: payload.y as number }
+          pos: { x: payload.x as number, y: payload.y as number },
         });
       }
     } else if (event === "game.exit") {
@@ -272,7 +272,7 @@ export default class EveInstance {
     if (
       (this.fullscreenOverlay &&
         e.sender.id === this.fullscreenOverlay.electronWindow.webContents.id) ||
-      this.eveWindows.find(w => w.webContentsId === e.sender.id) !== undefined
+      this.eveWindows.find((w) => w.webContentsId === e.sender.id) !== undefined
     ) {
       this.createWindow(
         windowName,
@@ -294,21 +294,21 @@ export default class EveInstance {
         !this.fullscreenOverlay.electronWindow.isDestroyed() &&
         !this.fullscreenOverlay.electronWindow.webContents.isDestroyed() &&
         e.sender.id === this.fullscreenOverlay.electronWindow.webContents.id) ||
-      this.eveWindows.find(w => w.webContentsId === e.sender.id) !== undefined
+      this.eveWindows.find((w) => w.webContentsId === e.sender.id) !== undefined
     ) {
       this.createWindow("externalsite", meta.url, meta);
     }
   };
 
   private handleCloseRequest = (e: IpcMainEvent) => {
-    const window = this.eveWindows.find(w => w.webContentsId === e.sender.id);
+    const window = this.eveWindows.find((w) => w.webContentsId === e.sender.id);
     if (window) {
       this.closeWindow(window.windowId);
     }
   };
 
   private handleMinimizeRequest = (e: IpcMainEvent) => {
-    const window = this.eveWindows.find(w => w.webContentsId === e.sender.id);
+    const window = this.eveWindows.find((w) => w.webContentsId === e.sender.id);
     if (window) {
       this.minimizeWindow(window.windowId);
     }

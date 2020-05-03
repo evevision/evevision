@@ -4,7 +4,7 @@ import {
   UPDATE_CHARACTER_PUBLIC_INFO,
   DELETE_CHARACTER_AUTH,
   UPDATE_API_STATE,
-  ApiState
+  ApiState,
 } from "./types";
 import { createAliasedAction } from "electron-redux";
 import { getCharacter } from "../../esi/client";
@@ -13,7 +13,7 @@ export const updateApiState = (characterId: number, apiState: ApiState) => {
   return {
     type: UPDATE_API_STATE,
     payload: apiState,
-    meta: { characterId }
+    meta: { characterId },
   };
 };
 
@@ -23,7 +23,7 @@ export const updateCharacterPublicInfo = createAliasedAction(
     return {
       type: UPDATE_CHARACTER_PUBLIC_INFO,
       payload: getCharacter(characterId),
-      meta: { characterId }
+      meta: { characterId },
     };
   }
 );
@@ -35,7 +35,7 @@ export const updateCharacterAuth = (
   return {
     type: UPDATE_CHARACTER_AUTH,
     payload: auth,
-    meta: { characterId }
+    meta: { characterId },
   };
 };
 
@@ -43,6 +43,6 @@ export const deleteCharacterAuth = (characterId: number) => {
   return {
     type: DELETE_CHARACTER_AUTH,
     payload: characterId,
-    meta: { characterId }
+    meta: { characterId },
   };
 };

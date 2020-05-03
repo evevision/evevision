@@ -6,7 +6,7 @@ import {
   IpcMainInvokeEvent,
   ipcMain,
   BrowserWindow,
-  IpcMainEvent
+  IpcMainEvent,
 } from "electron";
 import fs from "fs";
 import path from "path";
@@ -66,8 +66,8 @@ export default class MainApp {
       webPreferences: {
         nodeIntegration: true,
         webviewTag: false,
-        additionalArguments: ["2116631148", "welcome", "none", "false"]
-      }
+        additionalArguments: ["2116631148", "welcome", "none", "false"],
+      },
     };
 
     const fsoOptions: Electron.BrowserWindowConstructorOptions = {
@@ -82,10 +82,10 @@ export default class MainApp {
           "2116631148",
           "fullscreenoverlay",
           "none",
-          "false"
+          "false",
         ],
-        webviewTag: false
-      }
+        webviewTag: false,
+      },
     };
 
     const welcomeWindow = new BrowserWindow(welcomeOptions);
@@ -154,7 +154,7 @@ export default class MainApp {
       .auth("", "")
       .send({ grant_type: "authorization_code", code: authCode })
       .then(
-        success => {
+        (success) => {
           const accessToken = success.body.access_token;
           const refreshToken = success.body.refresh_token;
           // got an access token/refresh token now. get the character ID.
@@ -162,7 +162,7 @@ export default class MainApp {
             .get("https://login.eveonline.com/oauth/verify")
             .auth(accessToken, { type: "bearer" })
             .then(
-              success2 => {
+              (success2) => {
                 const characterId = Number(success2.body.CharacterID);
                 const expiresAt = new Date(
                   success2.body.ExpiresOn + "Z"
@@ -175,12 +175,12 @@ export default class MainApp {
                   )
                 );
               },
-              error => {
+              (error) => {
                 console.error("Error verifying oauth token", error);
               }
             );
         },
-        error => {
+        (error) => {
           console.error("Error getting oauth token", error);
         }
       );
@@ -198,7 +198,7 @@ export default class MainApp {
     if (this.scanner) {
       clearInterval(this.scanner);
     }
-    this.eveInstances.forEach(instance => instance.stop());
+    this.eveInstances.forEach((instance) => instance.stop());
   }
 
   public setupIpc() {
@@ -245,8 +245,8 @@ export default class MainApp {
           label: "Quit",
           click: () => {
             this.quit();
-          }
-        }
+          },
+        },
       ]);
       this.tray.setToolTip("EveVision  " + version + " is running");
       this.tray.setContextMenu(contextMenu);
@@ -256,7 +256,7 @@ export default class MainApp {
           "Log into EVE if you haven't already. Fly without fear, capsuleer.",
         iconType: "custom",
         icon: iconPath,
-        title: "EveVision " + version + " is ready"
+        title: "EveVision " + version + " is ready",
       });
 
       app.on("second-instance", (_event, _commandLine, _workingDirectory) => {
@@ -264,7 +264,7 @@ export default class MainApp {
           content: "Just login to EVE! Fly without fear, capsuleer.",
           iconType: "custom",
           icon: iconPath,
-          title: "EveVision is already running"
+          title: "EveVision is already running",
         });
       });
     }
@@ -332,13 +332,13 @@ export default class MainApp {
       }
 
       getCharacterIdByName(characterName)
-        .then(id => {
+        .then((id) => {
           if (typeof id !== "number") {
             throw id;
           }
           this.initCharacter(characterName, id);
         })
-        .catch(err => {
+        .catch((err) => {
           log.error("Error getting character ID for " + characterName, err);
           // not sure what to do here
           // this.injectedPids.delete(window.processId)

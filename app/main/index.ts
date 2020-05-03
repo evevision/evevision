@@ -18,8 +18,9 @@ if (cicd) {
 if (isSentryEnabled && !cicd) {
   SentryInit({
     release: "v" + version,
-    dsn: dsn
+    dsn: dsn,
   });
+  log.info("Sentry active");
 }
 
 log.info("Initializing EveVision " + version);

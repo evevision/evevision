@@ -11,7 +11,7 @@ import log from "../shared/log";
 const persistConfig = {
   key: "root",
   storage: createElectronStorage(),
-  stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
+  stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);

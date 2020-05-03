@@ -75,7 +75,7 @@ export class Window extends Component<WindowProps, State> {
   render() {
     const { focused } = this.state;
     const { children } = this.props;
-    const childrenWithProps = React.Children.map(children, child =>
+    const childrenWithProps = React.Children.map(children, (child) =>
       React.cloneElement(child, { focused })
     );
 

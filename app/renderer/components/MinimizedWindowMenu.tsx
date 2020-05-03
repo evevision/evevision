@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faWindowRestore,
-  faWindowClose
+  faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/Input";
 import { ipcRenderer, IpcRendererEvent } from "electron";
@@ -21,7 +21,7 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      minimizedWindows: []
+      minimizedWindows: [],
     };
   }
 
@@ -35,8 +35,8 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
       ...this.state,
       minimizedWindows: [
         ...this.state.minimizedWindows,
-        { windowId, windowTitle, closable }
-      ]
+        { windowId, windowTitle, closable },
+      ],
     });
   };
 
@@ -47,8 +47,8 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
     this.setState({
       ...this.state,
       minimizedWindows: this.state.minimizedWindows.filter(
-        w => w.windowId !== windowId
-      )
+        (w) => w.windowId !== windowId
+      ),
     });
   };
 
@@ -73,8 +73,8 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
     this.setState({
       ...this.state,
       minimizedWindows: this.state.minimizedWindows.filter(
-        w => w.windowId !== windowId
-      )
+        (w) => w.windowId !== windowId
+      ),
     });
   }
 
@@ -83,8 +83,8 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
     this.setState({
       ...this.state,
       minimizedWindows: this.state.minimizedWindows.filter(
-        w => w.windowId !== windowId
-      )
+        (w) => w.windowId !== windowId
+      ),
     });
   }
 
@@ -127,7 +127,7 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
       <>
         <div className="eve-overlay-menu-title">Minimized Windows</div>
         <div className="eve-minimized-windows-list eve-scrollbar">
-          {this.state.minimizedWindows.map(w => this.windowEntry(w))}
+          {this.state.minimizedWindows.map((w) => this.windowEntry(w))}
         </div>
         <div className="eve-overlay-menu-buttons">
           <Button onClick={this.restoreAll}>Restore All</Button>
