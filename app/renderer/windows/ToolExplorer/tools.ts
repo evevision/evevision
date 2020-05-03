@@ -142,6 +142,25 @@ const tools: ToolDescription[] = [
     },
   },
   {
+    name: "EVE Radio",
+    author: "EVE Radio",
+    description: "24/7 live radio from capsuleers, for capsuleers!",
+    tags: ["fun"],
+    external: {
+      hideScrollbars: true,
+      url:
+        "http://player.gamingradio.net/schedule/player/tunein_pop_up.php?station=ERSP&mode=audio",
+      initialWidth: 330,
+      initialHeight: 365,
+      resizable: {
+        minWidth: 330,
+        maxWidth: 330,
+        minHeight: 265,
+        maxHeight: 465,
+      },
+    },
+  },
+  {
     name: "Abyssal Markets",
     author: "Sharad Heft",
     description:
