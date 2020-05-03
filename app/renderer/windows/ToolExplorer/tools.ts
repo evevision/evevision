@@ -1,4 +1,4 @@
-import { ExternalToolMeta } from "../../externaltool";
+import { ExternalToolMeta } from "../../../shared/externaltool";
 
 export interface ToolDescription {
   name: string;

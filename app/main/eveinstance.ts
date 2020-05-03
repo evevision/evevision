@@ -1,25 +1,30 @@
-import { ipcMain, IpcMainEvent } from "electron";
+import { ipcMain, IpcMainEvent, BrowserWindow } from "electron";
 import ApiClient from "./api/client";
 import EveWindow from "./EveWindow";
 import Overlay from "../native";
 import FullscreenOverlay from "./FullscreenOverlay";
-import { ExternalToolMeta } from "../renderer/externaltool";
+import { ExternalToolMeta } from "../shared/externaltool";
 import log from "../shared/log";
+import MainApp from "./mainapp";
 
 export default class EveInstance {
   public characterName: string;
   public characterId: number;
-  private eveWindows: EveWindow[];
+  private windows: BrowserWindow[];
+  public eveWindows: EveWindow[];
   private fullscreenOverlay?: FullscreenOverlay;
   private api: ApiClient;
   public gameResolution?: { width: number; height: number };
   private started?: boolean;
+  public app: MainApp;
 
-  constructor(characterName: string, characterId: number) {
+  constructor(characterName: string, characterId: number, app: MainApp) {
     this.characterId = characterId;
     this.characterName = characterName;
     this.eveWindows = [];
+    this.windows = [];
     this.api = new ApiClient(this.characterId);
+    this.app = app;
   }
 
   public restoreWindow(windowId: number) {
@@ -37,8 +42,9 @@ export default class EveInstance {
   public createWindow(
     windowName: string,
     itemId: string,
-    externalMeta?: ExternalToolMeta
-  ) {
+    externalMeta?: ExternalToolMeta,
+    parentWindow?: EveWindow
+  ): EveWindow {
     const uniqueWindows = [
       "auth",
       "beanwatch",
@@ -61,7 +67,7 @@ export default class EveInstance {
         }
         window.restore();
         window.focus();
-        return;
+        return window;
       }
     }
     log.info("Creating window", windowName, itemId);
@@ -71,13 +77,19 @@ export default class EveInstance {
       itemId,
       windowName !== "welcome",
       this,
-      externalMeta
+      externalMeta,
+      parentWindow
     );
     this.eveWindows.push(window);
+    this.windows.push(window.electronWindow);
 
     if (windowName === "ricardo" && this.fullscreenOverlay) {
       this.fullscreenOverlay.electronWindow.webContents.send("ricardo", true);
     }
+
+    this.app.registerWindow(window.webContentsId, this);
+
+    return window;
   }
 
   public deleteWindow(windowId: number) {
@@ -87,11 +99,21 @@ export default class EveInstance {
 
   public closeWindow(windowId: number) {
     const window = this.eveWindows.find((w) => w.windowId === windowId);
+    this._closeWindow(window);
+  }
+
+  public closeWindowByWebContentsId(webContentsId: number) {
+    const window = this.eveWindows.find((w) => w.webContentsId === webContentsId);
+    console.log("window?", window)
+    this._closeWindow(window);
+  }
+
+  private _closeWindow(window: EveWindow) {
     if (window !== undefined) {
       if (window.windowName === "ricardo" && this.fullscreenOverlay) {
         this.fullscreenOverlay.electronWindow.webContents.send(
-          "ricardo",
-          false
+            "ricardo",
+            false
         );
       }
       window.close();
@@ -261,6 +283,10 @@ export default class EveInstance {
     ipcMain.removeListener("openWindow", this.handleOpenWindowRequest);
     ipcMain.removeListener("closeMe", this.handleCloseRequest);
     ipcMain.removeListener("minimizeMe", this.handleMinimizeRequest);
+    ipcMain.removeListener(
+      "openExternalTool",
+      this.handleOpenExternalToolRequest
+    );
   }
 
   private handleOpenWindowRequest = (
@@ -268,7 +294,6 @@ export default class EveInstance {
     windowName: string,
     itemId: string
   ) => {
-    // this event will fire from every EveInstance's windows, make sure it's one of our windows
     if (
       (this.fullscreenOverlay &&
         e.sender.id === this.fullscreenOverlay.electronWindow.webContents.id) ||
