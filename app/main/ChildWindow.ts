@@ -125,6 +125,27 @@ export default class ChildWindow {
   }
 
   sendInputEvent(inputEvent: any): void {
+    if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("control") && inputEvent.modifiers.length == 1 && inputEvent.keyCode == "R") {
+      // CTRL+R
+      this.electronWindow.webContents.reload();
+      log.info("User requested page reload");
+    } else if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("control") && inputEvent.modifiers.includes("shift") && inputEvent.modifiers.length == 2 && inputEvent.keyCode == "R") {
+      // CTRL+SHIFT+R
+      this.electronWindow.webContents.reloadIgnoringCache();
+      log.info("User requested page reload ignoring cache");
+    } else if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("alt") && inputEvent.modifiers.length == 1 && inputEvent.keyCode == "Left") {
+      // Alt + Left Arrow
+      if(this.electronWindow.webContents.canGoBack()) {
+        this.electronWindow.webContents.goBack();
+        log.info("User requested page back");
+      }
+    } else if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("alt") && inputEvent.modifiers.length == 1 && inputEvent.keyCode == "Right") {
+      // Alt + Right Arrow
+      if(this.electronWindow.webContents.canGoForward()) {
+        this.electronWindow.webContents.goForward();
+        log.info("User requested page forward");
+      }
+    }
     this.electronWindow.webContents.sendInputEvent(inputEvent);
   }
 
