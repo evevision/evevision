@@ -445,13 +445,13 @@ jobs:
         uses: actions/upload-artifact@v2-preview
         with:
           name: Portable EXE
-          path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe
+          path: ./release/EveVision_v${{ needs.get-version.outputs.effective_version }}_Portable.exe
 
       - name: Upload installer artifact
         uses: actions/upload-artifact@v2-preview
         with:
           name: Installer
-          path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Installer.exe
+          path: ./release/EveVision_v${{ needs.get-version.outputs.effective_version }}_Installer.exe
 
   test-portable-exe:
     runs-on: windows-latest
@@ -466,7 +466,7 @@ jobs:
           path: ./release
 
       - name: Run CICD test on packaged app
-        run: ./EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe CICD | Out-Null
+        run: ./EveVision_v${{ needs.get-version.outputs.effective_version }}_Portable.exe CICD | Out-Null
         working-directory: release
         env:
           CICD: true
@@ -615,8 +615,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.release-app.outputs.upload_url }}
-          asset_path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe
-          asset_name: EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe
+          asset_path: ./release/EveVision_v${{ needs.get-version.outputs.effective_version }}_Portable.exe
+          asset_name: EveVision_v${{ needs.get-version.outputs.effective_version }}_Portable.exe
           asset_content_type: application/vnd.microsoft.portable-executable
 
       - name: Upload installer to release
@@ -625,8 +625,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.release-app.outputs.upload_url }}
-          asset_path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Installer.exe
-          asset_name: EveVision_${{ needs.get-version.outputs.effective_version }}_Installer.exe
+          asset_path: ./release/EveVision_v${{ needs.get-version.outputs.effective_version }}_Installer.exe
+          asset_name: EveVision_v${{ needs.get-version.outputs.effective_version }}_Installer.exe
           asset_content_type: application/octet-stream
 
       - name: Notify discord of new release
