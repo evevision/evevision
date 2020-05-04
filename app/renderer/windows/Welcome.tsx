@@ -13,7 +13,7 @@ import {
 } from "../../shared/store/characters/types";
 import superagent from "superagent";
 import { version } from "../../package.json";
-import {ExternalToolMeta} from "../../shared/externaltool";
+import { ExternalToolMeta } from "../../shared/externaltool";
 
 interface WelcomeProps {
   updateCharacterPublicInfo: typeof updateCharacterPublicInfo;
@@ -127,7 +127,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
         minWidth: 640,
         minHeight: 400,
       },
-    }
+    };
     ipcRenderer.send("openExternalTool", external);
   };
 
@@ -165,8 +165,11 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
               </h2>
               <br />
               {this.state.newVersion ? (
-                <div className={"new-version-alert"} onClick={this.openLatestVersion}>
-                    <strong>Version {this.state.newVersion} available!</strong>
+                <div
+                  className={"new-version-alert"}
+                  onClick={this.openLatestVersion}
+                >
+                  <strong>Version {this.state.newVersion} available!</strong>
                 </div>
               ) : null}
             </Typography>
