@@ -240,6 +240,10 @@ jobs:
           name: Main process
           path: ./app/main-dist
 
+      - name: Upload debug symbols to Sentry
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        run: sentry-cli upload-dif --include-sources --no-zips D:\a\evevision\evevision\
+
   build-renderer-process:
     runs-on: windows-latest
     needs:
@@ -290,6 +294,10 @@ jobs:
         with:
           name: Renderer process
           path: ./app/renderer-dist
+
+      - name: Upload debug symbols to Sentry
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        run: sentry-cli upload-dif --include-sources --no-zips D:\a\evevision\evevision\
 
   build-overlay-dll:
     runs-on: windows-latest
@@ -379,7 +387,7 @@ jobs:
 
       - name: Upload debug symbols to Sentry
         if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
-        run: sentry-cli upload-dif --include-sources --no-zips D:\a\evevision\evevision\build\Release\native.pdb
+        run: sentry-cli upload-dif --include-sources --no-zips D:\a\evevision\evevision\
 
   package-app:
     runs-on: windows-latest
@@ -461,6 +469,10 @@ jobs:
           name: Installer
           path: ./release/EveVision_v${{ needs.get-version.outputs.effective_version }}_Installer.exe
 
+      - name: Upload debug symbols to Sentry
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        run: sentry-cli upload-dif --include-sources --no-zips D:\a\evevision\evevision\
+
   test-portable-exe:
     runs-on: windows-latest
     needs:
@@ -532,7 +544,7 @@ jobs:
         run: sentry-cli releases new v${{ needs.get-version.outputs.new_release_version }}
 
       - name: Upload sourcemaps
-        run: sentry-cli releases files v${{ needs.get-version.outputs.new_release_version }} upload-sourcemaps ./app
+        run: sentry-cli releases files v${{ needs.get-version.outputs.new_release_version }} upload-sourcemaps -u ~/app ./app
 
       - name: Set commit for release
         run: sentry-cli releases set-commits v${{ needs.get-version.outputs.new_release_version }} --auto
