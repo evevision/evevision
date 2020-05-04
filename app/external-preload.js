@@ -32,8 +32,8 @@ window.open = function (url, target, features, replace) {
 };
 
 window.close = function () {
-  console.log("evevision close")
+  console.log("evevision close");
   ipcRenderer.send("external-windowClose");
-}
+};
 
 console.log("EveVision preloaded");
