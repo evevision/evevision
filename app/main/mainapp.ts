@@ -215,18 +215,22 @@ export default class MainApp {
   }
 
   public setupIpc() {
-    ipcMain.on("external-windowClose",(e: IpcMainEvent) => {
+    ipcMain.on("external-windowClose", (e: IpcMainEvent) => {
       if (!e.sender.isDestroyed()) {
         log.info("External site requesting close");
         const parentWindowInstance = this.windowInstanceMap.get(e.sender.id);
         if (parentWindowInstance) {
           // this came from a childwindow
-          const childWindowParent = parentWindowInstance.eveWindows.find(ew => ew.childWindow !== undefined && ew.childWindow.webContentsId === e.sender.id);
+          const childWindowParent = parentWindowInstance.eveWindows.find(
+            (ew) =>
+              ew.childWindow !== undefined &&
+              ew.childWindow.webContentsId === e.sender.id
+          );
           childWindowParent.close();
         }
       }
-    })
-    
+    });
+
     ipcMain.handle(
       "external-windowOpen",
       (
@@ -240,7 +244,11 @@ export default class MainApp {
         }
       ): number => {
         if (!e.sender.isDestroyed()) {
-          log.info("External site requesting new window", args.origin, args.url);
+          log.info(
+            "External site requesting new window",
+            args.origin,
+            args.url
+          );
           const parentWindowInstance = this.windowInstanceMap.get(e.sender.id);
           if (parentWindowInstance) {
             let targetUrl;
@@ -273,9 +281,10 @@ export default class MainApp {
               "externalsite",
               targetUrl,
               meta,
-                parentWindowInstance.eveWindows.find(
-                    (w) => w.childWindow && w.childWindow.webContentsId === e.sender.id
-                )
+              parentWindowInstance.eveWindows.find(
+                (w) =>
+                  w.childWindow && w.childWindow.webContentsId === e.sender.id
+              )
             );
 
             return window.windowId;

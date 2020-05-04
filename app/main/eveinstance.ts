@@ -103,8 +103,10 @@ export default class EveInstance {
   }
 
   public closeWindowByWebContentsId(webContentsId: number) {
-    const window = this.eveWindows.find((w) => w.webContentsId === webContentsId);
-    console.log("window?", window)
+    const window = this.eveWindows.find(
+      (w) => w.webContentsId === webContentsId
+    );
+    console.log("window?", window);
     this._closeWindow(window);
   }
 
@@ -112,8 +114,8 @@ export default class EveInstance {
     if (window !== undefined) {
       if (window.windowName === "ricardo" && this.fullscreenOverlay) {
         this.fullscreenOverlay.electronWindow.webContents.send(
-            "ricardo",
-            false
+          "ricardo",
+          false
         );
       }
       window.close();

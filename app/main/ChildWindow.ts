@@ -1,9 +1,8 @@
-import EveWindow, { Rect } from "./EveWindow";
+import { Rect } from "./EveWindow";
 import { BrowserWindow } from "electron";
 import * as URL from "url";
 import log from "../shared/log";
 import path from "path";
-import { ExternalToolMeta } from "../shared/externaltool";
 import EveInstance from "./eveinstance";
 
 // official CCP sites
@@ -55,7 +54,7 @@ export default class ChildWindow {
     titleCallback: (title: string) => void,
     secureCallback: (secure: boolean) => void,
     closeCallback: () => void,
-    parentInstance: EveInstance,
+    parentInstance: EveInstance
   ) {
     log.info("Creating child window", url);
 
@@ -125,23 +124,44 @@ export default class ChildWindow {
   }
 
   sendInputEvent(inputEvent: any): void {
-    if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("control") && inputEvent.modifiers.length == 1 && inputEvent.keyCode == "R") {
+    if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("control") &&
+      inputEvent.modifiers.length === 1 &&
+      inputEvent.keyCode === "R"
+    ) {
       // CTRL+R
       this.electronWindow.webContents.reload();
       log.info("User requested page reload");
-    } else if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("control") && inputEvent.modifiers.includes("shift") && inputEvent.modifiers.length == 2 && inputEvent.keyCode == "R") {
+    } else if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("control") &&
+      inputEvent.modifiers.includes("shift") &&
+      inputEvent.modifiers.length === 2 &&
+      inputEvent.keyCode === "R"
+    ) {
       // CTRL+SHIFT+R
       this.electronWindow.webContents.reloadIgnoringCache();
       log.info("User requested page reload ignoring cache");
-    } else if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("alt") && inputEvent.modifiers.length == 1 && inputEvent.keyCode == "Left") {
+    } else if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("alt") &&
+      inputEvent.modifiers.length === 1 &&
+      inputEvent.keyCode === "Left"
+    ) {
       // Alt + Left Arrow
-      if(this.electronWindow.webContents.canGoBack()) {
+      if (this.electronWindow.webContents.canGoBack()) {
         this.electronWindow.webContents.goBack();
         log.info("User requested page back");
       }
-    } else if(inputEvent.type == "keyDown" && inputEvent.modifiers.includes("alt") && inputEvent.modifiers.length == 1 && inputEvent.keyCode == "Right") {
+    } else if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("alt") &&
+      inputEvent.modifiers.length === 1 &&
+      inputEvent.keyCode === "Right"
+    ) {
       // Alt + Right Arrow
-      if(this.electronWindow.webContents.canGoForward()) {
+      if (this.electronWindow.webContents.canGoForward()) {
         this.electronWindow.webContents.goForward();
         log.info("User requested page forward");
       }
@@ -186,16 +206,15 @@ export default class ChildWindow {
   }
 
   private hookWindow() {
-
     this.electronWindow.on("close", (e) => {
       try {
         this.closeCallback();
       } catch (ex) {
         log.error(
-            "Exception closing overlay window",
-            this.windowName,
-            this.windowId,
-            ex
+          "Exception closing overlay window",
+          this.windowName,
+          this.windowId,
+          ex
         );
         return;
       }
@@ -239,15 +258,18 @@ export default class ChildWindow {
     });
 
     this.electronWindow.webContents.on("did-finish-load", () => {
-      if(!this.electronWindow.isDestroyed() && !this.electronWindow.webContents.isDestroyed()) {
+      if (
+        !this.electronWindow.isDestroyed() &&
+        !this.electronWindow.webContents.isDestroyed()
+      ) {
         // the page could potentially be destroyed if it immediately calls window.close(), for example evemarketer's login popup
         if (this.hideScrollbars) {
           this.electronWindow.webContents.insertCSS(
-              "::-webkit-scrollbar{display:none;}"
+            "::-webkit-scrollbar{display:none;}"
           );
         } else {
           this.electronWindow.webContents.insertCSS(
-              "::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: transparent;}::-webkit-scrollbar{width: 6px;background-color: $panel-background;}::-webkit-scrollbar-thumb{background-color: $button-color;box-shadow: inset 0 0 2x $inner-glow;};::-webkit-scrollbar-thumb:hover{background-color: $button-color-active;box-shadow: inset 0 0 2x $inner-glow;}"
+            "::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: transparent;}::-webkit-scrollbar{width: 6px;background-color: $panel-background;}::-webkit-scrollbar-thumb{background-color: $button-color;box-shadow: inset 0 0 2x $inner-glow;};::-webkit-scrollbar-thumb:hover{background-color: $button-color-active;box-shadow: inset 0 0 2x $inner-glow;}"
           );
         }
       }
