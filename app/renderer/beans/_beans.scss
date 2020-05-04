@@ -93,10 +93,18 @@
   background-position-y: 25px;
 }
 
-.eve-welcome-bean.default {
-  background-image: url("../images/logo.png");
-  background-size: 128px;
-  background-position-x: 10px;
-  background-position-y: 25px;
-  opacity: 1;
+.eve-welcome-bean-default {
+  opacity: 0.8;
+  position: absolute;
+  left: 4px;
+  top: 24px;
+  bottom: 0;
+  width: 122px;
+  height: 122px;
+  z-index: -1;
+}
+
+.eve-welcome-bean-default > img {
+  width: 122px;
+  height: 122px;
 }
