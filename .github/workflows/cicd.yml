@@ -363,7 +363,7 @@ jobs:
 
       - name: Upload debug symbols to Sentry
         if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
-        run: sentry-cli upload-dif --include-sources --no-zips ./build/Release/native.pdb
+        run: sentry-cli upload-dif --include-sources --no-zips D:\a\evevision\evevision\build\Release\native.pdb
 
   package-app:
     runs-on: windows-latest
