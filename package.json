@@ -129,6 +129,10 @@
         ]
       }
     ],
+    "asar": {
+      "externalAllowed": true,
+      "smartUnpack": true
+    },
     "portable": {
       "artifactName": "EveVision_v${version}_Portable.exe",
       "publish": false
