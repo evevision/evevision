@@ -209,7 +209,7 @@ const tools: ToolDescription[] = [
   },
   {
     name: "Dotlan",
-    author: "Daniel Hoffend",
+    author: "Wollari",
     description: "The most well known mapping tool of New Eden",
     tags: ["intel", "map"],
     external: {
