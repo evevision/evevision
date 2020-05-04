@@ -13,6 +13,7 @@ import {
 } from "../../shared/store/characters/types";
 import superagent from "superagent";
 import { version } from "../../package.json";
+import {ExternalToolMeta} from "../../shared/externaltool";
 
 interface WelcomeProps {
   updateCharacterPublicInfo: typeof updateCharacterPublicInfo;
@@ -115,6 +116,21 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
       return <div className={"eve-welcome-bean default"}></div>;
     }
   }
+
+  openLatestVersion = () => {
+    const external: ExternalToolMeta = {
+      hideScrollbars: false,
+      url: "https://github.com/evevision/evevision/releases/latest",
+      initialWidth: 640,
+      initialHeight: 475,
+      resizable: {
+        minWidth: 640,
+        minHeight: 400,
+      },
+    }
+    ipcRenderer.send("openExternalTool", external);
+  };
+
   render() {
     if (
       this.props.character === undefined ||
@@ -149,8 +165,8 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
               </h2>
               <br />
               {this.state.newVersion ? (
-                <div className={"new-version-alert"}>
-                  <strong>Version {this.state.newVersion} available!</strong>
+                <div className={"new-version-alert"} onClick={this.openLatestVersion}>
+                    <strong>Version {this.state.newVersion} available!</strong>
                 </div>
               ) : null}
             </Typography>
