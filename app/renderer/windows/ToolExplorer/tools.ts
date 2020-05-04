@@ -149,7 +149,7 @@ const tools: ToolDescription[] = [
     external: {
       hideScrollbars: true,
       url:
-        "http://player.gamingradio.net/schedule/player/tunein_pop_up.php?station=ERSP&mode=audio",
+          "http://player.gamingradio.net/schedule/player/tunein_pop_up.php?station=ERSP&mode=audio",
       initialWidth: 330,
       initialHeight: 365,
       resizable: {
@@ -157,6 +157,21 @@ const tools: ToolDescription[] = [
         maxWidth: 330,
         minHeight: 265,
         maxHeight: 465,
+      },
+    },
+  },
+  {
+    name: "EVE Onion",
+    author: "EVE Onion",
+    description: "The leading source for the realest real news from New Eden",
+    tags: ["fun"],
+    external: {
+      url: "https://eveonion.com/",
+      initialWidth: 800,
+      initialHeight: 590,
+      resizable: {
+        minWidth: 500,
+        minHeight: 500,
       },
     },
   },
