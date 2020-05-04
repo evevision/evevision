@@ -314,6 +314,7 @@ jobs:
         working-directory: scripts
     needs:
       - build-flatbuffers
+      - get-version
 
     steps:
       - name: Checkout repo
@@ -349,6 +350,20 @@ jobs:
         with:
           name: Native node module
           path: ./build
+
+      - name: Setup Sentry CLI
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        uses: mathrix-education/setup-sentry-cli@0.1.0
+        with:
+          version: latest
+          url: https://sentry.io/
+          token: ${{ secrets.SENTRY_TOKEN }} # from GitHub secrets
+          organization: evevision
+          project: evevision
+
+      - name: Upload debug symbols to Sentry
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        run: sentry-cli upload-dif -o evevision -p app --include-sources --no-zips .
 
   package-app:
     runs-on: windows-latest
@@ -426,26 +441,32 @@ jobs:
       - name: Package
         run: yarn package
 
-      - name: Upload artifact
+      - name: Upload portable EXE artifact
         uses: actions/upload-artifact@v2-preview
         with:
-          name: Packaged release
-          path: ./release/EveVision.exe
+          name: Portable EXE
+          path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe
 
-  test-packaged-app:
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: Installer
+          path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Installer.exe
+
+  test-portable-exe:
     runs-on: windows-latest
     needs:
       - package-app
 
     steps:
-      - name: Download packaged app artifact
+      - name: Download portable EXE artifact
         uses: actions/download-artifact@v1
         with:
-          name: Packaged release
+          name: Portable EXE
           path: ./release
 
       - name: Run CICD test on packaged app
-        run: ./EveVision.exe CICD | Out-Null
+        run: ./EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe CICD | Out-Null
         working-directory: release
         env:
           CICD: true
@@ -457,14 +478,14 @@ jobs:
           name: Packaged app test logs
           path: ~/AppData/Roaming/EveVision/logs
 
-  upload-to-sentry:
+  create-sentry-release:
     if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true' && !contains(github.event.head_commit.message, 'skip ci')
     runs-on: windows-latest
     needs:
       - test-ez-scripts
       - check-js-code-quality
       - check-cpp-code-quality
-      - test-packaged-app
+      - test-portable-exe
       - get-version
 
     steps:
@@ -483,6 +504,12 @@ jobs:
           name: Renderer process
           path: ./app/renderer-dist
 
+      - name: Download native node module artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: Native node module
+          path: ./build
+
       - name: Setup Sentry CLI
         uses: mathrix-education/setup-sentry-cli@0.1.0
         with:
@@ -495,7 +522,7 @@ jobs:
       - name: Create release
         run: sentry-cli releases new v${{ needs.get-version.outputs.new_release_version }}
 
-      - name: Add files to release
+      - name: Upload sourcemaps
         run: sentry-cli releases files v${{ needs.get-version.outputs.new_release_version }} upload-sourcemaps ./app
 
       - name: Set commit for release
@@ -513,7 +540,7 @@ jobs:
       - test-ez-scripts
       - check-js-code-quality
       - check-cpp-code-quality
-      - test-packaged-app
+      - test-portable-exe
       - get-version
 
     steps:
@@ -566,26 +593,43 @@ jobs:
     runs-on: windows-latest
     needs:
       - release-app
-      - upload-to-sentry
+      - create-sentry-release
       - get-version
 
     steps:
-      - name: Download packaged app artifact
+      - name: Download portable artifact
         uses: actions/download-artifact@v1
         with:
-          name: Packaged release
+          name: Portable EXE
           path: ./release
 
-      - name: Upload asset to release
+      - name: Download installer artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: Installer
+          path: ./release
+
+      - name: Upload portable EXE to release
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.release-app.outputs.upload_url }}
-          asset_path: ./release/EveVision.exe
-          asset_name: EveVision Portable.exe
+          asset_path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe
+          asset_name: EveVision_${{ needs.get-version.outputs.effective_version }}_Portable.exe
           asset_content_type: application/vnd.microsoft.portable-executable
+
+      - name: Upload installer to release
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release-app.outputs.upload_url }}
+          asset_path: ./release/EveVision_${{ needs.get-version.outputs.effective_version }}_Installer.exe
+          asset_name: EveVision_${{ needs.get-version.outputs.effective_version }}_Installer.exe
+          asset_content_type: application/octet-stream
 
       - name: Notify discord of new release
         uses: rjstone/discord-webhook-notify@v1
@@ -593,5 +637,5 @@ jobs:
           severity: info
           description: v${{ needs.get-version.outputs.new_release_version }} has been released.
           details: ${{ needs.get-version.outputs.new_release_notes }}
-          footer: ${{ github.sha }} Run \#${{ github.run_id }}
+          footer: ${{ github.sha }} Run ${{ github.run_id }}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
