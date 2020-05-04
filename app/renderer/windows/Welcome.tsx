@@ -9,10 +9,11 @@ import {
   ApiConnectionStatus,
   ApiState,
   CharacterEsiAuth,
-  CharacterInfo
+  CharacterInfo,
 } from "../../shared/store/characters/types";
 import superagent from "superagent";
 import { version } from "../../package.json";
+import { ExternalToolMeta } from "../../shared/externaltool";
 
 interface WelcomeProps {
   updateCharacterPublicInfo: typeof updateCharacterPublicInfo;
@@ -44,7 +45,7 @@ const beans: {
   109299958: "ccp",
   924269309: "ccp", // ISD
   98075603: "ccp", // ISD CCL
-  99004425: "bastion"
+  99004425: "bastion",
 };
 
 class Welcome extends Component<WelcomeProps, WelcomeState> {
@@ -59,12 +60,12 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
   checkForLatestVersion = () => {
     superagent
       .get("http://releases.eve.vision.s3-website.us-east-2.amazonaws.com/")
-      .then(res => {
+      .then((res) => {
         if (res.text !== version) {
           this.setState({ newVersion: res.text });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to retrieve latest EveVision version", err);
       });
   };
@@ -112,9 +113,35 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
     } else if (allianceId && allianceId in beans) {
       return <div className={"eve-welcome-bean " + beans[allianceId]}></div>;
     } else {
-      return <div className={"eve-welcome-bean default"}></div>;
+      return (
+        <div className={"eve-welcome-bean-default"}>
+          <img
+            alt={""}
+            src={
+              "https://images.evetech.net/corporations/" +
+              corporationId +
+              "/logo?size=128"
+            }
+          ></img>
+        </div>
+      );
     }
   }
+
+  openLatestVersion = () => {
+    const external: ExternalToolMeta = {
+      hideScrollbars: false,
+      url: "https://github.com/evevision/evevision/releases/latest",
+      initialWidth: 640,
+      initialHeight: 475,
+      resizable: {
+        minWidth: 640,
+        minHeight: 400,
+      },
+    };
+    ipcRenderer.send("openExternalTool", external);
+  };
+
   render() {
     if (
       this.props.character === undefined ||
@@ -149,7 +176,10 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
               </h2>
               <br />
               {this.state.newVersion ? (
-                <div className={"new-version-alert"}>
+                <div
+                  className={"new-version-alert"}
+                  onClick={this.openLatestVersion}
+                >
                   <strong>Version {this.state.newVersion} available!</strong>
                 </div>
               ) : null}
@@ -204,7 +234,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
 
 const mapStateToProps = (state: AppState, ownProps: WelcomeProps) => {
   const character = state.characters.characters.find(
-    c => c.id === ownProps.characterId
+    (c) => c.id === ownProps.characterId
   );
   if (character !== undefined) {
     return { character, auth: character.auth, apiState: character.apiState };
@@ -214,5 +244,5 @@ const mapStateToProps = (state: AppState, ownProps: WelcomeProps) => {
 };
 
 export default connect(mapStateToProps, {
-  updateCharacterPublicInfo: updateCharacterPublicInfo
+  updateCharacterPublicInfo: updateCharacterPublicInfo,
 })(Welcome);

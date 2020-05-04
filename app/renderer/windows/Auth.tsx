@@ -4,7 +4,7 @@ import { AppState } from "../../shared/store/rootReducer";
 import { connect } from "react-redux";
 import {
   CharacterEsiAuth,
-  CharacterInfo
+  CharacterInfo,
 } from "../../shared/store/characters/types";
 import { deleteCharacterAuth } from "../../shared/store/characters/actions";
 interface AuthProps {
@@ -44,7 +44,7 @@ class Auth extends Component<AuthProps> {
 
 const mapStateToProps = (state: AppState, ownProps: AuthProps) => {
   const character = state.characters.characters.find(
-    c => c.id === ownProps.characterId
+    (c) => c.id === ownProps.characterId
   );
   if (character !== undefined) {
     return { character, auth: character.auth };

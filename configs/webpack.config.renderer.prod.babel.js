@@ -20,13 +20,13 @@ export default merge.smart(baseConfig, {
 
   entry: {
     renderer: [path.join(__dirname, "..", "app/renderer/index.tsx")],
-    sentry: [path.join(__dirname, "..", "app/renderer/sentry.ts")]
+    sentry: [path.join(__dirname, "..", "app/renderer/sentry.ts")],
   },
 
   output: {
     path: path.join(__dirname, "..", "app/renderer-dist"),
     publicPath: "../renderer-dist/",
-    filename: "[name].prod.js"
+    filename: "[name].prod.js",
   },
 
   module: {
@@ -36,33 +36,33 @@ export default merge.smart(baseConfig, {
         test: /\.global\.css$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: "css-loader",
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       // Pipe other styles through css modules and append to style.css
       {
         test: /^((?!\.global).)*\.css$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: "css-loader",
             options: {
               modules: {
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               },
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       // Add SASS support  - compile all .global.scss files and pipe it to style.css
       {
@@ -71,30 +71,30 @@ export default merge.smart(baseConfig, {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: "css-loader",
             options: {
               sourceMap: true,
-              importLoaders: 1
-            }
+              importLoaders: 1,
+            },
           },
           {
             loader: "resolve-url-loader",
             options: {
               sourceMap: true,
-              debug: true
-            }
+              debug: true,
+            },
           },
           {
             loader: "sass-loader",
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       // Add SASS support  - compile all other .scss files and pipe it to style.css
       {
@@ -103,33 +103,33 @@ export default merge.smart(baseConfig, {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: "css-loader",
             options: {
               modules: {
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               },
               importLoaders: 1,
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: "resolve-url-loader",
             options: {
               sourceMap: true,
-              debug: true
-            }
+              debug: true,
+            },
           },
           {
             loader: "sass-loader",
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       // WOFF2 Font
       {
@@ -138,9 +138,9 @@ export default merge.smart(baseConfig, {
           loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: "application/font-woff"
-          }
-        }
+            mimetype: "application/font-woff",
+          },
+        },
       },
       // TTF Font
       {
@@ -149,9 +149,9 @@ export default merge.smart(baseConfig, {
           loader: "url-loader",
           options: {
             limit: 20000,
-            mimetype: "font/ttf"
-          }
-        }
+            mimetype: "font/ttf",
+          },
+        },
       },
       // OTF Font
       {
@@ -160,28 +160,28 @@ export default merge.smart(baseConfig, {
           loader: "url-loader",
           options: {
             limit: 20000,
-            mimetype: "font/otf"
-          }
-        }
+            mimetype: "font/otf",
+          },
+        },
       },
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: "url-loader"
-      }
-    ]
+        use: "url-loader",
+      },
+    ],
   },
 
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: "production",
-      DEBUG_PROD: false
+      DEBUG_PROD: false,
     }),
 
     new webpack.DefinePlugin({ "global.GENTLY": false }),
 
     new MiniCssExtractPlugin({
-      filename: "style.css"
-    })
-  ]
+      filename: "style.css",
+    }),
+  ],
 });

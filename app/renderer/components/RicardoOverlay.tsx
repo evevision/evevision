@@ -16,7 +16,7 @@ export default class RicardoOverlay extends Component<
   constructor(props: RicardoProps) {
     super(props);
     this.state = {
-      dancing: false
+      dancing: false,
     };
   }
 

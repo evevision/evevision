@@ -6,7 +6,7 @@ import {
   IpcMainInvokeEvent,
   ipcMain,
   BrowserWindow,
-  IpcMainEvent
+  IpcMainEvent,
 } from "electron";
 import fs from "fs";
 import path from "path";
@@ -20,6 +20,8 @@ import { default as websiteLogo } from "website-logo";
 import { version } from "../package.json";
 import rimraf from "rimraf";
 import log from "../shared/log";
+import { ExternalToolMeta } from "../shared/externaltool";
+import EveWindow from "./EveWindow";
 require("../shared/store/characters/actions"); // we have to require it directly otherwise it gets cut out by webpack
 require("../shared/store/characters/reducers");
 
@@ -29,9 +31,11 @@ export default class MainApp {
   private markQuit = false;
   private tray: Electron.Tray | null;
   private eveInstances: Map<string, EveInstance>;
+  private windowInstanceMap: Map<number, EveInstance>; // maps browser windows to eve instances (web content IDs)
   private dllPath: string;
   private injectedPids: Set<number>;
   private scanner?: NodeJS.Timeout;
+  private iconPath: string;
 
   // used in CICD
   private didOverlayRender: boolean = false;
@@ -40,36 +44,19 @@ export default class MainApp {
   constructor() {
     this.tray = null;
     this.eveInstances = new Map();
+    this.windowInstanceMap = new Map();
     this.injectedPids = new Set();
-
+    this.iconPath = path.resolve(__dirname, "..", "evevision.ico");
     let dirPath = process.resourcesPath.includes("node_modules")
       ? path.join(process.resourcesPath, "../../../../output/overlay/Release") // not a packaged app, get it from actual output folder
       : process.resourcesPath; // packaged app, read from resources folder
 
     try {
-      // delete old DLLs if they aren't already open inside EVE
+      // delete old DLLs from the way we did it before
       rimraf.sync(process.env.APPDATA + "\\evevision_overlay_**");
     } catch (ex) {}
 
-    let tempDllPath = path.join(dirPath, "evevision_overlay.dll");
-    let salt =
-      Math.random()
-        .toString(36)
-        .substring(2, 6) +
-      Math.random()
-        .toString(36)
-        .substring(2, 6);
-    let newDllPath =
-      process.env.APPDATA + "/evevision_overlay_" + salt + ".dll";
-    if (fs.existsSync(tempDllPath)) {
-      // move the DLL.
-      // in development, we do this so the compiler can replace the file without shutting down EVE.
-      // in production, it's due to an unknown bug with the packaged app extraction, if you rerun evevision it won't extract the DLL the second time.
-      if (!fs.existsSync(newDllPath)) {
-        fs.copyFileSync(tempDllPath, newDllPath);
-      }
-    }
-    this.dllPath = newDllPath;
+    this.dllPath = path.join(dirPath, "evevision_overlay.dll");
   }
 
   public test() {
@@ -84,8 +71,8 @@ export default class MainApp {
       webPreferences: {
         nodeIntegration: true,
         webviewTag: false,
-        additionalArguments: ["2116631148", "welcome", "none", "false"]
-      }
+        additionalArguments: ["2116631148", "welcome", "none", "false"],
+      },
     };
 
     const fsoOptions: Electron.BrowserWindowConstructorOptions = {
@@ -100,10 +87,10 @@ export default class MainApp {
           "2116631148",
           "fullscreenoverlay",
           "none",
-          "false"
+          "false",
         ],
-        webviewTag: false
-      }
+        webviewTag: false,
+      },
     };
 
     const welcomeWindow = new BrowserWindow(welcomeOptions);
@@ -172,7 +159,7 @@ export default class MainApp {
       .auth("", "")
       .send({ grant_type: "authorization_code", code: authCode })
       .then(
-        success => {
+        (success) => {
           const accessToken = success.body.access_token;
           const refreshToken = success.body.refresh_token;
           // got an access token/refresh token now. get the character ID.
@@ -180,7 +167,7 @@ export default class MainApp {
             .get("https://login.eveonline.com/oauth/verify")
             .auth(accessToken, { type: "bearer" })
             .then(
-              success2 => {
+              (success2) => {
                 const characterId = Number(success2.body.CharacterID);
                 const expiresAt = new Date(
                   success2.body.ExpiresOn + "Z"
@@ -193,16 +180,25 @@ export default class MainApp {
                   )
                 );
               },
-              error => {
+              (error) => {
                 console.error("Error verifying oauth token", error);
               }
             );
         },
-        error => {
+        (error) => {
           console.error("Error getting oauth token", error);
         }
       );
   };
+
+  public registerWindow(webContentsId: number, instance: EveInstance) {
+    log.info(
+      "registering window to instance",
+      webContentsId,
+      instance.characterName
+    );
+    this.windowInstanceMap.set(webContentsId, instance);
+  }
 
   public hookLocalEveAuth() {
     protocol.registerStringProtocol(
@@ -216,10 +212,93 @@ export default class MainApp {
     if (this.scanner) {
       clearInterval(this.scanner);
     }
-    this.eveInstances.forEach(instance => instance.stop());
+    this.eveInstances.forEach((instance) => instance.stop());
   }
 
   public setupIpc() {
+    ipcMain.on("external-windowClose", (e: IpcMainEvent) => {
+      if (!e.sender.isDestroyed()) {
+        log.info("External site requesting close");
+        const parentWindowInstance = this.windowInstanceMap.get(e.sender.id);
+        if (parentWindowInstance) {
+          // this came from a childwindow
+          const childWindowParent = parentWindowInstance.eveWindows.find(
+            (ew) =>
+              ew.childWindow !== undefined &&
+              ew.childWindow.webContentsId === e.sender.id
+          );
+          childWindowParent.close();
+        }
+      }
+    });
+
+    ipcMain.handle(
+      "external-windowOpen",
+      (
+        e: IpcMainInvokeEvent,
+        args: {
+          origin: string;
+          url: string;
+          target?: string;
+          features?: string;
+          replace?: boolean;
+        }
+      ): number => {
+        if (!e.sender.isDestroyed()) {
+          log.info(
+            "External site requesting new window",
+            args.origin,
+            args.url
+          );
+          const parentWindowInstance = this.windowInstanceMap.get(e.sender.id);
+          if (parentWindowInstance) {
+            let targetUrl;
+            if (args.url.startsWith("/")) {
+              // relative URL
+              const parsedOrigin = new URL(args.origin);
+              targetUrl =
+                parsedOrigin.protocol + "//" + parsedOrigin.host + args.url;
+            } else if (
+              args.url.startsWith("https://") ||
+              args.url.startsWith("http://")
+            ) {
+              targetUrl = args.url;
+            } else {
+              log.error("URL not valid for external window open", args.url);
+              return -1;
+            }
+
+            const meta: ExternalToolMeta = {
+              url: targetUrl,
+              initialWidth: 1200,
+              initialHeight: 720,
+              resizable: {
+                minWidth: 400,
+                minHeight: 300,
+              },
+            };
+
+            const window: EveWindow = parentWindowInstance.createWindow(
+              "externalsite",
+              targetUrl,
+              meta,
+              parentWindowInstance.eveWindows.find(
+                (w) =>
+                  w.childWindow && w.childWindow.webContentsId === e.sender.id
+              )
+            );
+
+            return window.windowId;
+          } else {
+            log.error("Window not found", e.sender.id);
+            return -1;
+          }
+        } else {
+          return -1;
+        }
+      }
+    );
+
     ipcMain.on("initialRender", (event: IpcMainEvent) => {
       log.info(event.sender.id, "initial render");
     });
@@ -251,20 +330,19 @@ export default class MainApp {
   }
 
   public setupSystemTray() {
-    let iconPath: string = path.resolve(__dirname, "..", "evevision.ico");
-    if (!fs.existsSync(iconPath)) {
+    if (!fs.existsSync(this.iconPath)) {
       throw new Error("App icon not found");
     }
 
     if (!this.tray) {
-      this.tray = new Tray(iconPath);
+      this.tray = new Tray(this.iconPath);
       const contextMenu = Menu.buildFromTemplate([
         {
           label: "Quit",
           click: () => {
             this.quit();
-          }
-        }
+          },
+        },
       ]);
       this.tray.setToolTip("EveVision  " + version + " is running");
       this.tray.setContextMenu(contextMenu);
@@ -273,16 +351,16 @@ export default class MainApp {
         content:
           "Log into EVE if you haven't already. Fly without fear, capsuleer.",
         iconType: "custom",
-        icon: iconPath,
-        title: "EveVision " + version + " is ready"
+        icon: this.iconPath,
+        title: "EveVision " + version + " is ready",
       });
 
       app.on("second-instance", (_event, _commandLine, _workingDirectory) => {
         this.tray!.displayBalloon({
           content: "Just login to EVE! Fly without fear, capsuleer.",
           iconType: "custom",
-          icon: iconPath,
-          title: "EveVision is already running"
+          icon: this.iconPath,
+          title: "EveVision is already running",
         });
       });
     }
@@ -315,12 +393,36 @@ export default class MainApp {
 
   private injectEveClient(window: Overlay.IWindow) {
     this.injectedPids.add(window.processId);
-    return Overlay.injectProcess({ ...window, dllPath: this.dllPath });
+    try {
+      return Overlay.injectProcess({ ...window, dllPath: this.dllPath });
+    } catch (ex) {
+      switch (ex.message) {
+        case "Process not found":
+          this.tray!.displayBalloon({
+            content:
+              "Please run EVE as a regular user or run EveVision as admin!",
+            iconType: "custom",
+            icon: this.iconPath,
+            title: "EveVision Error",
+          });
+          break;
+        default:
+          this.tray!.displayBalloon({
+            content:
+              "There was an error connecting to your EVE client! " + ex.message,
+            iconType: "error",
+            title: "EveVision Error",
+          });
+      }
+
+      log.error("Exception while injecting process", window, ex);
+      return false;
+    }
   }
 
   private initCharacter(characterName: string, id: number) {
     log.info("Character ID found for " + characterName + ":" + id);
-    const eveInstance = new EveInstance(characterName, id);
+    const eveInstance = new EveInstance(characterName, id, this);
     this.eveInstances.set(characterName, eveInstance);
     eveInstance.start();
   }
@@ -350,13 +452,13 @@ export default class MainApp {
       }
 
       getCharacterIdByName(characterName)
-        .then(id => {
+        .then((id) => {
           if (typeof id !== "number") {
             throw id;
           }
           this.initCharacter(characterName, id);
         })
-        .catch(err => {
+        .catch((err) => {
           log.error("Error getting character ID for " + characterName, err);
           // not sure what to do here
           // this.injectedPids.delete(window.processId)

@@ -40,10 +40,10 @@ export default class FullscreenOverlay {
           this.parentInstance.characterId.toString(),
           "fullscreenoverlay",
           "none",
-          "false"
+          "false",
         ],
-        webviewTag: false
-      }
+        webviewTag: false,
+      },
     };
 
     this.electronWindow = new BrowserWindow(options);
@@ -62,6 +62,10 @@ export default class FullscreenOverlay {
     }
 
     this.electronWindow.loadFile("../renderer/app.html");
+    this.parentInstance.app.registerWindow(
+      this.webContentsId,
+      this.parentInstance
+    );
   }
 
   handleRestoreRequest = (event: IpcMainEvent, windowId: number) => {
@@ -140,15 +144,15 @@ export default class FullscreenOverlay {
         width: 1000,
         height: 1000,
         x: 0,
-        y: 0
+        y: 0,
       },
       caption: {
         left: 0,
         right: 0,
         top: 0,
-        height: 0
+        height: 0,
       },
-      dragBorderWidth: 0
+      dragBorderWidth: 0,
     });
   }
 
@@ -179,14 +183,14 @@ export default class FullscreenOverlay {
               x: 0,
               y: 0,
               width: nativeImage.getSize().width,
-              height: nativeImage.getSize().height
-            }
+              height: nativeImage.getSize().height,
+            },
           }
         );
       }
     );
 
-    this.electronWindow.on("close", _e => {
+    this.electronWindow.on("close", (_e) => {
       if (this.closed) {
         return;
       }
@@ -241,7 +245,7 @@ export default class FullscreenOverlay {
         try {
           Overlay.sendCommand(this.parentInstance.characterName, {
             command: "cursor",
-            cursor
+            cursor,
           });
         } catch (ex) {
           log.info("Exception setting cursor in fullscreen overlay");

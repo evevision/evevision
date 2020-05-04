@@ -5,7 +5,7 @@ import {
   faForward,
   faPlay,
   faPause,
-  faRandom
+  faRandom,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./jukebox.scss";
 import { Panel } from "../../ui/Layout";
@@ -43,7 +43,7 @@ class Jukebox extends React.PureComponent<{}, JukeboxState> {
     paused: true,
     volume: 50,
     positionMilliseconds: 0,
-    shuffle: false
+    shuffle: false,
   };
 
   componentDidMount() {
@@ -85,7 +85,7 @@ class Jukebox extends React.PureComponent<{}, JukeboxState> {
       nextTrackIndex = getRandomInt(0, playlist.tracks.length - 1);
     } else if (this.state.currentTrack) {
       const currentTrackIndex = playlist.tracks.findIndex(
-        track =>
+        (track) =>
           track.soundCloudTrackId === this.state.currentTrack?.soundCloudTrackId
       );
       nextTrackIndex = (currentTrackIndex + 1) % playlist.tracks.length;
@@ -100,7 +100,7 @@ class Jukebox extends React.PureComponent<{}, JukeboxState> {
       prevTrackIndex = getRandomInt(0, playlist.tracks.length - 1);
     } else if (this.state.currentTrack) {
       const currentTrackIndex = playlist.tracks.findIndex(
-        track =>
+        (track) =>
           track.soundCloudTrackId === this.state.currentTrack?.soundCloudTrackId
       );
       prevTrackIndex =
@@ -111,7 +111,7 @@ class Jukebox extends React.PureComponent<{}, JukeboxState> {
     return this.setState({
       ...this.state,
       currentTrack: nextTrack,
-      paused: false
+      paused: false,
     });
   };
 

@@ -17,10 +17,10 @@ class RemoteFavicon extends Component<RemoteFaviconProps, RemoteFaviconState> {
   componentDidMount(): void {
     ipcRenderer
       .invoke("resolveFavIcon", this.props.url)
-      .then(url => {
+      .then((url) => {
         this.setState({ url });
       })
-      .catch(err =>
+      .catch((err) =>
         console.error("Error retrieving favicon", this.props.url, err)
       );
   }
@@ -38,7 +38,7 @@ class RemoteFavicon extends Component<RemoteFaviconProps, RemoteFaviconState> {
             ")",
           width: this.props.size,
           height: this.props.size,
-          backgroundSize: this.props.size
+          backgroundSize: this.props.size,
         }}
       ></div>
     );

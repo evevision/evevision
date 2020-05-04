@@ -4,7 +4,7 @@ import EveInstance from "./eveinstance";
 import Overlay, { IFrameBuffer } from "../native";
 import Store from "electron-store";
 import path from "path";
-import { ExternalToolMeta } from "../renderer/externaltool";
+import { ExternalToolMeta } from "../shared/externaltool";
 import { isSentryEnabled } from "./sentry";
 import log from "../shared/log";
 
@@ -28,7 +28,7 @@ const defaultSizes: {
   auth: { width: 400, height: 500 },
   ricardo: { width: 1250, height: 750 },
   jukebox: { width: 600, height: 300 },
-  toolexplorer: { width: 1100, height: 600 }
+  toolexplorer: { width: 1100, height: 600 },
 };
 
 const dragBorder = 5;
@@ -77,17 +77,17 @@ export default class EveWindow {
   public readonly minWidth: number;
   public readonly minHeight: number;
   public readonly externalMeta?: ExternalToolMeta;
+  public readonly electronWindow: BrowserWindow;
+  public readonly parentWindow?: EveWindow;
 
   private readonly parentInstance: EveInstance;
   private readonly characterId: number;
-
-  private electronWindow: BrowserWindow;
 
   private lastImage?: IFrameBuffer;
   private lastChildImage?: IFrameBuffer;
 
   private childRect?: Rect;
-  private childWindow?: ChildWindow;
+  public childWindow?: ChildWindow;
 
   private closed: boolean = false;
   private minimized: boolean = false;
@@ -103,7 +103,8 @@ export default class EveWindow {
     itemId: string,
     isUserClosable: boolean,
     parentInstance: EveInstance,
-    externalMeta?: ExternalToolMeta
+    externalMeta?: ExternalToolMeta,
+    parentWindow?: EveWindow
   ) {
     this.parentInstance = parentInstance;
     this.characterId = characterId;
@@ -111,6 +112,7 @@ export default class EveWindow {
     this.itemId = itemId;
     this.isUserClosable = isUserClosable;
     this.externalMeta = externalMeta;
+    this.parentWindow = parentWindow;
     if (this.externalMeta) {
       this.isResizable = externalMeta.resizable !== undefined;
     } else {
@@ -123,7 +125,7 @@ export default class EveWindow {
     const uniqueArgs = [
       this.characterId.toString(),
       this.windowName,
-      Buffer.from(this.itemId).toString("base64")
+      Buffer.from(this.itemId).toString("base64"),
     ];
     this.windowHash = Buffer.from(uniqueArgs.toString()).toString("base64");
 
@@ -179,8 +181,8 @@ export default class EveWindow {
         nodeIntegration: true,
         offscreen: true,
         additionalArguments: args,
-        webviewTag: false
-      }
+        webviewTag: false,
+      },
     };
 
     this.electronWindow = new BrowserWindow(options);
@@ -238,7 +240,7 @@ export default class EveWindow {
 
       let storedPosition = {
         width: bounds.width,
-        height: bounds.height
+        height: bounds.height,
       } as StoredWindowPosition;
 
       if (top <= windowSnapBorder) {
@@ -292,6 +294,14 @@ export default class EveWindow {
     clearInterval(this.positionSaveInterval);
 
     log.info("window closed", this.windowName, this.windowId);
+    if (this.parentWindow && this.parentWindow.childWindow) {
+      // in case we are the popup of an external site, we need to send the preload script the notification that we are
+      // closing
+      log.info("sending close notification", "window-closed-" + this.windowId);
+      this.parentWindow.childWindow.electronWindow.webContents.send(
+        "window-closed-" + this.windowId
+      );
+    }
   }
 
   restore() {
@@ -314,7 +324,7 @@ export default class EveWindow {
     const bounds = this.electronWindow.getBounds();
     this.preMinimizeRect = {
       size: { width: bounds.width, height: bounds.height },
-      pos: { x: bounds.x, y: bounds.y }
+      pos: { x: bounds.x, y: bounds.y },
     };
     // TODO: don't set width/height to 0. if the EVE client resizes while a window is minimized at 0,0 size it appears
     // the overlay C++ gets messed up for that window and stops rendering even though frame buffers are still being sent
@@ -383,7 +393,7 @@ export default class EveWindow {
       width: rect.size.width,
       height: rect.size.height,
       x: rect.pos.x,
-      y: rect.pos.y
+      y: rect.pos.y,
     });
     this.hasUnsavedBounds = true;
   }
@@ -437,7 +447,9 @@ export default class EveWindow {
       this.handleChildWindowPaint,
       this.handleChildWindowCursor,
       this.handleChildWindowTitle,
-      this.handleChildWindowSecure
+      this.handleChildWindowSecure,
+      this.handleChildWindowClose,
+      this.parentInstance
     );
     this.childRect = { size: { width, height }, pos: { x, y } };
   };
@@ -451,6 +463,12 @@ export default class EveWindow {
   private handleChildWindowSecure = (secure: boolean) => {
     if (!this.closed && this.windowName === "externalsite") {
       this.electronWindow.webContents.send("setSecure", secure);
+    }
+  };
+
+  private handleChildWindowClose = () => {
+    if (!this.closed && this.windowName === "externalsite") {
+      this.close();
     }
   };
 
@@ -563,8 +581,8 @@ export default class EveWindow {
         x: this.childRect!.pos.x,
         y: this.childRect!.pos.y,
         width: nativeImage.getSize().width,
-        height: nativeImage.getSize().height
-      }
+        height: nativeImage.getSize().height,
+      },
     };
     if (this.minimized) {
       return;
@@ -587,7 +605,7 @@ export default class EveWindow {
     try {
       Overlay.sendCommand(this.parentInstance.characterName, {
         command: "cursor",
-        cursor
+        cursor,
       });
     } catch (ex) {
       log.info(
@@ -609,15 +627,15 @@ export default class EveWindow {
       minHeight: this.minHeight,
       nativeHandle: this.electronWindow.getNativeWindowHandle().readUInt32LE(0),
       rect: {
-        ...this.electronWindow.getBounds()
+        ...this.electronWindow.getBounds(),
       },
       caption: {
         left: dragBorder,
         right: 50,
         top: dragBorder,
-        height: captionHeight
+        height: captionHeight,
       },
-      dragBorderWidth: dragBorder
+      dragBorderWidth: dragBorder,
     });
   }
 
@@ -669,8 +687,8 @@ export default class EveWindow {
             x: x,
             y: y,
             width: nativeImage.getSize().width,
-            height: nativeImage.getSize().height
-          }
+            height: nativeImage.getSize().height,
+          },
         };
         // i'm not entirely sure if using setImmediate has any benefit or downside.
         setImmediate(() => {
@@ -695,7 +713,7 @@ export default class EveWindow {
       }
     });
 
-    this.electronWindow.on("close", _e => {
+    this.electronWindow.on("close", (_e) => {
       try {
         if (this.closed) {
           return;
@@ -759,7 +777,7 @@ export default class EveWindow {
         try {
           Overlay.sendCommand(this.parentInstance.characterName, {
             command: "cursor",
-            cursor
+            cursor,
           });
         } catch (ex) {
           log.info(
@@ -783,7 +801,7 @@ export default class EveWindow {
       width: defaultWidth || 300,
       height: defaultHeight || 300,
       x: 0,
-      y: 0
+      y: 0,
     };
 
     if (!resolution) {
@@ -801,7 +819,7 @@ export default class EveWindow {
         x: defaultSize.x || 0,
         y: defaultSize.y || 0,
         width: defaultSize.width,
-        height: defaultSize.height
+        height: defaultSize.height,
       };
     }
 

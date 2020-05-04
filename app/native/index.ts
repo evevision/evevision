@@ -1,12 +1,12 @@
 const paths: string[] = [
   "../build/Release/native.node",
   "../../build/Release/native.node",
-  "../../../build/Release/native.node"
+  "../../../build/Release/native.node",
 ];
 
 let native;
 if (typeof __webpack_require__ === "function") {
-  const required = paths.some(path => {
+  const required = paths.some((path) => {
     try {
       console.log("trying to require native at ", path);
       native = __non_webpack_require__(path);

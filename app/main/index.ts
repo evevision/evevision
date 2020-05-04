@@ -18,8 +18,9 @@ if (cicd) {
 if (isSentryEnabled && !cicd) {
   SentryInit({
     release: "v" + version,
-    dsn: dsn
+    dsn: dsn,
   });
+  log.info("Sentry active");
 }
 
 log.info("Initializing EveVision " + version);
@@ -61,4 +62,7 @@ if (!locked) {
     log.info("Electron ready, initializing EveVision " + version);
     if (!mainApp) init();
   });
+
+  // electron by default will exit if all windows close, we don't want this
+  app.on("window-all-closed", (e) => e.preventDefault());
 }

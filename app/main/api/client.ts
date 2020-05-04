@@ -5,11 +5,11 @@ import { AppState } from "../../shared/store/rootReducer";
 import {
   ApiConnectionStatus,
   CharacterEsiAuth,
-  CharacterInfo
+  CharacterInfo,
 } from "../../shared/store/characters/types";
 import {
   updateApiState,
-  updateCharacterAuth
+  updateCharacterAuth,
 } from "../../shared/store/characters/actions";
 import superagent from "superagent";
 
@@ -62,7 +62,7 @@ export default class ApiClient {
     const character:
       | CharacterInfo
       | undefined = state.characters.characters.find(
-      c => c.id === this.characterId
+      (c) => c.id === this.characterId
     );
     if (character !== undefined && character.auth !== undefined) {
       const priorAuth = this.auth;
@@ -130,7 +130,7 @@ export default class ApiClient {
           .auth("", "") // these are invalidated now, gonna move to PKCS. this was only meant as a test.
           .send({
             grant_type: "refresh_token",
-            refresh_token: this.auth.refreshToken
+            refresh_token: this.auth.refreshToken,
           });
 
         const accessToken = res.body.access_token;
@@ -194,7 +194,7 @@ export default class ApiClient {
     this.connecting = false;
     store.dispatch(
       updateApiState(this.characterId, {
-        status: ApiConnectionStatus.CONNECTED
+        status: ApiConnectionStatus.CONNECTED,
       })
     );
   };
@@ -255,7 +255,7 @@ export default class ApiClient {
     this.connecting = true;
     store.dispatch(
       updateApiState(this.characterId, {
-        status: ApiConnectionStatus.CONNECTING
+        status: ApiConnectionStatus.CONNECTING,
       })
     );
     this.socket = new WebSocket(
@@ -279,7 +279,7 @@ export default class ApiClient {
     this.clearRefreshTimer();
     store.dispatch(
       updateApiState(this.characterId, {
-        status: ApiConnectionStatus.DISCONNECTED
+        status: ApiConnectionStatus.DISCONNECTED,
       })
     );
   }

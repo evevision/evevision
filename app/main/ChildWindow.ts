@@ -1,7 +1,9 @@
 import { Rect } from "./EveWindow";
-import { BrowserWindow, shell } from "electron";
+import { BrowserWindow } from "electron";
 import * as URL from "url";
 import log from "../shared/log";
+import path from "path";
+import EveInstance from "./eveinstance";
 
 // official CCP sites
 const secureHosts = [
@@ -16,7 +18,7 @@ const secureHosts = [
   "ccpgames.com",
   "www.ccpgames.com",
   "store.eve.com",
-  "eveonline-merchandise-store.myshopify.com"
+  "eveonline-merchandise-store.myshopify.com",
 ];
 
 // Currently only used for displaying external websites
@@ -25,9 +27,10 @@ export default class ChildWindow {
   public url: string;
   public title?: string;
   public secure?: boolean;
+  public webContentsId: number;
+  public readonly electronWindow: BrowserWindow;
 
   private readonly hideScrollbars: boolean;
-  private readonly electronWindow: BrowserWindow;
   private readonly paintCallback: (
     dirtyRect: Electron.Rectangle,
     nativeImage: Electron.NativeImage
@@ -35,6 +38,8 @@ export default class ChildWindow {
   private readonly cursorCallback: (cursor: string) => void;
   private readonly titleCallback: (title: string) => void;
   private readonly secureCallback: (secure: boolean) => void;
+  private readonly closeCallback: () => void;
+  private readonly parentInstance: EveInstance;
 
   // ok seriously these callbacks are getting dumb, i need to change this
   constructor(
@@ -47,7 +52,9 @@ export default class ChildWindow {
     ) => void,
     cursorCallback: (cursor: string) => void,
     titleCallback: (title: string) => void,
-    secureCallback: (secure: boolean) => void
+    secureCallback: (secure: boolean) => void,
+    closeCallback: () => void,
+    parentInstance: EveInstance
   ) {
     log.info("Creating child window", url);
 
@@ -55,8 +62,10 @@ export default class ChildWindow {
     this.cursorCallback = cursorCallback;
     this.titleCallback = titleCallback;
     this.secureCallback = secureCallback;
+    this.closeCallback = closeCallback;
     this.hideScrollbars = hideScrollbars;
     this.url = url;
+    this.parentInstance = parentInstance;
 
     const options: Electron.BrowserWindowConstructorOptions = {
       height: initialRect.size.height,
@@ -69,18 +78,22 @@ export default class ChildWindow {
       webPreferences: {
         backgroundThrottling: false,
         disableHtmlFullscreenWindowResize: true,
-        contextIsolation: true,
+        contextIsolation: false, // have to disable this so the window can call ipcRenderer for various stuff
         enableRemoteModule: false,
         sandbox: true,
         webgl: false,
         nodeIntegration: false,
         devTools: true,
-        offscreen: true
-      }
+        offscreen: true,
+        disableDialogs: true,
+        preload: path.resolve(__dirname, "..", "external-preload.js"),
+      },
     };
 
     this.electronWindow = new BrowserWindow(options);
     this.windowId = this.electronWindow.id;
+    this.webContentsId = this.electronWindow.webContents.id;
+
     this.electronWindow.webContents.frameRate = 60;
 
     this.hookWindow();
@@ -89,6 +102,11 @@ export default class ChildWindow {
     if (process.env.NODE_ENV !== "production") {
       this.electronWindow.webContents.openDevTools({ mode: "detach" });
     }
+
+    this.parentInstance.app.registerWindow(
+      this.webContentsId,
+      this.parentInstance
+    );
   }
 
   goBack(): void {
@@ -106,6 +124,48 @@ export default class ChildWindow {
   }
 
   sendInputEvent(inputEvent: any): void {
+    if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("control") &&
+      inputEvent.modifiers.length === 1 &&
+      inputEvent.keyCode === "R"
+    ) {
+      // CTRL+R
+      this.electronWindow.webContents.reload();
+      log.info("User requested page reload");
+    } else if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("control") &&
+      inputEvent.modifiers.includes("shift") &&
+      inputEvent.modifiers.length === 2 &&
+      inputEvent.keyCode === "R"
+    ) {
+      // CTRL+SHIFT+R
+      this.electronWindow.webContents.reloadIgnoringCache();
+      log.info("User requested page reload ignoring cache");
+    } else if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("alt") &&
+      inputEvent.modifiers.length === 1 &&
+      inputEvent.keyCode === "Left"
+    ) {
+      // Alt + Left Arrow
+      if (this.electronWindow.webContents.canGoBack()) {
+        this.electronWindow.webContents.goBack();
+        log.info("User requested page back");
+      }
+    } else if (
+      inputEvent.type === "keyDown" &&
+      inputEvent.modifiers.includes("alt") &&
+      inputEvent.modifiers.length === 1 &&
+      inputEvent.keyCode === "Right"
+    ) {
+      // Alt + Right Arrow
+      if (this.electronWindow.webContents.canGoForward()) {
+        this.electronWindow.webContents.goForward();
+        log.info("User requested page forward");
+      }
+    }
     this.electronWindow.webContents.sendInputEvent(inputEvent);
   }
 
@@ -146,6 +206,20 @@ export default class ChildWindow {
   }
 
   private hookWindow() {
+    this.electronWindow.on("close", (e) => {
+      try {
+        this.closeCallback();
+      } catch (ex) {
+        log.error(
+          "Exception closing overlay window",
+          this.windowName,
+          this.windowId,
+          ex
+        );
+        return;
+      }
+    });
+
     this.electronWindow.webContents.on("will-navigate", (_e, url) => {
       let parsed = URL.parse(url);
       if (parsed.hostname && secureHosts.includes(parsed.hostname)) {
@@ -179,19 +253,25 @@ export default class ChildWindow {
     });
 
     this.electronWindow.webContents.on("new-window", (e, url) => {
+      // This should never happen anyways.
       e.preventDefault();
-      shell.openExternal(url);
     });
 
     this.electronWindow.webContents.on("did-finish-load", () => {
-      if (this.hideScrollbars) {
-        this.electronWindow.webContents.insertCSS(
-          "::-webkit-scrollbar{display:none;}"
-        );
-      } else {
-        this.electronWindow.webContents.insertCSS(
-          "::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: transparent;}::-webkit-scrollbar{width: 6px;background-color: $panel-background;}::-webkit-scrollbar-thumb{background-color: $button-color;box-shadow: inset 0 0 2x $inner-glow;};::-webkit-scrollbar-thumb:hover{background-color: $button-color-active;box-shadow: inset 0 0 2x $inner-glow;}"
-        );
+      if (
+        !this.electronWindow.isDestroyed() &&
+        !this.electronWindow.webContents.isDestroyed()
+      ) {
+        // the page could potentially be destroyed if it immediately calls window.close(), for example evemarketer's login popup
+        if (this.hideScrollbars) {
+          this.electronWindow.webContents.insertCSS(
+            "::-webkit-scrollbar{display:none;}"
+          );
+        } else {
+          this.electronWindow.webContents.insertCSS(
+            "::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: transparent;}::-webkit-scrollbar{width: 6px;background-color: $panel-background;}::-webkit-scrollbar-thumb{background-color: $button-color;box-shadow: inset 0 0 2x $inner-glow;};::-webkit-scrollbar-thumb:hover{background-color: $button-color-active;box-shadow: inset 0 0 2x $inner-glow;}"
+          );
+        }
       }
     });
 

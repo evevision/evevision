@@ -3,11 +3,27 @@ import { Panel, Typography, WindowButtons } from "../ui/Layout";
 import { Button } from "../ui/Input";
 // import hordelogo from "../images/hordelogo.png";
 import { version } from "../../package.json";
+import { ExternalToolMeta } from "../../shared/externaltool";
+import { ipcRenderer } from "electron";
 
 const About = () => {
   useEffect(() => {
     document.title = "About";
   });
+
+  const openPatreon = () => {
+    const external: ExternalToolMeta = {
+      hideScrollbars: false,
+      url: "https://patreon.com/evevision",
+      initialWidth: 1200,
+      initialHeight: 688,
+      resizable: {
+        minWidth: 640,
+        minHeight: 400,
+      },
+    };
+    ipcRenderer.send("openExternalTool", external);
+  };
 
   return (
     <>
@@ -20,31 +36,13 @@ const About = () => {
 
             <br />
 
-            <h2 style={{ textAlign: "center" }}>
-              This tool is not endorsed or approved by CCP.
-            </h2>
-
             <div style={{ textAlign: "center" }}>
               This software is licensed under the GPLv3 license.
               <br />
-              You can download the source code and new releases from{" "}
-              <a
-                href={"https://github.com/evevision/evevision"}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                https://github.com/evevision/evevision
-              </a>
-              .<br />
-              For support, please visit our Discord channel at{" "}
-              <a
-                href={"https://discord.gg/wWMasVf"}
-                target={"_blank"}
-                rel="noopener noreferrer"
-              >
-                https://discord.gg/BBBJRkM
-              </a>
-              .<br />
+              <br />
+              For support, join ingame channel 'EveVision Help' or Discord on
+              the EveVision website.
+              <br />
               <br />
               ISK Donations are accepted to the ingame character{" "}
               <strong>EveVision</strong>.<br />
@@ -88,7 +86,7 @@ const About = () => {
               <tr>
                 <td>Various Repo Contributions :</td>
 
-                <td>Eris Kirke, Hitoru Okasaki</td>
+                <td>Eris Kirke, Hitoru Okasaki, snipereagle1</td>
               </tr>
             </table>
             <h2>External Tools</h2>
@@ -146,7 +144,7 @@ const About = () => {
               <tr>
                 <td>Dotlan :</td>
 
-                <td>Daniel Hoffend</td>
+                <td>Wollari</td>
               </tr>
 
               <tr>
@@ -229,14 +227,11 @@ const About = () => {
             <hr />
             <h4>
               You can donate at{" "}
-              <a
-                href={"https://patreon.com/evevision"}
-                target={"_blank"}
-                rel="noopener noreferrer"
-              >
+              <button className={"eve-link"} onClick={openPatreon}>
                 https://patreon.com/evevision
-              </a>{" "}
-              to get your character name here <strong>forever.</strong>
+              </button>{" "}
+              to have your character name and corporation here{" "}
+              <strong>forever.</strong>
             </h4>
             <br />
             <br />
@@ -244,30 +239,44 @@ const About = () => {
               style={{
                 textAlign: "center",
                 fontWeight: "normal",
-                textShadow: "0px 2px 2px red"
+                textShadow: "0px 2px 2px red",
               }}
             >
               Mr. Helious Jin-Mei & Mrs. Wheezy Garlic of Northern Coalition.
+              <br />
+              MonkeyChuff Auduin of Ricochet Inc.
             </h1>
             <br />
             <h2
               style={{
                 textAlign: "center",
                 fontWeight: "normal",
-                textShadow: "0px 2px 2px gold"
+                textShadow: "0px 2px 2px gold",
               }}
             >
               Sonya Rovana of Capital Fusion
+              <br />
+              John Holt of Silent Coalition
             </h2>
             <br />
             <h4
               style={{
                 textAlign: "center",
                 fontWeight: "normal",
-                textShadow: "0px 2px 2px silver"
+                textShadow: "0px 2px 2px silver",
               }}
             >
               Andres M Afanador of DICE / Inner Hell
+            </h4>
+            <br />
+            <h4
+              style={{
+                textAlign: "center",
+                fontWeight: "normal",
+                textShadow: "0px 2px 2px bronze",
+              }}
+            >
+              Fire is Stunning
             </h4>
           </Typography>
         </div>
