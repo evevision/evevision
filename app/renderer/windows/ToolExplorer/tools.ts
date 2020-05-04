@@ -548,6 +548,24 @@ const tools: ToolDescription[] = [
     },
   },
   {
+    name: "Yandex Translate",
+    author: "Yandex",
+    description:
+        "Another alternative translator some say works better for certain languages",
+    tags: ["communication"],
+    external: {
+      hideScrollbars: true,
+      url: "https://translate.yandex.com/",
+      initialWidth: 1040,
+      initialHeight: 300,
+      resizable: {
+        minWidth: 1040,
+        maxWidth: 1300,
+        minHeight: 300,
+      },
+    },
+  },
+  {
     name: "Discord",
     author: "Discord",
     description: "The chat app of choice for EVE players",
