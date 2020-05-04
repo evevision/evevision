@@ -240,6 +240,16 @@ jobs:
           name: Main process
           path: ./app/main-dist
 
+      - name: Setup Sentry CLI
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        uses: mathrix-education/setup-sentry-cli@0.1.0
+        with:
+          version: latest
+          url: https://sentry.io/
+          token: ${{ secrets.SENTRY_TOKEN }} # from GitHub secrets
+          organization: evevision
+          project: app
+
       - name: Upload debug symbols to Sentry
         if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
         run: sentry-cli upload-dif --include-sources --no-zips D:\a\evevision\evevision\
@@ -294,6 +304,16 @@ jobs:
         with:
           name: Renderer process
           path: ./app/renderer-dist
+
+      - name: Setup Sentry CLI
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        uses: mathrix-education/setup-sentry-cli@0.1.0
+        with:
+          version: latest
+          url: https://sentry.io/
+          token: ${{ secrets.SENTRY_TOKEN }} # from GitHub secrets
+          organization: evevision
+          project: app
 
       - name: Upload debug symbols to Sentry
         if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
@@ -468,6 +488,16 @@ jobs:
         with:
           name: Installer
           path: ./release/EveVision_v${{ needs.get-version.outputs.effective_version }}_Installer.exe
+
+      - name: Setup Sentry CLI
+        if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
+        uses: mathrix-education/setup-sentry-cli@0.1.0
+        with:
+          version: latest
+          url: https://sentry.io/
+          token: ${{ secrets.SENTRY_TOKEN }} # from GitHub secrets
+          organization: evevision
+          project: app
 
       - name: Upload debug symbols to Sentry
         if: github.event_name == 'push' && needs.get-version.outputs.new_release_will_be_published == 'true'
