@@ -551,7 +551,7 @@ const tools: ToolDescription[] = [
     name: "Yandex Translate",
     author: "Yandex",
     description:
-        "Another alternative translator some say works better for certain languages",
+      "Another alternative translator some say works better for certain languages",
     tags: ["communication"],
     external: {
       hideScrollbars: true,
