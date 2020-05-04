@@ -102,7 +102,7 @@ jobs:
 
       - name: Execute packaged app
         if: matrix.script == 'package'
-        run: ./EveVision.exe CICD | Out-Null
+        run: ./EveVision_v1337.0.0_Portable.exe CICD | Out-Null
         working-directory: release
         env:
           CICD: true
