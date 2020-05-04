@@ -35,6 +35,7 @@ export default class MainApp {
   private dllPath: string;
   private injectedPids: Set<number>;
   private scanner?: NodeJS.Timeout;
+  private iconPath: string;
 
   // used in CICD
   private didOverlayRender: boolean = false;
@@ -45,7 +46,7 @@ export default class MainApp {
     this.eveInstances = new Map();
     this.windowInstanceMap = new Map();
     this.injectedPids = new Set();
-
+    this.iconPath = path.resolve(__dirname, "..", "evevision.ico");
     let dirPath = process.resourcesPath.includes("node_modules")
       ? path.join(process.resourcesPath, "../../../../output/overlay/Release") // not a packaged app, get it from actual output folder
       : process.resourcesPath; // packaged app, read from resources folder
@@ -329,13 +330,12 @@ export default class MainApp {
   }
 
   public setupSystemTray() {
-    let iconPath: string = path.resolve(__dirname, "..", "evevision.ico");
-    if (!fs.existsSync(iconPath)) {
+    if (!fs.existsSync(this.iconPath)) {
       throw new Error("App icon not found");
     }
 
     if (!this.tray) {
-      this.tray = new Tray(iconPath);
+      this.tray = new Tray(this.iconPath);
       const contextMenu = Menu.buildFromTemplate([
         {
           label: "Quit",
@@ -351,7 +351,7 @@ export default class MainApp {
         content:
           "Log into EVE if you haven't already. Fly without fear, capsuleer.",
         iconType: "custom",
-        icon: iconPath,
+        icon: this.iconPath,
         title: "EveVision " + version + " is ready",
       });
 
@@ -359,7 +359,7 @@ export default class MainApp {
         this.tray!.displayBalloon({
           content: "Just login to EVE! Fly without fear, capsuleer.",
           iconType: "custom",
-          icon: iconPath,
+          icon: this.iconPath,
           title: "EveVision is already running",
         });
       });
@@ -393,7 +393,31 @@ export default class MainApp {
 
   private injectEveClient(window: Overlay.IWindow) {
     this.injectedPids.add(window.processId);
-    return Overlay.injectProcess({ ...window, dllPath: this.dllPath });
+    try {
+      return Overlay.injectProcess({ ...window, dllPath: this.dllPath });
+    } catch (ex) {
+      switch (ex.message) {
+        case "Process not found":
+          this.tray!.displayBalloon({
+            content:
+              "Please run EVE as a regular user or run EveVision as admin!",
+            iconType: "custom",
+            icon: this.iconPath,
+            title: "EveVision Error",
+          });
+          break;
+        default:
+          this.tray!.displayBalloon({
+            content:
+              "There was an error connecting to your EVE client! " + ex.message,
+            iconType: "error",
+            title: "EveVision Error",
+          });
+      }
+
+      log.error("Exception while injecting process", window, ex);
+      return false;
+    }
   }
 
   private initCharacter(characterName: string, id: number) {
