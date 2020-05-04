@@ -93,7 +93,7 @@ Assuming you've got node, python, yarn, and VS2019 build tools installed:
 ```
 git clone git@github.com:/evevision/evevision.git
 cd evevision
-yarn package # OR yarn dev to run in development mode!
+yarn ez:package # OR yarn ez:dev to run in development mode!
 ```
 Read the rest of the README for more info.
 
@@ -183,26 +183,26 @@ You will need the following installed:
 Download the repo by cloning it or getting the ZIP and extracting it to a local directory of your choice.
 
 #### Generate Packaged Executable
-Run `yarn package` and a packaged executable will be output to `release/EveVision.exe`.
+Run `yarn ez:package` and a packaged executable will be output to `release/EveVision.exe`.
 
 All components will be built to ensure the latest code is packaged.
-To quickly repackage the app without running any builds, use `yarn package-skip-build` instead.
+To quickly repackage the app without running any builds, use `yarn package` or `yarn package:fast` instead.
 
 #### Development Mode
-Simply run `yarn dev`
+Simply run `yarn ez:dev`
 
-All components will be built beforehand to ensure the latest code is running. To quickly start development mode without running any builds, run `yarn dev-skip-build` instead. Hot-reloading will be enabled so you can see your changes inside EVE in real time.
+All components will be built beforehand to ensure the latest code is running. To quickly start development mode without running any builds, run `yarn start:dev` instead. Hot-reloading will be enabled so you can see your changes inside EVE in real time.
 
 #### Production Mode
-To build and run EveVision but without packaging it into an EXE, simply run `yarn start`. To quickly run the app without running any builds, use `yarn start-skip-build` instead.
+To build and run EveVision but without packaging it into an EXE, simply run `yarn ez:prod`. To quickly run the app without running any builds, use `yarn start:prod` instead.
 
 #### Making changes to C++
 If you make any changes to the C++, you need to know a few things:
 * You don't necessarily have to shut down EVE before injecting a new version of the overlay. Old versions sit there doing nothing. However, it's usually a good idea.
-* After making your changes to the overlay DLL, run `yarn build-overlay`. You don't have to restart EveVision for it to inject the latest DLL.
-* After making changes to the node native module, run `yarn build-native`. You **will** have to restart EveVision.
+* After making your changes to the overlay DLL, run `yarn build:cpp:overlay`. You don't have to restart EveVision for it to inject the latest DLL.
+* After making changes to the node native module, run `yarn build:cpp:native-node`. You **will** have to restart EveVision.
 
-All build commands are run beforehand with `yarn dev`, `yarn start`, and `yarn package`.
+All build commands are run beforehand with `yarn ez:dev`, `yarn ez:prod`, and `yarn ez:package`.
 
 ## Thanks
 This project uses portions of code from and was inspired by https://github.com/hiitiger/gelectron
