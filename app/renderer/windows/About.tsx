@@ -231,8 +231,11 @@ const About = () => {
             <hr />
             <h4>
               You can donate at{" "}
-              <a href="#" onClick={openPatreon}>https://patreon.com/evevision</a> to have
-              your character name and corporation here <strong>forever.</strong>
+              <button className={"eve-link"} onClick={openPatreon}>
+                https://patreon.com/evevision
+              </button>{" "}
+              to have your character name and corporation here{" "}
+              <strong>forever.</strong>
             </h4>
             <br />
             <br />
