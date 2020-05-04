@@ -266,6 +266,7 @@ export default class EveInstance {
       }
     } else if (event === "game.exit") {
       log.info("Received game exit", this.characterName);
+      this.stop();
     } else if (event === "log") {
       log.info("from overlay: " + payload.message);
     }

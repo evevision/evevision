@@ -62,4 +62,7 @@ if (!locked) {
     log.info("Electron ready, initializing EveVision " + version);
     if (!mainApp) init();
   });
+
+  // electron by default will exit if all windows close, we don't want this
+  app.on("window-all-closed", (e) => e.preventDefault());
 }
