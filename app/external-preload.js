@@ -1,11 +1,39 @@
 const { ipcRenderer } = require("electron");
 
+// Intercept link clicks
+function interceptClickEvent(e) {
+  const eTarget = e.target || e.srcElement;
+  if (eTarget.tagName === "A") {
+    const href = eTarget.getAttribute("href");
+    const target = eTarget.getAttribute("target");
+
+    if (target == "_blank") {
+      e.preventDefault();
+      console.log("EveVision intercepting link open", target);
+      ipcRenderer.invoke("external-windowOpen", {
+        // eslint-disable-next-line no-restricted-globals
+        origin: location.origin,
+        url: href,
+        target: target,
+      });
+    }
+  }
+}
+
+//listen for link click events at the document level
+if (document.addEventListener) {
+  document.addEventListener("click", interceptClickEvent);
+} else if (document.attachEvent) {
+  document.attachEvent("onclick", interceptClickEvent);
+}
+
+// Replace window.open
 const originalOpen = window.open;
 
 window.open = function (url, target, features, replace) {
   if (target === "_self") {
     return originalOpen(url, target, features, replace);
-  } else if (target !== "_blank") {
+  } else {
     console.log("EveVision intercepting window open", target);
 
     const windowProxy = {
