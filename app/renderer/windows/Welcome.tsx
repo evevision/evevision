@@ -113,7 +113,18 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
     } else if (allianceId && allianceId in beans) {
       return <div className={"eve-welcome-bean " + beans[allianceId]}></div>;
     } else {
-      return <div className={"eve-welcome-bean default"}></div>;
+      return (
+        <div className={"eve-welcome-bean-default"}>
+          <img
+            alt={""}
+            src={
+              "https://images.evetech.net/corporations/" +
+              corporationId +
+              "/logo?size=128"
+            }
+          ></img>
+        </div>
+      );
     }
   }
 
