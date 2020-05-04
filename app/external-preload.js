@@ -38,6 +38,7 @@ window.open = function (url, target, features, replace) {
 
     const windowProxy = {
       closed: false,
+      focus: () => {},
     };
 
     ipcRenderer
@@ -52,7 +53,7 @@ window.open = function (url, target, features, replace) {
       .then((windowId) => {
         ipcRenderer.once("window-closed-" + windowId, () => {
           console.log("EveVision window " + windowId + " closed");
-          //windowProxy.closed = true;
+          windowProxy.closed = true;
         });
       });
     return windowProxy;
