@@ -135,7 +135,7 @@
     "nsis": {
       "artifactName": "EveVision_v${version}_Installer.exe",
       "deleteAppDataOnUninstall": true,
-      "oneClick": false,
+      "oneClick": true,
       "perMachine": true,
       "runAfterFinish": true,
       "publish": false
