@@ -468,6 +468,21 @@ const tools: ToolDescription[] = [
       },
     },
   },
+  {
+    name: "EVE Ref",
+    author: "Autonomous Logic",
+    description: "Look up any item in EVE Online",
+    tags: ["generic"],
+    external: {
+      url: "https://everef.net/",
+      initialWidth: 560,
+      initialHeight: 400,
+      resizable: {
+        minWidth: 560,
+        minHeight: 400,
+      },
+    },
+  },
   //
   // Non EVE tools
   //
