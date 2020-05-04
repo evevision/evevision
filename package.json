@@ -21,7 +21,7 @@
     "install": "rem",
     "generate:esi": "node -r @babel/register ./scripts/GenerateEsiSwagger.js",
     "build": "yarn build:app-deps && concurrently \"yarn build:cpp\" \"yarn build:js\"",
-    "build:app-deps": "node -r @babel/register ./scripts/ElectronRebuild.js && cd app && yarn install",
+    "build:app-deps": "cd app && yarn install && cd .. && node -r @babel/register ./scripts/ElectronRebuild.js",
     "build:cpp": "yarn build:cpp:flatbuffers && concurrently \"yarn build:cpp:native-node\" \"yarn build:cpp:overlay\"",
     "build:cpp:flatbuffers": "node -r @babel/register scripts/BuildFlatbuffers.js",
     "build:cpp:overlay": "node -r @babel/register scripts/BuildOverlay.js",
