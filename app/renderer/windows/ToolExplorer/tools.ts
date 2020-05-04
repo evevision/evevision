@@ -629,6 +629,22 @@ const tools: ToolDescription[] = [
     tags: ["generic"],
     windowName: "terminal",
   },
+  {
+    name: "Screeps",
+    author: "Screeps",
+    description:
+      "A sandbox MMO for programmers. That's right, you can play a sandbox MMO in a sandbox MMO.",
+    tags: ["fun"],
+    external: {
+      url: "https://screeps.com/a/#!/overview",
+      initialWidth: 875,
+      initialHeight: 600,
+      resizable: {
+        minWidth: 875,
+        minHeight: 500,
+      },
+    },
+  },
 ];
 
 export const defaultFavorites: string[] = [
