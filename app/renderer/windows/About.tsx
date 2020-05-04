@@ -36,10 +36,6 @@ const About = () => {
 
             <br />
 
-            <h2 style={{ textAlign: "center" }}>
-              Hurga durga durga. This is a test alpha release durga burga.
-            </h2>
-
             <div style={{ textAlign: "center" }}>
               This software is licensed under the GPLv3 license.
               <br />
