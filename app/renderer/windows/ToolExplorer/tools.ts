@@ -671,6 +671,8 @@ export const defaultFavorites: string[] = [
   "Wormhole 911",
   "DScan Info",
   "Google Translator",
+  "EVE Radio",
+  "Jukebox",
 ];
 
 export default tools;
