@@ -144,7 +144,7 @@ const About = () => {
               <tr>
                 <td>Dotlan :</td>
 
-                <td>Daniel Hoffend</td>
+                <td>Wollari</td>
               </tr>
 
               <tr>
