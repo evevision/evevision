@@ -92,6 +92,7 @@
     "files": [
       "package.json",
       "evevision.ico",
+      "external-preload.js",
       {
         "from": "./main-dist",
         "to": "main-dist",
