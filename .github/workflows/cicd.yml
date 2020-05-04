@@ -214,6 +214,14 @@ jobs:
       - name: Install yarn packages
         run: yarn install
 
+      - name: Inject Sentry DSN for new release
+        if: needs.get-version.outputs.new_release_will_be_published == 'true'
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/sentry.ts"]'
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+
       - name: Replace version in package.json
         uses: onlyutkarsh/patch-files-action@v1.0.1
         with:
@@ -256,6 +264,14 @@ jobs:
 
       - name: Install yarn packages
         run: yarn install
+
+      - name: Inject Sentry DSN for new release
+        if: needs.get-version.outputs.new_release_will_be_published == 'true'
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/sentry.ts"]'
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
       - name: Replace version in package.json
         uses: onlyutkarsh/patch-files-action@v1.0.1
@@ -420,14 +436,6 @@ jobs:
         with:
           name: Native node module
           path: ./build
-
-      - name: Inject Sentry DSN for new release
-        if: needs.get-version.outputs.new_release_will_be_published == 'true'
-        uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["**/sentry.ts"]'
-        env:
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
       - name: Replace version in package.json
         uses: onlyutkarsh/patch-files-action@v1.0.1
