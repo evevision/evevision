@@ -72,52 +72,27 @@ function Root() {
     ipcRenderer.send("initialRender"); // tell main we've successfully rendered to DOM
   }, []);
 
-  if (windowName === "fullscreenoverlay") {
-    return (
-      <Provider store={store}>
-        <ReactTooltip
-          multiline={true}
-          effect={"solid"}
-          arrowColor={"black"}
-          class={tooltipStyle["tooltip"]}
-        />
+  return (
+    <Provider store={store}>
+      <ReactTooltip
+        multiline={true}
+        effect={"solid"}
+        arrowColor={"black"}
+        class={tooltipStyle["tooltip"]}
+      />
+      {windowName === "fullscreenoverlay" ? (
         <FSORoot characterId={characterId} />
-      </Provider>
-    );
-  } else {
-    if (isClosable) {
-      return (
-        <Provider store={store}>
-          <ReactTooltip
-            multiline={true}
-            effect={"solid"}
-            arrowColor={"black"}
-            class={tooltipStyle["tooltip"]}
-          />
-          <Window
-            onRequestMinimize={onRequestMinimize}
-            onRequestClose={onRequestClose}
-          >
-            {windowContents}
-          </Window>
-        </Provider>
-      );
-    } else {
-      return (
-        <Provider store={store}>
-          <ReactTooltip
-            multiline={true}
-            effect={"solid"}
-            arrowColor={"black"}
-            class={tooltipStyle["tooltip"]}
-          />
-          <Window onRequestMinimize={onRequestMinimize}>
-            {windowContents}
-          </Window>
-        </Provider>
-      );
-    }
-  }
+      ) : (
+        <Window
+          onRequestMinimize={onRequestMinimize}
+          onRequestClose={isClosable ? undefined : onRequestClose}
+          hideTitle={windowName === "toolexplorer"}
+        >
+          {windowContents}
+        </Window>
+      )}
+    </Provider>
+  );
 }
 
 export default hot(Root);

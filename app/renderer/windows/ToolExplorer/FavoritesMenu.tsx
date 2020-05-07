@@ -65,7 +65,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
   render() {
     return (
       <>
-        <div className="eve-overlay-menu-title">Favorite Tools</div>
+        <div className="eve-overlay-menu-title">Favorite TOOLs</div>
         <div className="eve-minimized-windows-list eve-scrollbar">
           <div className={styles["tools"]}>
             {this.state.favoriteTools.map(this.tool)}
@@ -77,7 +77,7 @@ class FavoritesMenu extends Component<{}, FavoritesMenuState> {
               ipcRenderer.send("openWindow", "toolexplorer");
             }}
           >
-            Open Tool Explorer
+            Open TOOL Explorer
           </Button>
         </div>
       </>

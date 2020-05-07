@@ -191,7 +191,7 @@ class Welcome extends Component<WelcomeProps, WelcomeState> {
                 ipcRenderer.send("openWindow", "toolexplorer");
               }}
             >
-              Tool Explorer
+              TOOL Explorer
             </Button>
             <Button
               onClick={() => {

@@ -14,6 +14,7 @@ $link: rgba(217, 141, 0, 1);
 $link-hover: rgba(255, 183, 50, 1);
 
 $window-background: adjust-color($secondary-color, $lightness: -2%, $alpha: $transparency);
+$window-background-opaque: adjust-color($secondary-color, $lightness: -2%, $alpha: 1);
 
 $panel-background: adjust-color($secondary-color, $alpha: $transparency);
 $panel-background-active: adjust-color($panel-background, $lightness: 6%);

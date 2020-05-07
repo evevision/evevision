@@ -5,8 +5,8 @@ type State = Readonly<typeof initialState>;
 interface WindowProps {
   onRequestClose?: () => void;
   onRequestMinimize?: () => void;
-  closeable: boolean;
-  children: any; // ill figure this out later
+  children: any; // ill figure this out
+  hideTitle?: boolean;
 }
 
 export class Window extends Component<WindowProps, State> {
@@ -87,7 +87,7 @@ export class Window extends Component<WindowProps, State> {
           id="eve-window"
         >
           <div className="eve-window-titlebar">
-            <div className="eve-window-titlebar-title">{document.title}</div>
+            {this.props.hideTitle ? "" : <div className="eve-window-titlebar-title">{document.title}</div>}
             {this.state.hovered ? this.titlebarButtons() : null}
           </div>
           <div className="eve-window-contents">{childrenWithProps}</div>

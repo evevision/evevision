@@ -125,7 +125,7 @@ class MinimizedWindowMenu extends Component<{}, MinimizedWindowMenuState> {
   render() {
     return (
       <>
-        <div className="eve-overlay-menu-title">Minimized Windows</div>
+        <div className="eve-overlay-menu-title">Minimized TOOLs</div>
         <div className="eve-minimized-windows-list eve-scrollbar">
           {this.state.minimizedWindows.map((w) => this.windowEntry(w))}
         </div>

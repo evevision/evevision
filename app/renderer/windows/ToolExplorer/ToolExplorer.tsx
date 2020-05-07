@@ -7,12 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
 import Store from "electron-store";
 import RemoteFavicon from "./RemoteFavicon";
+import logo from "../../images/logo.png";
+import {TextInput} from "../../ui/Input";
 
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
 
 interface ToolExplorerState {
   selectedTags: string[];
   favoriteTools: string[];
+  addToolsOpen: boolean;
 }
 
 // TODO: hiding tools
@@ -23,13 +26,13 @@ interface ToolExplorerState {
 
 class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   explorerRef: any;
-  customToolsRef: any;
   tags: string[];
   toolsCallback?: () => void;
 
   state: ToolExplorerState = {
     selectedTags: [],
     favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites,
+    addToolsOpen: false,
   };
 
   constructor(props: {}) {
@@ -58,7 +61,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   };
 
   componentDidMount() {
-    document.title = "Tool Explorer";
+    document.title = "TOOL Explorer";
     this.toolsCallback = favoriteTools.onDidChange(
       "favoriteTools",
       (newValue, oldValue) => {
@@ -113,6 +116,14 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     } else {
       this.removeFavorite(tool);
     }
+  };
+
+  openAddTools = () => {
+    this.setState({ ...this.state, addToolsOpen: true });
+  };
+
+  closeAddTools = () => {
+    this.setState({ ...this.state, addToolsOpen: false });
   };
 
   resetTags = () => {
@@ -227,22 +238,64 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   render() {
     return (
       <div className={styles["container"]}>
+        <div
+          className={
+            styles["dialogBlackout"] +
+            (this.state.addToolsOpen ? " " + styles["visible"] : "")
+          }
+          onClick={this.closeAddTools}
+        ></div>
+        <div
+          className={
+            styles["dialog"] + (this.state.addToolsOpen ? " " + styles["visible"] : "")
+          }
+        >
+          <div className={styles["dialogContents"]}>
+            <div className={styles["createTool"]}>
+              <h2>Create custom TOOL</h2>
+              <span>Name:</span> <TextInput>lol</TextInput>
+              <br />
+              <span>Initial URL:</span> https://<TextInput></TextInput>
+
+            </div>
+            <div className={styles["importTools"]}>
+              <h2>Import/Export custom TOOLs</h2>
+              You can import and export custom tools as JSON to easily share with fellow capsuleers.
+              <br />
+            </div>
+          </div>
+        </div>
+
         <div id="explorer" ref={this.explorerRef}>
           <div className={styles["welcome"]}>
-            <h2>Welcome to the Tool Explorer</h2>
+            <h2>Welcome to the TOOL Explorer</h2>
             <span>
-              Use your favorite third party tools directly within EVE Online.
-              Most popular tools are already included, but you will soon be able
-              to add your own tools.
+              Triglavian Optical Overlay Links (TOOLs) can greatly improve your
+              quality of life as a capsuleer by extending your Neocom's built-in
+              capabilities. Click on tags to filter or start typing to search
+              for a TOOL by name. Almost every TOOL known to New Eden is listed
+              in this directory.
             </span>
           </div>
+
+          <div className={styles["logo"]}>
+            <img src={logo} />
+          </div>
+
           <div className={`${styles.headertags}`}>
             <div className={`${styles["shadow-container"]}`}>
               {this.tags.map(this.headerTag)}
             </div>
           </div>
+
           <div className={`${styles.toolgrid} eve-scrollbar`}>
             {tools.map(this.tool)}
+          </div>
+
+          <div className={`${styles.footerButtons}`}>
+            <div className={styles["button"]} onClick={this.openAddTools}>
+              Add TOOLs
+            </div>
           </div>
         </div>
       </div>
