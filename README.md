@@ -10,13 +10,12 @@
 </p>
 
 <p align="center">
-  <a href="README_ru.md">Русские капсулиры</a> · <a href="README_es.md">Versión en Español</a>
+  <a href="README_ru.md">Русские капсулиры</a> · <a href="README_es.md">Versión en Español</a> · <a href="README_cn.md">中文版本</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/evevision/evevision/releases/latest">Download latest release</a>
 </p>
-
 
 # Play EVE without leaving EVE.
 
@@ -32,7 +31,7 @@ Need help using or developing EveVision? Have a suggestion or want to show off h
 
 <details>
 <summary>Tool Explorer</summary>
-  
+
 ![toolexplorer](https://user-images.githubusercontent.com/62183293/79695559-89888000-8245-11ea-8493-d441a955f2c8.png)
 
 </details>
@@ -50,19 +49,19 @@ Need help using or developing EveVision? Have a suggestion or want to show off h
 </details>
 <details>
 <summary>Google Translator</summary>
- 
+
 ![evevision-ss-1](https://user-images.githubusercontent.com/62183293/79017084-7f2bff00-7b3e-11ea-92c9-0f0fcf91ff19.png)
 
 </details>
 <details>
 <summary>Abyssal Markets</summary>
-  
+
 ![abyssal-ss](https://user-images.githubusercontent.com/62183293/79039631-9b688400-7bb0-11ea-835e-3ce72758e16e.png)
 
 </details>
 <details>
 <summary>D-Scan and Dotlan</summary>
-  
+
 ![evevision-ss-2](https://user-images.githubusercontent.com/62183293/79017087-7fc49580-7b3e-11ea-9087-b63dadd9c1dd.png)
 
 </details>
