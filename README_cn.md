@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="README_ru.md">Русские капсулиры</a> · <a href="README_es.md">Versión en Español</a>
+  <a href="README.md">English Version</a> · <a href="README_ru.md">Русские капсулиры</a> · <a href="README_es.md">Versión en Español</a>
 </p>
 
 <p align="center">
@@ -184,10 +184,6 @@ EveVision 包括以下组件：
 注意，你可以在生产模式和开发模式中排除大部分问题。如果没有新增新的资源文件，一般不需要测试打包APP。
 
 ## 构建
-
-This application can only be built and run on Windows x64. However, it is extraordinarily easy to do so - no prior Windows development experience is required! I'm primarily a linux dev myself, and Windows repos scare me too. Every single thing is handled for you via yarn scripts.
-
-This application can only be built and run on Windows x64. However, it is extraordinarily easy to do so - no prior Windows development experience is required! I'm primarily a linux dev myself, and Windows repos scare me too. Every single thing is handled for you via yarn scripts.
 
 EveVision 只能构建和运行于 64位Windows。不过，其实这非常简单——无需额外的Windows开发经验！我自己就是在Linux上开发的，Windows的仓库系统真的很麻烦。所有这些内容的管理都可以交给yarn脚本。
 
