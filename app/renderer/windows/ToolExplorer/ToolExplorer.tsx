@@ -1,36 +1,56 @@
 import React from "react";
 import styles from "./ToolExplorer.scss";
 import { default as tools, ToolDescription, defaultFavorites } from "./tools";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ipcRenderer } from "electron";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
 import Store from "electron-store";
 import RemoteFavicon from "./RemoteFavicon";
 import logo from "../../images/logo.png";
-import {TextInput} from "../../ui/Input";
-import {ExternalToolMeta} from "../../../shared/externaltool";
+import log from "../../../shared/log";
+import { TextInput } from "../../ui/Input";
 
 const customTools = new Store({ name: "custom-tools", watch: true });
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
 
 interface ToolExplorerState {
   selectedTags: string[];
-  customTools: ExternalToolMeta[];
+  customTools: ToolDescription[];
   favoriteTools: string[];
+  // add tool dialog
   addToolsOpen: boolean;
+  addToolName: string;
+  addToolAuthor: string;
+  addToolDescription: string;
+  addToolUrl: string;
+  addToolInitialSize: string;
+  addToolMinSize: string;
+  addToolMaxSize: string;
 }
 
 class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   explorerRef: any;
   tags: string[];
-  toolsCallback?: () => void;
+  favoriteToolsCallback?: () => void;
+  customToolsCallback?: () => void;
+
+  defaultAddToolState = {
+    addToolName: "",
+    addToolAuthor: "",
+    addToolDescription: "",
+    addToolUrl: "https://",
+    addToolInitialSize: "500x500",
+    addToolMinSize: "500x500",
+    addToolMaxSize: "",
+  };
 
   state: ToolExplorerState = {
     selectedTags: [],
     favoriteTools: favoriteTools.get("favoriteTools", defaultFavorites),
     customTools: customTools.get("customTools", []),
     addToolsOpen: false,
+    ...this.defaultAddToolState,
   };
 
   constructor(props: {}) {
@@ -61,17 +81,27 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
   componentDidMount() {
     document.title = "TOOL Explorer";
-    this.toolsCallback = favoriteTools.onDidChange(
+    this.favoriteToolsCallback = favoriteTools.onDidChange(
       "favoriteTools",
       (newValue, oldValue) => {
         this.setState({ ...this.state, favoriteTools: newValue });
       }
     );
+    this.customToolsCallback = customTools.onDidChange(
+      "customTools",
+      (newValue, oldValue) => {
+        this.setState({ ...this.state, customTools: newValue });
+      }
+    );
   }
 
   componentWillUnmount(): void {
-    if (this.toolsCallback) {
-      this.toolsCallback();
+    if (this.favoriteToolsCallback) {
+      this.favoriteToolsCallback();
+    } // unsubscribe
+
+    if (this.customToolsCallback) {
+      this.customToolsCallback();
     } // unsubscribe
   }
 
@@ -118,15 +148,84 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   };
 
   openAddTools = () => {
-    this.setState({ ...this.state, addToolsOpen: true });
+    this.setState({
+      ...this.state,
+      addToolsOpen: true,
+      ...this.defaultAddToolState,
+    });
   };
 
   closeAddTools = () => {
     this.setState({ ...this.state, addToolsOpen: false });
   };
 
-  resetTags = () => {
-    this.setState({ ...this.state, selectedTags: [] });
+  handleAddToolChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ ...this.state, [event.target.name]: event.target.value });
+  };
+
+  buildToolDescription = (): ToolDescription => {
+    // parse min/max/initial
+    const regex = /^\d{1,4}[xX]\d{1,4}$/gm;
+    const [initialWidth, initialHeight] = this.state.addToolInitialSize.match(
+      regex
+    )
+      ? this.state.addToolInitialSize.toLowerCase().split("x")
+      : ["500", "500"];
+    const [minWidth, minHeight] = this.state.addToolMinSize.match(regex)
+      ? this.state.addToolMinSize.toLowerCase().split("x")
+      : [undefined, undefined];
+    const [maxWidth, maxHeight] = this.state.addToolMaxSize.match(regex)
+      ? this.state.addToolMaxSize.toLowerCase().split("x")
+      : [undefined, undefined];
+
+    const isResizable = (minWidth && minHeight) || (maxWidth && maxHeight);
+
+    return {
+      name: this.state.addToolName,
+      description: this.state.addToolDescription,
+      author: this.state.addToolAuthor,
+      tags: ["custom"],
+      external: {
+        url: this.state.addToolUrl,
+        initialWidth: parseInt(initialWidth),
+        initialHeight: parseInt(initialHeight),
+        resizable: isResizable
+          ? {
+              minWidth: minWidth ? parseInt(minWidth) : undefined,
+              maxWidth: maxWidth ? parseInt(maxWidth) : undefined,
+              minHeight: minHeight ? parseInt(minHeight) : undefined,
+              maxHeight: maxHeight ? parseInt(maxHeight) : undefined,
+            }
+          : undefined,
+      },
+    };
+  };
+
+  handleAddToolInstall = () => {
+    const toolDesc = this.buildToolDescription();
+    log.info("Adding custom tool", toolDesc);
+    const newCustomTools = [...this.state.customTools, toolDesc];
+    customTools.set("customTools", newCustomTools);
+    this.setState({
+      ...this.state,
+      addToolsOpen: false,
+      customTools: newCustomTools,
+    });
+  };
+
+  handleAddToolTest = () => {
+    const toolDesc = this.buildToolDescription();
+    log.info("Testing custom tool", toolDesc);
+    ipcRenderer.send("openExternalTool", toolDesc.external);
+  };
+
+  deleteCustomTool = (toolName: string) => {
+    if (this.state.customTools.find((ct) => ct.name === toolName)) {
+      customTools.set(
+        "customTools",
+        this.state.customTools.filter((ct) => ct.name !== toolName)
+      );
+    }
   };
 
   tag = (tag: string) => {
@@ -212,6 +311,17 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
             className={styles["info-icon"]}
             data-tip={tool.description}
           />
+          {tool.tags.includes("custom") ? (
+            <FontAwesomeIcon
+              size={"lg"}
+              icon={faTrash}
+              className={styles["info-icon"]}
+              data-tip={"Delete this custom tool"}
+              onClick={() => this.deleteCustomTool(tool.name)}
+            />
+          ) : (
+            ""
+          )}
           <h1>{tool.name}</h1>
           <h2>{tool.author}</h2>
         </div>
@@ -249,7 +359,8 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
         ></div>
         <div
           className={
-            styles["dialog"] + (this.state.addToolsOpen ? " " + styles["visible"] : "")
+            styles["dialog"] +
+            (this.state.addToolsOpen ? " " + styles["visible"] : "")
           }
         >
           <div className={styles["dialogContents"]}>
@@ -258,39 +369,80 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
               <div className={styles["registerForm"]}>
                 <label className={styles["line"]}>
                   <span>Name:</span>
-                  <TextInput></TextInput>
+                  <TextInput
+                    onChange={this.handleAddToolChange}
+                    value={this.state.addToolName}
+                    name="addToolName"
+                  ></TextInput>
                 </label>
                 <label className={styles["line"]}>
                   <span>Author:</span>
-                  <TextInput></TextInput>
+                  <TextInput
+                    onChange={this.handleAddToolChange}
+                    value={this.state.addToolAuthor}
+                    name="addToolAuthor"
+                  ></TextInput>
                 </label>
                 <label className={styles["line"]}>
                   <span>Description:</span>
-                  <TextInput></TextInput>
+                  <TextInput
+                    onChange={this.handleAddToolChange}
+                    value={this.state.addToolDescription}
+                    name="addToolDescription"
+                  ></TextInput>
                 </label>
                 <label className={styles["line"]}>
                   <span>URL:</span>
-                <TextInput value={"https://"}></TextInput>
+                  <TextInput
+                    onChange={this.handleAddToolChange}
+                    value={this.state.addToolUrl}
+                    name="addToolUrl"
+                  ></TextInput>
                 </label>
-                <h3>Window Size</h3>
+                <h3>
+                  Window Size <small>(don't set min/max for unresizable)</small>
+                </h3>
                 <label className={styles["line"]}>
                   <span>Initial:</span>
-                  <TextInput value={"200x200"}></TextInput>
+                  <TextInput
+                    onChange={this.handleAddToolChange}
+                    value={this.state.addToolInitialSize}
+                    name="addToolInitialSize"
+                  ></TextInput>
                   <span>Min:</span>
-                  <TextInput value={"200x200"}></TextInput>
+                  <TextInput
+                    onChange={this.handleAddToolChange}
+                    value={this.state.addToolMinSize}
+                    name="addToolMinSize"
+                  ></TextInput>
                   <span>Max:</span>
-                  <TextInput></TextInput>
+                  <TextInput
+                    onChange={this.handleAddToolChange}
+                    value={this.state.addToolMaxSize}
+                    name="addToolMaxSize"
+                  ></TextInput>
                 </label>
 
                 <div className={styles["buttons"]}>
-                  <div className={styles["button"]}>Test</div>
-                  <div className={styles["button"]}>Add</div>
+                  <div
+                    className={styles["button"]}
+                    onClick={this.handleAddToolTest}
+                  >
+                    Test
+                  </div>
+                  <div
+                    className={styles["button"]}
+                    onClick={this.handleAddToolInstall}
+                  >
+                    Install
+                  </div>
                 </div>
               </div>
             </div>
             <div className={styles["importTools"]}>
               <h2>TOOL Import</h2>
-              You can import and export your custom TOOLs via your clipboard as JSON to easily share with fellow capsuleers.
+              You can import and export your custom TOOLs via your clipboard as
+              JSON to easily share with fellow capsuleers.
               <div className={styles["buttons"]}>
                 <div className={styles["button"]}>Import</div>
                 <div className={styles["button"]}>Export All</div>
@@ -322,6 +474,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
           </div>
 
           <div className={`${styles.toolgrid} eve-scrollbar`}>
+            {this.state.customTools.map(this.tool)}
             {tools.map(this.tool)}
           </div>
 

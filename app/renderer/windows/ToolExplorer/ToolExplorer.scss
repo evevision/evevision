@@ -218,6 +218,7 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   float: right;
   opacity: 0;
   transition: opacity 100ms linear;
+  margin-left: 10px;
 }
 
 .toolgrid > .tool:hover > .header > .info-icon {

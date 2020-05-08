@@ -3,37 +3,52 @@ import { Button } from "../../ui/Input";
 import { ipcRenderer } from "electron";
 import Store from "electron-store";
 import styles from "./FavoritesMenu.scss";
-import { default as tools, defaultFavorites } from "./tools";
+import { default as tools, defaultFavorites, ToolDescription } from "./tools";
 import RemoteFavicon from "./RemoteFavicon";
 
+const customTools = new Store({ name: "custom-tools", watch: true });
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
 
 interface FavoritesMenuState {
   favoriteTools: string[];
+  mergedTools: ToolDescription[];
 }
 
 class FavoritesMenu extends Component<{}, FavoritesMenuState> {
-  toolsCallback?: () => void;
+  favoriteToolsCallback?: () => void;
+  customToolsCallback?: () => void;
 
   state = {
-    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites,
+    favoriteTools: favoriteTools.get("favoriteTools", defaultFavorites),
+    mergedTools: [...tools, ...customTools.get("customTools", [])],
   };
 
   componentDidMount(): void {
-    this.toolsCallback = favoriteTools.onDidChange(
+    this.favoriteToolsCallback = favoriteTools.onDidChange(
       "favoriteTools",
       (newValue, oldValue) => {
         this.setState({ ...this.state, favoriteTools: newValue });
       }
     );
+    this.customToolsCallback = customTools.onDidChange(
+      "customTools",
+      (newValue, oldValue) => {
+        this.setState({ ...this.state, mergedTools: [...tools, ...newValue] });
+      }
+    );
   }
 
   componentWillUnmount(): void {
-    this.toolsCallback(); // unsubscribe
+    if (this.favoriteToolsCallback) {
+      this.favoriteToolsCallback(); // unsubscribe
+    }
+    if (this.customToolsCallback) {
+      this.customToolsCallback(); // unsubscribe
+    }
   }
 
   tool = (tool: string) => {
-    const toolDesc = tools.find((t) => t.name === tool);
+    const toolDesc = this.state.mergedTools.find((t) => t.name === tool);
     if (toolDesc) {
       return (
         <div
