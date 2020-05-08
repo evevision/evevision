@@ -85,7 +85,7 @@ function Root() {
       ) : (
         <Window
           onRequestMinimize={onRequestMinimize}
-          onRequestClose={isClosable ? undefined : onRequestClose}
+          onRequestClose={isClosable ? onRequestClose : undefined}
           hideTitle={windowName === "toolexplorer"}
         >
           {windowContents}

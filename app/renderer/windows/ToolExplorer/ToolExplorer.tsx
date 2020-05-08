@@ -9,20 +9,17 @@ import Store from "electron-store";
 import RemoteFavicon from "./RemoteFavicon";
 import logo from "../../images/logo.png";
 import {TextInput} from "../../ui/Input";
+import {ExternalToolMeta} from "../../../shared/externaltool";
 
+const customTools = new Store({ name: "custom-tools", watch: true });
 const favoriteTools = new Store({ name: "favorite-tools", watch: true });
 
 interface ToolExplorerState {
   selectedTags: string[];
+  customTools: ExternalToolMeta[];
   favoriteTools: string[];
   addToolsOpen: boolean;
 }
-
-// TODO: hiding tools
-// TODO: json custom tool import/export so people can share their corp's links easily
-// TODO: order so custom tools are before others
-// TODO: favorites, reset favorites button
-// TODO: highlight selected tags inside tool
 
 class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
   explorerRef: any;
@@ -31,7 +28,8 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
   state: ToolExplorerState = {
     selectedTags: [],
-    favoriteTools: favoriteTools.get("favoriteTools") || defaultFavorites,
+    favoriteTools: favoriteTools.get("favoriteTools", defaultFavorites),
+    customTools: customTools.get("customTools", []),
     addToolsOpen: false,
   };
 
@@ -58,6 +56,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     tagCounts
       .sort((a, b) => b.count - a.count)
       .forEach((tagCount) => this.tags.push(tagCount.tag));
+    this.tags.push("custom");
   };
 
   componentDidMount() {
@@ -146,6 +145,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
             this.selectTag(tag);
           }
         }}
+        key={tag}
       >
         {tag}
       </div>
@@ -169,6 +169,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
             this.unselectTag(tag);
           }
         }}
+        key={tag}
       >
         {tag}
       </div>
@@ -191,6 +192,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
     return (
       <div
         className={styles["tool"] + (visible ? " " + styles["visible"] : "")}
+        key={tool.name}
       >
         <div className={styles["corner"]}></div>
         <div className={styles["icon"]}>
@@ -252,16 +254,47 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
         >
           <div className={styles["dialogContents"]}>
             <div className={styles["createTool"]}>
-              <h2>Create custom TOOL</h2>
-              <span>Name:</span> <TextInput>lol</TextInput>
-              <br />
-              <span>Initial URL:</span> https://<TextInput></TextInput>
+              <h2>Install Custom TOOL</h2>
+              <div className={styles["registerForm"]}>
+                <label className={styles["line"]}>
+                  <span>Name:</span>
+                  <TextInput></TextInput>
+                </label>
+                <label className={styles["line"]}>
+                  <span>Author:</span>
+                  <TextInput></TextInput>
+                </label>
+                <label className={styles["line"]}>
+                  <span>Description:</span>
+                  <TextInput></TextInput>
+                </label>
+                <label className={styles["line"]}>
+                  <span>URL:</span>
+                <TextInput value={"https://"}></TextInput>
+                </label>
+                <h3>Window Size</h3>
+                <label className={styles["line"]}>
+                  <span>Initial:</span>
+                  <TextInput value={"200x200"}></TextInput>
+                  <span>Min:</span>
+                  <TextInput value={"200x200"}></TextInput>
+                  <span>Max:</span>
+                  <TextInput></TextInput>
+                </label>
 
+                <div className={styles["buttons"]}>
+                  <div className={styles["button"]}>Test</div>
+                  <div className={styles["button"]}>Add</div>
+                </div>
+              </div>
             </div>
             <div className={styles["importTools"]}>
-              <h2>Import/Export custom TOOLs</h2>
-              You can import and export custom tools as JSON to easily share with fellow capsuleers.
-              <br />
+              <h2>TOOL Import</h2>
+              You can import and export your custom TOOLs via your clipboard as JSON to easily share with fellow capsuleers.
+              <div className={styles["buttons"]}>
+                <div className={styles["button"]}>Import</div>
+                <div className={styles["button"]}>Export All</div>
+              </div>
             </div>
           </div>
         </div>
@@ -294,7 +327,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
           <div className={`${styles.footerButtons}`}>
             <div className={styles["button"]} onClick={this.openAddTools}>
-              Add TOOLs
+              Customize
             </div>
           </div>
         </div>

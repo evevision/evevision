@@ -11,8 +11,8 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 
 .logo {
   position: absolute;
-  top: 10px;
-  right: 50px;
+  top: 5px;
+  right: 10px;
   width: 150px;
   height: 150px;
 }
@@ -101,7 +101,13 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   opacity: 1;
 }
 
+@keyframes fadein {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
 .toolgrid {
+
   background-color: adjust-color($panel-background, $lightness: -25%);
 
   position: absolute;
@@ -137,6 +143,19 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   --notchSize: 10px;
   clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
 }
+
+.toolgrid > .tool:nth-child(1) { animation: fadein 0.4s;}
+.toolgrid > .tool:nth-child(2) { animation: fadein 0.8s;}
+.toolgrid > .tool:nth-child(3) { animation: fadein 1.2s;}
+.toolgrid > .tool:nth-child(4) { animation: fadein 1.6s;}
+.toolgrid > .tool:nth-child(5) { animation: fadein 1.9s;}
+.toolgrid > .tool:nth-child(6) { animation: fadein 2.2s;}
+.toolgrid > .tool:nth-child(7) { animation: fadein 2.5s;}
+.toolgrid > .tool:nth-child(8) { animation: fadein 2.8s;}
+.toolgrid > .tool:nth-child(9) { animation: fadein 3.0s;}
+.toolgrid > .tool:nth-child(10) { animation: fadein 3.2s;}
+.toolgrid > .tool:nth-child(11) { animation: fadein 3.4s;}
+.toolgrid > .tool:nth-child(12) { animation: fadein 3.6s;}
 
 // fading out the children faster makes the transition seem not as notchy when text is reflowing
 .toolgrid > .tool > * {
@@ -374,9 +393,9 @@ $tool-button-color: rgba(67, 88, 110, 1);
 
 .dialog.visible {
   left: calc(50vw - 300px);
-  top: calc(50vh - 150px);
+  top: calc(50vh - 120px);
   width: 600px;
-  height: 300px;
+  height: 240px;
   opacity: 1;
   visibility: visible;
 }
@@ -387,16 +406,69 @@ $tool-button-color: rgba(67, 88, 110, 1);
 
 .dialogContents > div {
   padding: 10px;
-  width: calc(50% - 21px);
+  overflow: hidden;
 }
 
 .dialogContents .createTool {
   float: left;
   height: 100%;
+  width: calc(60% - 21px);
+  border-right: 1px solid $border-light;
 }
 
 .dialogContents .importTools {
   float: right;
-  border-left: 1px solid $border-light;
   height: 100%;
+  width: calc(40% - 21px);
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 5px;
+}
+
+.registerForm h3 {
+  margin-top: 10px;
+}
+
+.registerForm .line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.registerForm .line *:nth-child(even) {
+  max-width: 15em;
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.registerForm .line * {
+  flex-grow: 0; // override the flex grow from text entry
+}
+
+.createTool .buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.createTool .buttons > * {
+  flex-grow: 1;
+  margin-right: 5px;
+}
+
+.importTools .buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
 }

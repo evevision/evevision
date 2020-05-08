@@ -18,7 +18,7 @@ const tools: ToolDescription[] = [
     name: "EveEye Explorer",
     author: "Risingson",
     description: "Advanced mapping and exploration tool",
-    tags: ["intel", "map", "wormhole", "FW"],
+    tags: ["intel", "map", "wormhole"],
     external: {
       url: "https://eveeye.com/",
       initialWidth: 1200,
@@ -83,7 +83,7 @@ const tools: ToolDescription[] = [
     name: "Janice Junk Evaluator",
     author: "E-351",
     description: "Appraises space junk for you, with a few more nifty features",
-    tags: ["appraisal"],
+    tags: ["trade"],
     external: {
       url: "https://janice.e-351.com/",
       initialWidth: 800,
@@ -100,7 +100,7 @@ const tools: ToolDescription[] = [
     name: "Fuzzwork",
     author: "Steve Ronuken",
     description: "A variety of EVE tools",
-    tags: ["industry", "mining", "pi", "generic"],
+    tags: ["industry", "mining", "pi", "info"],
     external: {
       url: "https://www.fuzzwork.co.uk/",
       initialWidth: 675,
@@ -115,7 +115,7 @@ const tools: ToolDescription[] = [
     name: "Evepraisal",
     author: "sudorandom",
     description: "Quickly find out how much items are worth in Jita",
-    tags: ["industry", "appraisal", "trade"],
+    tags: ["trade"],
     external: {
       url: "https://evepraisal.com/",
       initialWidth: 600,
@@ -180,7 +180,7 @@ const tools: ToolDescription[] = [
     author: "Sharad Heft",
     description:
       "A marketplace for buying, selling, and appraising Abyssal modules",
-    tags: ["abyssal", "marketplace"],
+    tags: ["abyssal", "market"],
     external: {
       url: "https://mutaplasmid.space/",
       initialWidth: 615,
@@ -333,7 +333,7 @@ const tools: ToolDescription[] = [
     name: "EVE-Uni Wiki",
     author: "EVE University",
     description: "The best source of info for anything in EVE",
-    tags: ["generic"],
+    tags: ["info"],
     external: {
       url: "https://wiki.eveuniversity.org/",
       initialWidth: 1050,
@@ -472,7 +472,7 @@ const tools: ToolDescription[] = [
     name: "EVE Ref",
     author: "Autonomous Logic",
     description: "Look up any item in EVE Online",
-    tags: ["generic"],
+    tags: ["info"],
     external: {
       url: "https://everef.net/",
       initialWidth: 560,
