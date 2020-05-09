@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ToolExplorer.scss";
 import { default as tools, ToolDescription, defaultFavorites } from "./tools";
 import { faInfoCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { ipcRenderer } from "electron";
+import { ipcRenderer, clipboard } from "electron";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
 import Store from "electron-store";
@@ -180,21 +180,43 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
 
     const isResizable = (minWidth && minHeight) || (maxWidth && maxHeight);
 
+    let parsedUrl: URL;
+    try {
+      parsedUrl = new URL(this.state.addToolUrl);
+    } catch (ex) {
+      log.error("Could not parse URL for custom tool", ex);
+    }
+    const sanitizePattern = /[^a-z0-9!@#$%^&*() ]/gi;
+
     return {
-      name: this.state.addToolName,
-      description: this.state.addToolDescription,
-      author: this.state.addToolAuthor,
+      name: this.state.addToolName.replace(sanitizePattern, ""),
+      description: this.state.addToolDescription.replace(sanitizePattern, ""),
+      author: this.state.addToolAuthor.replace(sanitizePattern, ""),
       tags: ["custom"],
       external: {
-        url: this.state.addToolUrl,
-        initialWidth: parseInt(initialWidth),
-        initialHeight: parseInt(initialHeight),
+        url: parsedUrl
+          ? (parsedUrl.protocol === "http:" ? "http:" : "https:") +
+            "//" +
+            (parsedUrl.host
+              ? parsedUrl.host + parsedUrl.pathname
+              : "www.google.com")
+          : "https://www.googleez.com/",
+        initialWidth: Math.max(Math.min(parseInt(initialWidth), 2000), 100),
+        initialHeight: Math.max(Math.min(parseInt(initialHeight), 2000), 100),
         resizable: isResizable
           ? {
-              minWidth: minWidth ? parseInt(minWidth) : undefined,
-              maxWidth: maxWidth ? parseInt(maxWidth) : undefined,
-              minHeight: minHeight ? parseInt(minHeight) : undefined,
-              maxHeight: maxHeight ? parseInt(maxHeight) : undefined,
+              minWidth: minWidth
+                ? Math.max(Math.min(parseInt(minWidth), 2000), 100)
+                : undefined,
+              maxWidth: maxWidth
+                ? Math.max(parseInt(maxWidth), 100)
+                : undefined,
+              minHeight: minHeight
+                ? Math.max(Math.min(parseInt(minHeight), 2000), 100)
+                : undefined,
+              maxHeight: maxHeight
+                ? Math.max(parseInt(maxHeight), 100)
+                : undefined,
             }
           : undefined,
       },
@@ -226,6 +248,110 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
         this.state.customTools.filter((ct) => ct.name !== toolName)
       );
     }
+  };
+
+  handleImport = () => {
+    const text: string = clipboard.readText("clipboard");
+
+    // Just to help out copypasters, search for the first and last JSON tokens
+    const pattern = /(\[\{.+\}\])/;
+    const matches = text.match(pattern);
+    if (matches) {
+      const [json] = matches;
+      try {
+        const tools: ToolDescription[] = JSON.parse(json);
+        const sanitizedTools: ToolDescription[] = [];
+
+        const sanitizePattern = /[^a-z0-9!@#$%^&*() ]/gi;
+
+        tools.forEach((tool) => {
+          if (!(tool.name && tool.external && tool.external.url)) {
+            log.error("Tool import was missing data", tool);
+          } else {
+            const sanitizedToolName = tool.name.replace(sanitizePattern, "");
+            if (
+              this.state.customTools.find((ct) => ct.name === sanitizedToolName)
+            ) {
+              log.warn(
+                "Ignoring json import of tool due to existing tool sharing name",
+                sanitizedToolName
+              );
+            } else {
+              let parsedUrl: URL;
+              try {
+                parsedUrl = new URL(tool.external.url);
+              } catch (ex) {
+                log.error("Could not parse URL for importing custom tool", ex);
+              }
+              const sanitizedTool: ToolDescription = {
+                name: sanitizedToolName,
+                author: tool.author.replace(sanitizePattern, ""),
+                tags: ["custom"],
+                description: tool.description.replace(sanitizePattern, ""),
+                external: {
+                  url: parsedUrl
+                    ? (parsedUrl.protocol === "http:" ? "http:" : "https:") +
+                      "//" +
+                      (parsedUrl.host
+                        ? parsedUrl.host + parsedUrl.pathname
+                        : "www.google.com")
+                    : "https://www.google.com/",
+                  initialWidth: tool.external.initialWidth
+                    ? Math.max(Math.min(tool.external.initialWidth, 2000), 100)
+                    : 500,
+                  initialHeight: tool.external.initialHeight
+                    ? Math.max(Math.min(tool.external.initialHeight, 2000), 100)
+                    : 500,
+                  resizable: tool.external.resizable
+                    ? {
+                        minWidth: tool.external.resizable.minWidth
+                          ? Math.max(
+                              Math.min(tool.external.resizable.minWidth, 2000),
+                              100
+                            )
+                          : undefined,
+                        maxWidth: tool.external.resizable.maxWidth
+                          ? Math.max(tool.external.resizable.maxWidth, 100)
+                          : undefined,
+                        minHeight: tool.external.resizable.minHeight
+                          ? Math.max(
+                              Math.min(tool.external.resizable.minHeight, 2000),
+                              100
+                            )
+                          : undefined,
+                        maxHeight: tool.external.resizable.maxHeight
+                          ? Math.max(tool.external.resizable.maxHeight, 100)
+                          : undefined,
+                      }
+                    : undefined,
+                },
+              };
+
+              log.info("Importing custom tool from JSON", sanitizedTool);
+              sanitizedTools.push(sanitizedTool);
+            }
+          }
+        });
+
+        const newCustomTools = [...this.state.customTools, ...sanitizedTools];
+        customTools.set("customTools", newCustomTools);
+        this.setState({
+          ...this.state,
+          addToolsOpen: false,
+          customTools: newCustomTools,
+        });
+      } catch (ex) {
+        log.error("Could not parse JSON of imported tools", json, ex);
+      }
+    }
+  };
+
+  handleExport = () => {
+    clipboard.writeText(JSON.stringify(this.state.customTools));
+    this.setState({
+      ...this.state,
+      addToolsOpen: false,
+    });
   };
 
   tag = (tag: string) => {
@@ -444,8 +570,12 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
               You can import and export your custom TOOLs via your clipboard as
               JSON to easily share with fellow capsuleers.
               <div className={styles["buttons"]}>
-                <div className={styles["button"]}>Import</div>
-                <div className={styles["button"]}>Export All</div>
+                <div className={styles["button"]} onClick={this.handleImport}>
+                  Import
+                </div>
+                <div className={styles["button"]} onClick={this.handleExport}>
+                  Export All
+                </div>
               </div>
             </div>
           </div>

@@ -505,7 +505,7 @@ const tools: ToolDescription[] = [
     name: "Google",
     author: "Google",
     description: "The one and only.",
-    tags: ["generic"],
+    tags: ["not-eve"],
     external: {
       url: "https://google.com",
       initialWidth: 1010,
@@ -520,7 +520,7 @@ const tools: ToolDescription[] = [
     name: "DuckDuckGo",
     author: "DuckDuckGo",
     description: "If you don't like Google. Honk.",
-    tags: ["generic"],
+    tags: ["not-eve"],
     external: {
       url: "https://duckduckgo.com",
       initialWidth: 500,
@@ -535,7 +535,7 @@ const tools: ToolDescription[] = [
     name: "Google Translator",
     author: "Google",
     description: "The world's most popular translator",
-    tags: ["communication"],
+    tags: ["communication", "not-eve"],
     external: {
       url: "https://translate.google.com/",
       initialWidth: 500,
@@ -551,7 +551,7 @@ const tools: ToolDescription[] = [
     author: "DeepL",
     description:
       "An alternative translator some say works better for certain languages",
-    tags: ["communication"],
+    tags: ["communication", "not-eve"],
     external: {
       url: "https://www.deepl.com/en/translator",
       initialWidth: 400,
@@ -567,7 +567,7 @@ const tools: ToolDescription[] = [
     author: "Yandex",
     description:
       "Another alternative translator some say works better for certain languages",
-    tags: ["communication"],
+    tags: ["communication", "not-eve"],
     external: {
       hideScrollbars: true,
       url: "https://translate.yandex.com/",
@@ -584,7 +584,7 @@ const tools: ToolDescription[] = [
     name: "Discord",
     author: "Discord",
     description: "The chat app of choice for EVE players",
-    tags: ["communication"],
+    tags: ["communication", "not-eve"],
     external: {
       url: "https://discordapp.com/app",
       initialWidth: 856,
@@ -599,7 +599,7 @@ const tools: ToolDescription[] = [
     name: "YouTube",
     author: "YouTube",
     description: "The one and only.",
-    tags: ["fun"],
+    tags: ["fun", "not-eve"],
     external: {
       url: "https://youtube.com",
       initialWidth: 800,
@@ -614,7 +614,7 @@ const tools: ToolDescription[] = [
     name: "Twitch",
     author: "Twitch",
     description: "Watch your favorite streamers directly in EVE!",
-    tags: ["fun"],
+    tags: ["fun", "not-eve"],
     external: {
       url: "https://www.twitch.tv/directory/game/EVE%20Online",
       initialWidth: 945,
@@ -629,7 +629,7 @@ const tools: ToolDescription[] = [
     name: "YouTube Music",
     author: "YouTube",
     description: "YouTube, but for music!",
-    tags: ["fun"],
+    tags: ["fun", "not-eve"],
     external: {
       url: "https://music.youtube.com/",
       initialWidth: 720,
@@ -659,7 +659,7 @@ const tools: ToolDescription[] = [
     name: "Windows PowerShell",
     author: "Microsoft",
     description: "Opens a PowerShell terminal. Perfect for developers.",
-    tags: ["generic"],
+    tags: ["not-eve"],
     windowName: "terminal",
   },
   {
@@ -667,7 +667,7 @@ const tools: ToolDescription[] = [
     author: "Screeps",
     description:
       "A sandbox MMO for programmers. That's right, you can play a sandbox MMO in a sandbox MMO.",
-    tags: ["fun"],
+    tags: ["fun", "not-eve"],
     external: {
       url: "https://screeps.com/a/#!/overview",
       initialWidth: 875,
