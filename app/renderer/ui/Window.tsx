@@ -87,7 +87,11 @@ export class Window extends Component<WindowProps, State> {
           id="eve-window"
         >
           <div className="eve-window-titlebar">
-            {this.props.hideTitle ? "" : <div className="eve-window-titlebar-title">{document.title}</div>}
+            {this.props.hideTitle ? (
+              ""
+            ) : (
+              <div className="eve-window-titlebar-title">{document.title}</div>
+            )}
             {this.state.hovered ? this.titlebarButtons() : null}
           </div>
           <div className="eve-window-contents">{childrenWithProps}</div>

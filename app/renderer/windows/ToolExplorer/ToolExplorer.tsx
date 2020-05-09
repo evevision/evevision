@@ -594,7 +594,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
           </div>
 
           <div className={styles["logo"]}>
-            <img src={logo} />
+            <img src={logo} alt={""} />
           </div>
 
           <div className={`${styles.headertags}`}>
