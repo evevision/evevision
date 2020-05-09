@@ -21,6 +21,7 @@ interface TextInputProps {
   value?: string;
   readOnly?: boolean;
   style?: React.CSSProperties;
+  name?: string;
 }
 export const TextInput: React.FC<TextInputProps> = (props: TextInputProps) => (
   <input
@@ -29,6 +30,7 @@ export const TextInput: React.FC<TextInputProps> = (props: TextInputProps) => (
     onChange={props.onChange}
     readOnly={props.readOnly}
     style={props.style}
+    name={props.name}
   />
 );
 

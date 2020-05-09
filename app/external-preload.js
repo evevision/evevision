@@ -7,7 +7,7 @@ function interceptClickEvent(e) {
     const href = eTarget.getAttribute("href");
     const target = eTarget.getAttribute("target");
 
-    if (target == "_blank") {
+    if (target === "_blank") {
       e.preventDefault();
       console.log("EveVision intercepting link open", target);
       ipcRenderer.invoke("external-windowOpen", {

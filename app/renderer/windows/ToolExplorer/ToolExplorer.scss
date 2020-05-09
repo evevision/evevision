@@ -9,17 +9,47 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   background-color: black;
 }
 
+.logo {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 150px;
+  height: 150px;
+}
+
+.logo > img {
+  width: 100%;
+  height: 100%;
+}
+
 .welcome {
   font-size: 14px;
   position: absolute;
-  top: 80px;
-  left: 60px;
+  top: 40px;
+  left: 40px;
   width: 600px;
   height: 80px;
 }
 
 .welcome > h2 {
   padding-bottom: 6px;
+}
+
+.footerButtons {
+  background-color: $panel-background;
+  border-top: 1px solid $border;
+
+  position: absolute;
+  width: 1100px;
+  height: 50px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.footerButtons .button {
+  margin-top: 10px;
+  margin-right: 10px;
+  float: right;
 }
 
 .headertags {
@@ -37,7 +67,7 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   position: absolute;
   width: 1100px;
   height: 50px;
-  top: 208px;
+  top: 158px;
   left: 0px;
 }
 
@@ -71,11 +101,17 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   opacity: 1;
 }
 
+@keyframes fadein {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
 .toolgrid {
+
   background-color: adjust-color($panel-background, $lightness: -25%);
 
   position: absolute;
-  top: 260px;
+  top: 210px;
   left: 0px;
 
   width: 1080px;
@@ -107,6 +143,19 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   --notchSize: 10px;
   clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
 }
+
+.toolgrid > .tool:nth-child(1) { animation: fadein 0.4s;}
+.toolgrid > .tool:nth-child(2) { animation: fadein 0.8s;}
+.toolgrid > .tool:nth-child(3) { animation: fadein 1.2s;}
+.toolgrid > .tool:nth-child(4) { animation: fadein 1.6s;}
+.toolgrid > .tool:nth-child(5) { animation: fadein 1.9s;}
+.toolgrid > .tool:nth-child(6) { animation: fadein 2.2s;}
+.toolgrid > .tool:nth-child(7) { animation: fadein 2.5s;}
+.toolgrid > .tool:nth-child(8) { animation: fadein 2.8s;}
+.toolgrid > .tool:nth-child(9) { animation: fadein 3.0s;}
+.toolgrid > .tool:nth-child(10) { animation: fadein 3.2s;}
+.toolgrid > .tool:nth-child(11) { animation: fadein 3.4s;}
+.toolgrid > .tool:nth-child(12) { animation: fadein 3.6s;}
 
 // fading out the children faster makes the transition seem not as notchy when text is reflowing
 .toolgrid > .tool > * {
@@ -169,6 +218,7 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
   float: right;
   opacity: 0;
   transition: opacity 100ms linear;
+  margin-left: 10px;
 }
 
 .toolgrid > .tool:hover > .header > .info-icon {
@@ -250,39 +300,45 @@ $button-gradient-disabled: linear-gradient(180deg, rgba(27,36,43,1) 0%, rgba(24,
 // hover increases to 75, 133, 177 to 88, 156, 207
 $tool-button-color: rgba(67, 88, 110, 1);
 
-.toolgrid > .tool > .footer > .buttons > .button {
+.button {
 
   background: $button-gradient;
-  width: 100px;
 
   margin-bottom: 5px;
-  opacity: 0;
   transition: opacity 100ms linear;
   text-align: center;
+
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  width: 150px;
+
+  --notchSize: 6px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
 }
 
-.toolgrid > .tool > .footer > .buttons > .button:hover {
+.button:hover {
   background: $button-gradient-hover;
 }
 
-.toolgrid > .tool > .footer > .buttons > .button:active {
+.button:active {
   background: $button-gradient-active;
 }
 
-.toolgrid > .tool > .footer > .buttons > .button:disabled {
+.button:disabled {
   background: $button-gradient-disabled;
+}
+
+.toolgrid > .tool > .footer > .buttons > .button {
+  width: 100px;
+  opacity: 0;
 }
 
 .toolgrid > .tool > .footer > .buttons > .button:nth-of-type(1) {
   height: 20px;
   line-height: 20px;
   font-size: 12px;
-}
-
-.toolgrid > .tool > .footer > .buttons > .button:nth-of-type(2) {
-  height: 30px;
-  line-height: 30px;
-  font-size: 16px;
+  clip-path: none;
 }
 
 .toolgrid > .tool:hover > .footer > .buttons > .button {
@@ -292,4 +348,128 @@ $tool-button-color: rgba(67, 88, 110, 1);
 .toolgrid > .tool > .footer > .buttons > .button:nth-child(2) {
   --notchSize: 6px;
   clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0% 100%, 0% 100%);
+}
+
+.dialogBlackout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 100ms linear, visibility 100ms linear;
+}
+
+.dialog {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  left: 50vw;
+  top: 50vh;
+
+  z-index: 999;
+  background-color: $window-background-opaque;
+  border: 1px solid $border;
+  box-shadow: black 0px 3px 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 100ms linear, visibility 150ms linear, width 200ms linear, height 100ms 200ms linear, left 200ms linear, top 100ms 200ms linear;
+
+  overflow: hidden;
+  text-wrap: none;
+}
+
+.dialog > .dialogContents {
+  opacity: 0;
+  transition: opacity 100ms 300ms linear;
+}
+
+.dialogBlackout.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog.visible {
+  left: calc(50vw - 300px);
+  top: calc(50vh - 120px);
+  width: 600px;
+  height: 240px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog.visible > .dialogContents {
+  opacity: 1;
+}
+
+.dialogContents > div {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.dialogContents .createTool {
+  float: left;
+  height: 100%;
+  width: calc(60% - 21px);
+  border-right: 1px solid $border-light;
+}
+
+.dialogContents .importTools {
+  float: right;
+  height: 100%;
+  width: calc(40% - 21px);
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 5px;
+}
+
+.registerForm h3 {
+  margin-top: 10px;
+}
+
+.registerForm .line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.registerForm .line *:nth-child(even) {
+  max-width: 15em;
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.registerForm .line * {
+  flex-grow: 0; // override the flex grow from text entry
+}
+
+.createTool .buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.createTool .buttons > * {
+  flex-grow: 1;
+  margin-right: 5px;
+}
+
+.importTools .buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
 }
