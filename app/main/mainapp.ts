@@ -308,22 +308,26 @@ export default class MainApp {
       async (event: IpcMainInvokeEvent, url: string): Promise<string> => {
         let newUrl = "https://eveonline.com/favicon.ico";
         return new Promise((resolve, reject) => {
-          websiteLogo(url, (err, info) => {
-            if (err) {
-              log.error("Error retrieving favicon for", url, err);
-              const purl = new URL(url);
-              newUrl = purl.protocol + "//" + purl.host + "/favicon.ico";
-              resolve(newUrl);
-            } else {
-              if (info.icon && info.icon.href) {
-                resolve(info.icon.href);
-              } else {
+          if (url.startsWith("file:")) {
+            resolve(newUrl);
+          } else {
+            websiteLogo(url, (err, info) => {
+              if (err) {
+                log.error("Error retrieving favicon for", url, err);
                 const purl = new URL(url);
                 newUrl = purl.protocol + "//" + purl.host + "/favicon.ico";
                 resolve(newUrl);
+              } else {
+                if (info.icon && info.icon.href) {
+                  resolve(info.icon.href);
+                } else {
+                  const purl = new URL(url);
+                  newUrl = purl.protocol + "//" + purl.host + "/favicon.ico";
+                  resolve(newUrl);
+                }
               }
-            }
-          });
+            });
+          }
         });
       }
     );

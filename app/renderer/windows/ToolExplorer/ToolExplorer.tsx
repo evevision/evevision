@@ -187,6 +187,7 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
       log.error("Could not parse URL for custom tool", ex);
     }
     const sanitizePattern = /[^a-z0-9!@#$%^&*() ]/gi;
+    const allowedProtocols = ["http:", "https:", "file:"]; // file is only allowed if added manually, not via json import
 
     return {
       name: this.state.addToolName.replace(sanitizePattern, ""),
@@ -195,12 +196,14 @@ class ToolExplorer extends React.PureComponent<{}, ToolExplorerState> {
       tags: ["custom"],
       external: {
         url: parsedUrl
-          ? (parsedUrl.protocol === "http:" ? "http:" : "https:") +
+          ? (allowedProtocols.includes(parsedUrl.protocol)
+              ? parsedUrl.protocol
+              : "https:") +
             "//" +
             (parsedUrl.host
               ? parsedUrl.host + parsedUrl.pathname
-              : "www.google.com")
-          : "https://www.googleez.com/",
+              : parsedUrl.pathname)
+          : "https://www.google.com/",
         initialWidth: Math.max(Math.min(parseInt(initialWidth), 2000), 100),
         initialHeight: Math.max(Math.min(parseInt(initialHeight), 2000), 100),
         resizable: isResizable
