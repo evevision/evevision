@@ -128,7 +128,7 @@ EveVision是一款新工具，这意味着它有可能和其他软件产生冲�
 * 在某些罕见的情况下, Windows Defender 防火墙
 
 确认不会冲突的软件包括:
-* EVE-O Preview (是的，你可以在EveVision的窗体中看到Preview！)
+* EVE-O Preview (是的，你可以在Preview的预览中看到EveVision的窗体！)
 
 我们希望更多地了解冲突以便修复它们，因此如果你的EveVision不能运行，请[加入我们的Discord频道](https://discord.gg/wWMasVf)，让我们修复它！
 
