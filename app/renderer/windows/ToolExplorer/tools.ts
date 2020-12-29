@@ -149,7 +149,7 @@ const tools: ToolDescription[] = [
     external: {
       hideScrollbars: true,
       url:
-        "http://player.gamingradio.net/schedule/player/tunein_pop_up.php?station=ERSP&mode=audio",
+        "http://player.gamingnow.net/schedule/player/tunein_pop_up.php?station=ERSP&mode=audio",
       initialWidth: 330,
       initialHeight: 365,
       resizable: {
