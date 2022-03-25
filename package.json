@@ -291,7 +291,7 @@
     "core-js": "^3.6.4",
     "cross-env": "^7.0.2",
     "del": "^5.1.0",
-    "electron": "9.0.0-beta.14",
+    "electron": "13.6.6",
     "electron-log": "^4.1.1",
     "electron-redux": "^1.4.0",
     "electron-store": "^5.1.1",
