@@ -315,7 +315,7 @@
     "swagger-client": "^3.10.0",
     "uuid": "^8.0.0",
     "website-logo": "^2.0.0",
-    "ws": "^7.2.3",
+    "ws": "^7.4.6",
     "xterm": "^4.5.0"
   },
   "devEngines": {
